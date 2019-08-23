@@ -14,12 +14,15 @@ public class ObjectPlacer : MonoBehaviour
 
     float yRotation;
 
+    bool canBePlaced = true;
+
     // Start is called before the first frame update
     void Start()
     {
        layerMask = ~layerMask;
        objectToPlace = Instantiate(objectToPlace, new Vector3(0,0,0), Quaternion.identity);
        objectToPlace.layer = 9;
+       objectToPlace.transform.parent = this.transform;
 
        m_MyQuaternion = new Quaternion();
     }
@@ -40,14 +43,22 @@ public class ObjectPlacer : MonoBehaviour
             yRotation += Input.mouseScrollDelta.y;
             objectToPlace.transform.Rotate(Vector3.up, yRotation * 10f);
 
-            
-            Debug.Log(hit.point);
         }
 
-        if(Input.GetButtonDown("Fire1")){
-            Instantiate(objectToPlace, objectToPlace.transform.position, objectToPlace.transform.rotation);
+        if(Input.GetButtonDown("Fire1") && canBePlaced){
+           GameObject newObject = Instantiate(objectToPlace, objectToPlace.transform.position, objectToPlace.transform.rotation);
+           Destroy(newObject.GetComponent<CanBePlaced>());
         }
-
-
     }
+
+    public void CollisionDetected(CanBePlaced childScript){
+        canBePlaced = false;
+        Debug.Log("WFADGREDG");
+    }
+
+    public void CollisionExit(CanBePlaced childScript){
+        canBePlaced = true;
+    }
+
+
 }
