@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class NewIsland : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class NewIsland : MonoBehaviour
        public Island(int x, int y)
         {
             tiles = new List<IslandTile>();
-
+            
             xCord = x;
             yCord = y;
             //algorithm for placing the tiles
@@ -49,8 +50,8 @@ public class NewIsland : MonoBehaviour
                 int xPos, yPos;
 
                 //get a random tile already for the island
-                int nextTo = Random.Range(0, tiles.Count - 1);
-                int side = Random.Range(0, 3);
+                int nextTo = Random.Range(0, tiles.Count);
+                int side = Random.Range(0, 4);
 
                 //Place the tile next to the chosen tile that already exist to ensure that the island is connected
                 switch(side)
@@ -131,7 +132,7 @@ public class NewIsland : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-
+            
             Debug.Log("Test 1");
 
             //First island is to be added in the middle of the map
@@ -144,7 +145,7 @@ public class NewIsland : MonoBehaviour
 
             else
             {
-                int near = Random.Range(0, iles.Count - 1);
+                int near = Random.Range(0, iles.Count);
                 int x = 0, y = 0;
                 bool placed = false;
 
@@ -157,8 +158,8 @@ public class NewIsland : MonoBehaviour
 
                     Debug.Log("Test 3");
 
-                    x = Random.Range(iles[near].xCord - 3, iles[near].xCord + 3);
-                    y = Random.Range(iles[near].yCord - 3, iles[near].yCord + 3);
+                    x = Random.Range(iles[near].xCord, iles[near].xCord + 4) - 2;
+                    y = Random.Range(iles[near].yCord, iles[near].yCord + 4) - 2;
 
                     Debug.Log($"Test, x= {x} and y= {y}");
 
