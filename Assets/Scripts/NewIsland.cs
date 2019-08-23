@@ -5,8 +5,7 @@ using UnityEngine;
 public class NewIsland : MonoBehaviour
 {
 
-    //For testing
-    int a = 0, b = 0;
+    List<Island> iles;
 
     class IslandTile
     {
@@ -43,7 +42,7 @@ public class NewIsland : MonoBehaviour
 
             tile = null;
 
-            while (tilesPlaced < 25)
+            while (tilesPlaced < 75)
             {
                 bool placed = true;
 
@@ -112,7 +111,7 @@ public class NewIsland : MonoBehaviour
                 }
             }
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < tiles.Count; i++)
             {
 
                 Vector3 vec3 = new Vector3(tiles[i].xPos, tiles[i].yPos, -1);
@@ -124,6 +123,7 @@ public class NewIsland : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        iles = new List<Island>();
     }
 
     // Update is called once per frame
@@ -131,9 +131,84 @@ public class NewIsland : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Island isle = new Island(a, b);
-            a++;
-            if (a == 10) { b++; a = 0; }
+
+            Debug.Log("Test 1");
+
+            //First island is to be added in the middle of the map
+            if (iles.Count == 0)
+            {
+                Island isle = new Island(0, 0);
+                iles.Add(isle);
+                isle = null;
+            }
+
+            else
+            {
+                int near = Random.Range(0, iles.Count - 1);
+                int x = 0, y = 0;
+                bool placed = false;
+
+                Debug.Log("Test 2");
+
+                //Find a place with no island on it, or next to it
+                do
+                {
+                    placed = true;
+
+                    Debug.Log("Test 3");
+
+                    x = Random.Range(iles[near].xCord - 3, iles[near].xCord + 3);
+                    y = Random.Range(iles[near].yCord - 3, iles[near].yCord + 3);
+
+                    Debug.Log($"Test, x= {x} and y= {y}");
+
+                    //Check if the new island collides too close with another island
+                    for (int i = 0; i < iles.Count; i++)
+                    {
+
+                        //Center
+                        if (x == iles[i].xCord && y == iles[i].yCord)
+                        {
+                            placed = false;
+                            break;
+                        }
+
+                        //North
+                        if (x == iles[i].xCord && y == iles[i].yCord + 1)
+                        {
+                            placed = false;
+                            break;
+                        }
+
+                        //West
+                        if (x == iles[i].xCord - 1 && y == iles[i].yCord)
+                        {
+                            placed = false;
+                            break;
+                        }
+
+                        //South
+                        if (x == iles[i].xCord && y == iles[i].yCord - 1)
+                        {
+                            placed = false;
+                            break;
+                        }
+
+                        //East
+                        if (x == iles[i].xCord + 1 && y == iles[i].yCord)
+                        {
+                            placed = false;
+                            break;
+                        }
+                    }
+
+                } while (!placed);
+
+                //Once a place is found, add the island
+                Island isle = new Island(x, y);
+                iles.Add(isle);
+                isle = null;
+            }
         }
     }
 }
