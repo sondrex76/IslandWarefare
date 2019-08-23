@@ -43,12 +43,17 @@ public class ObjectPlacer : MonoBehaviour
             yRotation += Input.mouseScrollDelta.y;
             objectToPlace.transform.Rotate(Vector3.up, yRotation * 10f);
 
+             objectToPlace.SetActive(true);
+
+              if(Input.GetButtonDown("Fire1") && canBePlaced){
+                    GameObject newObject = Instantiate(objectToPlace, objectToPlace.transform.position, objectToPlace.transform.rotation);
+                    Destroy(newObject.GetComponent<CanBePlaced>());
+                }
+        } else{
+           objectToPlace.SetActive(false);
         }
 
-        if(Input.GetButtonDown("Fire1") && canBePlaced){
-           GameObject newObject = Instantiate(objectToPlace, objectToPlace.transform.position, objectToPlace.transform.rotation);
-           Destroy(newObject.GetComponent<CanBePlaced>());
-        }
+      
     }
 
     public void CollisionDetected(CanBePlaced childScript){
