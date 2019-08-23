@@ -8,6 +8,8 @@ public class ObjectPlacer : MonoBehaviour
 
     public Camera camera;
 
+    public float maxSlope = 20;
+
     int layerMask = 1 << 9;
 
     Quaternion m_MyQuaternion;
@@ -39,13 +41,15 @@ public class ObjectPlacer : MonoBehaviour
             m_MyQuaternion.SetFromToRotation(Vector3.up, up);
 
 
+            float angle = Vector3.Angle(hit.normal, Vector3.up);
+
             objectToPlace.transform.rotation = m_MyQuaternion;
             yRotation += Input.mouseScrollDelta.y;
             objectToPlace.transform.Rotate(Vector3.up, yRotation * 10f);
 
              objectToPlace.SetActive(true);
 
-              if(Input.GetButtonDown("Fire1") && canBePlaced){
+              if(Input.GetButtonDown("Fire1") && canBePlaced && angle < maxSlope){
                     GameObject newObject = Instantiate(objectToPlace, objectToPlace.transform.position, objectToPlace.transform.rotation);
                     Destroy(newObject.GetComponent<CanBePlaced>());
                 }
