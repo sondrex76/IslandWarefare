@@ -7,6 +7,7 @@ public class NewIsland : MonoBehaviour
 {
 
     List<Island> iles;
+    int amount;
 
     class IslandTile
     {
@@ -125,15 +126,15 @@ public class NewIsland : MonoBehaviour
     void Start()
     {
         iles = new List<Island>();
+        amount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKey(KeyCode.N))
         {
             
-            Debug.Log("Test 1");
 
             //First island is to be added in the middle of the map
             if (iles.Count == 0)
@@ -141,22 +142,23 @@ public class NewIsland : MonoBehaviour
                 Island isle = new Island(0, 0);
                 iles.Add(isle);
                 isle = null;
+                amount++;
+                Debug.Log($"current amount of islands: {amount}");
             }
 
             else
             {
-                int near = Random.Range(0, iles.Count);
                 int x = 0, y = 0;
                 bool placed = false;
-
-                Debug.Log("Test 2");
+                
 
                 //Find a place with no island on it, or next to it
                 do
                 {
                     placed = true;
 
-                    Debug.Log("Test 3");
+
+                    int near = Random.Range(0, iles.Count);
 
                     x = Random.Range(iles[near].xCord, iles[near].xCord + 4) - 2;
                     y = Random.Range(iles[near].yCord, iles[near].yCord + 4) - 2;
@@ -209,6 +211,8 @@ public class NewIsland : MonoBehaviour
                 Island isle = new Island(x, y);
                 iles.Add(isle);
                 isle = null;
+                amount++;
+                Debug.Log($"current amount of islands: {amount}");
             }
         }
     }
