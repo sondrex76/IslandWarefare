@@ -7,7 +7,8 @@ public class NewIsland : MonoBehaviour
 {
 
     List<Island> iles;
-    int amount;
+    int amount, nextID;
+    List<int> nearbyIsle;
 
     class IslandTile
     {
@@ -23,22 +24,30 @@ public class NewIsland : MonoBehaviour
 
     class Island
     {
+        public int ID;
         public int xCord;
         public int yCord;
+        public int IslandsNextTo;
 
         public List<IslandTile> tiles;
 
-       public Island(int x, int y)
+       public Island(int x, int y, int islandID)
         {
             tiles = new List<IslandTile>();
-            
+
+            ID = islandID;
             xCord = x;
             yCord = y;
+            IslandsNextTo = 0;
+
             //algorithm for placing the tiles
 
             int tilesPlaced = 1;
 
-            IslandTile tile = new IslandTile(x * 51, y * 51);
+            int xOffSet = Random.Range(-20, 20);
+            int yOffSet = Random.Range(-20, 20);
+
+            IslandTile tile = new IslandTile(x * 55 + xOffSet, y * 55 + xOffSet);
 
             tiles.Add(tile);
 
@@ -126,7 +135,10 @@ public class NewIsland : MonoBehaviour
     void Start()
     {
         iles = new List<Island>();
+        nearbyIsle = new List<int>();
         amount = 0;
+        //For now, till the game is online
+        nextID = 0;
     }
 
     // Update is called once per frame
@@ -139,7 +151,8 @@ public class NewIsland : MonoBehaviour
             //First island is to be added in the middle of the map
             if (iles.Count == 0)
             {
-                Island isle = new Island(0, 0);
+                Island isle = new Island(0, 0, nextID++);
+                nearbyIsle.Add(isle.ID);
                 iles.Add(isle);
                 isle = null;
                 amount++;
@@ -158,12 +171,42 @@ public class NewIsland : MonoBehaviour
                     placed = true;
 
 
-                    int near = Random.Range(0, iles.Count);
+                    int nextTo = Random.Range(0, nearbyIsle.Count);
+                    int side = Random.Range(0, 4);
 
-                    x = Random.Range(iles[near].xCord, iles[near].xCord + 4) - 2;
-                    y = Random.Range(iles[near].yCord, iles[near].yCord + 4) - 2;
+                    //Place the tile next to the chosen tile that already exist to ensure that the island is connected
+                    switch (side)
+                    {
+                        //North
+                        case 0:
+                            x = iles[nearbyIsle[nextTo]].xCord;
+                            y = iles[nearbyIsle[nextTo]].yCord + 1;
+                            break;
 
-                    Debug.Log($"Test, x= {x} and y= {y}");
+                        //West
+                        case 1:
+                            x = iles[nearbyIsle[nextTo]].xCord - 1;
+                            y = iles[nearbyIsle[nextTo]].yCord;
+                            break;
+
+                        //South
+                        case 2:
+                            x = iles[nearbyIsle[nextTo]].xCord;
+                            y = iles[nearbyIsle[nextTo]].yCord - 1;
+                            break;
+
+                        //East
+                        case 3:
+                            x = iles[nearbyIsle[nextTo]].xCord + 1;
+                            y = iles[nearbyIsle[nextTo]].yCord;
+                            break;
+
+                        default:
+
+                            x = iles[nearbyIsle[nextTo]].xCord;
+                            y = iles[nearbyIsle[nextTo]].yCord;
+                            break;
+                    }
 
                     //Check if the new island collides too close with another island
                     for (int i = 0; i < iles.Count; i++)
@@ -175,44 +218,81 @@ public class NewIsland : MonoBehaviour
                             placed = false;
                             break;
                         }
-
-                        //North
-                        if (x == iles[i].xCord && y == iles[i].yCord + 1)
-                        {
-                            placed = false;
-                            break;
-                        }
-
-                        //West
-                        if (x == iles[i].xCord - 1 && y == iles[i].yCord)
-                        {
-                            placed = false;
-                            break;
-                        }
-
-                        //South
-                        if (x == iles[i].xCord && y == iles[i].yCord - 1)
-                        {
-                            placed = false;
-                            break;
-                        }
-
-                        //East
-                        if (x == iles[i].xCord + 1 && y == iles[i].yCord)
-                        {
-                            placed = false;
-                            break;
-                        }
                     }
 
                 } while (!placed);
 
                 //Once a place is found, add the island
-                Island isle = new Island(x, y);
+                Island isle = new Island(x, y, nextID++);
+
+                for (int i = nearbyIsle.Count - 1; i >= 0; i--)
+                {
+                    //North
+                    if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord + 1 == iles[nearbyIsle[i]].yCord)
+                    {
+                        isle.IslandsNextTo++;
+                        iles[nearbyIsle[i]].IslandsNextTo++;
+
+                        if (isle.IslandsNextTo == 4) break;
+                        if (iles[i].IslandsNextTo == 4)
+                        {
+                            Debug.Log($"Hello");
+                            nearbyIsle.RemoveAt(i);
+                        }
+                    }
+
+                    //West
+                    else if (isle.xCord - 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
+                    {
+                        isle.IslandsNextTo++;
+                        iles[nearbyIsle[i]].IslandsNextTo++;
+
+                        if (isle.IslandsNextTo == 4) break;
+                        if (iles[i].IslandsNextTo == 4)
+                        {
+                            Debug.Log($"Hello");
+                            nearbyIsle.RemoveAt(i);
+                        }
+                    }
+
+                    //South
+                    else if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord - 1 == iles[nearbyIsle[i]].yCord)
+                    {
+                        isle.IslandsNextTo++;
+                        iles[nearbyIsle[i]].IslandsNextTo++;
+
+                        if (isle.IslandsNextTo == 4) break;
+                        if (iles[i].IslandsNextTo == 4)
+                        {
+                            Debug.Log($"Hello");
+                            nearbyIsle.RemoveAt(i);
+                        }
+                    }
+
+
+                    //East
+                    else if (isle.xCord + 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
+                    {
+                        isle.IslandsNextTo++;
+                        iles[nearbyIsle[i]].IslandsNextTo++;
+
+                        if (isle.IslandsNextTo == 4) break;
+                        if (iles[i].IslandsNextTo == 4)
+                        {
+                            Debug.Log($"Hello");
+                            nearbyIsle.RemoveAt(i);
+                        }
+                    }
+                }
+
+                
+                if (isle.IslandsNextTo != 4) nearbyIsle.Add(isle.ID);
+
                 iles.Add(isle);
                 isle = null;
                 amount++;
                 Debug.Log($"current amount of islands: {amount}");
+                Debug.Log($"current amount of islands not filled: {nearbyIsle.Count}");
             }
         }
     }
