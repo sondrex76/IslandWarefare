@@ -64,6 +64,9 @@ public class CameraMovement : MonoBehaviour
     {
         cameraBody.velocity = 0 * transform.right; // sets speed to 0 as the base
 
+        // changes vertical angle to 0 temporarily, ensures camera cannot be moved higher then max or lower then minimum
+        cameraElement.transform.rotation = Quaternion.Euler(0, cameraAngleX, 0);
+        
         // Key detection for movement
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))                            // Right
         {
@@ -89,6 +92,9 @@ public class CameraMovement : MonoBehaviour
         {
             cameraBody.velocity -= cameraSpeed * transform.up;
         }
+
+        // Resets vertical angle
+        cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);
     }
 
     // Update is called once per frame
