@@ -6,16 +6,17 @@ public class CameraMovement : MonoBehaviour
 {
     Rigidbody cameraBody;
     Camera cameraElement;
-    public float cameraSpeed = 10.0f;                                   // Speed of camera
-    public float cameraAngleX = 0, cameraAngleY = 0;                    // Angle of camera
-    public float cameraZoom = 90.0f;                                    // Zoom of camera
-    public float zoomSpeed = 2.0f;                                      // Speed of scrolling
-    public float horizontalAngularSpeed = 1, verticalAngularSpeed = 1;  // Rotation speed of camera
-    public float minimumZoom = 50.0f, maximumZoom = 150.0f;             // Defiens maximum and minimum zoom
-    public float minimumHeight = 5.0f, maximumHeight = 12.0f;           // Defiens maximum and minimum height
-    public float minimumVerticalTilt = -20, maximumVerticalTilt = 20;   // Defiens minimum and mazimum vertical tilt
-    public float zoomValue = 25.0f;                                     // Added zoom from zoom button(ctrl)
-    public bool reverseVertical = false;                                // Bool for determining if vertical mvoement should be inverted
+    public float cameraSpeed = 10.0f;                                           // Speed of camera
+    public float cameraAngleX = 0, cameraAngleY = 0;                            // Angle of camera
+    public float cameraZoom = 90.0f;                                            // Zoom of camera
+    public float zoomSpeed = 2.0f;                                              // Speed of scrolling
+    public float horizontalAngularSpeed = 1, verticalAngularSpeed = 1;          // Rotation speed of camera
+    public float minimumZoom = 50.0f, maximumZoom = 150.0f;                     // Defiens maximum and minimum zoom
+    public float minimumHeight = 5.0f, maximumHeight = 12.0f;                   // Defiens maximum and minimum height
+    public float minimumVerticalTilt = -20, maximumVerticalTilt = 20;           // Defiens minimum and mazimum vertical tilt
+    public float zoomValue = 25.0f;                                             // Added zoom from zoom button(ctrl)
+    public KeyCode zoomKey = KeyCode.LeftControl, downKey = KeyCode.LeftShift;  // Zoom and down keys, wasd and space are currently locked
+    public bool reverseVertical = false;                                        // Bool for determining if vertical mvoement should be inverted
     // float previousTime;
 
     // Start is called before the first frame update
@@ -38,7 +39,7 @@ public class CameraMovement : MonoBehaviour
         cameraZoom = scrollValue; // updates camera zoom value so it does not get reset with the next update
 
         // Zooms if you are clicking the zoom key
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(zoomKey))
             scrollValue -= zoomValue;
 
         cameraElement.fieldOfView = scrollValue;
@@ -80,11 +81,11 @@ public class CameraMovement : MonoBehaviour
         {
             cameraBody.velocity -= cameraSpeed  * transform.forward;
         }
-        if (Input.GetKey(KeyCode.Space) && cameraBody.position.y /*cameraElement.transform.position.y*/ < maximumHeight)      // Up
+        if (Input.GetKey(KeyCode.Space) && cameraBody.position.y < maximumHeight)                   // Up
         {
             cameraBody.velocity += cameraSpeed * transform.up;
         }
-        if (Input.GetKey(KeyCode.LeftShift) && cameraBody.position.y /*cameraElement.transform.position.y*/ > minimumHeight)  // Down
+        if (Input.GetKey(downKey) && cameraBody.position.y > minimumHeight)                         // Down
         {
             cameraBody.velocity -= cameraSpeed * transform.up;
         }
