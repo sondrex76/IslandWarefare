@@ -12,5 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283c075576e70be4183e135f1a3086a9, type: 3}
   m_Name: Road
   m_EditorClassIdentifier: 
-  vertices: []
-  lineIndices: 000000000100000002000000030000000400000005000000
+  vertices:
+  - point: {x: 2, y: 0}
+    normal: {x: 0, y: 1}
+    u: []
+  - point: {x: 2, y: 0}
+    normal: {x: -1, y: 0}
+    u: []
+  - point: {x: 2, y: 1}
+    normal: {x: -1.414214, y: 1.414214}
+    u: []
+  - point: {x: 2, y: 1}
+    normal: {x: 0, y: 1}
+    u: []
+  - point: {x: 3, y: 1}
+    normal: {x: 0, y: 1}
+    u: []
+  - point: {x: 3, y: 1}
+    normal: {x: 1, y: 0}
+    u: []
+  - point: {x: 3, y: -1}
+    normal: {x: 1, y: 0}
+    u: []
+  - point: {x: 3, y: -1}
+    normal: {x: 0, y: -1}
+    u: []
+  - point: {x: -3, y: -1}
+    normal: {x: 0, y: -1}
+    u: []
+  - point: {x: -3, y: -1}
+    normal: {x: -1, y: 0}
+    u: []
+  - point: {x: -3, y: 1}
+    normal: {x: -1, y: 0}
+    u: []
+  - point: {x: -3, y: 1}
+    normal: {x: 0, y: 1}
+    u: []
+  - point: {x: -2, y: 1}
+    normal: {x: 0, y: 1}
+    u: []
+  - point: {x: -2, y: 1}
+    normal: {x: 1, y: 0}
+    u: []
+  - point: {x: -2, y: 0}
+    normal: {x: 1, y: 0}
+    u: []
+  - point: {x: -2, y: 0}
+    normal: {x: 0, y: 1}
+    u: []
+  lineIndices: 0f000000000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000

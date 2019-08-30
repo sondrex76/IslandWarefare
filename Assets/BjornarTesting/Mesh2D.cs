@@ -15,10 +15,10 @@ public class Mesh2D : ScriptableObject{
  
     public Vertex[] vertices;
      
-    public int[] lineIndices = new int[]{
-        0, 1,
-        2, 3,
-        4, 5,
-    };
+    public int[] lineIndices;
     
+    public int VertexCount(){ return vertices.Length;}
+    public int LineCount(){ return lineIndices.Length;}
+
+
 }
