@@ -348,7 +348,7 @@ Camera:
   m_GameObject: {fileID: 1604850170}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.077874675, g: 0.23102821, b: 0.4716981, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -409,3 +409,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraSpeed: 7
+  cameraAngleX: 0
+  cameraAngleY: 0
+  cameraZoom: 90
+  zoomSpeed: 2
+  horizontalAngularSpeed: 5
+  verticalAngularSpeed: 3
+  minimumZoom: 50
+  maximumZoom: 150
+  minimumHeight: 0
+  maximumHeight: 250
+  zoomValue: 20
+  reverseHorizontal: 0
