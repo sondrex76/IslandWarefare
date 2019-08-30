@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class NewIsland : MonoBehaviour
 {
@@ -29,6 +28,12 @@ public class NewIsland : MonoBehaviour
         public int yCord;
         public int IslandsNextTo;
 
+        //Keeps info on whether there is an island next to it or not
+        public bool northIsland;
+        public bool eastIsland;
+        public bool southIsland;
+        public bool westIsland;
+
         public List<IslandTile> tiles;
 
        public Island(int x, int y, int islandID)
@@ -40,6 +45,12 @@ public class NewIsland : MonoBehaviour
             yCord = y;
             IslandsNextTo = 0;
 
+            //Always starts with no island next to it
+            northIsland = false;
+            eastIsland = false;
+            southIsland = false;
+            westIsland = false;
+
             //algorithm for placing the tiles
 
             int tilesPlaced = 1;
@@ -47,7 +58,7 @@ public class NewIsland : MonoBehaviour
             int xOffSet = Random.Range(-20, 20);
             int yOffSet = Random.Range(-20, 20);
 
-            IslandTile tile = new IslandTile(x * 55 + xOffSet, y * 55 + xOffSet);
+            IslandTile tile = new IslandTile(x * 75 + xOffSet, y * 75 + xOffSet);
 
             tiles.Add(tile);
 
@@ -156,7 +167,6 @@ public class NewIsland : MonoBehaviour
                 iles.Add(isle);
                 isle = null;
                 amount++;
-                Debug.Log($"current amount of islands: {amount}");
             }
 
             else
@@ -179,45 +189,48 @@ public class NewIsland : MonoBehaviour
                     {
                         //North
                         case 0:
-                            x = iles[nearbyIsle[nextTo]].xCord;
-                            y = iles[nearbyIsle[nextTo]].yCord + 1;
+                            if (!iles[nearbyIsle[nextTo]].northIsland)
+                            {
+                                x = iles[nearbyIsle[nextTo]].xCord;
+                                y = iles[nearbyIsle[nextTo]].yCord + 1;
+                            }
+                            else placed = false;
                             break;
 
                         //West
                         case 1:
-                            x = iles[nearbyIsle[nextTo]].xCord - 1;
-                            y = iles[nearbyIsle[nextTo]].yCord;
+                            if (!iles[nearbyIsle[nextTo]].westIsland)
+                            {
+                                x = iles[nearbyIsle[nextTo]].xCord - 1;
+                                y = iles[nearbyIsle[nextTo]].yCord;
+                            }
+                            else placed = false;
                             break;
 
                         //South
                         case 2:
-                            x = iles[nearbyIsle[nextTo]].xCord;
-                            y = iles[nearbyIsle[nextTo]].yCord - 1;
+                            if (!iles[nearbyIsle[nextTo]].southIsland)
+                            {
+                                x = iles[nearbyIsle[nextTo]].xCord;
+                                y = iles[nearbyIsle[nextTo]].yCord - 1;
+                            }
+                            else placed = false;
                             break;
 
                         //East
                         case 3:
-                            x = iles[nearbyIsle[nextTo]].xCord + 1;
-                            y = iles[nearbyIsle[nextTo]].yCord;
+                            if (!iles[nearbyIsle[nextTo]].eastIsland)
+                            {
+                                x = iles[nearbyIsle[nextTo]].xCord + 1;
+                                y = iles[nearbyIsle[nextTo]].yCord;
+                            }
+                            else placed = false;
                             break;
 
                         default:
 
-                            x = iles[nearbyIsle[nextTo]].xCord;
-                            y = iles[nearbyIsle[nextTo]].yCord;
-                            break;
-                    }
-
-                    //Check if the new island collides too close with another island
-                    for (int i = 0; i < iles.Count; i++)
-                    {
-
-                        //Center
-                        if (x == iles[i].xCord && y == iles[i].yCord)
-                        {
                             placed = false;
                             break;
-                        }
                     }
 
                 } while (!placed);
@@ -225,18 +238,20 @@ public class NewIsland : MonoBehaviour
                 //Once a place is found, add the island
                 Island isle = new Island(x, y, nextID++);
 
+                //Look for all the islands next to it
                 for (int i = nearbyIsle.Count - 1; i >= 0; i--)
                 {
                     //North
                     if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord + 1 == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
+                        isle.northIsland = true;
                         iles[nearbyIsle[i]].IslandsNextTo++;
+                        iles[nearbyIsle[i]].southIsland = true;
 
                         if (isle.IslandsNextTo == 4) break;
                         if (iles[i].IslandsNextTo == 4)
                         {
-                            Debug.Log($"Hello");
                             nearbyIsle.RemoveAt(i);
                         }
                     }
@@ -245,12 +260,13 @@ public class NewIsland : MonoBehaviour
                     else if (isle.xCord - 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
+                        isle.westIsland = true;
                         iles[nearbyIsle[i]].IslandsNextTo++;
+                        iles[nearbyIsle[i]].eastIsland = true;
 
                         if (isle.IslandsNextTo == 4) break;
                         if (iles[i].IslandsNextTo == 4)
                         {
-                            Debug.Log($"Hello");
                             nearbyIsle.RemoveAt(i);
                         }
                     }
@@ -259,12 +275,13 @@ public class NewIsland : MonoBehaviour
                     else if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord - 1 == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
+                        isle.southIsland = true;
                         iles[nearbyIsle[i]].IslandsNextTo++;
+                        iles[nearbyIsle[i]].northIsland = true;
 
                         if (isle.IslandsNextTo == 4) break;
                         if (iles[i].IslandsNextTo == 4)
                         {
-                            Debug.Log($"Hello");
                             nearbyIsle.RemoveAt(i);
                         }
                     }
@@ -274,17 +291,17 @@ public class NewIsland : MonoBehaviour
                     else if (isle.xCord + 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
+                        isle.eastIsland = true;
                         iles[nearbyIsle[i]].IslandsNextTo++;
+                        iles[nearbyIsle[i]].westIsland = true;
 
                         if (isle.IslandsNextTo == 4) break;
                         if (iles[i].IslandsNextTo == 4)
                         {
-                            Debug.Log($"Hello");
                             nearbyIsle.RemoveAt(i);
                         }
                     }
                 }
-
                 
                 if (isle.IslandsNextTo != 4) nearbyIsle.Add(isle.ID);
 
@@ -292,7 +309,6 @@ public class NewIsland : MonoBehaviour
                 isle = null;
                 amount++;
                 Debug.Log($"current amount of islands: {amount}");
-                Debug.Log($"current amount of islands not filled: {nearbyIsle.Count}");
             }
         }
     }
