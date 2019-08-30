@@ -27,21 +27,21 @@ public class CameraMovement : MonoBehaviour
         {
             cameraBody.velocity = cameraSpeed * -transform.right;
         }
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) // Up
-        {
-            cameraBody.velocity = new Vector3(1, 0, 0) * cameraSpeed;
-        }
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) // Down
-        {
-            cameraBody.velocity = new Vector3(-1, 0, 0) * cameraSpeed;
-        }
-        if (Input.GetKey(KeyCode.Space)) // Up
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) // Forward
         {
             cameraBody.velocity = new Vector3(0, 0, 1) * cameraSpeed;
         }
-        if (Input.GetKey(KeyCode.LeftShift)) // Down
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) // Backward
         {
             cameraBody.velocity = new Vector3(0, 0, -1) * cameraSpeed;
+        }
+        if (Input.GetKey(KeyCode.Space)) // Up
+        {
+            cameraBody.velocity = new Vector3(0, 1, 0) * cameraSpeed;
+        }
+        if (Input.GetKey(KeyCode.LeftShift)) // Down
+        {
+            cameraBody.velocity = new Vector3(0, -1, 0) * cameraSpeed;
         }
     }
 }
