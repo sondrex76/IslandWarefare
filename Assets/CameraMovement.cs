@@ -6,7 +6,10 @@ public class CameraMovement : MonoBehaviour
 {
     Rigidbody cameraBody;
     Camera cameraElement;
-    public float cameraSpeed = 10.0f;   // Base speed of camera
+    public float cameraSpeed = 10.0f;                                   // Speed of camera
+    public float cameraAngleX = 0, cameraAngleY = 0;                    // Angle of camera
+    public float horizontalAngularSpeed = 1, verticalAngularSpeed = 1;  // Rotation speed of camera
+    public bool reverseHorizontal = false;
     // float previousTime;
 
     // Start is called before the first frame update
@@ -22,7 +25,7 @@ public class CameraMovement : MonoBehaviour
         cameraBody.velocity = 0 * transform.right; // sets speed to 0 as the base
 
         // Key detection for movement
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))    // Right
         { // Right
             cameraBody.velocity += cameraSpeed * transform.right;
         }
@@ -40,18 +43,21 @@ public class CameraMovement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space))                                    // Up
         {
-            cameraBody.velocity += transform.up * cameraSpeed;
+            cameraBody.velocity += cameraSpeed * transform.up;
         }
         if (Input.GetKey(KeyCode.LeftShift))                                // Down
         {
-            cameraBody.velocity -= transform.up * cameraSpeed;
+            cameraBody.velocity -= cameraSpeed * transform.up;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // cameraElement.transform.rotation = Quaternion.Euler(0, 180, 0);
+        cameraAngleX += Input.GetAxis("Mouse X");
+        cameraAngleY += reverseHorizontal ? Input.GetAxis("Mouse Y") : -Input.GetAxis("Mouse Y");
+        cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0); // y, x, z
+
         updatePosition(); // Updates position of the camera
     }
 }
