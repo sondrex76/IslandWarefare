@@ -417,7 +417,9 @@ MonoBehaviour:
   verticalAngularSpeed: 3
   minimumZoom: 50
   maximumZoom: 150
-  minimumHeight: 0
-  maximumHeight: 250
+  minimumHeight: 5
+  maximumHeight: 12
+  minimumVerticalTilt: -20
+  maximumVerticalTilt: 20
   zoomValue: 20
-  reverseHorizontal: 0
+  reverseVertical: 0

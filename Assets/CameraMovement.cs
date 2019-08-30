@@ -12,7 +12,7 @@ public class CameraMovement : MonoBehaviour
     public float zoomSpeed = 2.0f;                                      // Speed of scrolling
     public float horizontalAngularSpeed = 1, verticalAngularSpeed = 1;  // Rotation speed of camera
     public float minimumZoom = 50.0f, maximumZoom = 150.0f;             // Defiens maximum and minimum zoom
-    public float minimumHeight = 0.0f, maximumHeight = 10.0f;           // Defiens maximum and minimum height
+    public float minimumHeight = 5.0f, maximumHeight = 12.0f;           // Defiens maximum and minimum height
     public float minimumVerticalTilt = -20, maximumVerticalTilt = 20;   // Defiens minimum and mazimum vertical tilt
     public float zoomValue = 25.0f;                                     // Added zoom from zoom button(ctrl)
     public bool reverseVertical = false;                                // Bool for determining if vertical mvoement should be inverted
@@ -28,8 +28,7 @@ public class CameraMovement : MonoBehaviour
     // Zooms the camera depending on the user's wishes
     void updateZoom() {
         float scrollValue = cameraZoom - Input.mouseScrollDelta.y * zoomSpeed; // Updates value of zoom
-
-
+        
         // Updates zoom value and ensures it does not go above maximum or below minimum
         if (scrollValue > maximumZoom)
             scrollValue = maximumZoom;
@@ -48,14 +47,12 @@ public class CameraMovement : MonoBehaviour
     // Updates rotation of camera
     void updateRotation()
     {
-        cameraAngleX += Input.GetAxis("Mouse X");                                                   // Adds horizontal mouse movement
+        cameraAngleX += Input.GetAxis("Mouse X");   // Adds horizontal mouse movement
 
         float limitedAngle = cameraAngleY + (reverseVertical ? Input.GetAxis("Mouse Y") : -Input.GetAxis("Mouse Y"));
         
         // Adds vertical mouse movement if it is neither above or below the maximum
-        if (limitedAngle > maximumVerticalTilt || limitedAngle < minimumVerticalTilt)
-            limitedAngle = 0;
-        else
+        if (limitedAngle <= maximumVerticalTilt && limitedAngle >= minimumVerticalTilt)
             cameraAngleY = limitedAngle;   
         
         cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);         // Updates current angle
