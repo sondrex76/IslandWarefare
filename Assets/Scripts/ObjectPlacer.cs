@@ -62,7 +62,6 @@ public class ObjectPlacer : MonoBehaviour
 
     public void CollisionDetected(CanBePlaced childScript){
         canBePlaced = false;
-        Debug.Log("WFADGREDG");
     }
 
     public void CollisionExit(CanBePlaced childScript){

@@ -43,12 +43,14 @@ public class RoadPlacer : MonoBehaviour
     // Start is called before the first frame updateMesh2D shape2D;
     [SerializeField]
     Mesh2D shape2D;
-
-    [Range(0,1)]
-    public float tTest;
-    
-
-   
+    Mesh mesh;
+    [Range(2,32)]
+    public int edgeRingCount = 8;
+    Vector3[] pts = new Vector3[4];
+    bool isPlacing;
+    Vector3 root;
+    public Camera camera;
+    public Material m_material;
 
 
     OrientedPoint GetPoint(Vector3[] pts, float t){
@@ -92,10 +94,8 @@ public class RoadPlacer : MonoBehaviour
     }
 
 
-    Mesh mesh;
-    [Range(2,32)]
-    public int edgeRingCount = 8;
-    void GenerateMesh(){
+
+    void GenerateMesh(Vector3[] pts){
 
         mesh.Clear();
 
@@ -103,7 +103,7 @@ public class RoadPlacer : MonoBehaviour
         List<Vector3> verts = new List<Vector3>();
         for(int ring = 0; ring < edgeRingCount; ring++){
             float t = ring / (edgeRingCount - 1f);
-            OrientedPoint op = GetPoint(points, t);
+            OrientedPoint op = GetPoint(pts, t);
              for(int i = 0; i < shape2D.VertexCount(); i++){
                 verts.Add(op.LocalToWorldPos(shape2D.vertices[i].point));
             }
@@ -149,8 +149,47 @@ public class RoadPlacer : MonoBehaviour
 
 
     private void Update() {
-        GenerateMesh();
+
+        RaycastHit hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+
+        if(Physics.Raycast(ray, out hit)){
+
+
+            if(Input.GetButtonDown("Jump")){
+                if(isPlacing){
+                    GameObject road = new GameObject("Road"); 
+                    road.AddComponent<MeshFilter>();
+                    road.AddComponent<MeshRenderer>();
+                    mesh = road.GetComponent<MeshFilter>().mesh;
+                    road.GetComponent<MeshRenderer>().material = m_material;
+                    Instantiate(road);
+                    isPlacing = false;
+                } else{
+                    Debug.Log(hit.point);
+                    pts[0] = hit.point;
+                    pts[2] = hit.point;
+                    isPlacing = true;
+                }
+        }
+
+        if(isPlacing){
+            pts[1] = hit.point;
+            pts[3] = hit.point;
+
+            GenerateMesh(pts);
+        }
+           
+        }
+
+        
+
 }
+
+    [Range(0,1)]
+    public float tTest;
+
     public Vector3[] points = new Vector3[4];
     private void OnDrawGizmos() {
 
@@ -189,40 +228,6 @@ public class RoadPlacer : MonoBehaviour
         }
     }
 
-   /* public void Extrude(Mesh mesh, ExtrudeShape shape, OrientedPoint[] path){
-        int vertsInShape = shape.verts.Length;
-        int segments = path.Length - 1;
-        int edgeLoops = path.Length;
-        int vertCount = vertsInShape * edgeLoops;
-        int triCount = shape.lines.Length * segments;
-        int triIndexCount = triCount * 3;
-
-        int[] triangleIndices = new int[triIndexCount];
-        Vector3[] vertices = new Vector3[vertCount];
-        Vector3[] normals = new Vector3[vertCount];
-        Vector2[] uvs = new Vector2[vertCount];
-
-        /*Generation Code 
-        for(int i = 0; i < path.Length; i++){
-            int offset = i * vertsInShape;
-            for(int j = 0; j < vertsInShape; j++){
-                int id = offset+j;
-                vertices[id] = path[i].LocalToWorld(shape.verts[j].point);
-                normals[id] = path.LocalToWorld(shape.verts[j].uvs, i / ((float)edgeLoops));
-            }
-        }
-        
-
-
-
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangleIndices;
-        mesh.normals = normals;
-        mesh.uv = uvs;
-
-}*/
-    
     
 }
 
