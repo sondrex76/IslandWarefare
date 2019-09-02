@@ -10,7 +10,7 @@ public class Mesh2D : ScriptableObject{
     public class Vertex{
     public Vector2 point;
     public Vector2 normal;
-    public float[] u; // UV but only U not V :monkaHMMM:
+    public float u; // UV but only U not V :monkaHMMM:
     }
  
     public Vertex[] vertices;

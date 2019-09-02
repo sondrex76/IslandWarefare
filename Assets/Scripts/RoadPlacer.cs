@@ -101,11 +101,15 @@ public class RoadPlacer : MonoBehaviour
 
         //Verts
         List<Vector3> verts = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+
         for(int ring = 0; ring < edgeRingCount; ring++){
             float t = ring / (edgeRingCount - 1f);
             OrientedPoint op = GetPoint(pts, t);
              for(int i = 0; i < shape2D.VertexCount(); i++){
                 verts.Add(op.LocalToWorldPos(shape2D.vertices[i].point));
+                normals.Add(op.LocalToWorldDir(shape2D.vertices[i].normal));
+
             }
         }
 
@@ -138,6 +142,7 @@ public class RoadPlacer : MonoBehaviour
         }
 
         mesh.SetVertices(verts);
+        mesh.SetNormals(normals);
         mesh.SetTriangles(triangleIndices, 0);
     }
 
@@ -152,19 +157,17 @@ public class RoadPlacer : MonoBehaviour
 
         RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-
-
         if(Physics.Raycast(ray, out hit)){
 
 
             if(Input.GetButtonDown("Jump")){
                 if(isPlacing){
                     GameObject road = new GameObject("Road"); 
+                    road = new GameObject("Road"); 
                     road.AddComponent<MeshFilter>();
                     road.AddComponent<MeshRenderer>();
                     mesh = road.GetComponent<MeshFilter>().mesh;
                     road.GetComponent<MeshRenderer>().material = m_material;
-                    Instantiate(road);
                     isPlacing = false;
                 } else{
                     Debug.Log(hit.point);
@@ -177,9 +180,15 @@ public class RoadPlacer : MonoBehaviour
         if(isPlacing){
             pts[1] = hit.point;
             pts[3] = hit.point;
-
             GenerateMesh(pts);
+
         }
+
+        if(Input.GetMouseButtonDown(2)){
+            mesh.Clear();
+            isPlacing = false;
+        }
+
            
         }
 

@@ -15,50 +15,50 @@ MonoBehaviour:
   vertices:
   - point: {x: 2, y: 0}
     normal: {x: 0, y: 1}
-    u: []
+    u: 0
   - point: {x: 2, y: 0}
     normal: {x: -1, y: 0}
-    u: []
-  - point: {x: 2, y: 1}
-    normal: {x: -1.414214, y: 1.414214}
-    u: []
-  - point: {x: 2, y: 1}
+    u: 0
+  - point: {x: 2, y: 0.3}
+    normal: {x: -1, y: 0}
+    u: 0
+  - point: {x: 2, y: 0.3}
     normal: {x: 0, y: 1}
-    u: []
-  - point: {x: 3, y: 1}
+    u: 0
+  - point: {x: 3, y: 0.3}
     normal: {x: 0, y: 1}
-    u: []
-  - point: {x: 3, y: 1}
+    u: 0
+  - point: {x: 3, y: 0.3}
     normal: {x: 1, y: 0}
-    u: []
+    u: 0
   - point: {x: 3, y: -1}
     normal: {x: 1, y: 0}
-    u: []
+    u: 0
   - point: {x: 3, y: -1}
     normal: {x: 0, y: -1}
-    u: []
+    u: 0
   - point: {x: -3, y: -1}
     normal: {x: 0, y: -1}
-    u: []
+    u: 0
   - point: {x: -3, y: -1}
     normal: {x: -1, y: 0}
-    u: []
-  - point: {x: -3, y: 1}
+    u: 0
+  - point: {x: -3, y: 0.3}
     normal: {x: -1, y: 0}
-    u: []
-  - point: {x: -3, y: 1}
+    u: 0
+  - point: {x: -3, y: 0.3}
     normal: {x: 0, y: 1}
-    u: []
-  - point: {x: -2, y: 1}
+    u: 0
+  - point: {x: -2, y: 0.3}
     normal: {x: 0, y: 1}
-    u: []
-  - point: {x: -2, y: 1}
+    u: 0
+  - point: {x: -2, y: 0.3}
     normal: {x: 1, y: 0}
-    u: []
+    u: 0
   - point: {x: -2, y: 0}
     normal: {x: 1, y: 0}
-    u: []
+    u: 0
   - point: {x: -2, y: 0}
     normal: {x: 0, y: 1}
-    u: []
+    u: 0
   lineIndices: 0f000000000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
