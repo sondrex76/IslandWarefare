@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SondreScene.unity
     guid: 013f1a2011d769a439d64d4206f5c526
+  - enabled: 1
+    path: Assets/Scenes/BjornarTesting.unity
+    guid: 675e50a65d6bf7547a839115a04d9152
+  - enabled: 1
+    path: Assets/Scenes/Jonas.unity
+    guid: 3c2419382b60cb349a008b95bba73e62
   m_configObjects: {}
