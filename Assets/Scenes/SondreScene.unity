@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 325119697}
   - component: {fileID: 325119700}
   m_Layer: 5
-  m_Name: Button
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -719,6 +719,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5170805123773329358, guid: 28c8b782eeb76314cbad2007df399a52,
+        type: 3}
+      propertyPath: m_Name
+      value: StartGameButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28c8b782eeb76314cbad2007df399a52, type: 3}
 --- !u!1 &1114408781 stripped
@@ -850,7 +855,7 @@ GameObject:
   - component: {fileID: 1995172118}
   - component: {fileID: 1995172117}
   m_Layer: 5
-  m_Name: Button
+  m_Name: OptionsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
