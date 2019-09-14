@@ -150,51 +150,104 @@ public class RoadPlacer : MonoBehaviour
         mesh = new Mesh();
         mesh.name = "Segment";
         GetComponent<MeshFilter>().sharedMesh = mesh;
+        layerMask = ~layerMask;
     }
 
+    int layerMask = 1 << 9;
+    int layerMask2 = 1 << 10;
 
+
+    Vector3 startPoint;
+    Vector3 troughStartAndEnd;
+
+
+    Vector3 connectingRoadEnd;
+    Vector3 connectingroadStart;
+
+    public bool connecting = false;
     private void Update() {
 
         RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray, out hit)){
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
 
 
             if(Input.GetButtonDown("Jump")){
                 if(isPlacing){
-                    GameObject road = new GameObject("Road"); 
-                    road = new GameObject("Road"); 
+                    GameObject road = new GameObject("Road");
+                    road.layer = 9;
                     road.AddComponent<MeshFilter>();
                     road.AddComponent<MeshRenderer>();
                     mesh = road.GetComponent<MeshFilter>().mesh;
                     road.GetComponent<MeshRenderer>().material = m_material;
+                    road.AddComponent<roadStruct>();
+                    road.AddComponent<MeshCollider>();
+                    road.GetComponent<roadStruct>().roadStart = pts[0];
+                    road.GetComponent<roadStruct>().roadEnd = pts[3];
                     isPlacing = false;
                 } else{
-                    Debug.Log(hit.point);
-                    pts[0] = hit.point;
-                    pts[2] = hit.point;
-                    isPlacing = true;
+
+                    if(!connecting){
+                        Debug.Log(hit.point);
+                        startPoint = hit.point;
+                        isPlacing = true;
+                        pts[0] = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
+                        pts[2] = hit.point;
+                    } else
+                    {
+                        isPlacing = true;
+                        pts[0] = connectingRoadEnd;
+                        pts[1] = transform.forward * 4;
+                        pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z); ;
+                    }
                 }
         }
 
-        if(isPlacing){
-            pts[1] = hit.point;
-            pts[3] = hit.point;
-            GenerateMesh(pts);
+     
 
-        }
+        if(isPlacing){
+            if(!connecting){
+                    //pts[1] = startPoint + -Vector3.forward * 50;
+                    pts[1] = pts[3];
+
+                }
+                pts[3] = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
+                GenerateMesh(pts);
+            }
 
         if(Input.GetMouseButtonDown(2)){
             mesh.Clear();
             isPlacing = false;
-        }
+            }
 
            
         }
 
-        
+        RaycastHit hit2;
+        Ray ray2 = camera.ScreenPointToRay(Input.mousePosition);
 
-}
+        if(Physics.Raycast(ray2, out hit2, Mathf.Infinity, layerMask2)){
+
+            if (hit2.collider.gameObject.name == "Road"){
+
+                Debug.Log("YES THIS IS HITTING A ROAD");
+
+
+                connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
+                connectingroadStart = hit2.collider.gameObject.GetComponent<roadStruct>().roadStart;
+
+               
+                connecting = true;
+        } else {
+                connecting = false;
+                Debug.Log("NOt hitting road");
+            }
+        } else if(!isPlacing)
+        {
+            connecting = false;
+        }
+
+    }
 
     [Range(0,1)]
     public float tTest;
@@ -209,6 +262,14 @@ public class RoadPlacer : MonoBehaviour
         points[2] = new Vector3(40, 17, 2);
         points[3] = new Vector3(47,50,-17);
 
+        Gizmos.DrawSphere(pts[1], 2);
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(pts[2], 1);
+        Gizmos.color = Color.white;
+
+        Debug.Log("Point1" + pts[1]);
+
+
         drawMesh(points);
     }
 
@@ -221,10 +282,12 @@ public class RoadPlacer : MonoBehaviour
 
     void DrawPoint(Vector2 localPos){
             Gizmos.DrawSphere(testPoint.LocalToWorldPos(localPos * 2f), 0.3f);
-    }
 
 
-    Handles.PositionHandle(testPoint.position, testPoint.rotation);
+        }
+
+
+        Handles.PositionHandle(testPoint.position, testPoint.rotation);
 
 
        for (int i = 0; i < shape2D.lineIndices.Length-1; i++)
