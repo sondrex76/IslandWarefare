@@ -149,7 +149,6 @@ public class RoadPlacer : MonoBehaviour
     private void Awake() {
         mesh = new Mesh();
         mesh.name = "Segment";
-        GetComponent<MeshFilter>().sharedMesh = mesh;
         layerMask = ~layerMask;
     }
 
@@ -196,8 +195,11 @@ public class RoadPlacer : MonoBehaviour
                     } else
                     {
                         isPlacing = true;
+
+                        Vector3 vectorThroughRoad = (connectingRoadEnd - connectingroadStart);
+
                         pts[0] = connectingRoadEnd;
-                        pts[1] = transform.forward * 4;
+                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.1f;
                         pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z); ;
                     }
                 }
@@ -207,7 +209,6 @@ public class RoadPlacer : MonoBehaviour
 
         if(isPlacing){
             if(!connecting){
-                    //pts[1] = startPoint + -Vector3.forward * 50;
                     pts[1] = pts[3];
 
                 }
@@ -266,6 +267,8 @@ public class RoadPlacer : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(pts[2], 1);
         Gizmos.color = Color.white;
+
+        
 
         Debug.Log("Point1" + pts[1]);
 
