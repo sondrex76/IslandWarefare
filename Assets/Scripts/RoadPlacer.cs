@@ -52,6 +52,22 @@ public class RoadPlacer : MonoBehaviour
     public Camera camera;
     public Material m_material;
 
+    int layerMask = 1 << 9;
+    int layerMask2 = 1 << 10;
+
+
+    Vector3 startPoint;
+    Vector3 troughStartAndEnd;
+
+
+    Vector3 connectingRoadEnd;
+    Vector3 connectingroadStart;
+
+    int roadCounter = 0;
+
+    public bool connecting = false;
+
+
 
     OrientedPoint GetPoint(Vector3[] pts, float t){
         float omt = 1f-t;
@@ -93,15 +109,17 @@ public class RoadPlacer : MonoBehaviour
         return Quaternion.LookRotation(tng, nrm);
     }
 
-
+    List<Vector3> verts;
+    List<Vector3> normals;
+    List<int> triangleIndices;
 
     void GenerateMesh(Vector3[] pts){
 
         mesh.Clear();
 
         //Verts
-        List<Vector3> verts = new List<Vector3>();
-        List<Vector3> normals = new List<Vector3>();
+        verts = new List<Vector3>();
+        normals = new List<Vector3>();
 
         for(int ring = 0; ring < edgeRingCount; ring++){
             float t = ring / (edgeRingCount - 1f);
@@ -113,7 +131,7 @@ public class RoadPlacer : MonoBehaviour
             }
         }
 
-        List<int> triangleIndices = new List<int>();
+        triangleIndices = new List<int>();
 
         for(int ring = 0; ring < edgeRingCount - 1; ring++){
 
@@ -147,23 +165,16 @@ public class RoadPlacer : MonoBehaviour
     }
 
     private void Awake() {
-        mesh = new Mesh();
-        mesh.name = "Segment";
         layerMask = ~layerMask;
+        mesh = new Mesh();
+
+
+        Debug.Log("Placing new road");
+
     }
 
-    int layerMask = 1 << 9;
-    int layerMask2 = 1 << 10;
+    GameObject roadTemp;
 
-
-    Vector3 startPoint;
-    Vector3 troughStartAndEnd;
-
-
-    Vector3 connectingRoadEnd;
-    Vector3 connectingroadStart;
-
-    public bool connecting = false;
     private void Update() {
 
         RaycastHit hit;
@@ -173,25 +184,40 @@ public class RoadPlacer : MonoBehaviour
 
             if(Input.GetButtonDown("Jump")){
                 if(isPlacing){
-                    GameObject road = new GameObject("Road");
+
+                    Destroy(roadTemp);
+                    GameObject road = new GameObject("Road: " + roadCounter);
                     road.layer = 9;
                     road.AddComponent<MeshFilter>();
                     road.AddComponent<MeshRenderer>();
-                    mesh = road.GetComponent<MeshFilter>().mesh;
+
+                    road.GetComponent<MeshFilter>().mesh.SetVertices(verts);
+                    road.GetComponent<MeshFilter>().mesh.SetNormals(normals);
+                    road.GetComponent<MeshFilter>().mesh.SetTriangles(triangleIndices, 0);
+
                     road.GetComponent<MeshRenderer>().material = m_material;
                     road.AddComponent<roadStruct>();
                     road.AddComponent<MeshCollider>();
                     road.GetComponent<roadStruct>().roadStart = pts[0];
                     road.GetComponent<roadStruct>().roadEnd = pts[3];
+                    road.tag = "Road";
+                    Debug.Log("Placing new road");
                     isPlacing = false;
-                } else{
+                    Instantiate(road);
+                    Destroy(road);
+                    roadCounter++;
+                }
 
-                    if(!connecting){
-                        Debug.Log(hit.point);
+
+
+                else {
+
+                    if (!connecting){
                         startPoint = hit.point;
                         isPlacing = true;
                         pts[0] = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
                         pts[2] = hit.point;
+                        Debug.Log("Starting placement of road");
                     } else
                     {
                         isPlacing = true;
@@ -199,15 +225,37 @@ public class RoadPlacer : MonoBehaviour
                         Vector3 vectorThroughRoad = (connectingRoadEnd - connectingroadStart);
 
                         pts[0] = connectingRoadEnd;
-                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.1f;
-                        pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z); ;
+                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.2f;
+                        pts[2] = new Vector3(pts[1].x, pts[1].y + 0.2f, pts[1].z); ;
                     }
                 }
+
+        
+
+                
+
+
         }
+            if (isPlacing)
+            {
+                Destroy(roadTemp);
 
-     
+                roadTemp = new GameObject("Road: " + roadCounter);
+                roadTemp.layer = 9;
+                roadTemp.AddComponent<MeshFilter>();
+                roadTemp.AddComponent<MeshRenderer>();
 
-        if(isPlacing){
+                roadTemp.GetComponent<MeshFilter>().mesh.SetVertices(verts);
+                roadTemp.GetComponent<MeshFilter>().mesh.SetNormals(normals);
+                roadTemp.GetComponent<MeshFilter>().mesh.SetTriangles(triangleIndices, 0);
+
+                roadTemp.GetComponent<MeshRenderer>().material = m_material;
+
+                roadTemp.tag = "Road";
+            }
+
+
+            if (isPlacing){
             if(!connecting){
                     pts[1] = pts[3];
 
@@ -229,9 +277,10 @@ public class RoadPlacer : MonoBehaviour
 
         if(Physics.Raycast(ray2, out hit2, Mathf.Infinity, layerMask2)){
 
-            if (hit2.collider.gameObject.name == "Road"){
+            if (hit2.collider.gameObject.tag == "Road"){
 
-                Debug.Log("YES THIS IS HITTING A ROAD");
+                Debug.Log("Road name: " + hit.collider.gameObject.name);
+
 
 
                 connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
@@ -241,7 +290,6 @@ public class RoadPlacer : MonoBehaviour
                 connecting = true;
         } else {
                 connecting = false;
-                Debug.Log("NOt hitting road");
             }
         } else if(!isPlacing)
         {
@@ -268,10 +316,7 @@ public class RoadPlacer : MonoBehaviour
         Gizmos.DrawSphere(pts[2], 1);
         Gizmos.color = Color.white;
 
-        
-
-        Debug.Log("Point1" + pts[1]);
-
+        Gizmos.DrawMesh(mesh);
 
         drawMesh(points);
     }
