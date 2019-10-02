@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Requires MainMenu to have run first
 public class CameraMovement : MonoBehaviour
 {
+    InputManager inputManager;                                                  // Inpur manager
+
     Rigidbody cameraBody;
     Camera cameraElement;
     public float cameraSpeed = 10.0f;                                           // Speed of camera
@@ -19,11 +22,13 @@ public class CameraMovement : MonoBehaviour
     public bool reverseVertical = false;                                        // Bool for determining if vertical mvoement should be inverted
     // float previousTime;
 
+
     // Start is called before the first frame update
     void Start()
     {
         cameraBody = GetComponent<Rigidbody>();
         cameraElement = GetComponent<Camera>();
+        inputManager = GameManager.inputManager;
     }
 
     // Zooms the camera depending on the user's wishes
@@ -66,32 +71,34 @@ public class CameraMovement : MonoBehaviour
 
         // changes vertical angle to 0 temporarily, ensures camera cannot be moved higher then max or lower then minimum
         cameraElement.transform.rotation = Quaternion.Euler(0, cameraAngleX, 0);
-        
+
+
         // Key detection for movement
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))                            // Right
-        {
-            cameraBody.velocity += cameraSpeed * transform.right;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))                             // Left
-        {
-            cameraBody.velocity -= cameraSpeed * transform.right;
-        }
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))                               // Forward
+        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                // FORWARDS
         {
             cameraBody.velocity += cameraSpeed * transform.forward;
         }
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))                             // Backward
+        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.LEFT]))                    // LEFT
         {
-            cameraBody.velocity -= cameraSpeed  * transform.forward;
+            cameraBody.velocity -= cameraSpeed * transform.right;
         }
-        if (Input.GetKey(KeyCode.Space) && cameraBody.position.y < maximumHeight)                   // Up
+        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.RIGHT]))                   // RIGHT
+        {
+            cameraBody.velocity += cameraSpeed * transform.right;
+        }
+        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))               // BACKWARDS
+        {
+            cameraBody.velocity -= cameraSpeed * transform.forward;
+        }
+        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.UP]))                      // UP
         {
             cameraBody.velocity += cameraSpeed * transform.up;
         }
-        if (Input.GetKey(downKey) && cameraBody.position.y > minimumHeight)                         // Down
+        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.DOWN]))                    // DOWN
         {
             cameraBody.velocity -= cameraSpeed * transform.up;
         }
+
 
         // Resets vertical angle
         cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);

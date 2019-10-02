@@ -17,10 +17,7 @@ public class InputManager
     };
 
     public KeyCode[] bindings;
-
-    static InputManager instance;
-
-
+    
     // Initial keyInput values, run on startup
     public InputManager()
     {

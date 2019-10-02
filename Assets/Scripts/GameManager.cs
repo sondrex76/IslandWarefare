@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    static InputManager inputManager;
+    public static InputManager inputManager;
 
     // Start is called before the first frame update
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);  // Stops object from being destroyed
 
         if (inputManager == null)
         {
@@ -20,10 +20,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // DEBUG
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.FORWARDS]))  // FORWARDS
-        {
-            Debug.Log("FORWARDS!");
-        }
+        // Insert code here
     }
 }
