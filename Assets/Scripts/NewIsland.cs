@@ -9,6 +9,9 @@ public class NewIsland : MonoBehaviour
     int amount, nextID;
     List<int> nearbyIsle;
 
+    //Debug
+    protected int antIslands = 100;
+
     class IslandTile
     {
         public int xPos;
@@ -150,13 +153,14 @@ public class NewIsland : MonoBehaviour
         amount = 0;
         //For now, till the game is online
         nextID = 0;
+        Random.InitState(91133);
+        GenerateIsland();
     }
 
     // Update is called once per frame
-    void Update()
+    void GenerateIsland()
     {
-        if (Input.GetKey(KeyCode.N))    
-        {
+        for (int j = 0; j < antIslands; j++) {
             
 
             //First island is to be added in the middle of the map
