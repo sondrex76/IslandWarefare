@@ -27,6 +27,7 @@ public class InputManager
         bindings[(int)Actions.LEFT] = getKeyCodeFromPlayerPrefs(Actions.LEFT, KeyCode.A);
         bindings[(int)Actions.BACKWARDS] = getKeyCodeFromPlayerPrefs(Actions.BACKWARDS, KeyCode.S);
         bindings[(int)Actions.RIGHT] = getKeyCodeFromPlayerPrefs(Actions.RIGHT, KeyCode.D);
+        bindings[(int)Actions.UP] = getKeyCodeFromPlayerPrefs(Actions.DOWN, KeyCode.Space);
         bindings[(int)Actions.DOWN] = getKeyCodeFromPlayerPrefs(Actions.DOWN, KeyCode.LeftShift);
         bindings[(int)Actions.ZOOM] = getKeyCodeFromPlayerPrefs(Actions.ZOOM, KeyCode.LeftControl);
     }
