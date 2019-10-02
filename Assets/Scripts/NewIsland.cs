@@ -29,10 +29,10 @@ public class NewIsland : MonoBehaviour
         public int IslandsNextTo;
 
         //Keeps info on whether there is an island next to it or not
-        public bool northIsland;
-        public bool eastIsland;
-        public bool southIsland;
-        public bool westIsland;
+        public int northIsland;
+        public int eastIsland;
+        public int southIsland;
+        public int westIsland;
 
         public List<IslandTile> tiles;
 
@@ -46,10 +46,10 @@ public class NewIsland : MonoBehaviour
             IslandsNextTo = 0;
 
             //Always starts with no island next to it
-            northIsland = false;
-            eastIsland = false;
-            southIsland = false;
-            westIsland = false;
+            northIsland = -1;
+            eastIsland = -1;
+            southIsland = -1;
+            westIsland = -1;
 
             //algorithm for placing the tiles
 
@@ -155,7 +155,7 @@ public class NewIsland : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))    
+        if (Input.GetKey(KeyCode.N))    
         {
             
 
@@ -184,12 +184,14 @@ public class NewIsland : MonoBehaviour
                     int nextTo = Random.Range(0, nearbyIsle.Count);
                     int side = Random.Range(0, 4);
 
+                    Debug.Log($"{nextTo}, {nearbyIsle.Count}, {iles.Count}");
+
                     //Place the tile next to the chosen tile that already exist to ensure that the island is connected
                     switch (side)
                     {
                         //North
                         case 0:
-                            if (!iles[nearbyIsle[nextTo]].northIsland)
+                            if (iles[nearbyIsle[nextTo]].northIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord;
                                 y = iles[nearbyIsle[nextTo]].yCord + 1;
@@ -199,7 +201,7 @@ public class NewIsland : MonoBehaviour
 
                         //West
                         case 1:
-                            if (!iles[nearbyIsle[nextTo]].westIsland)
+                            if (iles[nearbyIsle[nextTo]].westIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord - 1;
                                 y = iles[nearbyIsle[nextTo]].yCord;
@@ -209,7 +211,7 @@ public class NewIsland : MonoBehaviour
 
                         //South
                         case 2:
-                            if (!iles[nearbyIsle[nextTo]].southIsland)
+                            if (iles[nearbyIsle[nextTo]].southIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord;
                                 y = iles[nearbyIsle[nextTo]].yCord - 1;
@@ -219,7 +221,7 @@ public class NewIsland : MonoBehaviour
 
                         //East
                         case 3:
-                            if (!iles[nearbyIsle[nextTo]].eastIsland)
+                            if (iles[nearbyIsle[nextTo]].eastIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord + 1;
                                 y = iles[nearbyIsle[nextTo]].yCord;
@@ -245,12 +247,12 @@ public class NewIsland : MonoBehaviour
                     if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord + 1 == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
-                        isle.northIsland = true;
+                        isle.northIsland = nearbyIsle[i];
                         iles[nearbyIsle[i]].IslandsNextTo++;
-                        iles[nearbyIsle[i]].southIsland = true;
+                        iles[nearbyIsle[i]].southIsland = isle.ID;
 
                         if (isle.IslandsNextTo == 4) break;
-                        if (iles[i].IslandsNextTo == 4)
+                        if (iles[nearbyIsle[i]].IslandsNextTo == 4)
                         {
                             nearbyIsle.RemoveAt(i);
                         }
@@ -260,12 +262,12 @@ public class NewIsland : MonoBehaviour
                     else if (isle.xCord - 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
-                        isle.westIsland = true;
+                        isle.westIsland = nearbyIsle[i];
                         iles[nearbyIsle[i]].IslandsNextTo++;
-                        iles[nearbyIsle[i]].eastIsland = true;
+                        iles[nearbyIsle[i]].eastIsland = isle.ID;
 
                         if (isle.IslandsNextTo == 4) break;
-                        if (iles[i].IslandsNextTo == 4)
+                        if (iles[nearbyIsle[i]].IslandsNextTo == 4)
                         {
                             nearbyIsle.RemoveAt(i);
                         }
@@ -275,12 +277,12 @@ public class NewIsland : MonoBehaviour
                     else if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord - 1 == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
-                        isle.southIsland = true;
+                        isle.southIsland = nearbyIsle[i];
                         iles[nearbyIsle[i]].IslandsNextTo++;
-                        iles[nearbyIsle[i]].northIsland = true;
+                        iles[nearbyIsle[i]].northIsland = isle.ID;
 
                         if (isle.IslandsNextTo == 4) break;
-                        if (iles[i].IslandsNextTo == 4)
+                        if (iles[nearbyIsle[i]].IslandsNextTo == 4)
                         {
                             nearbyIsle.RemoveAt(i);
                         }
@@ -291,12 +293,12 @@ public class NewIsland : MonoBehaviour
                     else if (isle.xCord + 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
                     {
                         isle.IslandsNextTo++;
-                        isle.eastIsland = true;
+                        isle.eastIsland = nearbyIsle[i];
                         iles[nearbyIsle[i]].IslandsNextTo++;
-                        iles[nearbyIsle[i]].westIsland = true;
+                        iles[nearbyIsle[i]].westIsland = isle.ID;
 
                         if (isle.IslandsNextTo == 4) break;
-                        if (iles[i].IslandsNextTo == 4)
+                        if (iles[nearbyIsle[i]].IslandsNextTo == 4)
                         {
                             nearbyIsle.RemoveAt(i);
                         }
