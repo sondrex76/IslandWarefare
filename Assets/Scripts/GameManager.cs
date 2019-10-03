@@ -21,15 +21,34 @@ public class GameManager : MonoBehaviour
         optionsMenu.enabled = false;
     }
 
-    public void updateCanvas(bool active)
-    {
-        optionsMenu.enabled = active;
-
-    }
-
     // Update is called once per frame
     void Update()
     {
+        if (inputManager.isSelectingInput())    // Checks if a key is currently being rebound
+        {
+            // Gets the currently clicked button if there are any
+            foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKey(vKey))
+                {
+                    inputManager.changeControl(inputManager.returnCurrentlySelectedAction(), vKey);
+                    inputManager.finishedUpdateKey();
+                    break;
+                }
+            }
+        }
         // Insert code here
+    }
+
+    // Updates canvas to being active or inactive
+    public void UpdateCanvas(bool active)
+    {
+        optionsMenu.enabled = active;
+    }
+
+    // Sets system to expect an action's input to be changed
+    public void UpdateInputKey(int selectedAction)
+    {
+        inputManager.updateSelectedAction(selectedAction);
     }
 }

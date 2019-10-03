@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InputManager
 {
+    bool currentlyReSelectingInput = false; // Is currently in the process of rebinding a key
+    Actions currentReSelect;                // Key currently being rebounded
 
     public enum Actions
     {
@@ -38,8 +40,34 @@ public class InputManager
         bindings[(int)action] = getKeyCodeFromPlayerPrefs(action, keyCode);
     }
 
+    // Gets keycode for specified action
     private KeyCode getKeyCodeFromPlayerPrefs(Actions action, KeyCode defaultValue)
     {
         return (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(System.Enum.GetName(typeof(Actions), action), System.Enum.GetName(typeof(KeyCode), defaultValue)));
+    }
+
+    // Returns true if a keybinding is in the process of being changed
+    public bool isSelectingInput()
+    {
+        return currentlyReSelectingInput;
+    }
+    
+    // Returns currently selected action
+    public Actions returnCurrentlySelectedAction() 
+    {
+        return currentReSelect;
+    }
+
+    // Updates currently selected action and sets currentlyReSelectingInput to true
+    public void updateSelectedAction(int selectedAction)
+    {
+        currentReSelect = (Actions)selectedAction;
+        currentlyReSelectingInput = true;
+    }
+
+    // Updates key
+    public void finishedUpdateKey()
+    {
+        currentlyReSelectingInput = false;
     }
 }
