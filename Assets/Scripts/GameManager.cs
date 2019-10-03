@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static InputManager inputManager;
+    [SerializeField]Canvas optionsMenu;
 
     // Start is called before the first frame update
     void Awake()
@@ -15,6 +16,15 @@ public class GameManager : MonoBehaviour
         {
             inputManager = new InputManager();
         }
+
+        // optionsMenu = transform.GetComponent<Canvas>();
+        optionsMenu.enabled = false;
+    }
+
+    public void updateCanvas(bool active)
+    {
+        optionsMenu.enabled = active;
+
     }
 
     // Update is called once per frame
