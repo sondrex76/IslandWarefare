@@ -8,6 +8,7 @@ public class InputManager
     Actions currentReSelect;                // Key currently being rebounded
     GameObject currentButton;               // Currently selected button
 
+    // Enum of actions
     public enum Actions
     {
         FORWARDS,
@@ -24,7 +25,7 @@ public class InputManager
     // Initial keyInput values, run on startup
     public InputManager()
     {
-        bindings = new KeyCode[System.Enum.GetValues(typeof(Actions)).Length];
+        bindings = new KeyCode[System.Enum.GetValues(typeof(Actions)).Length];                      // Initializes bindings
 
         bindings[(int)Actions.FORWARDS] = getKeyCodeFromPlayerPrefs(Actions.FORWARDS, KeyCode.W);
         bindings[(int)Actions.LEFT] = getKeyCodeFromPlayerPrefs(Actions.LEFT, KeyCode.A);

@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public static InputManager inputManager;
-    [SerializeField]Canvas optionsMenu;
-    [SerializeField] OptionsManager optionsManager;
+    public static InputManager inputManager;        // The input manager
+    [SerializeField] Canvas optionsMenu;             // The options menu
+    [SerializeField] OptionsManager optionsManager;  // The options manager
 
     GameObject currentButton;                       // Currently selected button name
 
@@ -21,15 +21,15 @@ public class GameManager : MonoBehaviour
         {
             inputManager = new InputManager();
         }
-
-        // optionsMenu = transform.GetComponent<Canvas>();
+        
         optionsMenu.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inputManager.isSelectingInput())    // Checks if a key is currently being rebound
+        // Checks if a key is currently being rebound
+        if (inputManager.isSelectingInput())    
         {
             // Gets the currently clicked button if there are any
             foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))

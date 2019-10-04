@@ -8,9 +8,10 @@ public class OptionsManager : MonoBehaviour
     // Updates specific button's text
     public void UpdateButtonText(KeyCode key, GameObject currentButton)
     {
-        // Modifies text of currently selected button
+        // Text element with new text of selected button
         string newText = "";
 
+        // Checks which button has been selected and updates text element
         switch (currentButton.name)
         {
             case "ForwardsInput":
@@ -35,7 +36,8 @@ public class OptionsManager : MonoBehaviour
                 newText = "Zoom";
                 break;
         }
-        newText += "(" + key + ")";
+
+        newText += "(" + key + ")"; // Adds the key for current button to the base text
         currentButton.transform.GetComponentInChildren<Text>().text = newText;
     }
 }

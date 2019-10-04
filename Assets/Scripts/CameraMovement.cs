@@ -25,6 +25,7 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Initializes some values
         cameraBody = GetComponent<Rigidbody>();
         cameraElement = GetComponent<Camera>();
         inputManager = GameManager.inputManager;
@@ -32,7 +33,8 @@ public class CameraMovement : MonoBehaviour
 
     // Zooms the camera depending on the user's wishes
     void updateZoom() {
-        float scrollValue = cameraZoom - Input.mouseScrollDelta.y * zoomSpeed; // Updates value of zoom
+        // Updates value of zoom
+        float scrollValue = cameraZoom - Input.mouseScrollDelta.y * zoomSpeed;
         
         // Updates zoom value and ensures it does not go above maximum or below minimum
         if (scrollValue > maximumZoom)
