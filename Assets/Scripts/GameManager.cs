@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     public static InputManager inputManager;
     [SerializeField]Canvas optionsMenu;
+    [SerializeField] OptionsManager optionsManager;
+
+    GameObject currentButton;                       // Currently selected button name
 
     // Start is called before the first frame update
     void Awake()
@@ -33,6 +38,9 @@ public class GameManager : MonoBehaviour
                 {
                     inputManager.changeControl(inputManager.returnCurrentlySelectedAction(), vKey);
                     inputManager.finishedUpdateKey();
+
+                    optionsManager.UpdateButtonText(vKey, currentButton);
+
                     break;
                 }
             }
@@ -50,5 +58,6 @@ public class GameManager : MonoBehaviour
     public void UpdateInputKey(int selectedAction)
     {
         inputManager.updateSelectedAction(selectedAction);
+        currentButton = EventSystem.current.currentSelectedGameObject;
     }
 }

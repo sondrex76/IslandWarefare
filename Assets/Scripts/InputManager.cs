@@ -6,6 +6,7 @@ public class InputManager
 {
     bool currentlyReSelectingInput = false; // Is currently in the process of rebinding a key
     Actions currentReSelect;                // Key currently being rebounded
+    GameObject currentButton;               // Currently selected button
 
     public enum Actions
     {
@@ -64,7 +65,6 @@ public class InputManager
         currentReSelect = (Actions)selectedAction;
         currentlyReSelectingInput = true;
     }
-
     // Updates key
     public void finishedUpdateKey()
     {

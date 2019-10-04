@@ -165,7 +165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.00071, y: -113.499916}
+  m_AnchoredPosition: {x: 100.00071, y: -143}
   m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &118991108
@@ -592,7 +592,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Zoom
+  m_Text: Zoom(LeftControl)
 --- !u!222 &248478966
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -671,7 +671,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Right
+  m_Text: Right(D)
 --- !u!222 &345148060
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1141,7 +1141,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Forwards
+  m_Text: Forwards(W)
 --- !u!222 &657806199
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1763,7 +1763,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Backwards
+  m_Text: Backwards(S)
 --- !u!222 &1493424672
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1788,6 +1788,7 @@ GameObject:
   - component: {fileID: 1496139809}
   - component: {fileID: 1496139808}
   - component: {fileID: 1496139811}
+  - component: {fileID: 1496139812}
   m_Layer: 5
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -1958,6 +1959,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1496139812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496139803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5db0c215268b848afb77b1384e27dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1512152665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,7 +2594,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Down
+  m_Text: Down(LeftShift)
 --- !u!222 &1919773684
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2739,7 +2752,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Left
+  m_Text: Left(A)
 --- !u!222 &2016932067
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2909,7 +2922,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Up
+  m_Text: Up(Space)
 --- !u!222 &2139038167
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2930,6 +2943,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4629434481905995461, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: optionsMenu
+      value: 
+      objectReference: {fileID: 1496139807}
+    - target: {fileID: 4629434481905995461, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: optionsManager
+      value: 
+      objectReference: {fileID: 1496139812}
     - target: {fileID: 4629434481905995460, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2985,11 +3008,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4629434481905995461, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: optionsMenu
-      value: 
-      objectReference: {fileID: 1496139807}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4479d599ec0d3224d9244ffaa8c7bfc9, type: 3}
 --- !u!4 &4629434481770497164 stripped
