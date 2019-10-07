@@ -5,6 +5,25 @@ using UnityEngine.UI;
 
 public class OptionsManager : MonoBehaviour
 {
+
+    InputManager inputManager;                                                  // Inpur manager
+    [SerializeField]GameManager gameManager;                                    // The game manager object
+
+    // RUns on start
+    private void Start()
+    {
+        inputManager = GameManager.inputManager;
+    }
+
+    // Runs every frame
+    private void Update()
+    {
+        if (Input.GetKeyDown(inputManager.bindings[(int)InputManager.Actions.PAUSE]))   // Pause
+        {
+            gameManager.UpdateCanvas(!gameManager.isPaused);   // two bools rather then one because of
+        }
+    }
+
     // Updates specific button's text
     public void UpdateButtonText(KeyCode key, GameObject currentButton)
     {
@@ -34,6 +53,9 @@ public class OptionsManager : MonoBehaviour
                 break;
             case "ZoomInput":
                 newText = "Zoom";
+                break;
+            case "PauseInput":
+                newText = "Pause";
                 break;
         }
 

@@ -17,7 +17,8 @@ public class InputManager
         RIGHT,
         UP,
         DOWN,
-        ZOOM
+        ZOOM,
+        PAUSE
     };
 
     public KeyCode[] bindings;
@@ -34,6 +35,7 @@ public class InputManager
         bindings[(int)Actions.UP] = getKeyCodeFromPlayerPrefs(Actions.DOWN, KeyCode.Space);
         bindings[(int)Actions.DOWN] = getKeyCodeFromPlayerPrefs(Actions.DOWN, KeyCode.LeftShift);
         bindings[(int)Actions.ZOOM] = getKeyCodeFromPlayerPrefs(Actions.ZOOM, KeyCode.LeftControl);
+        bindings[(int)Actions.PAUSE] = getKeyCodeFromPlayerPrefs(Actions.PAUSE, KeyCode.Escape);
     }
 
     // Changes selected control to the specified key-code

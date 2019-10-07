@@ -7,8 +7,10 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
     public static InputManager inputManager;        // The input manager
-    [SerializeField] Canvas optionsMenu;             // The options menu
-    [SerializeField] OptionsManager optionsManager;  // The options manager
+    public bool isPaused = false;                   // Is paused
+
+    [SerializeField] Canvas optionsMenu;            // The options menu
+    [SerializeField] OptionsManager optionsManager; // The options manager
 
     GameObject currentButton;                       // Currently selected button name
 
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
     public void UpdateCanvas(bool active)
     {
         optionsMenu.enabled = active;
+        isPaused = active;
     }
 
     // Sets system to expect an action's input to be changed

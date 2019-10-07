@@ -5,7 +5,7 @@ using UnityEngine;
 // Requires MainMenu to have run first
 public class CameraMovement : MonoBehaviour
 {
-    InputManager inputManager;                                                  // Inpur manager
+    InputManager inputManager;                                                              // Inpur manager
     
     Rigidbody cameraBody;
     Camera cameraElement;
