@@ -66,7 +66,7 @@ public class NewIsland : MonoBehaviour
                             if (iles[nearbyIsle[nextTo]].northIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord;
-                                y = iles[nearbyIsle[nextTo]].yCord + 1;
+                                y = iles[nearbyIsle[nextTo]].zCord + 1;
                             }
                             else placed = false;
                             break;
@@ -76,7 +76,7 @@ public class NewIsland : MonoBehaviour
                             if (iles[nearbyIsle[nextTo]].westIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord - 1;
-                                y = iles[nearbyIsle[nextTo]].yCord;
+                                y = iles[nearbyIsle[nextTo]].zCord;
                             }
                             else placed = false;
                             break;
@@ -86,7 +86,7 @@ public class NewIsland : MonoBehaviour
                             if (iles[nearbyIsle[nextTo]].southIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord;
-                                y = iles[nearbyIsle[nextTo]].yCord - 1;
+                                y = iles[nearbyIsle[nextTo]].zCord - 1;
                             }
                             else placed = false;
                             break;
@@ -96,7 +96,7 @@ public class NewIsland : MonoBehaviour
                             if (iles[nearbyIsle[nextTo]].eastIsland == -1)
                             {
                                 x = iles[nearbyIsle[nextTo]].xCord + 1;
-                                y = iles[nearbyIsle[nextTo]].yCord;
+                                y = iles[nearbyIsle[nextTo]].zCord;
                             }
                             else placed = false;
                             break;
@@ -116,7 +116,7 @@ public class NewIsland : MonoBehaviour
                 for (int i = nearbyIsle.Count - 1; i >= 0; i--)
                 {
                     //North
-                    if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord + 1 == iles[nearbyIsle[i]].yCord)
+                    if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.zCord + 1 == iles[nearbyIsle[i]].zCord)
                     {
                         isle.IslandsNextTo++;
                         isle.northIsland = nearbyIsle[i];
@@ -131,7 +131,7 @@ public class NewIsland : MonoBehaviour
                     }
 
                     //West
-                    else if (isle.xCord - 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
+                    else if (isle.xCord - 1 == iles[nearbyIsle[i]].xCord && isle.zCord == iles[nearbyIsle[i]].zCord)
                     {
                         isle.IslandsNextTo++;
                         isle.westIsland = nearbyIsle[i];
@@ -146,7 +146,7 @@ public class NewIsland : MonoBehaviour
                     }
 
                     //South
-                    else if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.yCord - 1 == iles[nearbyIsle[i]].yCord)
+                    else if (isle.xCord == iles[nearbyIsle[i]].xCord && isle.zCord - 1 == iles[nearbyIsle[i]].zCord)
                     {
                         isle.IslandsNextTo++;
                         isle.southIsland = nearbyIsle[i];
@@ -162,7 +162,7 @@ public class NewIsland : MonoBehaviour
 
 
                     //East
-                    else if (isle.xCord + 1 == iles[nearbyIsle[i]].xCord && isle.yCord == iles[nearbyIsle[i]].yCord)
+                    else if (isle.xCord + 1 == iles[nearbyIsle[i]].xCord && isle.zCord == iles[nearbyIsle[i]].zCord)
                     {
                         isle.IslandsNextTo++;
                         isle.eastIsland = nearbyIsle[i];

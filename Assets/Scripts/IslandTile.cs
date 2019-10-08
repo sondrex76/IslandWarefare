@@ -5,11 +5,11 @@ using UnityEngine;
 public class IslandTile
 {
     public int xPos;
-    public int yPos;
+    public int zPos;
 
-    public IslandTile(int x, int y)
+    public IslandTile(int x, int z)
     {
         xPos = x;
-        yPos = y;
+        zPos = z;
     }
 }
