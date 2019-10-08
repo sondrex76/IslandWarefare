@@ -6,7 +6,7 @@ public class Island : MonoBehaviour
 {
     public int ID;
     public int xCord;
-    public int yCord;
+    public int zCord;
     public int IslandsNextTo;
 
     //Keeps info on whether there is an island next to it or not
@@ -17,13 +17,13 @@ public class Island : MonoBehaviour
 
     public List<IslandTile> tiles;
 
-    public Island(int x, int y, int islandID)
+    public Island(int x, int z, int islandID)
     {
         tiles = new List<IslandTile>();
 
         ID = islandID;
         xCord = x;
-        yCord = y;
+        zCord = z;
         IslandsNextTo = 0;
 
         //Always starts with no island next to it
@@ -37,9 +37,9 @@ public class Island : MonoBehaviour
         int tilesPlaced = 1;
 
         int xOffSet = Random.Range(-20, 20);
-        int yOffSet = Random.Range(-20, 20);
+        int zOffSet = Random.Range(-20, 20);
 
-        IslandTile tile = new IslandTile(x * 75 + xOffSet, y * 75 + xOffSet);
+        IslandTile tile = new IslandTile(x * 75 + xOffSet, z * 75 + xOffSet);
 
         tiles.Add(tile);
 
@@ -49,7 +49,7 @@ public class Island : MonoBehaviour
         {
             bool placed = true;
 
-            int xPos, yPos;
+            int xPos, zPos;
 
             //get a random tile already for the island
             int nextTo = Random.Range(0, tiles.Count);
@@ -61,31 +61,31 @@ public class Island : MonoBehaviour
                 //North
                 case 0:
                     xPos = tiles[nextTo].xPos;
-                    yPos = tiles[nextTo].yPos + 1;
+                    zPos = tiles[nextTo].zPos + 1;
                     break;
 
                 //West
                 case 1:
                     xPos = tiles[nextTo].xPos - 1;
-                    yPos = tiles[nextTo].yPos;
+                    zPos = tiles[nextTo].zPos;
                     break;
 
                 //South
                 case 2:
                     xPos = tiles[nextTo].xPos;
-                    yPos = tiles[nextTo].yPos - 1;
+                    zPos = tiles[nextTo].zPos - 1;
                     break;
 
                 //East
                 case 3:
                     xPos = tiles[nextTo].xPos + 1;
-                    yPos = tiles[nextTo].yPos;
+                    zPos = tiles[nextTo].zPos;
                     break;
 
                 default:
 
                     xPos = tiles[nextTo].xPos;
-                    yPos = tiles[nextTo].yPos;
+                    zPos = tiles[nextTo].zPos;
                     break;
             }
 
@@ -95,7 +95,7 @@ public class Island : MonoBehaviour
             {
 
                 //Make sure it does not overlap with any other tiles
-                if (xPos == tiles[i].xPos && yPos == tiles[i].yPos)
+                if (xPos == tiles[i].xPos && zPos == tiles[i].zPos)
                 {
                     //if the tile overlaps, it won't be placed and there is no need to check the rest of the tiles
                     placed = false;
@@ -107,7 +107,7 @@ public class Island : MonoBehaviour
             if (placed)
             {
                 tilesPlaced++;
-                tile = new IslandTile(xPos, yPos);
+                tile = new IslandTile(xPos, zPos);
                 tiles.Add(tile);
                 tile = null;
 
@@ -117,8 +117,8 @@ public class Island : MonoBehaviour
         for (int i = 0; i < tiles.Count; i++)
         {
 
-            Vector3 vec3 = new Vector3(tiles[i].xPos, tiles[i].yPos, -1);
-            Instantiate(GameObject.FindWithTag("Island"), vec3, Quaternion.identity);
+            Vector3 vec3 = new Vector3(tiles[i].xPos, 1, tiles[i].zPos);
+            Instantiate(GameObject.FindWithTag("Island"), vec3, GameObject.FindWithTag("Island").transform.rotation);
         }
     }
 }
