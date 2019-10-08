@@ -5,8 +5,8 @@ using UnityEngine;
 // Requires MainMenu to have run first
 public class CameraMovement : MonoBehaviour
 {
-    InputManager inputManager;                                                              // Inpur manager
-    GameManager gameManager;                                                                // Game manager
+    InputManager _inputManager;                                                              // Input manager
+    GameManager _gameManager;                                                                // Game manager
 
     Rigidbody cameraBody;
     Camera cameraElement;
@@ -29,8 +29,8 @@ public class CameraMovement : MonoBehaviour
         // Initializes some values
         cameraBody = GetComponent<Rigidbody>();
         cameraElement = GetComponent<Camera>();
-        inputManager = GameManager.inputManager;
-        gameManager = FindObjectOfType<GameManager>();
+        _inputManager = GameManager.inputManager;
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     // Zooms the camera depending on the user's wishes
@@ -47,7 +47,7 @@ public class CameraMovement : MonoBehaviour
         cameraZoom = scrollValue; // updates camera zoom value so it does not get reset with the next update
 
         // Zooms if you are clicking the zoom key
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.ZOOM]))
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.ZOOM]))
             scrollValue -= zoomValue;
 
         cameraElement.fieldOfView = scrollValue;
@@ -76,28 +76,28 @@ public class CameraMovement : MonoBehaviour
         cameraElement.transform.rotation = Quaternion.Euler(0, cameraAngleX, 0);
 
         // Key detection for movement
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                // FORWARDS
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                // FORWARDS
         {
             cameraBody.velocity += cameraSpeed * transform.forward;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.LEFT]))                    // LEFT
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.LEFT]))                    // LEFT
         {
             cameraBody.velocity -= cameraSpeed * transform.right;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.RIGHT]))                   // RIGHT
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.RIGHT]))                   // RIGHT
         {
             cameraBody.velocity += cameraSpeed * transform.right;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))               // BACKWARDS
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))               // BACKWARDS
         {
             cameraBody.velocity -= cameraSpeed * transform.forward;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.UP]) &&                    // UP
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.UP]) &&                    // UP
             cameraBody.position.y < maximumHeight)
         {
             cameraBody.velocity += cameraSpeed * transform.up;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.DOWN]) &&                  // DOWN
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.DOWN]) &&                  // DOWN
             cameraBody.position.y > minimumHeight)
         {
             cameraBody.velocity -= cameraSpeed * transform.up;
@@ -111,7 +111,7 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         // Updates movement and mouse position if game is not paused, else sets movement speed to 0
-        if (!gameManager.isPaused)
+        if (!_gameManager.isPaused)
         {
             updateZoom();       // Updates the zoom of the camera
             updateRotation();   // Updates rotation of the camera

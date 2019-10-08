@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     public static InputManager inputManager;        // The input manager
     public bool isPaused = false;                   // Is paused
 
-    [SerializeField] Canvas optionsMenu;            // The options menu
-    [SerializeField] OptionsManager optionsManager; // The options manager
+    [SerializeField] Canvas _optionsMenu;            // The options menu
+    [SerializeField] OptionsManager _optionsManager; // The options manager
 
     GameObject currentButton;                       // Currently selected button name
 
@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
         {
             inputManager = new InputManager();
         }
-        
-        optionsMenu.enabled = false;
+
+        _optionsMenu.enabled = false;
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
                     inputManager.changeControl(inputManager.returnCurrentlySelectedAction(), vKey);
                     inputManager.finishedUpdateKey();
 
-                    optionsManager.UpdateButtonText(vKey, currentButton);
+                    _optionsManager.UpdateButtonText(vKey, currentButton);
 
                     break;
                 }
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     // Updates canvas to being active or inactive
     public void UpdateCanvas(bool active)
     {
-        optionsMenu.enabled = active;
+        _optionsMenu.enabled = active;
         isPaused = active;
     }
 

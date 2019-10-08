@@ -7,7 +7,7 @@ public class OptionsManager : MonoBehaviour
 {
 
     InputManager inputManager;                                                  // Inpur manager
-    [SerializeField]GameManager gameManager;                                    // The game manager object
+    [SerializeField]GameManager _gameManager;                                    // The game manager object
 
     // RUns on start
     private void Start()
@@ -20,7 +20,7 @@ public class OptionsManager : MonoBehaviour
     {
         if (Input.GetKeyDown(inputManager.bindings[(int)InputManager.Actions.PAUSE]))   // Pause
         {
-            gameManager.UpdateCanvas(!gameManager.isPaused);   // two bools rather then one because of
+            _gameManager.UpdateCanvas(!_gameManager.isPaused);   // two bools rather then one because of
         }
     }
 
