@@ -68,7 +68,8 @@ public class InputManager
         currentReSelect = (Actions)selectedAction;
         currentlyReSelectingInput = true;
     }
-    // Updates key
+
+    // Updates key when finished
     public void finishedUpdateKey()
     {
         currentlyReSelectingInput = false;
