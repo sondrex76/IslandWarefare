@@ -117,7 +117,7 @@ public class Island : MonoBehaviour
         for (int i = 0; i < tiles.Count; i++)
         {
 
-            Vector3 vec3 = new Vector3(tiles[i].xPos, 1, tiles[i].zPos);
+            Vector3 vec3 = new Vector3((float)tiles[i].xPos / 10f, 1, (float)tiles[i].zPos / 10f);
             Instantiate(GameObject.FindWithTag("Island"), vec3, GameObject.FindWithTag("Island").transform.rotation);
         }
     }
