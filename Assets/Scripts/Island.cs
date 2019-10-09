@@ -58,10 +58,11 @@ public class Island : MonoBehaviour
         dataArray = new float[size, size];
 
         //Set corners
-        dataArray[0, 0] = 1;
-        dataArray[size - 1, 0] = 1;
-        dataArray[0, size - 1] = 1;
-        dataArray[size - 1, size - 1] = 1;
+        dataArray[0, 0] = -1;
+        dataArray[size - 1, 0] = -1;
+        dataArray[0, size - 1] = -1;
+        dataArray[size - 1, size - 1] = -1;
+        dataArray[size / 2, size / 2] = 1;
 
         float h = 0.5f;
 
