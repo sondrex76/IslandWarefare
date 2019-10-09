@@ -49,9 +49,13 @@ public class Island : MonoBehaviour
         terrain = new GameObject();
         _terrainData = new TerrainData();
         DiamondSquare();
+        _terrainData.size = new Vector3(size, 20, size);
+        _terrainData.heightmapResolution = 32;
+        //_terrainData.baseMapResolution = 64;
+        //_terrainData.SetDetailResolution(64, 2);
         _terrainData.SetHeights(0, 0, dataArray);
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
-        terrain.transform.position = new Vector3(x * 75 + xOffSet, 2, z * 75 + xOffSet);
+        terrain.transform.position = new Vector3(x * 75 + xOffSet, 0, z * 75 + xOffSet);
 
         tiles.Add(tile);
 
@@ -146,10 +150,10 @@ public class Island : MonoBehaviour
         dataArray = new float[size, size];
 
         //Set corners
-        dataArray[0, 0] = 100;
-        dataArray[size - 1, 0] = 20;
-        dataArray[0, size - 1] = 100;
-        dataArray[size - 1, size - 1] = 50;
+        dataArray[0, 0] = 1;
+        dataArray[size - 1, 0] = 1;
+        dataArray[0, size - 1] = 1;
+        dataArray[size - 1, size - 1] = 1;
 
         float h = 0.5f;
 
