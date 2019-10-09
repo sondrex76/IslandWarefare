@@ -9,6 +9,9 @@ public class Island : MonoBehaviour
     public int zCord;
     public int IslandsNextTo;
 
+    protected int xOffSet;
+    protected int zOffSet;
+
     //Keeps info on whether there is an island next to it or not
     public int northIsland;
     public int eastIsland;
@@ -37,10 +40,9 @@ public class Island : MonoBehaviour
 
         //algorithm for placing the tiles
 
-        int xOffSet = Random.Range(-20, 20);
-        int zOffSet = Random.Range(-20, 20);
+        xOffSet = Random.Range(-20, 20);
+        zOffSet = Random.Range(-20, 20);
 
-        terrain = new GameObject();
         _terrainData = new TerrainData();
         DiamondSquare();
         _terrainData.size = new Vector3(size, 30, size);
@@ -48,9 +50,19 @@ public class Island : MonoBehaviour
         //_terrainData.baseMapResolution = 64;
         //_terrainData.SetDetailResolution(64, 2);
         _terrainData.SetHeights(0, 0, dataArray);
-        terrain = Terrain.CreateTerrainGameObject(_terrainData);
-        terrain.transform.position = new Vector3(x * 75 + xOffSet, 0, z * 75 + xOffSet);
         
+    }
+
+    public void StartRender()
+    {
+        terrain = new GameObject();
+        terrain = Terrain.CreateTerrainGameObject(_terrainData);
+        terrain.transform.position = new Vector3(xCord * 75 + xOffSet, 0, zCord * 75 + xOffSet);
+    }
+
+    public void EndRender()
+    {
+        Destroy(terrain.gameObject);
     }
 
     private void DiamondSquare()
