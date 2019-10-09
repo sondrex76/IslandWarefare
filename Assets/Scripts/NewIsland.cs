@@ -8,6 +8,12 @@ public class NewIsland : MonoBehaviour
     List<Island> iles;
     int amount, nextID;
     List<int> nearbyIsle;
+    List<int> renderedIslands;
+    List<int> unrenderedIslands;
+
+    [SerializeField]
+    private Camera _camera;
+    protected int distance = 200;   //Distance away from camera an island will be rendered
 
     //Debug
     protected int antIslands = 1000;
@@ -17,6 +23,8 @@ public class NewIsland : MonoBehaviour
     {
         iles = new List<Island>();
         nearbyIsle = new List<int>();
+        renderedIslands = new List<int>();
+        unrenderedIslands = new List<int>();
         amount = 0;
         //For now, till the game is online
         nextID = 0;
@@ -27,11 +35,50 @@ public class NewIsland : MonoBehaviour
         Debug.Log("Time for MyExpensiveFunction: " + (Time.time - temp).ToString("f6"));
     }
 
+    private void Update()
+    {
+        List<int> newRenders = new List<int>();
+        List<int> deRenders = new List<int>();
+
+        foreach (int id in renderedIslands)
+        {
+            if (!(iles[id].xCord * 75 > _camera.transform.position.x - distance) || !(iles[id].xCord * 75 < _camera.transform.position.x + distance) ||
+                !(iles[id].zCord * 75 > _camera.transform.position.z - distance) || !(iles[id].zCord * 75 < _camera.transform.position.z + distance))
+            {
+                unrenderedIslands.Add(id);
+                iles[id].EndRender();
+                newRenders.Add(id);
+            }
+        }
+
+        foreach (int id in unrenderedIslands)
+        {
+            if (iles[id].xCord * 75 > _camera.transform.position.x - distance && iles[id].xCord * 75 < _camera.transform.position.x + distance &&
+                iles[id].zCord * 75 > _camera.transform.position.z - distance && iles[id].zCord * 75 < _camera.transform.position.z + distance)
+            {
+                renderedIslands.Add(id);
+                iles[id].StartRender();
+                deRenders.Add(id);
+            }
+        }
+
+        foreach (int id in newRenders)
+        {
+            renderedIslands.Remove(id);
+        }
+
+        foreach (int id in deRenders)
+        {
+            unrenderedIslands.Remove(id);
+        }
+    }
+
     // Update is called once per frame
     void GenerateIsland()
     {
-        for (int j = 0; j < antIslands; j++) {
-            
+        for (int j = 0; j < antIslands; j++)
+        {
+
 
             //First island is to be added in the middle of the map
             if (iles.Count == 0)
@@ -47,7 +94,7 @@ public class NewIsland : MonoBehaviour
             {
                 int x = 0, y = 0;
                 bool placed = false;
-                
+
 
                 //Find a place with no island on it, or next to it
                 do
@@ -176,14 +223,29 @@ public class NewIsland : MonoBehaviour
                         }
                     }
                 }
-                
+
                 if (isle.IslandsNextTo != 4) nearbyIsle.Add(isle.ID);
 
                 iles.Add(isle);
                 isle = null;
                 amount++;
-                Debug.Log($"current amount of islands: {amount}");
+                //Debug.Log($"current amount of islands: {amount}");
             }
+        }
+
+        for (int i = 0; i < iles.Count; i++)
+        {
+            if (iles[i].xCord * 75 > _camera.transform.position.x - distance && iles[i].xCord * 75 < _camera.transform.position.x + distance &&
+                iles[i].zCord * 75 > _camera.transform.position.z - distance && iles[i].zCord * 75 < _camera.transform.position.z + distance)
+            {
+                renderedIslands.Add(iles[i].ID);
+            }
+            else unrenderedIslands.Add(iles[i].ID); 
+        }
+
+        foreach (int id in renderedIslands)
+        {
+            iles[id].StartRender();
         }
     }
 }

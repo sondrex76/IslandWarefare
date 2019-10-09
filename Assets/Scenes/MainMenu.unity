@@ -283,7 +283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.00038365612}
   m_SizeDelta: {x: 200, y: 249}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &185297373
@@ -2205,7 +2205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5db0c215268b848afb77b1384e27dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1807896992}
+  _gameManager: {fileID: 1807896992}
+  _buttons: {fileID: 118991106}
 --- !u!1 &1512152665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3186,6 +3187,16 @@ PrefabInstance:
     - target: {fileID: 4629434481905995461, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: optionsManager
+      value: 
+      objectReference: {fileID: 1496139812}
+    - target: {fileID: 4629434481905995461, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: _optionsMenu
+      value: 
+      objectReference: {fileID: 1496139807}
+    - target: {fileID: 4629434481905995461, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: _optionsManager
       value: 
       objectReference: {fileID: 1496139812}
     - target: {fileID: 4629434481905995460, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,

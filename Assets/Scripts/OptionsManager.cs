@@ -7,12 +7,20 @@ public class OptionsManager : MonoBehaviour
 {
 
     InputManager inputManager;                                                  // Inpur manager
-    [SerializeField]GameManager _gameManager;                                    // The game manager object
+    [SerializeField] GameManager _gameManager;                                    // The game manager object
+    [SerializeField] GameObject _buttons;
 
-    // RUns on start
+    // Runs on start
     private void Start()
     {
         inputManager = GameManager.inputManager;
+
+        // Updates button labels
+        for (int i = 0; i < inputManager.bindings.Length; i++)
+        {
+            // Gets the correct child, is offset with 2 since the back button and Key mappings string are above the options
+            UpdateButtonText(inputManager.bindings[i], _buttons.transform.GetChild(i + 2).gameObject);
+        }
     }
 
     // Runs every frame

@@ -53,8 +53,7 @@ public class GameManager : MonoBehaviour
     // Updates canvas to being active or inactive
     public void UpdateCanvas(bool active)
     {
-        _optionsMenu.enabled = active;
-        isPaused = active;
+        _optionsMenu.enabled = isPaused = active;
     }
 
     // Sets system to expect an action's input to be changed
