@@ -41,7 +41,14 @@ public class InputManager
     // Changes selected control to the specified key-code
     public void changeControl(Actions action, KeyCode keyCode)
     {
-        bindings[(int)action] = getKeyCodeFromPlayerPrefs(action, keyCode);
+        bindings[(int)action] = keyCode;
+        PlayerPrefs.SetString(action.ToString(), keyCode.ToString());
+    }
+
+    // Returns the keyCode version of the string
+    public KeyCode StringToKey(string keyCode)
+    {
+        return (KeyCode)System.Enum.Parse(typeof(KeyCode), keyCode);
     }
 
     // Gets keycode for specified action
