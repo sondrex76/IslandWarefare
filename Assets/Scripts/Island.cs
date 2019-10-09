@@ -15,6 +15,7 @@ public class Island : MonoBehaviour
     public int southIsland;
     public int westIsland;
 
+    //Size is always 2^x + 1, and 33 might just be the best size
     protected int size = 33;
     private float[,] dataArray;
     private GameObject terrain;
@@ -42,8 +43,8 @@ public class Island : MonoBehaviour
         terrain = new GameObject();
         _terrainData = new TerrainData();
         DiamondSquare();
-        _terrainData.size = new Vector3(size, 20, size);
-        _terrainData.heightmapResolution = 32;
+        _terrainData.size = new Vector3(size, 30, size);
+        _terrainData.heightmapResolution = size - 1;
         //_terrainData.baseMapResolution = 64;
         //_terrainData.SetDetailResolution(64, 2);
         _terrainData.SetHeights(0, 0, dataArray);
