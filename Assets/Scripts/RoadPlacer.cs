@@ -225,7 +225,7 @@ public class RoadPlacer : MonoBehaviour
                         Vector3 vectorThroughRoad = (connectingRoadEnd - connectingroadStart);
 
                         pts[0] = connectingRoadEnd;
-                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.2f;
+                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.5f;
                         pts[2] = new Vector3(pts[1].x, pts[1].y + 0.2f, pts[1].z); ;
                     }
                 }

@@ -10,14 +10,14 @@ public class roadStruct : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<MeshCollider>().convex = true;
+        gameObject.layer = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(2)){
-            GetComponent<MeshCollider>().convex = true;
-            gameObject.layer = 10;
-        }
+
+
     }
 }
