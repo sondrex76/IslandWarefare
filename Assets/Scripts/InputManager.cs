@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InputManager
 {
@@ -41,7 +39,14 @@ public class InputManager
     // Changes selected control to the specified key-code
     public void changeControl(Actions action, KeyCode keyCode)
     {
-        bindings[(int)action] = getKeyCodeFromPlayerPrefs(action, keyCode);
+        bindings[(int)action] = keyCode;
+        PlayerPrefs.SetString(action.ToString(), keyCode.ToString());
+    }
+
+    // Returns the keyCode version of the string
+    public KeyCode StringToKey(string keyCode)
+    {
+        return (KeyCode)System.Enum.Parse(typeof(KeyCode), keyCode);
     }
 
     // Gets keycode for specified action
@@ -68,7 +73,8 @@ public class InputManager
         currentReSelect = (Actions)selectedAction;
         currentlyReSelectingInput = true;
     }
-    // Updates key
+
+    // Updates key when finished
     public void finishedUpdateKey()
     {
         currentlyReSelectingInput = false;
