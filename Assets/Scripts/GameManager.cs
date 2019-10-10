@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);  // Stops object from being destroyed
+        // DontDestroyOnLoad(gameObject);  // Stops object from being destroyed
 
         if (inputManager == null)
         {

@@ -55,7 +55,6 @@ public class Island : MonoBehaviour
 
     public void StartRender()
     {
-        terrain = new GameObject();
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.transform.position = new Vector3(xCord * 75 + xOffSet, 0, zCord * 75 + xOffSet);
     }
