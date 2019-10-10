@@ -12,6 +12,9 @@ public class NewIsland : MonoBehaviour
     List<int> unrenderedIslands;
 
     [SerializeField]
+    protected List<Texture2D> textures;
+
+    [SerializeField]
     private Camera _camera;
     protected int distance = 200;   //Distance away from camera an island will be rendered
 
@@ -83,7 +86,7 @@ public class NewIsland : MonoBehaviour
             //First island is to be added in the middle of the map
             if (iles.Count == 0)
             {
-                Island isle = new Island(0, 0, nextID++);
+                Island isle = new Island(0, 0, nextID++, textures);
                 nearbyIsle.Add(isle.ID);
                 iles.Add(isle);
                 isle = null;
@@ -157,7 +160,7 @@ public class NewIsland : MonoBehaviour
                 } while (!placed);
 
                 //Once a place is found, add the island
-                Island isle = new Island(x, y, nextID++);
+                Island isle = new Island(x, y, nextID++, textures);
 
                 //Look for all the islands next to it
                 for (int i = nearbyIsle.Count - 1; i >= 0; i--)
