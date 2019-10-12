@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Island : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class Island : MonoBehaviour
     private GameObject terrain;
     private TerrainData _terrainData;
 
-    public Island(int x, int z, int islandID)
+    public Island(int x, int z, int islandID, List<Texture2D> textures)
     {
 
         ID = islandID;
@@ -50,11 +51,25 @@ public class Island : MonoBehaviour
         //_terrainData.baseMapResolution = 64;
         //_terrainData.SetDetailResolution(64, 2);
         _terrainData.SetHeights(0, 0, dataArray);
-        
+
+        TerrainLayer[] layer = new TerrainLayer[textures.Count];
+
+        for (int i = 0; i < textures.Count; i++)
+        {
+
+            layer[i] = new TerrainLayer();
+            layer[i].normalMapTexture = textures[i];
+            layer[i].diffuseTexture = textures[i];
+            layer[i].tileSize = new Vector2(1, 1);
+        }
+
+        _terrainData.terrainLayers = layer;
+
     }
 
     public void StartRender()
     {
+        AssignSplatMap();
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.transform.position = new Vector3(xCord * 75 + xOffSet, 0, zCord * 75 + xOffSet);
     }
@@ -62,6 +77,22 @@ public class Island : MonoBehaviour
     public void EndRender()
     {
         Destroy(terrain.gameObject);
+    }
+
+    private void AssignSplatMap()
+    {
+        float[,,] splatmapData = new float[_terrainData.alphamapWidth, _terrainData.alphamapHeight, _terrainData.alphamapLayers];
+
+        for (int y = 0; y < _terrainData.alphamapHeight; y++)
+        {
+            for (int x = 0; x < _terrainData.alphamapWidth; x++)
+            {
+                
+                    splatmapData[x, y, 0] = 1;
+            }
+        }
+
+        _terrainData.SetAlphamaps(0, 0, splatmapData);
     }
 
     private void DiamondSquare()
