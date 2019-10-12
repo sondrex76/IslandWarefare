@@ -67,6 +67,7 @@ public class RoadPlacer : MonoBehaviour
     int roadCounter = 0;
 
     public bool connecting = false;
+    bool straight;
 
 
 
@@ -208,6 +209,7 @@ public class RoadPlacer : MonoBehaviour
                     Instantiate(road);
                     Destroy(road);
                     roadCounter++;
+                    straight = false;
                 }
 
 
@@ -217,8 +219,9 @@ public class RoadPlacer : MonoBehaviour
                     if (!connecting){
                         startPoint = hit.point;
                         isPlacing = true;
-                        pts[0] = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
+                        pts[0] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
                         pts[2] = hit.point;
+                        straight = true;
                         Debug.Log("Starting placement of road");
                     } else
                     {
@@ -233,7 +236,7 @@ public class RoadPlacer : MonoBehaviour
                             Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
 
                             pts[0] = connectingroadStart;
-                            pts[1] = connectingroadStart - vectorThroughRoad * 0.09f;
+                            pts[1] = connectingroadStart - vectorThroughRoad * 0.1f;
                             pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
                         }
                         else
@@ -242,7 +245,7 @@ public class RoadPlacer : MonoBehaviour
                             Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
 
                             pts[0] = connectingRoadEnd;
-                            pts[1] = connectingRoadEnd + vectorThroughRoad * 0.09f;
+                            pts[1] = connectingRoadEnd + vectorThroughRoad * 0.1f;
                             pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
                         }
                         isPlacing = true;
@@ -250,6 +253,8 @@ public class RoadPlacer : MonoBehaviour
                         
                     }
                 }
+
+                connecting = false;
         }
 
             if (isPlacing)
@@ -267,15 +272,12 @@ public class RoadPlacer : MonoBehaviour
 
                 roadTemp.GetComponent<MeshRenderer>().material = m_material;
 
-                roadTemp.tag = "Road";
             }
 
 
             if (isPlacing){
-                if(!connecting){
-                    pts[1] = pts[3];
-                }
-                
+               
+              
                 if(hit.collider.gameObject.tag == "Road")
                 {
 
@@ -288,21 +290,35 @@ public class RoadPlacer : MonoBehaviour
                     {
                         Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
 
-                        pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * 0.09f;
+                        pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * 0.1f;
                         pts[3] = connectingRoad.roadStart;
                     }
                     else
                     {
                         Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
 
-                        pts[2] = connectingRoad.roadEnd + vectorThoughConnectingRoad * 0.09f;
+                        pts[2] = connectingRoad.roadEnd + vectorThoughConnectingRoad * 0.1f;
                         pts[3] = connectingRoad.roadEnd;
                     }
+
+
              
                 } else
                 {
+                    
+                    if (!connecting)
+                    {
+                        pts[2] = startPoint;
+                        pts[1] = hit.point;
+                    }else 
+                    {
+                        pts[2] = pts[1];
+                    }
+
                     pts[3] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
                 }
+
+                Debug.Log(connecting);
 
                 GenerateMesh(pts);
 
@@ -312,6 +328,8 @@ public class RoadPlacer : MonoBehaviour
             if (Input.GetMouseButtonDown(2)){
                 mesh.Clear();
                 isPlacing = false;
+                connecting = false;
+                straight = false;
             }
 
            
@@ -322,7 +340,9 @@ public class RoadPlacer : MonoBehaviour
 
         if(Physics.Raycast(ray2, out hit2, Mathf.Infinity, layerMask2)){
 
-            if (hit2.collider.gameObject.tag == "Road"){
+            Debug.Log(hit2.collider.tag);
+
+            if (hit2.collider.gameObject.tag == "Road" && !straight){
 
                 connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
                 connectingroadStart = hit2.collider.gameObject.GetComponent<roadStruct>().roadStart;
@@ -330,9 +350,10 @@ public class RoadPlacer : MonoBehaviour
 
                
                 connecting = true;
-        } else {
+        } else
+            {
                 connecting = false;
-            }
+               }
         } else if(!isPlacing)
         {
             connecting = false;
