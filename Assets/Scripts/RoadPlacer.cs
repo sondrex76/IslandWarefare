@@ -250,13 +250,8 @@ public class RoadPlacer : MonoBehaviour
                         
                     }
                 }
-
-        
-
-                
-
-
         }
+
             if (isPlacing)
             {
                 Destroy(roadTemp);
@@ -277,17 +272,46 @@ public class RoadPlacer : MonoBehaviour
 
 
             if (isPlacing){
-            if(!connecting){
+                if(!connecting){
                     pts[1] = pts[3];
-
                 }
-                pts[3] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+                
+                if(hit.collider.gameObject.tag == "Road")
+                {
+
+                    roadStruct connectingRoad = hit.collider.gameObject.GetComponent<roadStruct>();
+
+                    float distanceToStart = Vector3.Distance(hit.point, connectingRoad.roadStart);
+                    float distanceToEnd = Vector3.Distance(hit.point, connectingRoad.roadEnd);
+
+                    if(distanceToStart < distanceToEnd)
+                    {
+                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
+
+                        pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * 0.09f;
+                        pts[3] = connectingRoad.roadStart;
+                    }
+                    else
+                    {
+                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
+
+                        pts[2] = connectingRoad.roadEnd + vectorThoughConnectingRoad * 0.09f;
+                        pts[3] = connectingRoad.roadEnd;
+                    }
+             
+                } else
+                {
+                    pts[3] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+                }
+
                 GenerateMesh(pts);
+
+
             }
 
-        if(Input.GetMouseButtonDown(2)){
-            mesh.Clear();
-            isPlacing = false;
+            if (Input.GetMouseButtonDown(2)){
+                mesh.Clear();
+                isPlacing = false;
             }
 
            
@@ -299,10 +323,6 @@ public class RoadPlacer : MonoBehaviour
         if(Physics.Raycast(ray2, out hit2, Mathf.Infinity, layerMask2)){
 
             if (hit2.collider.gameObject.tag == "Road"){
-
-                Debug.Log("Road name: " + hit.collider.gameObject.name);
-
-
 
                 connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
                 connectingroadStart = hit2.collider.gameObject.GetComponent<roadStruct>().roadStart;
