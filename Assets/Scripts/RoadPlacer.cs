@@ -62,6 +62,7 @@ public class RoadPlacer : MonoBehaviour
 
     Vector3 connectingRoadEnd;
     Vector3 connectingroadStart;
+    Vector3 roadMiddlePoint;
 
     int roadCounter = 0;
 
@@ -200,6 +201,7 @@ public class RoadPlacer : MonoBehaviour
                     road.AddComponent<MeshCollider>();
                     road.GetComponent<roadStruct>().roadStart = pts[0];
                     road.GetComponent<roadStruct>().roadEnd = pts[3];
+                    road.GetComponent<roadStruct>().pivotPoint = pts[2];
                     road.tag = "Road";
                     Debug.Log("Placing new road");
                     isPlacing = false;
@@ -222,11 +224,11 @@ public class RoadPlacer : MonoBehaviour
                     {
                         isPlacing = true;
 
-                        Vector3 vectorThroughRoad = (connectingRoadEnd - connectingroadStart);
+                        Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
 
                         pts[0] = connectingRoadEnd;
-                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.5f;
-                        pts[2] = new Vector3(pts[1].x, pts[1].y + 0.2f, pts[1].z); ;
+                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.09f;
+                        pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z); ;
                     }
                 }
 
@@ -260,7 +262,7 @@ public class RoadPlacer : MonoBehaviour
                     pts[1] = pts[3];
 
                 }
-                pts[3] = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
+                pts[3] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
                 GenerateMesh(pts);
             }
 
@@ -285,6 +287,7 @@ public class RoadPlacer : MonoBehaviour
 
                 connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
                 connectingroadStart = hit2.collider.gameObject.GetComponent<roadStruct>().roadStart;
+                roadMiddlePoint = hit2.collider.gameObject.GetComponent<roadStruct>().pivotPoint;
 
                
                 connecting = true;
