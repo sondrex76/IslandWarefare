@@ -222,13 +222,32 @@ public class RoadPlacer : MonoBehaviour
                         Debug.Log("Starting placement of road");
                     } else
                     {
+
+                        float distanceToStart = Vector3.Distance(hit.point, connectingroadStart);
+                        float distanceToEnd = Vector3.Distance(hit.point, connectingRoadEnd);
+                        Vector3 closestPoint;
+                        int test;
+
+                        if (distanceToStart < distanceToEnd)
+                        {
+                            Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
+
+                            pts[0] = connectingroadStart;
+                            pts[1] = connectingroadStart - vectorThroughRoad * 0.09f;
+                            pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
+                        }
+                        else
+                        {
+
+                            Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
+
+                            pts[0] = connectingRoadEnd;
+                            pts[1] = connectingRoadEnd + vectorThroughRoad * 0.09f;
+                            pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
+                        }
                         isPlacing = true;
-
-                        Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
-
-                        pts[0] = connectingRoadEnd;
-                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.09f;
-                        pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z); ;
+                      
+                        
                     }
                 }
 
