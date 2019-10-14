@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSpeed: 7
   cameraAngleX: 0
-  cameraAngleY: 0
+  cameraAngleY: 30
   cameraZoom: 90
   zoomSpeed: 2
   horizontalAngularSpeed: 5
@@ -99,8 +99,8 @@ MonoBehaviour:
   maximumZoom: 150
   minimumHeight: 0
   maximumHeight: 100
-  minimumVerticalTilt: -20
-  maximumVerticalTilt: 20
+  minimumVerticalTilt: -35
+  maximumVerticalTilt: 35
   zoomValue: 20
   reverseVertical: 0
 --- !u!54 &5249086544048794026

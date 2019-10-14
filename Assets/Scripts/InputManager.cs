@@ -3,6 +3,8 @@
 public class InputManager
 {
     bool currentlyReSelectingInput = false; // Is currently in the process of rebinding a key
+    public bool frozenAngle = true;         // Is the camera's angle frozen?
+
     Actions currentReSelect;                // Key currently being rebounded
     GameObject currentButton;               // Currently selected button
 
@@ -16,7 +18,8 @@ public class InputManager
         UP,
         DOWN,
         ZOOM,
-        PAUSE
+        PAUSE,
+        CHANGE_CAMERA_MODE
     };
 
     public KeyCode[] bindings;
@@ -34,6 +37,7 @@ public class InputManager
         bindings[(int)Actions.DOWN] = getKeyCodeFromPlayerPrefs(Actions.DOWN, KeyCode.LeftShift);
         bindings[(int)Actions.ZOOM] = getKeyCodeFromPlayerPrefs(Actions.ZOOM, KeyCode.LeftControl);
         bindings[(int)Actions.PAUSE] = getKeyCodeFromPlayerPrefs(Actions.PAUSE, KeyCode.Escape);
+        bindings[(int)Actions.CHANGE_CAMERA_MODE] = getKeyCodeFromPlayerPrefs(Actions.CHANGE_CAMERA_MODE, KeyCode.LeftAlt);
     }
 
     // Changes selected control to the specified key-code

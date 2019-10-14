@@ -22,7 +22,6 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] bool reverseVertical = false;                                          // Bool for determining if vertical mvoement should be inverted
     // float previousTime;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -76,31 +75,35 @@ public class CameraMovement : MonoBehaviour
         cameraElement.transform.rotation = Quaternion.Euler(0, cameraAngleX, 0);
 
         // Key detection for movement
-        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                // FORWARDS
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                   // FORWARDS
         {
             cameraBody.velocity += cameraSpeed * transform.forward;
         }
-        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.LEFT]))                    // LEFT
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.LEFT]))                       // LEFT
         {
             cameraBody.velocity -= cameraSpeed * transform.right;
         }
-        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.RIGHT]))                   // RIGHT
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.RIGHT]))                      // RIGHT
         {
             cameraBody.velocity += cameraSpeed * transform.right;
         }
-        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))               // BACKWARDS
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))                  // BACKWARDS
         {
             cameraBody.velocity -= cameraSpeed * transform.forward;
         }
-        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.UP]) &&                    // UP
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.UP]) &&                       // UP
             cameraBody.position.y < maximumHeight)
         {
             cameraBody.velocity += cameraSpeed * transform.up;
         }
-        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.DOWN]) &&                  // DOWN
+        if (Input.GetKey(_inputManager.bindings[(int)InputManager.Actions.DOWN]) &&                     // DOWN
             cameraBody.position.y > minimumHeight)
         {
             cameraBody.velocity -= cameraSpeed * transform.up;
+        }
+
+        if (Input.GetKeyDown(_inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE])) {   // Turn camera angle on or off
+            _inputManager.frozenAngle = !_inputManager.frozenAngle;
         }
 
         // Resets vertical angle
@@ -113,9 +116,9 @@ public class CameraMovement : MonoBehaviour
         // Updates movement and mouse position if game is not paused, else sets movement speed to 0
         if (!_gameManager.isPaused)
         {
-            updateZoom();       // Updates the zoom of the camera
-            updateRotation();   // Updates rotation of the camera
-            updatePosition();   // Updates position of the camera
+            updateZoom();                                       // Updates the zoom of the camera
+            updatePosition();                                   // Updates position of the camera
+            if (!_inputManager.frozenAngle) updateRotation();   // Updates rotation of the camera
         }
         else
         {

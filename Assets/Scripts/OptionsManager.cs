@@ -65,6 +65,9 @@ public class OptionsManager : MonoBehaviour
             case "PauseInput":
                 newText = "Pause";
                 break;
+            case "ChangeCameraModeInput":
+                newText = "Change camera mode";
+                break;
         }
 
         newText += "(" + key + ")"; // Adds the key for current button to the base text
