@@ -62,10 +62,12 @@ public class RoadPlacer : MonoBehaviour
 
     Vector3 connectingRoadEnd;
     Vector3 connectingroadStart;
+    Vector3 roadMiddlePoint;
 
     int roadCounter = 0;
 
     public bool connecting = false;
+    bool straight;
 
 
 
@@ -200,12 +202,14 @@ public class RoadPlacer : MonoBehaviour
                     road.AddComponent<MeshCollider>();
                     road.GetComponent<roadStruct>().roadStart = pts[0];
                     road.GetComponent<roadStruct>().roadEnd = pts[3];
+                    road.GetComponent<roadStruct>().pivotPoint = pts[2];
                     road.tag = "Road";
                     Debug.Log("Placing new road");
                     isPlacing = false;
                     Instantiate(road);
                     Destroy(road);
                     roadCounter++;
+                    straight = false;
                 }
 
 
@@ -215,27 +219,44 @@ public class RoadPlacer : MonoBehaviour
                     if (!connecting){
                         startPoint = hit.point;
                         isPlacing = true;
-                        pts[0] = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
+                        pts[0] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
                         pts[2] = hit.point;
+                        straight = true;
                         Debug.Log("Starting placement of road");
                     } else
                     {
+
+                        float distanceToStart = Vector3.Distance(hit.point, connectingroadStart);
+                        float distanceToEnd = Vector3.Distance(hit.point, connectingRoadEnd);
+                        Vector3 closestPoint;
+                        int test;
+
+                        if (distanceToStart < distanceToEnd)
+                        {
+                            Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
+
+                            pts[0] = connectingroadStart;
+                            pts[1] = connectingroadStart - vectorThroughRoad * 0.1f;
+                            pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
+                        }
+                        else
+                        {
+
+                            Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
+
+                            pts[0] = connectingRoadEnd;
+                            pts[1] = connectingRoadEnd + vectorThroughRoad * 0.1f;
+                            pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
+                        }
                         isPlacing = true;
-
-                        Vector3 vectorThroughRoad = (connectingRoadEnd - connectingroadStart);
-
-                        pts[0] = connectingRoadEnd;
-                        pts[1] = connectingRoadEnd + vectorThroughRoad * 0.2f;
-                        pts[2] = new Vector3(pts[1].x, pts[1].y + 0.2f, pts[1].z); ;
+                      
+                        
                     }
                 }
 
-        
-
-                
-
-
+                connecting = false;
         }
+
             if (isPlacing)
             {
                 Destroy(roadTemp);
@@ -251,22 +272,64 @@ public class RoadPlacer : MonoBehaviour
 
                 roadTemp.GetComponent<MeshRenderer>().material = m_material;
 
-                roadTemp.tag = "Road";
             }
 
 
             if (isPlacing){
-            if(!connecting){
-                    pts[1] = pts[3];
+               
+              
+                if(hit.collider.gameObject.tag == "Road")
+                {
 
+                    roadStruct connectingRoad = hit.collider.gameObject.GetComponent<roadStruct>();
+
+                    float distanceToStart = Vector3.Distance(hit.point, connectingRoad.roadStart);
+                    float distanceToEnd = Vector3.Distance(hit.point, connectingRoad.roadEnd);
+
+                    if(distanceToStart < distanceToEnd)
+                    {
+                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
+
+                        pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * 0.1f;
+                        pts[3] = connectingRoad.roadStart;
+                    }
+                    else
+                    {
+                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
+
+                        pts[2] = connectingRoad.roadEnd + vectorThoughConnectingRoad * 0.1f;
+                        pts[3] = connectingRoad.roadEnd;
+                    }
+
+
+             
+                } else
+                {
+                    
+                    if (!connecting)
+                    {
+                        pts[2] = startPoint;
+                        pts[1] = hit.point;
+                    }else 
+                    {
+                        pts[2] = pts[1];
+                    }
+
+                    pts[3] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
                 }
-                pts[3] = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
+
+                Debug.Log(connecting);
+
                 GenerateMesh(pts);
+
+
             }
 
-        if(Input.GetMouseButtonDown(2)){
-            mesh.Clear();
-            isPlacing = false;
+            if (Input.GetMouseButtonDown(2)){
+                mesh.Clear();
+                isPlacing = false;
+                connecting = false;
+                straight = false;
             }
 
            
@@ -277,20 +340,20 @@ public class RoadPlacer : MonoBehaviour
 
         if(Physics.Raycast(ray2, out hit2, Mathf.Infinity, layerMask2)){
 
-            if (hit2.collider.gameObject.tag == "Road"){
+            Debug.Log(hit2.collider.tag);
 
-                Debug.Log("Road name: " + hit.collider.gameObject.name);
-
-
+            if (hit2.collider.gameObject.tag == "Road" && !straight){
 
                 connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
                 connectingroadStart = hit2.collider.gameObject.GetComponent<roadStruct>().roadStart;
+                roadMiddlePoint = hit2.collider.gameObject.GetComponent<roadStruct>().pivotPoint;
 
                
                 connecting = true;
-        } else {
+        } else
+            {
                 connecting = false;
-            }
+               }
         } else if(!isPlacing)
         {
             connecting = false;
