@@ -9,11 +9,15 @@ public class GameManager : MonoBehaviour
     public static InputManager inputManager;        // The input manager
     public bool isPaused = false;                   // Is paused
 
-    [SerializeField] Canvas _optionsMenu;            // The options menu
-    [SerializeField] OptionsManager _optionsManager; // The options manager
+    // Resources
+    public int resourceMoney = 0;
+    public int resourceOil = 0;
+    public int resourceFood = 0;
 
-    GameObject currentButton;                       // Currently selected button name
-
+    // Options
+    [SerializeField] Canvas optionsMenu;            // The options menu
+    [SerializeField] OptionsManager optionsManager; // The options manager
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,42 +28,19 @@ public class GameManager : MonoBehaviour
             inputManager = new InputManager();
         }
 
-        _optionsMenu.enabled = false;
+        optionsMenu.enabled = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Checks if a key is currently being rebound
-        if (inputManager.isSelectingInput())    
-        {
-            // Gets the currently clicked button if there are any
-            foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
-            {
-                if (Input.GetKey(vKey))
-                {
-                    inputManager.changeControl(inputManager.returnCurrentlySelectedAction(), vKey);
-                    inputManager.finishedUpdateKey();
-
-                    _optionsManager.UpdateButtonText(vKey, currentButton);
-
-                    break;
-                }
-            }
-        }
-        // Insert code here
-    }
-
+    
     // Updates canvas to being active or inactive
     public void UpdateCanvas(bool active)
     {
-        _optionsMenu.enabled = isPaused = active;
+        optionsMenu.enabled = isPaused = active;
     }
 
     // Sets system to expect an action's input to be changed
     public void UpdateInputKey(int selectedAction)
     {
         inputManager.updateSelectedAction(selectedAction);
-        currentButton = EventSystem.current.currentSelectedGameObject;
+        optionsManager.currentButton = EventSystem.current.currentSelectedGameObject;
     }
 }
