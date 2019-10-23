@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class OptionsManager : MonoBehaviour
 {
-
-    InputManager inputManager;                                                  // Inpur manager
-    [SerializeField] GameManager _gameManager;                                    // The game manager object
-    [SerializeField] GameObject _buttons;
+    public GameObject currentButton;                                            // Currently selected button for input change
+    InputManager inputManager;                                                  // Input manager 
+    [SerializeField] GameManager gameManager;                                   // The game manager object
+    [SerializeField] GameObject buttons;
 
     // Runs on start
     private void Start()
@@ -19,7 +19,7 @@ public class OptionsManager : MonoBehaviour
         for (int i = 0; i < inputManager.bindings.Length; i++)
         {
             // Gets the correct child, is offset with 2 since the back button and Key mappings string are above the options
-            UpdateButtonText(inputManager.bindings[i], _buttons.transform.GetChild(i + 2).gameObject);
+            UpdateButtonText(inputManager.bindings[i], buttons.transform.GetChild(i + 2).gameObject);
         }
     }
 
@@ -28,7 +28,25 @@ public class OptionsManager : MonoBehaviour
     {
         if (Input.GetKeyDown(inputManager.bindings[(int)InputManager.Actions.PAUSE]))   // Pause
         {
-            _gameManager.UpdateCanvas(!_gameManager.isPaused);   // two bools rather then one because of
+            gameManager.UpdateCanvas(!gameManager.isPaused);   // two bools rather then one because of
+        }
+
+        // Input change
+        if (inputManager.isSelectingInput()) // Checks if a key is currently being rebound
+        {
+            // Gets the currently clicked button if there are any
+            foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKey(vKey))
+                {
+                    inputManager.changeControl(inputManager.returnCurrentlySelectedAction(), vKey);
+                    inputManager.finishedUpdateKey();
+
+                    UpdateButtonText(vKey, currentButton);
+
+                    break;
+                }
+            }
         }
     }
 
