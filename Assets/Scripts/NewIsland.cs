@@ -12,11 +12,12 @@ public class NewIsland : MonoBehaviour
     List<int> unrenderedIslands;
 
     [SerializeField]
-    protected List<Texture2D> textures;
+    protected Material material;
 
     [SerializeField]
     private Camera _camera;
-    protected int distance = 200;   //Distance away from camera an island will be rendered
+    protected int distance = 100;   //Distance away from camera an island will be rendered
+    private int islandDistance = 350;
 
     //Debug
     protected int antIslands = 1000;
@@ -33,7 +34,7 @@ public class NewIsland : MonoBehaviour
         nextID = 0;
         Random.InitState(91133);
 
-        var temp = Time.time;
+        float temp = Time.time;
         GenerateIsland();
         Debug.Log("Time for MyExpensiveFunction: " + (Time.time - temp).ToString("f6"));
     }
@@ -45,8 +46,8 @@ public class NewIsland : MonoBehaviour
 
         foreach (int id in renderedIslands)
         {
-            if (!(iles[id].xCord * 75 > _camera.transform.position.x - distance) || !(iles[id].xCord * 75 < _camera.transform.position.x + distance) ||
-                !(iles[id].zCord * 75 > _camera.transform.position.z - distance) || !(iles[id].zCord * 75 < _camera.transform.position.z + distance))
+            if (!(iles[id].xCord * islandDistance > _camera.transform.position.x - distance) || !(iles[id].xCord * islandDistance < _camera.transform.position.x + distance) ||
+                !(iles[id].zCord * islandDistance > _camera.transform.position.z - distance) || !(iles[id].zCord * islandDistance < _camera.transform.position.z + distance))
             {
                 unrenderedIslands.Add(id);
                 iles[id].EndRender();
@@ -56,8 +57,8 @@ public class NewIsland : MonoBehaviour
 
         foreach (int id in unrenderedIslands)
         {
-            if (iles[id].xCord * 75 > _camera.transform.position.x - distance && iles[id].xCord * 75 < _camera.transform.position.x + distance &&
-                iles[id].zCord * 75 > _camera.transform.position.z - distance && iles[id].zCord * 75 < _camera.transform.position.z + distance)
+            if (iles[id].xCord * islandDistance > _camera.transform.position.x - distance && iles[id].xCord * islandDistance < _camera.transform.position.x + distance &&
+                iles[id].zCord * islandDistance > _camera.transform.position.z - distance && iles[id].zCord * islandDistance < _camera.transform.position.z + distance)
             {
                 renderedIslands.Add(id);
                 iles[id].StartRender();
@@ -86,7 +87,7 @@ public class NewIsland : MonoBehaviour
             //First island is to be added in the middle of the map
             if (iles.Count == 0)
             {
-                Island isle = new Island(0, 0, nextID++, textures);
+                Island isle = new Island(0, 0, nextID++, material);
                 nearbyIsle.Add(isle.ID);
                 iles.Add(isle);
                 isle = null;
@@ -160,7 +161,7 @@ public class NewIsland : MonoBehaviour
                 } while (!placed);
 
                 //Once a place is found, add the island
-                Island isle = new Island(x, y, nextID++, textures);
+                Island isle = new Island(x, y, nextID++, material);
 
                 //Look for all the islands next to it
                 for (int i = nearbyIsle.Count - 1; i >= 0; i--)

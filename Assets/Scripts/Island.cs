@@ -19,19 +19,22 @@ public class Island : MonoBehaviour
     public int southIsland;
     public int westIsland;
 
+    protected Material _material;
+
     //Size is always 2^x + 1, and 33 might just be the best size
-    protected int size = 33;
+    protected int size = 129;
     private float[,] dataArray;
     private GameObject terrain;
     private TerrainData _terrainData;
 
-    public Island(int x, int z, int islandID, List<Texture2D> textures)
+    public Island(int x, int z, int islandID, Material material)
     {
 
         ID = islandID;
         xCord = x;
         zCord = z;
         IslandsNextTo = 0;
+        _material = material;
 
         //Always starts with no island next to it
         northIsland = -1;
@@ -44,14 +47,18 @@ public class Island : MonoBehaviour
         xOffSet = Random.Range(-20, 20);
         zOffSet = Random.Range(-20, 20);
 
+        PerlinNoise noise = new PerlinNoise();
+
         _terrainData = new TerrainData();
-        DiamondSquare();
-        _terrainData.size = new Vector3(size, 30, size);
+        //DiamondSquare();
+        dataArray = noise.GetPerlinNoise(size, size, ID);
+        _terrainData.size = new Vector3(size, 100, size);
         _terrainData.heightmapResolution = size - 1;
         //_terrainData.baseMapResolution = 64;
         //_terrainData.SetDetailResolution(64, 2);
         _terrainData.SetHeights(0, 0, dataArray);
 
+        /*
         TerrainLayer[] layer = new TerrainLayer[textures.Count];
 
         for (int i = 0; i < textures.Count; i++)
@@ -64,19 +71,22 @@ public class Island : MonoBehaviour
         }
 
         _terrainData.terrainLayers = layer;
+        */
 
     }
 
     public void StartRender()
     {
-        AssignSplatMap();
+        //AssignSplatMap();
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
-        terrain.transform.position = new Vector3(xCord * 75 + xOffSet, 0, zCord * 75 + xOffSet);
+        terrain.AddComponent<MeshRenderer>();
+        terrain.GetComponent<MeshRenderer>().material = _material;
+        terrain.transform.position = new Vector3(xCord * 350 + xOffSet, -0.1f, zCord * 350 + xOffSet);
     }
 
     public void EndRender()
     {
-        Destroy(terrain.gameObject);
+        Destroy(terrain);
     }
 
     private void AssignSplatMap()
@@ -94,72 +104,5 @@ public class Island : MonoBehaviour
 
         _terrainData.SetAlphamaps(0, 0, splatmapData);
     }
-
-    private void DiamondSquare()
-    {
-        //Declare array
-        dataArray = new float[size, size];
-
-        //Set corners
-        dataArray[0, 0] = -1;
-        dataArray[size - 1, 0] = -1;
-        dataArray[0, size - 1] = -1;
-        dataArray[size - 1, size - 1] = -1;
-        dataArray[size / 2, size / 2] = 1;
-
-        float h = 0.5f;
-
-        float val;
-        float rnd;
-
-        for (int i = size - 1; i >= 2; i /= 2)
-        {
-            int halfSide = i / 2;
-
-            //Square values
-            for (int x = 0; x < size - 1; x += i)
-            {
-                for (int y = 0; y < size - 1; y += i)
-                {
-                    val = dataArray[x, y];
-                    val += dataArray[x + i, y];
-                    val += dataArray[x, y + i];
-                    val += dataArray[x + i, y + i];
-
-                    val /= 4;
-
-                    rnd = (Random.value * 2.0f * h) - h;
-                    val = Mathf.Clamp01(val + rnd);
-
-                    dataArray[x + halfSide, y + halfSide] = val;
-                }
-            }
-
-
-            //Diamond values
-            for (int x = 0; x < size - 1; x += halfSide)
-            {
-                for (int y = (x + halfSide) % i; y < size - 1; y += i)
-                {
-                    val = dataArray[(x - halfSide + size - 1) % (size - 1), y];
-                    val += dataArray[(x + halfSide) % (size - 1), y];
-                    val += dataArray[x, (y + halfSide) % (size - 1)];
-                    val += dataArray[x, (y - halfSide + size - 1) % (size - 1)];
-
-                    val /= 4;
-
-                    rnd = (Random.value * 2 * h) - h;
-                    val = Mathf.Clamp01(val + rnd);
-
-                    dataArray[x, y] = val;
-
-                    if (x == 0) dataArray[size - 1, y] = val;
-                    if (y == 0) dataArray[x, size - 1] = val;
-                }
-            }
-
-            h /= 2;
-        }
-
-    }
+    
 }
