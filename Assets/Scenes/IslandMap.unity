@@ -214,8 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a421c3802b364c949b50dc44a5262814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textures:
-  - {fileID: 2800000, guid: a613fbf292eac8a4fa9d103ae650c142, type: 3}
+  material: {fileID: 2100000, guid: 25a073c9c90d00346af3abc79ecb136a, type: 2}
   _camera: {fileID: 1756119169}
 --- !u!4 &1150472332
 Transform:

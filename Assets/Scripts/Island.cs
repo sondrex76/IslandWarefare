@@ -72,8 +72,7 @@ public class Island : MonoBehaviour
         _terrainData.heightmapResolution = size - 1;
         _terrainData.SetHeights(0, 0, dataArray);
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
-        terrain.AddComponent<MeshRenderer>();
-        terrain.GetComponent<MeshRenderer>().material = _material;
+        terrain.GetComponent<Terrain>().materialTemplate = _material;
         terrain.transform.position = new Vector3(xCord * 850 + xOffSet, -0.1f, zCord * 850 + xOffSet);
     }
 
