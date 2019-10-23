@@ -37,6 +37,11 @@ public class NewIsland : MonoBehaviour
         float temp = Time.time;
         GenerateIsland();
         Debug.Log("Time for MyExpensiveFunction: " + (Time.time - temp).ToString("f6"));
+
+        foreach(Island ile in iles)
+        {
+            ile.DeleteMapSave();
+        }
     }
 
     private void Update()
@@ -61,7 +66,7 @@ public class NewIsland : MonoBehaviour
                 iles[id].zCord * islandDistance > _camera.transform.position.z - distance && iles[id].zCord * islandDistance < _camera.transform.position.z + distance)
             {
                 renderedIslands.Add(id);
-                iles[id].StartRender();
+                //iles[id].StartRender();
                 deRenders.Add(id);
             }
         }

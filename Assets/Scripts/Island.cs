@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using System.Linq;
 
 public class Island : MonoBehaviour
 {
@@ -23,9 +24,7 @@ public class Island : MonoBehaviour
 
     //Size is always 2^x + 1, and 33 might just be the best size
     protected int size = 129;
-    private float[,] dataArray;
     private GameObject terrain;
-    private TerrainData _terrainData;
 
     public Island(int x, int z, int islandID, Material material)
     {
@@ -47,37 +46,27 @@ public class Island : MonoBehaviour
         xOffSet = Random.Range(-20, 20);
         zOffSet = Random.Range(-20, 20);
 
-        PerlinNoise noise = new PerlinNoise();
-
-        _terrainData = new TerrainData();
-        //DiamondSquare();
-        dataArray = noise.GetPerlinNoise(size, size, ID);
-        _terrainData.size = new Vector3(size, 100, size);
-        _terrainData.heightmapResolution = size - 1;
-        //_terrainData.baseMapResolution = 64;
-        //_terrainData.SetDetailResolution(64, 2);
-        _terrainData.SetHeights(0, 0, dataArray);
-
-        /*
-        TerrainLayer[] layer = new TerrainLayer[textures.Count];
-
-        for (int i = 0; i < textures.Count; i++)
+        if (File.Exists(Application.persistentDataPath + "/island" + ID))
         {
+            PerlinNoise noise = new PerlinNoise();
 
-            layer[i] = new TerrainLayer();
-            layer[i].normalMapTexture = textures[i];
-            layer[i].diffuseTexture = textures[i];
-            layer[i].tileSize = new Vector2(1, 1);
+            TerrainData _terrainData = new TerrainData();
+            //DiamondSquare();
+            float[,] dataArray = noise.GetPerlinNoise(size, size, ID);
+            _terrainData.size = new Vector3(size, 100, size);
+            _terrainData.heightmapResolution = size - 1;
+            //_terrainData.baseMapResolution = 64;
+            //_terrainData.SetDetailResolution(64, 2);
+            _terrainData.SetHeights(0, 0, dataArray);
         }
-
-        _terrainData.terrainLayers = layer;
-        */
 
     }
 
     public void StartRender()
     {
-        //AssignSplatMap();
+        TerrainData _terrainData = new TerrainData();
+        float[,] dataArray = LoadMap();
+        _terrainData.SetHeights(0, 0, dataArray);
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.AddComponent<MeshRenderer>();
         terrain.GetComponent<MeshRenderer>().material = _material;
@@ -88,21 +77,35 @@ public class Island : MonoBehaviour
     {
         Destroy(terrain);
     }
-
-    private void AssignSplatMap()
+    
+    private void SaveMap(float[,] dataArr)
     {
-        float[,,] splatmapData = new float[_terrainData.alphamapWidth, _terrainData.alphamapHeight, _terrainData.alphamapLayers];
+        BinaryFormatter bf = new BinaryFormatter();
 
-        for (int y = 0; y < _terrainData.alphamapHeight; y++)
+        IslandSave save = new IslandSave(dataArr);
+        FileStream file = File.Create(Application.persistentDataPath + "/island" + ID);
+        bf.Serialize(file, save);
+        file.Close();
+    }
+
+    private float[,] LoadMap()
+    {
+        if (File.Exists(Application.persistentDataPath + "/island" + ID))
         {
-            for (int x = 0; x < _terrainData.alphamapWidth; x++)
-            {
-                
-                    splatmapData[x, y, 0] = 1;
-            }
+            BinaryFormatter bf = new BinaryFormatter();
+
+            FileStream file = File.Open(Application.persistentDataPath + "/island" + ID, FileMode.Open);
+            IslandSave save = (IslandSave)bf.Deserialize(file);
+            file.Close();
+
+            return save._heightMap;
         }
 
-        _terrainData.SetAlphamaps(0, 0, splatmapData);
+        return null;
     }
-    
+
+    public void DeleteMapSave()
+    {
+        File.Delete(Application.persistentDataPath + "/island" + ID);
+    }
 }
