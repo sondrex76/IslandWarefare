@@ -20,7 +20,7 @@ public class PerlinNoise
                 map[x,z] = Mathf.Clamp01(Mathf.PerlinNoise(X , Z) - distanceSquared(x, z, xWidth, zWidth));
             }
         }
-
+        
         return map;
     }
 

@@ -16,8 +16,8 @@ public class NewIsland : MonoBehaviour
 
     [SerializeField]
     private Camera _camera;
-    protected int distance = 100;   //Distance away from camera an island will be rendered
-    private int islandDistance = 350;
+    protected int distance = 5000;   //Distance away from camera an island will be rendered
+    private int islandDistance = 850;
 
     //Debug
     protected int antIslands = 1000;
@@ -25,6 +25,7 @@ public class NewIsland : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         iles = new List<Island>();
         nearbyIsle = new List<int>();
         renderedIslands = new List<int>();
@@ -37,15 +38,21 @@ public class NewIsland : MonoBehaviour
         float temp = Time.time;
         GenerateIsland();
         Debug.Log("Time for MyExpensiveFunction: " + (Time.time - temp).ToString("f6"));
-
-        foreach(Island ile in iles)
-        {
-            ile.DeleteMapSave();
-        }
+        
     }
 
     private void Update()
     {
+        //Debug only
+        if (Input.GetKeyDown(KeyCode.D) && Application.platform== RuntimePlatform.WindowsEditor)
+        {
+            Debug.Log("Deleting island saves");
+            foreach (Island ile in iles)
+            {
+                ile.DeleteMapSave();
+            }
+        }
+
         List<int> newRenders = new List<int>();
         List<int> deRenders = new List<int>();
 

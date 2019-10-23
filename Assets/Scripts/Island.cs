@@ -14,6 +14,8 @@ public class Island : MonoBehaviour
     protected int xOffSet;
     protected int zOffSet;
 
+    private string fileName;
+
     //Keeps info on whether there is an island next to it or not
     public int northIsland;
     public int eastIsland;
@@ -34,6 +36,7 @@ public class Island : MonoBehaviour
         zCord = z;
         IslandsNextTo = 0;
         _material = material;
+        fileName = "/island" + ID;
 
         //Always starts with no island next to it
         northIsland = -1;
@@ -43,34 +46,35 @@ public class Island : MonoBehaviour
 
         //algorithm for placing the tiles
 
-        xOffSet = Random.Range(-20, 20);
-        zOffSet = Random.Range(-20, 20);
+        xOffSet = Random.Range(-100, 100);
+        zOffSet = Random.Range(-100, 100);
 
-        if (File.Exists(Application.persistentDataPath + "/island" + ID))
+        if (!File.Exists(Application.persistentDataPath + "/island" + ID))
         {
+            Debug.Log(ID);
             PerlinNoise noise = new PerlinNoise();
 
             TerrainData _terrainData = new TerrainData();
             //DiamondSquare();
             float[,] dataArray = noise.GetPerlinNoise(size, size, ID);
-            _terrainData.size = new Vector3(size, 100, size);
-            _terrainData.heightmapResolution = size - 1;
-            //_terrainData.baseMapResolution = 64;
-            //_terrainData.SetDetailResolution(64, 2);
-            _terrainData.SetHeights(0, 0, dataArray);
+            SaveMap(dataArray);
+            
         }
 
     }
 
     public void StartRender()
     {
+        Debug.Log("Trying to render " + ID);
         TerrainData _terrainData = new TerrainData();
         float[,] dataArray = LoadMap();
+        _terrainData.size = new Vector3(size, 100, size);
+        _terrainData.heightmapResolution = size - 1;
         _terrainData.SetHeights(0, 0, dataArray);
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.AddComponent<MeshRenderer>();
         terrain.GetComponent<MeshRenderer>().material = _material;
-        terrain.transform.position = new Vector3(xCord * 350 + xOffSet, -0.1f, zCord * 350 + xOffSet);
+        terrain.transform.position = new Vector3(xCord * 850 + xOffSet, -0.1f, zCord * 850 + xOffSet);
     }
 
     public void EndRender()
@@ -82,30 +86,41 @@ public class Island : MonoBehaviour
     {
         BinaryFormatter bf = new BinaryFormatter();
 
-        IslandSave save = new IslandSave(dataArr);
-        FileStream file = File.Create(Application.persistentDataPath + "/island" + ID);
+        Debug.Log(dataArr[size / 2, size / 2]);
+
+        IslandSave save = new IslandSave(dataArr, size, size);
+        FileStream file = File.Create(Application.persistentDataPath + fileName);
         bf.Serialize(file, save);
         file.Close();
+
+        Debug.Log("Should have been saved");
     }
 
     private float[,] LoadMap()
     {
-        if (File.Exists(Application.persistentDataPath + "/island" + ID))
+        if (File.Exists(Application.persistentDataPath + fileName))
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/island" + ID, FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + fileName, FileMode.Open);
             IslandSave save = (IslandSave)bf.Deserialize(file);
             file.Close();
 
-            return save._heightMap;
+            return save.ListToArray(size, size);
         }
+        else Debug.Log("File does not exist when trying to load it");
 
-        return null;
+        //Map did not save, try deleting it
+        PerlinNoise noise = new PerlinNoise();
+
+        float[,]map = noise.GetPerlinNoise(size, size, ID);
+        SaveMap(map);
+
+        return map;
     }
 
     public void DeleteMapSave()
     {
-        File.Delete(Application.persistentDataPath + "/island" + ID);
+        File.Delete(Application.persistentDataPath + fileName);
     }
 }
