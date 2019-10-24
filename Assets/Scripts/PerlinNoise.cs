@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PerlinNoise
 {
+    private float gradient = 20f;
+
     //Uses ID of Island to get seed
-    public float[,] GetPerlinNoise(int xWidth, int zWidth, int seed)
+    public float[,] GetPerlinNoise(int xWidth, int zWidth, float xCoord, float zCoord, int seed)
     {
         float[,] map = new float[xWidth, zWidth];
 
@@ -15,9 +17,9 @@ public class PerlinNoise
         {
             for (int z = 0; z < zWidth; z++)
             {
-                float X = (float)x / xWidth * Random.Range(0.5f, 1.0f);
-                float Z = ((float)z / zWidth * Random.Range(0.5f, 1.0f) / 10f);
-                map[x,z] = Mathf.Clamp01(Mathf.PerlinNoise(X , Z) - distanceSquared(x, z, xWidth, zWidth));
+                float X = (xCoord + x) / gradient;
+                float Z = (zCoord + z) /  gradient;
+                map[x,z] = Mathf.PerlinNoise(X , Z) - distanceSquared(x, z, xWidth, zWidth);
             }
         }
         

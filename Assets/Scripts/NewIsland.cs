@@ -61,6 +61,7 @@ public class NewIsland : MonoBehaviour
             if (!(iles[id].xCord * islandDistance > _camera.transform.position.x - distance) || !(iles[id].xCord * islandDistance < _camera.transform.position.x + distance) ||
                 !(iles[id].zCord * islandDistance > _camera.transform.position.z - distance) || !(iles[id].zCord * islandDistance < _camera.transform.position.z + distance))
             {
+                Debug.Log("what");
                 unrenderedIslands.Add(id);
                 iles[id].EndRender();
                 newRenders.Add(id);
@@ -72,8 +73,9 @@ public class NewIsland : MonoBehaviour
             if (iles[id].xCord * islandDistance > _camera.transform.position.x - distance && iles[id].xCord * islandDistance < _camera.transform.position.x + distance &&
                 iles[id].zCord * islandDistance > _camera.transform.position.z - distance && iles[id].zCord * islandDistance < _camera.transform.position.z + distance)
             {
+                Debug.Log(id);
                 renderedIslands.Add(id);
-                //iles[id].StartRender();
+                iles[id].StartRender();
                 deRenders.Add(id);
             }
         }
@@ -251,17 +253,13 @@ public class NewIsland : MonoBehaviour
 
         for (int i = 0; i < iles.Count; i++)
         {
-            if (iles[i].xCord * 75 > _camera.transform.position.x - distance && iles[i].xCord * 75 < _camera.transform.position.x + distance &&
-                iles[i].zCord * 75 > _camera.transform.position.z - distance && iles[i].zCord * 75 < _camera.transform.position.z + distance)
+            if (iles[i].xCord * islandDistance > _camera.transform.position.x - distance && iles[i].xCord * islandDistance < _camera.transform.position.x + distance &&
+                iles[i].zCord * islandDistance > _camera.transform.position.z - distance && iles[i].zCord * islandDistance < _camera.transform.position.z + distance)
             {
                 renderedIslands.Add(iles[i].ID);
+                iles[i].StartRender();
             }
             else unrenderedIslands.Add(iles[i].ID); 
-        }
-
-        foreach (int id in renderedIslands)
-        {
-            iles[id].StartRender();
         }
     }
 }

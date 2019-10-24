@@ -56,7 +56,7 @@ public class Island : MonoBehaviour
 
             TerrainData _terrainData = new TerrainData();
             //DiamondSquare();
-            float[,] dataArray = noise.GetPerlinNoise(size, size, ID);
+            float[,] dataArray = noise.GetPerlinNoise(size, size, xCord * 850 + xOffSet, zCord * 850 + xOffSet, ID);
             SaveMap(dataArray);
             
         }
@@ -65,7 +65,6 @@ public class Island : MonoBehaviour
 
     public void StartRender()
     {
-        Debug.Log("Trying to render " + ID);
         TerrainData _terrainData = new TerrainData();
         float[,] dataArray = LoadMap();
         _terrainData.size = new Vector3(size, 100, size);
@@ -112,7 +111,7 @@ public class Island : MonoBehaviour
         //Map did not save, try deleting it
         PerlinNoise noise = new PerlinNoise();
 
-        float[,]map = noise.GetPerlinNoise(size, size, ID);
+        float[,]map = noise.GetPerlinNoise(size, size, xCord * 850 + xOffSet, zCord * 850 + xOffSet, ID);
         SaveMap(map);
 
         return map;
