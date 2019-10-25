@@ -7,7 +7,7 @@ public class BuildingTemplate : MonoBehaviour
 {
     GameManager gameManager;                // Game manager object, is used in child objects to modify resource amounts
 
-    [SerializeField] float MaxHealth;       // Max health for building
+    [SerializeField] float maxHealth;       // Max health for building
     [SerializeField] float currentHealth;   // Current health
 
     private void Start()
@@ -25,17 +25,16 @@ public class BuildingTemplate : MonoBehaviour
     // How much health should the building take, negative value for healing
     public bool HurtBuilding(float lostHealth)  // Returns true if building is destroyed
     {
-        bool returnValue = false;
-
         currentHealth -= lostHealth;
 
         // If building has been destroyed
         if (currentHealth <= 0)
         {
             ZeroHealth();
+            return true;
         }
 
-        return returnValue;
+        return false;
     }
 
     // The primary functionality run every fixed update
