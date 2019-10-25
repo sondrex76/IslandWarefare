@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class OptionsManager : MonoBehaviour
 {
     public GameObject currentButton;                                            // Currently selected button for input change
     InputManager inputManager;                                                  // Input manager 
-    [SerializeField] GameManager gameManager;                                   // The game manager object
+    GameManager gameManager;                                                    // The game manager object
     [SerializeField] GameObject buttons;
 
     // Runs on start
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         inputManager = GameManager.inputManager;
 
         // Updates button labels
