@@ -6,6 +6,7 @@
 public class BuildingTemplate : MonoBehaviour
 {
     GameManager gameManager;                // Game manager object, is used in child objects to modify resource amounts
+    [SerializeField] GameObject prefab;     // Prefab object
 
     [SerializeField] float maxHealth;       // Max health for building
     [SerializeField] float currentHealth;   // Current health
@@ -49,9 +50,22 @@ public class BuildingTemplate : MonoBehaviour
         DestroyBuilding();  // Destroys building
     }
 
-    // Destroys this building
-    void DestroyBuilding()
+    // Destroys this building, you can send it the coordinates 
+    void DestroyBuilding(float x = 0, float y = 0, float z = 0, float rotation = 0)
     {
+        // By default the building will place a prefab at the relative coordinates of (0, 0, 0), will not happen if prefab is not defined
+        if (prefab != null)
+        {
+            LoadPrefab(prefab, new Vector3(x, y, z), rotation);
+        }
         Destroy(this);
+    }
+
+    // Loads a prefab, at relative x, y, z coordinates rotated around the y axis by rotation comapred to building
+    // Is used with a check to see if the prefab is null first: if (prefab != null) {}
+    void LoadPrefab(GameObject gameObject, Vector3 coordinates, float rotation)
+    {
+        GameObject newObject = Instantiate(gameObject, coordinates, Quaternion.identity);   // Places object
+        newObject.transform.Rotate(0, rotation, 0);                                         // Rotates object
     }
 }

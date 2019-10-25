@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5276be7ae6d121545aa68f34ac3712a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  prefab: {fileID: 0}
+  maxHealth: 0
   currentHealth: 0
