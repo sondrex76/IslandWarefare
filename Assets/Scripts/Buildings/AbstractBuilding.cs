@@ -4,7 +4,7 @@
 // To make a building a model for the building must be added to the game object
 // 
 
-public class BuildingTemplate : MonoBehaviour
+public class AbstractBuilding : MonoBehaviour
 {
     GameManager gameManager;                // Game manager object, is used in child objects to modify resource amounts
     [SerializeField] GameObject prefab;     // Prefab object

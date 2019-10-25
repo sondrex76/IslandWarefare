@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Resource gathering building template
-public class ResourceHarvestingTemplate : BuildingTemplate
+public class AbstractResourceHarvesting : AbstractBuilding
 {
     // Code that runs once when the resource gathering building is placed
     private void Start()
