@@ -1760,6 +1760,7 @@ MonoBehaviour:
   camera: {fileID: 1326928817}
   m_material: {fileID: 2100000, guid: 25a073c9c90d00346af3abc79ecb136a, type: 2}
   connecting: 0
+  yOffset: 0.1
   tTest: 1
   points:
   - {x: 19, y: 15, z: 1}

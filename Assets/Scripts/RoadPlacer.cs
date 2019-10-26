@@ -69,6 +69,9 @@ public class RoadPlacer : MonoBehaviour
     public bool connecting = false;
     bool straight;
 
+    [SerializeField]
+    float yOffset;
+
 
 
     OrientedPoint GetPoint(Vector3[] pts, float t){
@@ -189,6 +192,7 @@ public class RoadPlacer : MonoBehaviour
 
                     Destroy(roadTemp);
                     GameObject road = new GameObject("Road: " + roadCounter);
+                    road.transform.position = new Vector3(road.transform.position.x, road.transform.position.y + yOffset, road.transform.position.z);
                     road.layer = 9;
                     road.AddComponent<MeshFilter>();
                     road.AddComponent<MeshRenderer>();
@@ -229,7 +233,6 @@ public class RoadPlacer : MonoBehaviour
                         float distanceToStart = Vector3.Distance(hit.point, connectingroadStart);
                         float distanceToEnd = Vector3.Distance(hit.point, connectingRoadEnd);
                         Vector3 closestPoint;
-                        int test;
 
                         if (distanceToStart < distanceToEnd)
                         {
@@ -286,14 +289,14 @@ public class RoadPlacer : MonoBehaviour
                     float distanceToStart = Vector3.Distance(hit.point, connectingRoad.roadStart);
                     float distanceToEnd = Vector3.Distance(hit.point, connectingRoad.roadEnd);
 
-                    if(distanceToStart < distanceToEnd)
+                    if(distanceToStart < 5f)
                     {
                         Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
 
                         pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * 0.1f;
                         pts[3] = connectingRoad.roadStart;
                     }
-                    else
+                    else if(distanceToEnd < 5f)
                     {
                         Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
 
