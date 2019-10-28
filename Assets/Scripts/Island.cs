@@ -66,7 +66,7 @@ public class Island : MonoBehaviour
     {
         TerrainData _terrainData = new TerrainData();
         float[,] dataArray = LoadMap();
-        _terrainData.size = new Vector3(Const.size, 100, Const.size);
+        _terrainData.size = new Vector3(Const.size, 200, Const.size);
         _terrainData.heightmapResolution = Const.size - 1;
         _terrainData.SetHeights(0, 0, dataArray);
         terrain = Terrain.CreateTerrainGameObject(_terrainData);

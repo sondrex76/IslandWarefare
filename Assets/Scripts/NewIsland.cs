@@ -16,7 +16,8 @@ public class NewIsland : MonoBehaviour
 
     [SerializeField]
     private Camera _camera;
-    protected int distance = 5000;   //Distance away from camera an island will be rendered
+    private Vector3 _prevCamPos;
+    protected int distance = 20000;   //Distance away from camera an island will be rendered
 
     //Debug
     protected int antIslands = 1000;
@@ -24,7 +25,7 @@ public class NewIsland : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _prevCamPos = _camera.transform.position;
         iles = new List<Island>();
         nearbyIsle = new List<int>();
         renderedIslands = new List<int>();
@@ -52,41 +53,47 @@ public class NewIsland : MonoBehaviour
             }
         }
 
-        List<int> newRenders = new List<int>();
-        List<int> deRenders = new List<int>();
-
-        foreach (int id in renderedIslands)
+        //Only check if there needs to be an update to rendering if the camera has moved
+        if (_prevCamPos != _camera.transform.position)
         {
-            if (!(iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance) || !(iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance) ||
-                !(iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance) || !(iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance))
+            _prevCamPos = _camera.transform.position;
+
+            List<int> newRenders = new List<int>();
+            List<int> deRenders = new List<int>();
+
+            foreach (int id in renderedIslands)
             {
-                Debug.Log("what");
-                unrenderedIslands.Add(id);
-                iles[id].EndRender();
-                newRenders.Add(id);
+                if (!(iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance) || !(iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance) ||
+                    !(iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance) || !(iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance))
+                {
+                    Debug.Log("what");
+                    unrenderedIslands.Add(id);
+                    iles[id].EndRender();
+                    newRenders.Add(id);
+                }
             }
-        }
 
-        foreach (int id in unrenderedIslands)
-        {
-            if (iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance && iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance &&
-                iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance && iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance)
+            foreach (int id in unrenderedIslands)
             {
-                Debug.Log(id);
-                renderedIslands.Add(id);
-                iles[id].StartRender();
-                deRenders.Add(id);
+                if (iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance && iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance &&
+                    iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance && iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance)
+                {
+                    Debug.Log(id);
+                    renderedIslands.Add(id);
+                    iles[id].StartRender();
+                    deRenders.Add(id);
+                }
             }
-        }
 
-        foreach (int id in newRenders)
-        {
-            renderedIslands.Remove(id);
-        }
+            foreach (int id in newRenders)
+            {
+                renderedIslands.Remove(id);
+            }
 
-        foreach (int id in deRenders)
-        {
-            unrenderedIslands.Remove(id);
+            foreach (int id in deRenders)
+            {
+                unrenderedIslands.Remove(id);
+            }
         }
     }
 
