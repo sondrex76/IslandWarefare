@@ -25,7 +25,6 @@ public class Island : MonoBehaviour
     protected Material _material;
 
     //Size is always 2^x + 1, and 33 might just be the best size
-    protected int size = 129;
     private GameObject terrain;
 
     public Island(int x, int z, int islandID, Material material)
@@ -56,7 +55,7 @@ public class Island : MonoBehaviour
 
             TerrainData _terrainData = new TerrainData();
             //DiamondSquare();
-            float[,] dataArray = noise.GetPerlinNoise(size, size, xCord * 850 + xOffSet, zCord * 850 + xOffSet, ID);
+            float[,] dataArray = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, ID);
             SaveMap(dataArray);
             
         }
@@ -67,12 +66,12 @@ public class Island : MonoBehaviour
     {
         TerrainData _terrainData = new TerrainData();
         float[,] dataArray = LoadMap();
-        _terrainData.size = new Vector3(size, 100, size);
-        _terrainData.heightmapResolution = size - 1;
+        _terrainData.size = new Vector3(Const.size, 100, Const.size);
+        _terrainData.heightmapResolution = Const.size - 1;
         _terrainData.SetHeights(0, 0, dataArray);
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.GetComponent<Terrain>().materialTemplate = _material;
-        terrain.transform.position = new Vector3(xCord * 850 + xOffSet, -0.1f, zCord * 850 + xOffSet);
+        terrain.transform.position = new Vector3(xCord * Const.islandDistance + xOffSet, -0.1f, zCord * Const.islandDistance + xOffSet);
     }
 
     public void EndRender()
@@ -84,9 +83,9 @@ public class Island : MonoBehaviour
     {
         BinaryFormatter bf = new BinaryFormatter();
 
-        Debug.Log(dataArr[size / 2, size / 2]);
+        Debug.Log(dataArr[Const.size / 2, Const.size / 2]);
 
-        IslandSave save = new IslandSave(dataArr, size, size);
+        IslandSave save = new IslandSave(dataArr, Const.size, Const.size);
         FileStream file = File.Create(Application.persistentDataPath + fileName);
         bf.Serialize(file, save);
         file.Close();
@@ -104,14 +103,14 @@ public class Island : MonoBehaviour
             IslandSave save = (IslandSave)bf.Deserialize(file);
             file.Close();
 
-            return save.ListToArray(size, size);
+            return save.ListToArray(Const.size, Const.size);
         }
         else Debug.Log("File does not exist when trying to load it");
 
         //Map did not save, try deleting it
         PerlinNoise noise = new PerlinNoise();
 
-        float[,]map = noise.GetPerlinNoise(size, size, xCord * 850 + xOffSet, zCord * 850 + xOffSet, ID);
+        float[,]map = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, ID);
         SaveMap(map);
 
         return map;

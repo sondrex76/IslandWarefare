@@ -17,7 +17,6 @@ public class NewIsland : MonoBehaviour
     [SerializeField]
     private Camera _camera;
     protected int distance = 5000;   //Distance away from camera an island will be rendered
-    private int islandDistance = 850;
 
     //Debug
     protected int antIslands = 1000;
@@ -58,8 +57,8 @@ public class NewIsland : MonoBehaviour
 
         foreach (int id in renderedIslands)
         {
-            if (!(iles[id].xCord * islandDistance > _camera.transform.position.x - distance) || !(iles[id].xCord * islandDistance < _camera.transform.position.x + distance) ||
-                !(iles[id].zCord * islandDistance > _camera.transform.position.z - distance) || !(iles[id].zCord * islandDistance < _camera.transform.position.z + distance))
+            if (!(iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance) || !(iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance) ||
+                !(iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance) || !(iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance))
             {
                 Debug.Log("what");
                 unrenderedIslands.Add(id);
@@ -70,8 +69,8 @@ public class NewIsland : MonoBehaviour
 
         foreach (int id in unrenderedIslands)
         {
-            if (iles[id].xCord * islandDistance > _camera.transform.position.x - distance && iles[id].xCord * islandDistance < _camera.transform.position.x + distance &&
-                iles[id].zCord * islandDistance > _camera.transform.position.z - distance && iles[id].zCord * islandDistance < _camera.transform.position.z + distance)
+            if (iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance && iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance &&
+                iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance && iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance)
             {
                 Debug.Log(id);
                 renderedIslands.Add(id);
@@ -253,8 +252,8 @@ public class NewIsland : MonoBehaviour
 
         for (int i = 0; i < iles.Count; i++)
         {
-            if (iles[i].xCord * islandDistance > _camera.transform.position.x - distance && iles[i].xCord * islandDistance < _camera.transform.position.x + distance &&
-                iles[i].zCord * islandDistance > _camera.transform.position.z - distance && iles[i].zCord * islandDistance < _camera.transform.position.z + distance)
+            if (iles[i].xCord * Const.islandDistance > _camera.transform.position.x - distance && iles[i].xCord * Const.islandDistance < _camera.transform.position.x + distance &&
+                iles[i].zCord * Const.islandDistance > _camera.transform.position.z - distance && iles[i].zCord * Const.islandDistance < _camera.transform.position.z + distance)
             {
                 renderedIslands.Add(iles[i].ID);
                 iles[i].StartRender();
