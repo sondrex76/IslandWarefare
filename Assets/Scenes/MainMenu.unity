@@ -221,6 +221,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuScene
       objectReference: {fileID: 0}
+    - target: {fileID: 3099466923512852719, guid: 77198591727504d4581b1abeecdc5098,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789859108181908011, guid: 77198591727504d4581b1abeecdc5098,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -515,11 +520,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099466923512852719, guid: 77198591727504d4581b1abeecdc5098,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9066890204553638219, guid: 77198591727504d4581b1abeecdc5098,
         type: 3}
@@ -1083,6 +1083,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3421693237100645965, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3421693237113459597, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -1307,11 +1312,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -335
-      objectReference: {fileID: 0}
-    - target: {fileID: 3421693237100645965, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4479d599ec0d3224d9244ffaa8c7bfc9, type: 3}

@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public void UpdateCanvas(bool active)
     {
         optionsMenu.enabled = isPaused = active;
+        Cursor.visible = active;
+
     }
 
     // Sets system to expect an action's input to be changed
