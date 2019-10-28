@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PerlinNoise
 {
-    private float gradient = 20f;
+    private float gradient = 25f;       //The roundness of the map, higher makes it rounder (flatter for plane)
 
     //Uses ID of Island to get seed
     public float[,] GetPerlinNoise(int xWidth, int zWidth, float xCoord, float zCoord, int seed)

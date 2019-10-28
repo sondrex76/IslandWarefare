@@ -26,12 +26,20 @@ public class GameManager : MonoBehaviour
         }
 
         optionsMenu.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
     }
     
     // Updates canvas to being active or inactive
     public void UpdateCanvas(bool active)
     {
         optionsMenu.enabled = isPaused = active;
+
+        // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
+        Cursor.visible = active || inputManager.frozenAngle; // WIP
+            if (Cursor.visible)
+                Cursor.lockState = CursorLockMode.None;
+            else
+                Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Sets system to expect an action's input to be changed
