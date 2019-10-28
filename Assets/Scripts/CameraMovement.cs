@@ -102,6 +102,13 @@ public class CameraMovement : MonoBehaviour
 
         if (Input.GetKeyDown(inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE])) {   // Turn camera angle on or off
             inputManager.frozenAngle = !inputManager.frozenAngle;
+
+            // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
+            Cursor.visible = gameManager.isPaused || inputManager.frozenAngle;
+            if (Cursor.visible)
+                Cursor.lockState = CursorLockMode.None;
+            else
+                Cursor.lockState = CursorLockMode.Locked;
         }
 
         // Resets vertical angle
@@ -111,6 +118,8 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Cursor.lockState);
+
         // Updates movement and mouse position if game is not paused, else sets movement speed to 0
         if (!gameManager.isPaused)
         {
