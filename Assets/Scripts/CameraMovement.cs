@@ -118,8 +118,6 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Cursor.lockState);
-
         // Updates movement and mouse position if game is not paused, else sets movement speed to 0
         if (!gameManager.isPaused)
         {

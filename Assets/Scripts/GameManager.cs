@@ -5,11 +5,20 @@ public class GameManager : MonoBehaviour
 {
     public static InputManager inputManager;        // The input manager
     public bool isPaused = false;                   // Is paused
-
+    
     // Resources
-    public int resourceMoney = 0;
-    public int resourceOil = 0;
-    public int resourceFood = 0;
+    public float resourceMoney = 0;
+    public float resourceFood = 0;
+    public float resourceWood = 0;
+    public float resourceIron = 0;
+    public float resourceCopper = 0;
+    public float resourceUranium = 0;
+    public float resourceCoal = 0;
+    public float resourceAluminium = 0;
+    public float resourceGold = 0;
+    public float resourceOil = 0;
+    public float resourceAnimals = 0;
+
 
     // Options
     [SerializeField] Canvas optionsMenu;            // The options menu
