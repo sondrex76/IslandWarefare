@@ -18,7 +18,6 @@ public class AbstractResourceHarvesting : AbstractBuilding
     // Code to be run on fixedUpdate
     override protected void BuildingFunctionality()
     {
-        Debug.Log("Correct function is called"); // DEBUG
         if (resourceFound)                                          // If there is a valid resource identified
         {
             switch (resource.ReturnType())                          // Depending on which element a different value from GameManager is to be updated
@@ -65,8 +64,9 @@ public class AbstractResourceHarvesting : AbstractBuilding
         if (resource.resourceAmount - resourceExtractionSpeed <= 0) // if resource becomes empty
         {
             returnedValue = resource.resourceAmount;                // Sets amount returned to the remaining resources
-            Destroy(resource);                                      // Destroys object
             resourceFound = false;                                  // Updates status to showcase that a resource is not currently located
+            DestroyImmediate(resource.gameObject);                  // Destroys resource gameobject
+            DestroyImmediate(resource);                             // Destroys resource class
         }
         else
         {
