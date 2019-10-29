@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6488853407038031115}
   - component: {fileID: 6488853407038031112}
   - component: {fileID: 2532693350963540978}
+  - component: {fileID: 8213316345774627249}
   m_Layer: 0
   m_Name: BuildingTemplate
   m_TagString: Untagged
@@ -60,3 +61,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8213316345774627249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488853407038031113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f569f252bb1154942993780b80b266e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
