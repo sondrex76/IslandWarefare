@@ -7,15 +7,20 @@ public class CanBePlaced : MonoBehaviour
 {
     void OnCollisionStay(Collision collision)
      {
-        transform.parent.GetComponent<ObjectPlacer>().CollisionDetected(this);
-        
+        if (collision.transform.tag == "Building" || collision.transform.tag == "Road")
+        {
+            transform.parent.GetComponent<ObjectPlacer>().CollisionDetected(this);
+            Debug.Log("REEE");
+        }
      }
 
     void OnCollisionExit(Collision collision)
      {
-        transform.parent.GetComponent<ObjectPlacer>().CollisionExit(this);
-        
-    
-     }
+        if (collision.collider.tag == "Building" || collision.collider.tag == "Road")
+        {
+            transform.parent.GetComponent<ObjectPlacer>().CollisionExit(this);
+            Debug.Log("REEE");
+        }
+    }
 
 }
