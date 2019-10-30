@@ -5,10 +5,10 @@
  */
  
 using UnityEngine;
+using UnityEngine.Events;
  
-public class Selectables : MonoBehaviour
+public class Selectable : MonoBehaviour
 {
- 
     internal bool isSelected
     {
         get
@@ -38,5 +38,6 @@ public class Selectables : MonoBehaviour
     {
         RTSSelection.selectables.Remove(this);
     }
+
  
 }
