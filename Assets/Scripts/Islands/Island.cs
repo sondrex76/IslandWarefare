@@ -55,7 +55,7 @@ public class Island : MonoBehaviour
 
             TerrainData _terrainData = new TerrainData();
             //DiamondSquare();
-            float[,] dataArray = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, ID);
+            float[,] dataArray = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet);
             SaveMap(dataArray);
             
         }
@@ -72,6 +72,7 @@ public class Island : MonoBehaviour
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.GetComponent<Terrain>().materialTemplate = _material;
         terrain.transform.position = new Vector3(xCord * Const.islandDistance + xOffSet, -0.1f, zCord * Const.islandDistance + xOffSet);
+        terrain.AddComponent<IslandOwner>().setStats(ID, "");
     }
 
     public void EndRender()
@@ -110,7 +111,7 @@ public class Island : MonoBehaviour
         //Map did not save, try deleting it
         PerlinNoise noise = new PerlinNoise();
 
-        float[,]map = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, ID);
+        float[,]map = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet);
         SaveMap(map);
 
         return map;

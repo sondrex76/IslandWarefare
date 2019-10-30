@@ -7,11 +7,9 @@ public class PerlinNoise
     private float gradient = 25f;       //The roundness of the map, higher makes it rounder (flatter for plane)
 
     //Uses ID of Island to get seed
-    public float[,] GetPerlinNoise(int xWidth, int zWidth, float xCoord, float zCoord, int seed)
+    public float[,] GetPerlinNoise(int xWidth, int zWidth, float xCoord, float zCoord)
     {
         float[,] map = new float[xWidth, zWidth];
-
-        Random.InitState(seed);
 
         for (int x = 0; x < xWidth; x++)
         {

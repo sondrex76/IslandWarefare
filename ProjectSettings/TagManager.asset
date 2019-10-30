@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Island
   - Road
+  - Manager
   - Resource
   - Building
   layers:
