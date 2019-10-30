@@ -1,15 +1,32 @@
 ﻿using UnityEngine;
 
+// Class for resource objects
+[System.Serializable]
 public class Resource : MonoBehaviour
 {
-    public enum ResourceTypes{ FOOD, WOOD, IRON, COPPER, URANIUM, COAL, ALUMINIUM, GOLD, OIL, ANIMALS }
+    // Resource parent properties
+    [SerializeField] float[] parentAmount;
+    [SerializeField] Resource[] parentResource;
 
-    [SerializeField] ResourceTypes resourceType;    // Type of resource
-    public float resourceAmount;                    // Amount of resource
+    // Resource properties
+    [SerializeField] float sellingPrice;        // Price the resource can be sold for
+    [SerializeField] string resourceName;       // Name of resource
 
-    // Returns the resource's resource type
-    public ResourceTypes ReturnType()
+    // Returns parents of resource
+    public Resource[] ReturnParents()
     {
-        return resourceType;
+        return parentResource;
+    }
+
+    // Returns resource price
+    public float ReturnResourcePrice()
+    {
+        return sellingPrice;
+    }
+
+    // Returns resource name
+    public string ReturnResourceName()
+    {
+        return resourceName;
     }
 }

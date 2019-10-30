@@ -1519,7 +1519,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentButton: {fileID: 0}
-  gameManager: {fileID: 3421693238018016332}
   buttons: {fileID: 3421693237113459632}
 --- !u!1 &3421693237109725457
 GameObject:
@@ -1851,9 +1850,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPaused: 0
-  resourceMoney: 0
-  resourceOil: 0
-  resourceFood: 0
+  resources:
+  - {fileID: 4933372135440917034, guid: 52dea481cf1b4734898570467ca42f3d, type: 3}
+  - {fileID: 4933372135440917034, guid: ba2e2558d0541534aacbfa10a3f1dbc5, type: 3}
+  - {fileID: 4933372135440917034, guid: 9014c9ad9adde124597fe4d3d583ba45, type: 3}
+  - {fileID: 4933372135440917034, guid: 9f7081bef3850934d98743f2e18b0699, type: 3}
+  - {fileID: 4933372135440917034, guid: 06284050885bad147bc46b1e0d00d08b, type: 3}
+  - {fileID: 4933372135440917034, guid: 6ec4c4d368963df40aeb42c0a2199f5b, type: 3}
+  - {fileID: 4933372135440917034, guid: dccd12b6f83087c43a3a08b720922270, type: 3}
+  - {fileID: 4933372135440917034, guid: 1a169d76c1162e84792fdb5c367febdf, type: 3}
+  - {fileID: 4933372135440917034, guid: c3b5a77a54ad934429e37cabf5e4db5e, type: 3}
+  - {fileID: 4933372135440917034, guid: 129c8129c5f23aa40bdefc22ac0d2929, type: 3}
+  resourceAmounts:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  moneyAmount: 0
   optionsMenu: {fileID: 3421693237100645956}
   optionsManager: {fileID: 3421693237100645964}
 --- !u!1 &3421693237196386353

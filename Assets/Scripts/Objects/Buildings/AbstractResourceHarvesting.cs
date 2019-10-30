@@ -4,10 +4,10 @@
 public class AbstractResourceHarvesting : AbstractBuilding
 {
     bool resourceFound = false;                                     // Specifies if a resource have been found
-    Resource resource;                                              // Resource currently being utilized
-    GameManager gameManager;                                        // The game manager object
+    int resourceIndex = 0;                                          // Indext of current resource in GameManager
+    ResourceWorldObject resource;                                   // Resource currently being utilized
 
-    [SerializeField] Resource.ResourceTypes[] neededResource;       // Valid resource types for building
+    [SerializeField] Resource[] neededResource;                     // Valid resource types for building
     [SerializeField] float resourceExtractionSpeed;                 // Speed of resource extraction(fixed update, is run 50x per second)
 
     private void Start()
@@ -20,39 +20,8 @@ public class AbstractResourceHarvesting : AbstractBuilding
     {
         if (resourceFound)                                          // If there is a valid resource identified
         {
-            switch (resource.ReturnType())                          // Depending on which element a different value from GameManager is to be updated
-            {
-                case Resource.ResourceTypes.FOOD:
-                    gameManager.resourceFood += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.WOOD:
-                    gameManager.resourceWood += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.IRON:
-                    gameManager.resourceIron += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.COPPER:
-                    gameManager.resourceCopper += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.URANIUM:
-                    gameManager.resourceUranium += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.COAL:
-                    gameManager.resourceCoal += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.ALUMINIUM:
-                    gameManager.resourceAluminium += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.GOLD:
-                    gameManager.resourceGold += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.OIL:
-                    gameManager.resourceOil += UpdateResource();
-                    break;
-                case Resource.ResourceTypes.ANIMALS:
-                    gameManager.resourceAnimals += UpdateResource();
-                    break;
-            }
+            // Updates resource amount
+            gameManager.resourceAmounts[resourceIndex] += UpdateResource();
         }
     }
 
@@ -87,12 +56,21 @@ public class AbstractResourceHarvesting : AbstractBuilding
         if (!resourceFound && other.tag == "Resource")                              // Checks if it is a resource, but only if a resource have not already been found
         {
             // Goes through all valid resources
-            foreach (Resource.ResourceTypes type in neededResource)                 // Goes through all valid resources
+            foreach (Resource type in neededResource)                 // Goes through all valid resources
             {
-                if (other.gameObject.GetComponent<Resource>().ReturnType() == type) // If the resource is of the correct type
+                if (other.gameObject.GetComponent<ResourceWorldObject>().ReturnType() == type) // If the resource is of the correct type
                 {
-                    resource = other.gameObject.GetComponent<Resource>();
+                    resource = other.gameObject.GetComponent<ResourceWorldObject>();
                     resourceFound = true;
+
+                    // Goes through resources of GameManager and finds which one is being harvested, before setting the resource index to that resource's idnex
+                    for (int i = 0; i < gameManager.resources.Length; i++)
+                    {
+                        if (gameManager.resources[i] == resource.ReturnType())
+                        {
+                            resourceIndex = i;
+                        }
+                    }
                 }
             }
         }

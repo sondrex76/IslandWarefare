@@ -6,7 +6,7 @@
 
 public class AbstractBuilding : MonoBehaviour
 {
-    GameManager gameManager;                // Game manager object, is used in child objects to modify resource amounts
+    protected GameManager gameManager;                // Game manager object, is used in child objects to modify resource amounts
     [SerializeField] GameObject prefab;     // Prefab object
 
     [SerializeField] float maxHealth;       // Max health for building
