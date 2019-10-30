@@ -7,6 +7,8 @@ TagManager:
   - Island
   - Road
   - Manager
+  - Resource
+  - Building
   layers:
   - Default
   - TransparentFX
