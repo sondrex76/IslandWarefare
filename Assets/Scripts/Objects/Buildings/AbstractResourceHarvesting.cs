@@ -65,14 +65,11 @@ public class AbstractResourceHarvesting : AbstractBuilding
         {
             returnedValue = resource.resourceAmount;                // Sets amount returned to the remaining resources
             resourceFound = false;                                  // Updates status to showcase that a resource is not currently located
-            try // Tries to allow usage of Destro yrather then DestroyImmidiate
+
+            if (resource != null)                                   // Checks if resource is null since Destroy will trigger at the end of fixed update
             {
-                Destroy(resource);                             // Destroys resource class
-                Destroy(resource.gameObject);                  // Destroys resource gameobject
-            }
-            catch (MissingReferenceException e)
-            {
-                Debug.Log(e);
+                Destroy(resource);                                  // Destroys resource class
+                Destroy(resource.gameObject);                       // Destroys resource gameobject
             }
         }
         else
