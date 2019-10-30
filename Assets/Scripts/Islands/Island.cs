@@ -72,6 +72,7 @@ public class Island : MonoBehaviour
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.GetComponent<Terrain>().materialTemplate = _material;
         terrain.transform.position = new Vector3(xCord * Const.islandDistance + xOffSet, -0.1f, zCord * Const.islandDistance + xOffSet);
+        terrain.AddComponent<IslandOwner>().setStats(ID, "");
     }
 
     public void EndRender()
