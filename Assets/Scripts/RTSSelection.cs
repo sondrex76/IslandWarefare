@@ -12,7 +12,8 @@ using System.Linq;
 public class RTSSelection : MonoBehaviour
 {
  
-    public static List<Selectables> selectables = new List<Selectables>();
+    public static List<Selectable> selectables = new List<Selectable>();
+
  
     [Tooltip("Canvas is set automatically if not set in the inspector")]
     public Canvas canvas;
@@ -28,9 +29,10 @@ public class RTSSelection : MonoBehaviour
     private RectTransform rt;
  
     private bool isSelecting;
- 
+    EventManager _eventManager;
     void Awake()
     {
+        _eventManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<EventManager>();
         if (canvas == null)
             canvas = FindObjectOfType<Canvas>();
  
@@ -55,7 +57,7 @@ public class RTSSelection : MonoBehaviour
             if (Physics.Raycast(mouseToWorldRay, out hitInfo))
             {
                 //We check if we clicked on an object with a Selectable component
-                Selectables s = hitInfo.collider.GetComponentInParent<Selectables>();
+                Selectable s = hitInfo.collider.GetComponentInParent<Selectable>();
                 if (s != null)
                 {
                     //While holding the copyKey, we can add and remove objects from our selection
@@ -110,7 +112,7 @@ public class RTSSelection : MonoBehaviour
             rt.sizeDelta = canvas.transform.InverseTransformVector(b.size);
  
             //Looping through all the selectables in our world (automatically added/removed through the Selectable OnEnable/OnDisable)
-            foreach (Selectables selectable in selectables)
+            foreach (Selectable selectable in selectables)
             {
                 //If the screenPosition of the worldobject is within our selection bounds, we can add it to our selection
                 Vector3 screenPos = Camera.main.WorldToScreenPoint(selectable.transform.position);
@@ -133,19 +135,25 @@ public class RTSSelection : MonoBehaviour
     /// </summary>
     /// <param name="s"></param>
     /// <param name="value"></param>
-    void UpdateSelection(Selectables s, bool value)
+    void UpdateSelection(Selectable s, bool value)
     {
         if (s.isSelected != value)
-               s.isSelected = value;
+        {
+            if(value)
+                _eventManager._listenToFlag.AddListener(s.gameObject.GetComponent<DestinationList>().agentDestination);
+            else 
+                _eventManager._listenToFlag.RemoveListener(s.gameObject.GetComponent<DestinationList>().agentDestination);
+            s.isSelected = value;  
+        }
     }
  
     /// <summary>
     /// Returns all Selectable objects with isSelected set to true
     /// </summary>
     /// <returns></returns>
-    List<Selectables> GetSelected()
+    List<Selectable> GetSelected()
     {
-        return new List<Selectables>(selectables.Where(x => x.isSelected));
+        return new List<Selectable>(selectables.Where(x => x.isSelected));
     }
  
     /// <summary>

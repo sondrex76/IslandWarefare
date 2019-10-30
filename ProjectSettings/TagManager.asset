@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Island
   - Road
+  - Manager
   layers:
   - Default
   - TransparentFX
