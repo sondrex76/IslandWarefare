@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    // Public variables
     public static InputManager inputManager;        // The input manager
     public bool isPaused = false;                   // Is paused
 
@@ -14,9 +15,11 @@ public class GameManager : MonoBehaviour
     public float offensivePower = 0;
     // 
 
-    // Amount of money
-    public float moneyAmount = 0;
-    
+    // Amount of resources generated through various systems
+    public float moneyAmount = 0;   // Money
+    public float population = 0;    // Population
+    public float happiness = 0;     // Happiness, might be changed to be a value between 0 and 100 in the future
+
 
     // Options
     [SerializeField] Canvas optionsMenu;            // The options menu
