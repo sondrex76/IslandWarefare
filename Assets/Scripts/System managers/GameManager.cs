@@ -6,9 +6,13 @@ public class GameManager : MonoBehaviour
     public static InputManager inputManager;        // The input manager
     public bool isPaused = false;                   // Is paused
 
-    // Resources, resources[i] and resourceAmounts[i] are for the same object
+    // Resources, resources[i] and resourceAmounts[i] are for object i
     public Resource[] resources;
     public float[] resourceAmounts;
+    // Miltary mght, might be expanded upon later
+    public float defensivePower = 0;
+    public float offensivePower = 0;
+    // 
 
     // Amount of money
     public float moneyAmount = 0;
