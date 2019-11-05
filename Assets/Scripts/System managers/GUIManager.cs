@@ -16,8 +16,8 @@ public class GUIManager : MonoBehaviour
         //happyLabel.text = gameManager.happiness + "";
         
         moneyLabel.text = "$" + System.String.Format("{0:n}", gameManager.moneyAmount);
-        populationLabel.text = System.String.Format("{0:n}", gameManager.population);
-        happyLabel.text = System.String.Format("{0:n}", gameManager.happiness);
+        populationLabel.text = "P: " + System.String.Format("{0:n}", gameManager.population);
+        happyLabel.text = "H: " + System.String.Format("{0:n}", gameManager.happiness);
         
         // happyLabel.text = gameManager.happiness + "%";
     }
