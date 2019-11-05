@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class Const
 {
-    public const int size = 257;        //Size of islands
-    public const int islandDistance = 4000;
+    public const int size = 1023;        //Size of islands
+    public const int islandDistance = 40000;
 }

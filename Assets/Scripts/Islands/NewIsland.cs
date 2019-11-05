@@ -17,10 +17,10 @@ public class NewIsland : MonoBehaviour
     [SerializeField]
     private Camera _camera;
     private Vector3 _prevCamPos;
-    protected int distance = 20000;   //Distance away from camera an island will be rendered
+    protected int distance = 100000;   //Distance away from camera an island will be rendered
 
     //Debug
-    protected int antIslands = 1000;
+    protected int antIslands = 100;
 
     // Start is called before the first frame update
     void Start()

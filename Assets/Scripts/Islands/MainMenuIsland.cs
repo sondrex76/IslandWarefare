@@ -6,6 +6,7 @@ public class MainMenuIsland : MonoBehaviour
 {
     protected int size = 127;
     protected int seed = 13485;
+    protected float gradient = 25;
 
     [SerializeField]
     protected Material material;
@@ -13,8 +14,7 @@ public class MainMenuIsland : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PerlinNoise noise = new PerlinNoise();
-        float[,] dataArray = noise.GetPerlinNoise(size, size, seed, seed);
+        float[,] dataArray = PerlinNoise.GetPerlinNoise(size, size, seed, seed, gradient);
 
         GameObject terrain;
 

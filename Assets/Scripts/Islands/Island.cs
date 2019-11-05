@@ -26,6 +26,7 @@ public class Island : MonoBehaviour
 
     //Size is always 2^x + 1, and 33 might just be the best size
     private GameObject terrain;
+    private float islandGradient = 100;
 
     public Island(int x, int z, int islandID, Material material)
     {
@@ -50,14 +51,8 @@ public class Island : MonoBehaviour
 
         if (!File.Exists(Application.persistentDataPath + "/island" + ID))
         {
-            Debug.Log(ID);
-            PerlinNoise noise = new PerlinNoise();
-
-            TerrainData _terrainData = new TerrainData();
-            //DiamondSquare();
-            float[,] dataArray = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet);
+            float[,] dataArray = PerlinNoise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, islandGradient);
             SaveMap(dataArray);
-            
         }
 
     }
@@ -66,12 +61,12 @@ public class Island : MonoBehaviour
     {
         TerrainData _terrainData = new TerrainData();
         float[,] dataArray = LoadMap();
-        _terrainData.size = new Vector3(Const.size, 200, Const.size);
+        _terrainData.size = new Vector3(Const.size, 2500, Const.size);
         _terrainData.heightmapResolution = Const.size - 1;
         _terrainData.SetHeights(0, 0, dataArray);
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
         terrain.GetComponent<Terrain>().materialTemplate = _material;
-        terrain.transform.position = new Vector3(xCord * Const.islandDistance + xOffSet, -0.1f, zCord * Const.islandDistance + xOffSet);
+        terrain.transform.position = new Vector3(xCord * Const.islandDistance + xOffSet, -0.3f, zCord * Const.islandDistance + xOffSet);
         terrain.AddComponent<IslandOwner>().setStats(ID, "");
     }
 
@@ -108,10 +103,8 @@ public class Island : MonoBehaviour
         }
         else Debug.Log("File does not exist when trying to load it");
 
-        //Map did not save, try deleting it
-        PerlinNoise noise = new PerlinNoise();
-
-        float[,]map = noise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet);
+        //Map was not saved, create a new one
+        float[,]map = PerlinNoise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, islandGradient);
         SaveMap(map);
 
         return map;

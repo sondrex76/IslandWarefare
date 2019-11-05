@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PerlinNoise
+public static class PerlinNoise
 {
-    private float gradient = 25f;       //The roundness of the map, higher makes it rounder (flatter for plane)
 
     //Uses ID of Island to get seed
-    public float[,] GetPerlinNoise(int xWidth, int zWidth, float xCoord, float zCoord)
+    public static float[,] GetPerlinNoise(int xWidth, int zWidth, float xCoord, float zCoord, float gradient)
     {
         float[,] map = new float[xWidth, zWidth];
 
@@ -24,7 +23,7 @@ public class PerlinNoise
         return map;
     }
 
-    private float distanceSquared(int x, int z, int xSize, int zSize)
+    private static float distanceSquared(int x, int z, int xSize, int zSize)
     {
         float dx = 2 * (float)x / xSize - 1;
         float dz = 2 * (float)z / zSize - 1;
