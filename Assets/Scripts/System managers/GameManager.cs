@@ -13,11 +13,11 @@ public class GameManager : MonoBehaviour
     // Miltary mght, might be expanded upon later
     public float defensivePower = 0;
     public float offensivePower = 0;
-    // 
+    public float supplyPower = 0;
 
     // Amount of resources generated through various systems
     public float moneyAmount = 0;   // Money
-    public float population = 0;    // Population
+    public int population = 0;      // Population
     public float happiness = 0;     // Happiness, might be changed to be a value between 0 and 100 in the future
 
 
