@@ -21,7 +21,7 @@ public class GUIManager : MonoBehaviour
         //happyLabel.text = gameManager.happiness + "";
         
         moneyLabel.text = "$" + System.String.Format("{0:n0}", (int)gameManager.moneyAmount);
-        populationLabel.text = gameManager.population + "";
+        populationLabel.text = System.String.Format("{0:n0}", gameManager.population);
         happyLabel.text = System.String.Format("{0:n}", gameManager.happiness);
 
         if (gameManager.happiness >= 90)        // Happy
