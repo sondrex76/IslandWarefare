@@ -72,4 +72,10 @@ public class GameManager : MonoBehaviour
             Camera.main.cullingMask &= ~(1 << LayerMask.NameToLayer("Resources"));
         }
     }
+
+    // Toggle rendering of resources
+    public void ToggleResourceRendering()
+    {
+        Camera.main.cullingMask ^= 1 << LayerMask.NameToLayer("Resources");
+    }
 }
