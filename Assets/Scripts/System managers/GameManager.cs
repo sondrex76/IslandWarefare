@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     // Amount of resources generated through various systems
     public float moneyAmount = 0;   // Money
-    public int population = 0;      // Population
+    public uint population = 0;      // Population
     public float happiness = 0;     // Happiness, might be changed to be a value between 0 and 100 in the future
 
 
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
         optionsMenu.enabled = false;
         Cursor.lockState = CursorLockMode.None;
+
     }
     
     // Updates canvas to being active or inactive
@@ -57,5 +58,18 @@ public class GameManager : MonoBehaviour
     {
         inputManager.updateSelectedAction(selectedAction);
         optionsManager.currentButton = EventSystem.current.currentSelectedGameObject;
+    }
+
+    // Turns on/off rendering of resources
+    public void ResourceRendering(bool render)
+    {
+        if (render)
+        {
+            Camera.main.cullingMask |= 1 << LayerMask.NameToLayer("Resources");
+        }
+        else
+        {
+            Camera.main.cullingMask &= ~(1 << LayerMask.NameToLayer("Resources"));
+        }
     }
 }
