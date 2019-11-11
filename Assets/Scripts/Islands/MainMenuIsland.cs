@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenuIsland : MonoBehaviour
 {
     protected int size = 127;
-    protected int seed = 13485;
+    protected int seed = 185;
     protected float gradient = 25;
 
     [SerializeField]
@@ -14,7 +14,7 @@ public class MainMenuIsland : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        float[,] dataArray = PerlinNoise.GetPerlinNoise(size, size, seed, seed, gradient);
+        float[,] dataArray = PerlinNoise.GetPerlinNoise(size, size, seed, gradient);
 
         GameObject terrain;
 

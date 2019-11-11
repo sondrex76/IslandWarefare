@@ -26,7 +26,6 @@ public class Island : MonoBehaviour
 
     //Size is always 2^x + 1, and 33 might just be the best size
     private GameObject terrain;
-    private float islandGradient = 100;
 
     public Island(int x, int z, int islandID, Material material)
     {
@@ -51,7 +50,7 @@ public class Island : MonoBehaviour
 
         if (!File.Exists(Application.persistentDataPath + "/island" + ID))
         {
-            float[,] dataArray = PerlinNoise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, islandGradient);
+            float[,] dataArray = PerlinNoise.GetPerlinNoise(Const.size, Const.size, ID, Const.islandGradient);
             SaveMap(dataArray);
         }
 
@@ -104,7 +103,7 @@ public class Island : MonoBehaviour
         else Debug.Log("File does not exist when trying to load it");
 
         //Map was not saved, create a new one
-        float[,]map = PerlinNoise.GetPerlinNoise(Const.size, Const.size, xCord * Const.islandDistance + xOffSet, zCord * Const.islandDistance + xOffSet, islandGradient);
+        float[,]map = PerlinNoise.GetPerlinNoise(Const.size, Const.size, ID, Const.islandGradient);
         SaveMap(map);
 
         return map;

@@ -6,7 +6,7 @@ public static class PerlinNoise
 {
 
     //Uses ID of Island to get seed
-    public static float[,] GetPerlinNoise(int xWidth, int zWidth, float xCoord, float zCoord, float gradient)
+    public static float[,] GetPerlinNoise(int xWidth, int zWidth, int seed, float gradient)
     {
         float[,] map = new float[xWidth, zWidth];
 
@@ -14,8 +14,8 @@ public static class PerlinNoise
         {
             for (int z = 0; z < zWidth; z++)
             {
-                float X = (xCoord + x) / gradient;
-                float Z = (zCoord + z) /  gradient;
+                float X = (seed * 1000 + x) / gradient;
+                float Z = (seed * 1000 + z) /  gradient;
                 map[x,z] = Mathf.PerlinNoise(X , Z) - distanceSquared(x, z, xWidth, zWidth);
             }
         }
