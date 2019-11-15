@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     // Public variables
     public static InputManager inputManager;        // The input manager
-    public static bool isPaused = false;                   // Is paused
+    public static bool isPaused = false;            // Is paused
 
     // Resources, resources[i] and resourceAmounts[i] are for object i
     public Resource[] resources;
@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     public uint population = 0;      // Population
     public float happiness = 0;     // Happiness, might be changed to be a value between 0 and 100 in the future
     
-
     // Options
     [SerializeField] Canvas optionsMenu;            // The options menu
     [SerializeField] OptionsManager optionsManager; // The options manager
@@ -37,7 +36,6 @@ public class GameManager : MonoBehaviour
 
         optionsMenu.enabled = false;
         Cursor.lockState = CursorLockMode.None;
-
     }
     
     // Updates canvas to being active or inactive
