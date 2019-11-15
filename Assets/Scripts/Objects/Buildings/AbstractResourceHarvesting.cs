@@ -28,26 +28,30 @@ public class AbstractResourceHarvesting : AbstractBuilding
     // Updates resource and ensures resource value does not go below 0
     float UpdateResource()
     {
-        float returnedValue;                                        // Value to return
-
-        if (resource.resourceAmount - resourceExtractionSpeed <= 0) // if resource becomes empty
+        if (!GameManager.isPaused)
         {
-            returnedValue = resource.resourceAmount;                // Sets amount returned to the remaining resources
-            resourceFound = false;                                  // Updates status to showcase that a resource is not currently located
+            float returnedValue;                                        // Value to return
 
-            if (resource != null)                                   // Checks if resource is null since Destroy will trigger at the end of fixed update
+            if (resource.resourceAmount - resourceExtractionSpeed <= 0) // if resource becomes empty
             {
-                Destroy(resource);                                  // Destroys resource class
-                Destroy(resource.gameObject);                       // Destroys resource gameobject
-            }
-        }
-        else
-        {
-            resource.resourceAmount -= resourceExtractionSpeed;     // Updates amount of resource
-            returnedValue = resourceExtractionSpeed;                // Makes the amount to increase resource the extraction speed
-        }
+                returnedValue = resource.resourceAmount;                // Sets amount returned to the remaining resources
+                resourceFound = false;                                  // Updates status to showcase that a resource is not currently located
 
-        return returnedValue;
+                if (resource != null)                                   // Checks if resource is null since Destroy will trigger at the end of fixed update
+                {
+                    Destroy(resource);                                  // Destroys resource class
+                    Destroy(resource.gameObject);                       // Destroys resource gameobject
+                }
+            }
+            else
+            {
+                resource.resourceAmount -= resourceExtractionSpeed;     // Updates amount of resource
+                returnedValue = resourceExtractionSpeed;                // Makes the amount to increase resource the extraction speed
+            }
+
+            return returnedValue;
+        }
+        else return 0;
     }
 
     // checks if resource is there

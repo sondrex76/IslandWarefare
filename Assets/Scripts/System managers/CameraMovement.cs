@@ -104,7 +104,7 @@ public class CameraMovement : MonoBehaviour
             inputManager.frozenAngle = !inputManager.frozenAngle;
 
             // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
-            Cursor.visible = gameManager.isPaused || inputManager.frozenAngle;
+            Cursor.visible = GameManager.isPaused || inputManager.frozenAngle;
             if (Cursor.visible)
                 Cursor.lockState = CursorLockMode.None;
             else
@@ -119,7 +119,7 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         // Updates movement and mouse position if game is not paused, else sets movement speed to 0
-        if (!gameManager.isPaused)
+        if (!GameManager.isPaused)
         {
             updateZoom();                                       // Updates the zoom of the camera
             updatePosition();                                   // Updates position of the camera

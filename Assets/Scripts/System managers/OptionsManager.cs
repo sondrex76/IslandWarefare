@@ -27,7 +27,7 @@ public class OptionsManager : MonoBehaviour
     {
         if (Input.GetKeyDown(inputManager.bindings[(int)InputManager.Actions.PAUSE]))   // Pause
         {
-            gameManager.UpdateCanvas(!gameManager.isPaused);   // two bools rather then one because of
+            gameManager.UpdateCanvas(!GameManager.isPaused);   // two bools rather then one because of
         }
 
         // Input change

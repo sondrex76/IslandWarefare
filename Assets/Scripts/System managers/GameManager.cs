@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     // Public variables
     public static InputManager inputManager;        // The input manager
-    public bool isPaused = false;                   // Is paused
+    public static bool isPaused = false;                   // Is paused
 
     // Resources, resources[i] and resourceAmounts[i] are for object i
     public Resource[] resources;
