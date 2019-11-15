@@ -128,6 +128,7 @@ public class CameraMovement : MonoBehaviour
         else
         {
             cameraBody.velocity = new Vector3(0, 0, 0);
+
         }
     }
 }

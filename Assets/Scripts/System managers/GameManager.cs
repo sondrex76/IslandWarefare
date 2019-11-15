@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public float moneyAmount = 0;   // Money
     public uint population = 0;      // Population
     public float happiness = 0;     // Happiness, might be changed to be a value between 0 and 100 in the future
-
+    
 
     // Options
     [SerializeField] Canvas optionsMenu;            // The options menu
@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     public void UpdateCanvas(bool active)
     {
         optionsMenu.enabled = isPaused = active;
+        // Freezes rotation while paused, needed to fix a bug causing major rotation sometimes, TODO: Find and fix that bug, then remove the following line of code
+        Camera.main.transform.GetComponent<Rigidbody>().freezeRotation = !active;
 
         // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
         Cursor.visible = active || inputManager.frozenAngle; // WIP
