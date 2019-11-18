@@ -116,19 +116,10 @@ public class CameraMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        // Updates movement and mouse position if game is not paused, else sets movement speed to 0
-        if (!GameManager.isPaused)
-        {
-            updateZoom();                                       // Updates the zoom of the camera
-            updatePosition();                                   // Updates position of the camera
-            if (!inputManager.frozenAngle) updateRotation();   // Updates rotation of the camera
-        }
-        else
-        {
-            cameraBody.velocity = new Vector3(0, 0, 0);
-
-        }
+        updateZoom();                                      // Updates the zoom of the camera
+        updatePosition();                                  // Updates position of the camera
+        if (!inputManager.frozenAngle) updateRotation();   // Updates rotation of the camera
     }
 }
