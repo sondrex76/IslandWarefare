@@ -111,6 +111,8 @@ public class CameraMovement : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
         }
 
+        cameraBody.velocity /= Time.timeScale;
+
         // Resets vertical angle
         cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);
     }
