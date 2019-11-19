@@ -17,7 +17,7 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float randomFluct = 0.1f;  // Max fluctuation from zero for building
 
     bool finishedBuilding= false;               // Bool specifying if building is finished being built
-    float currentHealth;                        // Current health
+    [SerializeField] float currentHealth;                        // Current health
 
     protected void Awake()
     {
@@ -39,7 +39,6 @@ public class AbstractBuilding : MonoBehaviour
     {
         if (!GameManager.isPaused)  // Only run code if game is not paused
         {
-            Debug.Log(finishedBuilding);
             // Either runs bulding's funcitonality or builds it
             if (finishedBuilding)               // Building is up and running
             {
@@ -52,10 +51,16 @@ public class AbstractBuilding : MonoBehaviour
                 building.position = new Vector3(Random.Range(-randomFluct, randomFluct), building.transform.position.y + (startOffsetY / 50 / timeSecondsBuild), Random.Range(-randomFluct, randomFluct));
 
                 // Updates health so that it becomes full by the time the building is finished building
-                HurtBuilding(-(1 / 50 / timeSecondsBuild) * (maxHealth - startHealth));
+                HurtBuilding(-(1.0f / 50 / timeSecondsBuild) * (maxHealth - startHealth));
 
                 if (building.transform.position.y >= 0) // Building is finished building
                 {
+                    // Sets building to finished building
+                    finishedBuilding = true;    
+                    // Limits max helath to maxHealth
+                    if (currentHealth > maxHealth)
+                        currentHealth = maxHealth; 
+                    // Sets position to base position
                     building.transform.position = new Vector3(0, 0, 0);
                 }
                 else                                    // Building is still building
@@ -108,7 +113,7 @@ public class AbstractBuilding : MonoBehaviour
             // TODO: Make rotation of loaded object equal that of building being deleted
             LoadPrefab(prefab, new Vector3(x, y, z), rotation);
         }
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     // Loads a prefab, at relative x, y, z coordinates rotated around the y axis by rotation comapred to building
