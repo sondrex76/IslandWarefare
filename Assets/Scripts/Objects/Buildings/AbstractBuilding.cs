@@ -14,6 +14,7 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float startHealth;         // Starting health
     [SerializeField] float startOffsetY = 20;   // How far below the surface the building starts
     [SerializeField] float timeSecondsBuild;    // Time in seconds for how long it will take ofr the building to finish building
+    [SerializeField] float randomFluct = 0.1f;  // Max fluctuation from zero for building
 
     bool finishedBuilding= false;               // Bool specifying if building is finished being built
     float currentHealth;                        // Current health
@@ -48,7 +49,7 @@ public class AbstractBuilding : MonoBehaviour
             else                                // Building is being built
             {
                 // Updates postion by one 50th of startOffsetY / timeSecondsBuild to make the time it takes to reach ideal position to be timeSecondsBuild
-                building.position = new Vector3(0, building.transform.position.y + (startOffsetY / 50 / timeSecondsBuild), 0);
+                building.position = new Vector3(Random.Range(-randomFluct, randomFluct), building.transform.position.y + (startOffsetY / 50 / timeSecondsBuild), Random.Range(-randomFluct, randomFluct));
 
                 // Updates health so that it becomes full by the time the building is finished building
                 HurtBuilding(-(1 / 50 / timeSecondsBuild) * (maxHealth - startHealth));
