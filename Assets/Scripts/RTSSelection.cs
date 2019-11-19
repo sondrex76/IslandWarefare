@@ -17,8 +17,6 @@ public class RTSSelection : MonoBehaviour
  
     [Tooltip("Canvas is set automatically if not set in the inspector")]
     public Canvas canvas;
-    [Tooltip("The Image that will function as the selection box to select multiple objects at the same time. Without this you can only click to select.")]
-    public Image selectionBox;
     [Tooltip("The key to add/remove parts of your selection")]
     public KeyCode copyKey = KeyCode.LeftControl;
  
@@ -26,7 +24,7 @@ public class RTSSelection : MonoBehaviour
  
     private BoxCollider worldCollider;
  
-    private RectTransform rt;
+    private Rect rt;
  
     private bool isSelecting;
     EventManager _eventManager;
@@ -35,16 +33,6 @@ public class RTSSelection : MonoBehaviour
         _eventManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<EventManager>();
         if (canvas == null)
             canvas = FindObjectOfType<Canvas>();
- 
-        if (selectionBox != null)
-        {
-            //We need to reset anchors and pivot to ensure proper positioning
-            rt = selectionBox.GetComponent<RectTransform>();
-            rt.pivot = Vector2.one * .5f;
-            rt.anchorMin = Vector2.one * .5f;
-            rt.anchorMax = Vector2.one * .5f;
-            selectionBox.gameObject.SetActive(false);
-        }
     }
  
     void Update()
@@ -78,24 +66,16 @@ public class RTSSelection : MonoBehaviour
                 }
             }
  
-            if (selectionBox == null)
-                return;
             //Storing these variables for the selectionBox
             startScreenPos = Input.mousePosition;
             isSelecting = true;
         }
- 
-        //If we never set the selectionBox variable in the inspector, we are simply not able to drag the selectionBox to easily select multiple objects. 'Regular' selection should still work
-        if (selectionBox == null)
-            return;
  
         //We finished our selection box when the key is released
         if (Input.GetMouseButtonUp(0))
         {
             isSelecting = false;
         }
- 
-        selectionBox.gameObject.SetActive(isSelecting);
  
         if (isSelecting)
         {
@@ -104,12 +84,11 @@ public class RTSSelection : MonoBehaviour
             b.center = Vector3.Lerp(startScreenPos, Input.mousePosition, 0.5f);
             //We make the size absolute (negative bounds don't contain anything)
             b.size = new Vector3(Mathf.Abs(startScreenPos.x - Input.mousePosition.x),
-                Mathf.Abs(startScreenPos.y - Input.mousePosition.y),
+              Mathf.Abs(startScreenPos.y - Input.mousePosition.y),
                 0);
  
             //To display our selectionbox image in the same place as our bounds
             rt.position = b.center;
-            rt.sizeDelta = canvas.transform.InverseTransformVector(b.size);
  
             //Looping through all the selectables in our world (automatically added/removed through the Selectable OnEnable/OnDisable)
             foreach (Selectable selectable in selectables)
@@ -124,9 +103,10 @@ public class RTSSelection : MonoBehaviour
 
      void OnGUI() {
          if (isSelecting) {
-             var rect = Utils.GetScreenRect(startScreenPos, Input.mousePosition);
-             Utils.DrawScreenRect(rect,new Color(0.8f,0.8f,0.95f,0.05f));
-             Utils.DrawScreenRectBorder(rect,2,new Color(0.8f,0.8f,0.95f));
+             rt = Utils.GetScreenRect(startScreenPos, Input.mousePosition);
+             Utils.DrawScreenRect(rt,new Color(0.8f,0.8f,0.95f,0.05f));
+             Utils.DrawScreenRectBorder(rt,2,new Color(0.8f,0.8f,0.95f));
+             
          }
      }
  
