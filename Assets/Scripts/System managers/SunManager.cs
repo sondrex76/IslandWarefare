@@ -19,8 +19,6 @@ public class SunManager : MonoBehaviour
         // If game manager is not paused the sun will be moved
         if (!GameManager.isPaused)
         {
-            print(sunObject.transform.eulerAngles.x);
-
             sunObject.transform.Rotate(timeValue, 0, 0);
         }   
     }

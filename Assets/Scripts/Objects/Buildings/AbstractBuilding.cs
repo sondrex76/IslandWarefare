@@ -6,22 +6,66 @@
 
 public class AbstractBuilding : MonoBehaviour
 {
-    protected GameManager gameManager;      // Game manager object, is used in child objects to modify resource amounts
-    [SerializeField] GameObject prefab;     // Prefab object
+    protected GameManager gameManager;          // Game manager object, is used in child objects to modify resource amounts
+    [SerializeField] GameObject prefab;         // Prefab object, usually ruins to be placed after reaching 0hp
+    [SerializeField] Transform building;        // Transform of current building
 
-    [SerializeField] float maxHealth;       // Max health for building
-    [SerializeField] float currentHealth;   // Current health
+    [SerializeField] float maxHealth;           // Max health for building
+    [SerializeField] float startHealth;         // Starting health
+    [SerializeField] float startOffsetY = 20;   // How far below the surface the building starts
+    [SerializeField] float timeSecondsBuild;    // Time in seconds for how long it will take ofr the building to finish building
+
+    bool finishedBuilding= false;               // Bool specifying if building is finished being built
+    float currentHealth;                        // Current health
 
     protected void Awake()
     {
+        // Sets helath to starting health
+        currentHealth = startHealth;            
         gameManager = FindObjectOfType<GameManager>();
+
+        // If building is not defined it searches for object called "Building"
+        if (building == null)               
+            building = transform.Find("Building").GetComponent<Transform>();
+
+        // Sets position to the appropriate starting position
+        if (building != null)               // DEBUG, in case object has no model, should not be needed later
+            building.position = new Vector3(0, building.transform.position.y - startOffsetY, 0);
     }
 
     // Updates 50 times a second independent of framerate
     protected void FixedUpdate()
     {
-        // Runs the building's primary functionality
-        BuildingFunctionality();
+        if (!GameManager.isPaused)  // Only run code if game is not paused
+        {
+            Debug.Log(finishedBuilding);
+            // Either runs bulding's funcitonality or builds it
+            if (finishedBuilding)               // Building is up and running
+            {
+                // Runs the building's primary functionality
+                BuildingFunctionality();
+            }
+            else                                // Building is being built
+            {
+                // Updates postion by one 50th of startOffsetY / timeSecondsBuild to make the time it takes to reach ideal position to be timeSecondsBuild
+                building.position = new Vector3(0, building.transform.position.y + (startOffsetY / 50 / timeSecondsBuild), 0);
+
+                // Updates health so that it becomes full by the time the building is finished building
+                HurtBuilding(-(1 / 50 / timeSecondsBuild) * (maxHealth - startHealth));
+
+                if (building.transform.position.y >= 0) // Building is finished building
+                {
+                    building.transform.position = new Vector3(0, 0, 0);
+                }
+                else                                    // Building is still building
+                {
+                    // TODO: Make building shake
+
+                    // TODO: add building particles
+
+                }
+            }
+        }
     }
 
 
@@ -33,6 +77,7 @@ public class AbstractBuilding : MonoBehaviour
         // If building has been destroyed
         if (currentHealth <= 0)
         {
+            Debug.Log("ZERO");  // DEBUG
             ZeroHealth();
             return true;
         }
@@ -56,8 +101,10 @@ public class AbstractBuilding : MonoBehaviour
     protected virtual void DestroyBuilding(float x = 0, float y = 0, float z = 0, float rotation = 0)
     {
         // By default the building will place a prefab at the relative coordinates of (0, 0, 0), will not happen if prefab is not defined
+        // USed to place ruins
         if (prefab != null)
         {
+            // TODO: Make rotation of loaded object equal that of building being deleted
             LoadPrefab(prefab, new Vector3(x, y, z), rotation);
         }
         Destroy(this);

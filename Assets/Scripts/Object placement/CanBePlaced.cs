@@ -1,6 +1,7 @@
 ﻿
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CanBePlaced : MonoBehaviour
@@ -9,8 +10,15 @@ public class CanBePlaced : MonoBehaviour
      {
         if (collision.transform.tag == "Building" || collision.transform.tag == "Road")
         {
-            transform.parent.GetComponent<ObjectPlacer>().CollisionDetected(this);
-            Debug.Log("REEE");
+            try
+            {
+                transform.parent.GetComponent<ObjectPlacer>().CollisionDetected(this);
+                Debug.Log("REEE");
+            }
+            catch(Exception e)
+            {
+                Debug.Log("Error in OnCollisionStay within canBePlaced");
+            }
         }
      }
 
@@ -18,8 +26,15 @@ public class CanBePlaced : MonoBehaviour
      {
         if (collision.collider.tag == "Building" || collision.collider.tag == "Road")
         {
-            transform.parent.GetComponent<ObjectPlacer>().CollisionExit(this);
-            Debug.Log("REEE");
+            try
+            {
+                transform.parent.GetComponent<ObjectPlacer>().CollisionExit(this);
+                Debug.Log("REEE");
+            }
+            catch(Exception e)
+            {
+                Debug.Log("Error in OnCollisionExit within canBePlaced");
+            }
         }
     }
 
