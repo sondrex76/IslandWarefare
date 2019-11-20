@@ -17,11 +17,11 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float randomFluct = 0.1f;  // Max fluctuation from zero for building
 
     bool finishedBuilding= false;               // Bool specifying if building is finished being built
-    [SerializeField] float currentHealth;                        // Current health
+    [SerializeField] float currentHealth;       // Current health, serialized for convenience' sake but works automatically
 
     protected void Awake()
     {
-        // Sets helath to starting health
+        // Sets health to starting health
         currentHealth = startHealth;            
         gameManager = FindObjectOfType<GameManager>();
 
@@ -53,7 +53,7 @@ public class AbstractBuilding : MonoBehaviour
                 // Updates health so that it becomes full by the time the building is finished building
                 HurtBuilding(-(1.0f / 50 / timeSecondsBuild) * (maxHealth - startHealth));
 
-                if (building.transform.position.y >= 0) // Building is finished building
+                if (building.position.y >= 0) // Building is finished building
                 {
                     // Sets building to finished building
                     finishedBuilding = true;    
@@ -61,19 +61,11 @@ public class AbstractBuilding : MonoBehaviour
                     if (currentHealth > maxHealth)
                         currentHealth = maxHealth; 
                     // Sets position to base position
-                    building.transform.position = new Vector3(0, 0, 0);
-                }
-                else                                    // Building is still building
-                {
-                    // TODO: Make building shake
-
-                    // TODO: add building particles
-
+                    building.position = new Vector3(0, 0, 0);
                 }
             }
         }
     }
-
 
     // How much health should the building take, negative value for healing
     protected virtual bool HurtBuilding(float lostHealth)  // Returns true if building is destroyed
@@ -122,5 +114,15 @@ public class AbstractBuilding : MonoBehaviour
     {
         GameObject newObject = Instantiate(gameObject, coordinates, Quaternion.identity);   // Places object
         newObject.transform.Rotate(0, rotation, 0);                                         // Rotates object
+    }
+
+    // Function defining the building as finished beng built, used when loading level
+    public virtual void IsFinished(float health)
+    {
+        // sets position to 0, next fixedUpdate will set the building to a finished state
+        building.position = new Vector3(0, 0, 0);
+
+        // Updates health
+        currentHealth = health;
     }
 }
