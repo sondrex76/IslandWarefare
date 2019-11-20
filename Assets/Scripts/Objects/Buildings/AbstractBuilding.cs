@@ -92,11 +92,11 @@ public class AbstractBuilding : MonoBehaviour
     // What do do when building reaches 0 hp, overwrite in child class for more complex behaviour
     protected virtual void ZeroHealth()
     {
-        DestroyBuilding();  // Destroys building
+        DestroyBuilding(transform.rotation.eulerAngles, transform.position.x, transform.position.y, transform.position.z);  // Destroys building
     }
 
     // Destroys this building, you can send it the coordinates 
-    protected virtual void DestroyBuilding(float x = 0, float y = 0, float z = 0, float rotation = 0)
+    protected virtual void DestroyBuilding(Vector3 rotation, float x = 0, float y = 0, float z = 0)
     {
         // By default the building will place a prefab at the relative coordinates of (0, 0, 0), will not happen if prefab is not defined
         // USed to place ruins
@@ -110,10 +110,9 @@ public class AbstractBuilding : MonoBehaviour
 
     // Loads a prefab, at relative x, y, z coordinates rotated around the y axis by rotation comapred to building
     // Is used with a check to see if the prefab is null first: if (prefab != null) {}
-    protected virtual void LoadPrefab(GameObject gameObject, Vector3 coordinates, float rotation)
+    protected virtual void LoadPrefab(GameObject gameObject, Vector3 coordinates, Vector3 rotation)
     {
-        GameObject newObject = Instantiate(gameObject, coordinates, Quaternion.identity);   // Places object
-        newObject.transform.Rotate(0, rotation, 0);                                         // Rotates object
+        GameObject newObject = Instantiate(gameObject, coordinates, Quaternion.Euler(rotation));   // Places object
     }
 
     // Function defining the building as finished beng built, used when loading level
