@@ -45,9 +45,10 @@ public class AbstractResourceHarvesting : AbstractBuilding
             }
             else
             {
-                resource.resourceAmount -= resourceExtractionSpeed;     // Updates amount of resource
                 returnedValue = resourceExtractionSpeed;                // Makes the amount to increase resource the extraction speed
             }
+
+            resource.resourceAmount -= returnedValue;                   // Updates amount of resource
 
             return returnedValue;
         }

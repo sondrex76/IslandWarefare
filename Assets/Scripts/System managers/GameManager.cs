@@ -17,9 +17,11 @@ public class GameManager : MonoBehaviour
 
     // Amount of resources generated through various systems
     public float moneyAmount = 0;   // Money
-    public uint population = 0;      // Population
+    public uint population = 0;     // Population
     public float happiness = 0;     // Happiness, might be changed to be a value between 0 and 100 in the future
-    
+
+    float previousTimeSpeed = 1;    // Previous speed of time
+
     // Options
     [SerializeField] Canvas optionsMenu;            // The options menu
     [SerializeField] OptionsManager optionsManager; // The options manager
@@ -42,6 +44,17 @@ public class GameManager : MonoBehaviour
     public void UpdateCanvas(bool active)
     {
         optionsMenu.enabled = isPaused = active;
+
+        // if paused then it sets speed to zero
+        if (active)
+        {
+            previousTimeSpeed = Time.timeScale;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = previousTimeSpeed;
+        }
         // Freezes rotation while paused, needed to fix a bug causing major rotation sometimes, TODO: Find and fix that bug, then remove the following line of code
         Camera.main.transform.GetComponent<Rigidbody>().freezeRotation = !active;
 

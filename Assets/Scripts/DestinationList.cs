@@ -26,11 +26,13 @@ public class DestinationList : MonoBehaviour
     {
         if (_AgentHasReached)
         {
-            
+            if (_listOfDestinations.Count > 0)
+            {
             _destination = _listOfDestinations[0];
             _listOfDestinations.RemoveAt(0);
             _agent.destination = _destination;
             _AgentHasReached = false;
+            }
         }
         if (Vector3.Distance(transform.position, _destination) < 1.0f)
         {
