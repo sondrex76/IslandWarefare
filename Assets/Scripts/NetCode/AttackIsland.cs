@@ -19,7 +19,6 @@ public class AttackIsland : MonoBehaviour
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
             FunctionName = "checkBattleTime", // Arbitrary function name (must exist in your uploaded cloud.js file)
-            FunctionParameter = new { islandID = "9999" }, // The parameter provided to your function
             GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
         }, OnGetAttackTime, OnErrorShared);
 
@@ -36,7 +35,6 @@ public class AttackIsland : MonoBehaviour
         timeOfAttack = System.Convert.ToInt64(timeOfAttackObject);
 
         StartCoroutine("updateTime");
-
     }
 
 
@@ -47,6 +45,25 @@ public class AttackIsland : MonoBehaviour
         jsonResult.TryGetValue("result", out resultOfBattle); // note how "messageValue" directly corresponds to the JSON values set in Cloud Script
 
         text.text = resultOfBattle.ToString();
+    }
+
+    public void AttackPlayer(int islandID)
+    {
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "calcAttackTime", // Arbitrary function name (must exist in your uploaded cloud.js file)
+            FunctionParameter = new { islandID = islandID }, // The parameter provided to your function
+            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
+        }, OnAttack, OnErrorShared);
+    }
+
+    void OnAttack(ExecuteCloudScriptResult result)
+    {
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "checkBattleTime", // Arbitrary function name (must exist in your uploaded cloud.js file)
+            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
+        }, OnGetAttackTime, OnErrorShared);
     }
 
         private static void OnErrorShared(PlayFabError error)

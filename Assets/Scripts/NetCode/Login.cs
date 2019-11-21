@@ -55,7 +55,7 @@ public class Login : MonoBehaviour
         PlayerPrefs.SetString("EMAIL", email);
         PlayerPrefs.SetString("PASSWORD", password);
         loginPanel.SetActive(false);
-        SceneManager.LoadScene("BjornarTesting");
+        SceneManager.LoadScene("IslandMap");
     }
 
 
