@@ -16,7 +16,7 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float timeSecondsBuild;    // Time in seconds for how long it will take ofr the building to finish building
     [SerializeField] float randomFluct = 0.1f;  // Max fluctuation from zero for building
 
-    bool finishedBuilding= false;               // Bool specifying if building is finished being built
+    protected bool finishedBuilding = false;    // Bool specifying if building is finished being built
     [SerializeField] float currentHealth;       // Current health, serialized for convenience' sake but works automatically
 
     protected void Awake()
@@ -39,7 +39,6 @@ public class AbstractBuilding : MonoBehaviour
     {
         if (!GameManager.isPaused)  // Only run code if game is not paused
         {
-            Debug.Log(building.localPosition);
             // Either runs bulding's funcitonality or builds it
             if (finishedBuilding)               // Building is up and running
             {

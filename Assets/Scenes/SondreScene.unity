@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FactoryTemplate
       objectReference: {fileID: 0}
+    - target: {fileID: 6488853407038031113, guid: 6007fec146ac4f443b3359f36e1d1c6f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Factory
+      objectReference: {fileID: 0}
     - target: {fileID: 6488853407038031115, guid: 6007fec146ac4f443b3359f36e1d1c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -187,40 +192,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2749764771229757177, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
+    - target: {fileID: 1697185609, guid: 6007fec146ac4f443b3359f36e1d1c6f, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5480278459061828825, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
-      propertyPath: building
-      value: 
-      objectReference: {fileID: 1118680173}
-    - target: {fileID: 5480278459061828825, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
-      propertyPath: startHealth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5480278459061828825, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5480278459061828825, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
-      propertyPath: startOffsetY
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5480278459061828825, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
-      propertyPath: timeSecondsBuild
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5480278459061828825, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
-      propertyPath: randomFluct
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6007fec146ac4f443b3359f36e1d1c6f, type: 3}
@@ -5596,12 +5570,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4479d599ec0d3224d9244ffaa8c7bfc9, type: 3}
---- !u!4 &1118680173 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2357639461811418150, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 87716444}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1276135624
 GameObject:
   m_ObjectHideFlags: 0

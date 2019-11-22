@@ -9,6 +9,7 @@ TagManager:
   - Manager
   - Resource
   - Building
+  - Factory
   layers:
   - Default
   - TransparentFX
