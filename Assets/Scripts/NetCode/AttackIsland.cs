@@ -5,110 +5,54 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.Json;
 using TMPro;
+using System.Threading.Tasks;
+using System;
 
 public class AttackIsland : MonoBehaviour
 {
 
-    private long timeOfAttack = 0;
-    private string timeOfAttackDHMS;
-    public TMPro.TextMeshProUGUI text;
 
-    // Build the request object and access the API
-    void Start()
+
+
+    public void GetAttackTime(Action<ExecuteCloudScriptResult> onComplete)
     {
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
-            FunctionName = "checkBattleTime", // Arbitrary function name (must exist in your uploaded cloud.js file)
-            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
-        }, OnGetAttackTime, OnErrorShared);
-
-
+            FunctionName = "checkBattleTime",
+            GeneratePlayStreamEvent = true,
+        }, onComplete, OnErrorShared);
     }
 
 
-    void OnGetAttackTime(ExecuteCloudScriptResult result)
+
+
+    //Starts the attack player calcAttackTime cloudscript (Starting an attack on a diffrent Island)
+    public void AttackPlayer(int islandID, Action<ExecuteCloudScriptResult> onComplete)
     {
-        JsonObject jsonResult = (JsonObject)result.FunctionResult;
-        object timeOfAttackObject;
-        jsonResult.TryGetValue("timeOfAttack", out timeOfAttackObject); // note how "messageValue" directly corresponds to the JSON values set in Cloud Script
-
-        timeOfAttack = System.Convert.ToInt64(timeOfAttackObject);
-
-        StartCoroutine("updateTime");
-    }
-
-
-    void OnGetResult(ExecuteCloudScriptResult result)
-    {
-        JsonObject jsonResult = (JsonObject)result.FunctionResult;
-        object resultOfBattle;
-        jsonResult.TryGetValue("result", out resultOfBattle); // note how "messageValue" directly corresponds to the JSON values set in Cloud Script
-
-        text.text = resultOfBattle.ToString();
-    }
-
-    public void AttackPlayer(int islandID)
-    {
-        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+       PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
-            FunctionName = "calcAttackTime", // Arbitrary function name (must exist in your uploaded cloud.js file)
-            FunctionParameter = new { islandID = islandID }, // The parameter provided to your function
-            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
-        }, OnAttack, OnErrorShared);
+            FunctionName = "calcAttackTime", 
+            FunctionParameter = new { islandID = islandID },
+            GeneratePlayStreamEvent = true,
+        }, onComplete, OnErrorShared);
     }
 
-    void OnAttack(ExecuteCloudScriptResult result)
-    {
-        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
-        {
-            FunctionName = "checkBattleTime", // Arbitrary function name (must exist in your uploaded cloud.js file)
-            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
-        }, OnGetAttackTime, OnErrorShared);
-    }
+
 
         private static void OnErrorShared(PlayFabError error)
     {
         Debug.Log(error.GenerateErrorReport());
     }
 
+    public void CalculateWinner(Action<ExecuteCloudScriptResult> onComplete)
+    {
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "calcWinner", // Arbitrary function name (must exist in your uploaded cloud.js file)
+            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
+        }, onComplete, OnErrorShared);
+    }
     
 
-    IEnumerator updateTime()
-    {
-        while (true)
-        {
-
-            timeOfAttack -= 1000;
-
-            if (timeOfAttack > 0) {
-
-                var diff = timeOfAttack / 1000;
-                var secondsDiff = diff % 60;
-                diff = diff / 60;
-                var minutesDiff = diff % 60;
-                diff = diff / 60;
-                var hoursDiff = diff % 24;
-                diff = diff / 24;
-                var daysDiff = diff % 7;
-
-                timeOfAttackDHMS = daysDiff.ToString() + ":" + hoursDiff.ToString() + ":" + minutesDiff.ToString() + ":" + secondsDiff.ToString();
-
-                text.text = timeOfAttackDHMS;
-
-                yield return new WaitForSeconds(1f);
-            }
-            else {
-
-                text.text = "";
-                PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
-                {
-                    FunctionName = "calcWinner", // Arbitrary function name (must exist in your uploaded cloud.js file)
-                    GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
-                }, OnGetResult, OnErrorShared);
-                break;
-            };
-
-        }
-    }
 
 }
