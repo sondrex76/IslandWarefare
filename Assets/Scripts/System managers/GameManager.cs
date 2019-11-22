@@ -45,15 +45,15 @@ public class GameManager : MonoBehaviour
                 {
                     if (currentlySelectedFactory != null)                                           // Checks if a building is already selected
                     {
-                        currentlySelectedFactory.ActovateGUI(false);                                // Disables menu of previously selected game object
+                        currentlySelectedFactory.ActivateGUI(false);                                // Disables menu of previously selected game object
                     }
                     currentlySelectedFactory = hitInfo.transform.GetComponent<FactoryBuilding>();   // Sets newly selected game object
 
-                    currentlySelectedFactory.ActovateGUI(true);                                     // Activates GUI of game object
+                    currentlySelectedFactory.ActivateGUI(true);                                     // Activates GUI of game object
                 }
                 else if (currentlySelectedFactory != null)
                 {
-                    currentlySelectedFactory.ActovateGUI(false);                                    // Disables menu of previously selected game object
+                    currentlySelectedFactory.ActivateGUI(false);                                    // Disables menu of previously selected game object
                 }
             }
         }

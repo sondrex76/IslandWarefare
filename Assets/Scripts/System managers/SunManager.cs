@@ -19,7 +19,7 @@ public class SunManager : MonoBehaviour
         // If game manager is not paused the sun will be moved
         if (!GameManager.isPaused)
         {
-            sunObject.transform.Rotate(timeValue, 0, 0);
+            // sunObject.transform.Rotate(timeValue, 0, 0);
         }   
     }
 }

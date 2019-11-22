@@ -6,18 +6,18 @@
 
 public class AbstractBuilding : MonoBehaviour
 {
-    protected GameManager gameManager;          // Game manager object, is used in child objects to modify resource amounts
-    [SerializeField] GameObject prefab;         // Prefab object, usually ruins to be placed after reaching 0hp
-    [SerializeField] Transform building;        // Transform of current building
+    protected GameManager gameManager;              // Game manager object, is used in child objects to modify resource amounts
+    [SerializeField] GameObject prefab;             // Prefab object, usually ruins to be placed after reaching 0hp
+    [SerializeField] protected Transform building;  // Transform of current building
 
-    [SerializeField] float maxHealth;           // Max health for building
-    [SerializeField] float startHealth;         // Starting health
-    [SerializeField] float startOffsetY = 20;   // How far below the surface the building starts
-    [SerializeField] float timeSecondsBuild;    // Time in seconds for how long it will take ofr the building to finish building
-    [SerializeField] float randomFluct = 0.1f;  // Max fluctuation from zero for building
+    [SerializeField] float maxHealth;               // Max health for building
+    [SerializeField] float startHealth;             // Starting health
+    [SerializeField] float startOffsetY = 20;       // How far below the surface the building starts
+    [SerializeField] float timeSecondsBuild;        // Time in seconds for how long it will take ofr the building to finish building
+    [SerializeField] float randomFluct = 0.1f;      // Max fluctuation from zero for building
 
-    protected bool finishedBuilding = false;    // Bool specifying if building is finished being built
-    [SerializeField] float currentHealth;       // Current health, serialized for convenience' sake but works automatically
+    protected bool finishedBuilding = false;        // Bool specifying if building is finished being built
+    [SerializeField] float currentHealth;           // Current health, serialized for convenience' sake but works automatically
 
     protected void Awake()
     {

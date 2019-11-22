@@ -358,7 +358,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 09a27909383aa084ba517deb243d5f44, type: 2}
+  - {fileID: 2100000, guid: e69a0ad63d654e241bf1701236a8ea00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -486,8 +487,10 @@ MonoBehaviour:
   maxHealth: 100
   startHealth: 10
   startOffsetY: 2
-  timeSecondsBuild: 10
+  timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0
   producableResources: []
   gui: {fileID: 0}
+  shaders: {fileID: 0}
+  outlneMaterial: {fileID: 2100000, guid: e69a0ad63d654e241bf1701236a8ea00, type: 2}
