@@ -31,7 +31,7 @@ public class AbstractBuilding : MonoBehaviour
 
         // Sets position to the appropriate starting position
         if (building != null)               // DEBUG, in case object has no model, should not be needed later
-            building.position = new Vector3(0, building.transform.position.y - startOffsetY, 0);
+            building.localPosition = new Vector3(0, building.transform.localPosition.y - startOffsetY, 0);
     }
 
     // Updates 50 times a second independent of framerate
@@ -39,6 +39,7 @@ public class AbstractBuilding : MonoBehaviour
     {
         if (!GameManager.isPaused)  // Only run code if game is not paused
         {
+            Debug.Log(building.localPosition);
             // Either runs bulding's funcitonality or builds it
             if (finishedBuilding)               // Building is up and running
             {
@@ -48,12 +49,12 @@ public class AbstractBuilding : MonoBehaviour
             else                                // Building is being built
             {
                 // Updates postion by one 50th of startOffsetY / timeSecondsBuild to make the time it takes to reach ideal position to be timeSecondsBuild
-                building.position = new Vector3(Random.Range(-randomFluct, randomFluct), building.transform.position.y + (startOffsetY / 50 / timeSecondsBuild), Random.Range(-randomFluct, randomFluct));
+                building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.localPosition.y + (startOffsetY / 50 / timeSecondsBuild), Random.Range(-randomFluct, randomFluct));
 
                 // Updates health so that it becomes full by the time the building is finished building
                 HurtBuilding(-(1.0f / 50 / timeSecondsBuild) * (maxHealth - startHealth));
 
-                if (building.position.y >= 0) // Building is finished building
+                if (building.localPosition.y >= 0) // Building is finished building
                 {
                     // Sets building to finished building
                     finishedBuilding = true;    
@@ -61,7 +62,7 @@ public class AbstractBuilding : MonoBehaviour
                     if (currentHealth > maxHealth)
                         currentHealth = maxHealth; 
                     // Sets position to base position
-                    building.position = new Vector3(0, 0, 0);
+                    building.localPosition = new Vector3(0, 0, 0);
                 }
             }
         }
@@ -92,7 +93,7 @@ public class AbstractBuilding : MonoBehaviour
     // What do do when building reaches 0 hp, overwrite in child class for more complex behaviour
     protected virtual void ZeroHealth()
     {
-        DestroyBuilding(transform.rotation.eulerAngles, transform.position.x, transform.position.y, transform.position.z);  // Destroys building
+        DestroyBuilding(transform.rotation.eulerAngles, transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);  // Destroys building
     }
 
     // Destroys this building, you can send it the coordinates 
@@ -119,7 +120,7 @@ public class AbstractBuilding : MonoBehaviour
     public virtual void IsFinished(float health)
     {
         // sets position to 0, next fixedUpdate will set the building to a finished state
-        building.position = new Vector3(0, 0, 0);
+        building.localPosition = new Vector3(0, 0, 0);
 
         // Updates health
         currentHealth = health;
