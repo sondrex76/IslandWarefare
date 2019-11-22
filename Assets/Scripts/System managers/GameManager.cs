@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
             // Checks if primary mouse button is down
             if (Input.GetMouseButtonDown(0))
             {
+
                 RaycastHit hitInfo = new RaycastHit();
                 
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.tag == "Factory")
