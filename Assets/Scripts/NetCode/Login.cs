@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class Login : MonoBehaviour
         PlayerPrefs.SetString("EMAIL", email);
         PlayerPrefs.SetString("PASSWORD", password);
         loginPanel.SetActive(false);
+        SceneManager.LoadScene("IslandMap");
     }
 
 

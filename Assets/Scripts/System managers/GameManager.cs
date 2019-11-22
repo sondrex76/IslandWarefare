@@ -16,16 +16,48 @@ public class GameManager : MonoBehaviour
     public float supplyPower = 0;
 
     // Amount of resources generated through various systems
-    public float moneyAmount = 0;   // Money
-    public uint population = 0;     // Population
-    public float happiness = 0;     // Happiness, might be changed to be a value between 0 and 100 in the future
+    public float moneyAmount = 0;                   // Money
+    public uint population = 0;                     // Population
+    public float happiness = 0;                     // Happiness, might be changed to be a value between 0 and 100 in the future
 
-    float previousTimeSpeed = 1;    // Previous speed of time
+    float previousTimeSpeed = 1;                    // Previous speed of time
 
     // Options
     [SerializeField] Canvas optionsMenu;            // The options menu
     [SerializeField] OptionsManager optionsManager; // The options manager
-    
+
+    FactoryBuilding currentlySelectedFactory;       // Currently selected factory
+
+
+
+    private void Update()
+    {
+        // If the game is not paused
+        if (!isPaused)
+        {
+            // Checks if primary mouse button is down
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hitInfo = new RaycastHit();
+                
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.tag == "Factory")
+                {
+                    if (currentlySelectedFactory != null)                                           // Checks if a building is already selected
+                    {
+                        currentlySelectedFactory.ActivateGUI(false);                                // Disables menu of previously selected game object
+                    }
+                    currentlySelectedFactory = hitInfo.transform.GetComponent<FactoryBuilding>();   // Sets newly selected game object
+
+                    currentlySelectedFactory.ActivateGUI(true);                                     // Activates GUI of game object
+                }
+                else if (currentlySelectedFactory != null)
+                {
+                    currentlySelectedFactory.ActivateGUI(false);                                    // Disables menu of previously selected game object
+                }
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
