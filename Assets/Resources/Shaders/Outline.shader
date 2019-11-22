@@ -79,7 +79,7 @@ ENDCG
 
 //Second outline
 Pass{
-	Tags{ "Queue" = "Overlay" "IgnoreProjector" = "True" "RenderType" = "Overlay" }
+	Tags{ "Queue" = "Overlay" "IgnoreProjector" = "True" "RenderType" = "Overlay"  "ForceNoShadowCasting" = "True"}
 	Blend SrcAlpha OneMinusSrcAlpha
 	ZWrite Off
 	Cull Back
@@ -119,5 +119,5 @@ Pass{
 	ENDCG
 }
 		}
-			Fallback "Diffuse"
+			// Fallback "Diffuse"
 }

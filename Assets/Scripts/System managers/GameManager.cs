@@ -39,8 +39,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 RaycastHit hitInfo = new RaycastHit();
-
-
+                
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.tag == "Factory")
                 {
                     if (currentlySelectedFactory != null)                                           // Checks if a building is already selected
