@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 // Factory class
 public class FactoryBuilding : AbstractBuilding
@@ -12,6 +14,10 @@ public class FactoryBuilding : AbstractBuilding
 
     Color materialColor;
     string outline = "_FirstOutlineColor";
+
+    float distOptions = 40;
+    [SerializeField] GameObject prefabButton;
+    [SerializeField] RectTransform ParentPanel;
 
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
@@ -27,7 +33,23 @@ public class FactoryBuilding : AbstractBuilding
         materialRenderer = gameObject.GetComponentInChildren<Renderer>();
 
         // Sets activation to disabled
-        ActivateGUI(false);                 
+        ActivateGUI(false);
+        
+        // Generate GUI
+        for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
+        {
+            GameObject goButton = (GameObject)Instantiate(prefabButton);
+            goButton.transform.SetParent(ParentPanel, false);
+            goButton.transform.localScale = new Vector3(1, 1, 1);
+
+            Button tempButton = goButton.GetComponent<Button>();
+            int tempInt = i;
+
+            // Adds listener
+            tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
+            // Modifies text
+            goButton.GetComponentInChildren<Text>().text = i + "";
+        }
     }
 
     // Code to be run on fixedUpdate
@@ -65,5 +87,12 @@ public class FactoryBuilding : AbstractBuilding
         }
 
         return finishedBuilding;
+    }
+
+
+    // Button listeners
+    void ButtonClicked(int buttonNo)
+    {
+        Debug.Log("Button clicked = " + buttonNo);
     }
 }
