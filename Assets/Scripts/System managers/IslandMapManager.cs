@@ -22,12 +22,14 @@ public class IslandMapManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI timeLeftTxt, islandIDTxt;
     [SerializeField]
-    GameObject attackIslandPanel;
+    GameObject attackIslandPanel, timerPanel;
 
     void Start()
     {
         timeLeftTxt.text = "";
         attackIslandPanel.SetActive(false);
+        timerPanel.SetActive(false);
+
         attackIsland.GetAttackTime(OnGetAttackTime);
     }
 
@@ -70,7 +72,7 @@ public class IslandMapManager : MonoBehaviour
 
     void OnAttackCancelled(ExecuteCloudScriptResult result)
     {
-        attackIsland.CalculateWinner(OnGetAttackTime);
+        attackIsland.GetAttackTime(OnGetAttackTime);
     }
 
     //Gets the result of the calcAttackTime cloudscript
@@ -100,11 +102,20 @@ public class IslandMapManager : MonoBehaviour
         object timeOfAttackObject;
         jsonResult.TryGetValue("timeOfAttack", out timeOfAttackObject);
 
-        //Convert object to long
-        timeOfAttack = System.Convert.ToInt64(timeOfAttackObject);
+        Debug.Log(timeOfAttack);
 
-        StartCoroutine("updateTime");
-
+        timerPanel.SetActive(true);
+        if (timeOfAttackObject.ToString() == "cancelled")
+        {
+            timeLeftTxt.text = "Attack cancelled";
+            StopCoroutine("updateTime");
+        }
+        else
+        {
+            //Convert object to long
+            timeOfAttack = System.Convert.ToInt64(timeOfAttackObject);
+            StartCoroutine("updateTime");
+        }
     }
 
 
@@ -115,6 +126,7 @@ public class IslandMapManager : MonoBehaviour
         object resultOfBattle;
         jsonResult.TryGetValue("result", out resultOfBattle);
 
+        timerPanel.SetActive(true);
         timeLeftTxt.text = resultOfBattle.ToString();
     }
 
@@ -150,6 +162,7 @@ public class IslandMapManager : MonoBehaviour
             {
 
                 timeLeftTxt.text = "";
+                timerPanel.SetActive(false);
                 attackIsland.CalculateWinner(OnGetResult);
                 break;
             };
