@@ -13,7 +13,7 @@ public class AttackIsland : MonoBehaviour
 
 
 
-
+    //Gets the time of attack in UNIX millisecods
     public void GetAttackTime(Action<ExecuteCloudScriptResult> onComplete)
     {
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
@@ -39,20 +39,30 @@ public class AttackIsland : MonoBehaviour
 
 
 
-        private static void OnErrorShared(PlayFabError error)
-    {
-        Debug.Log(error.GenerateErrorReport());
-    }
-
+    //Calculates the winner 
     public void CalculateWinner(Action<ExecuteCloudScriptResult> onComplete)
     {
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
-            FunctionName = "calcWinner", // Arbitrary function name (must exist in your uploaded cloud.js file)
-            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
+            FunctionName = "calcWinner", 
+            GeneratePlayStreamEvent = true, 
         }, onComplete, OnErrorShared);
     }
-    
 
+
+    public void CancleAttack(Action<ExecuteCloudScriptResult> onComplete)
+    {
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "cancleAttack",
+            GeneratePlayStreamEvent = true,
+        }, onComplete, OnErrorShared);
+    }
+
+    //Log error if any cloudscript fails
+    private static void OnErrorShared(PlayFabError error)
+    {
+        Debug.Log(error.GenerateErrorReport());
+    }
 
 }

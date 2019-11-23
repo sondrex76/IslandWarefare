@@ -16,13 +16,18 @@ public class IslandMapManager : MonoBehaviour
     //Enums for results of battle
     enum resultsBattle { AlreadyInBattle = 0, Success = 1 }
 
+    private int islandID; 
     private long timeOfAttack = 0;
     private string timeOfAttackDHMS;
-    public TMPro.TextMeshProUGUI text;
-
+    [SerializeField]
+    private TMPro.TextMeshProUGUI timeLeftTxt, islandIDTxt;
+    [SerializeField]
+    GameObject attackIslandPanel;
 
     void Start()
     {
+        timeLeftTxt.text = "";
+        attackIslandPanel.SetActive(false);
         attackIsland.GetAttackTime(OnGetAttackTime);
     }
 
@@ -38,14 +43,35 @@ public class IslandMapManager : MonoBehaviour
             {
                 if (hit.collider.name == "Terrain")
                 {
-                    attackIsland.AttackPlayer(hit.collider.GetComponent<IslandOwner>()._islandID, OnAttack);
+                    islandID = hit.collider.gameObject.GetComponent<IslandOwner>()._islandID;
+                    islandIDTxt.text = "Island: " + islandID.ToString();
+                    attackIslandPanel.SetActive(true);
                 }
             }
         }
     }
 
 
+    public void AttackPlayer()
+    {
+        attackIsland.AttackPlayer(islandID, OnAttack);
+    }
 
+    public void CloseAttackPanel()
+    {
+        attackIslandPanel.SetActive(false);
+    }
+
+    public void CancleAttack()
+    {
+        attackIsland.CancleAttack(OnAttackCancelled);
+    
+    }
+
+    void OnAttackCancelled(ExecuteCloudScriptResult result)
+    {
+        attackIsland.CalculateWinner(OnGetAttackTime);
+    }
 
     //Gets the result of the calcAttackTime cloudscript
     //Checks if value is an error or not and exectute next script
@@ -89,7 +115,7 @@ public class IslandMapManager : MonoBehaviour
         object resultOfBattle;
         jsonResult.TryGetValue("result", out resultOfBattle);
 
-        text.text = resultOfBattle.ToString();
+        timeLeftTxt.text = resultOfBattle.ToString();
     }
 
 
@@ -116,14 +142,14 @@ public class IslandMapManager : MonoBehaviour
 
                 timeOfAttackDHMS = daysDiff.ToString() + ":" + hoursDiff.ToString() + ":" + minutesDiff.ToString() + ":" + secondsDiff.ToString();
 
-                text.text = timeOfAttackDHMS;
+                timeLeftTxt.text = timeOfAttackDHMS;
 
                 yield return new WaitForSeconds(1f);
             }
             else
             {
 
-                text.text = "";
+                timeLeftTxt.text = "";
                 attackIsland.CalculateWinner(OnGetResult);
                 break;
             };
