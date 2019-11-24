@@ -47,7 +47,7 @@ public class NetworkHelpers : MonoBehaviour
         Debug.Log(responseString);
 
         //Parse the string into Objects
-        dynamic response = JsonConvert.DeserializeObject<RootObject>(responseString);
+        var response = JsonConvert.DeserializeObject<RootObject>(responseString);
 
         onComplete(response.data.ProfilesInSegment);
     }

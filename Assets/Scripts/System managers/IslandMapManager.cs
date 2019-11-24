@@ -104,14 +104,15 @@ public class IslandMapManager : MonoBehaviour
 
         Debug.Log(timeOfAttack);
 
-        timerPanel.SetActive(true);
         if (timeOfAttackObject.ToString() == "cancelled")
         {
+            timerPanel.SetActive(true);
             timeLeftTxt.text = "Attack cancelled";
             StopCoroutine("updateTime");
         }
         else
         {
+            timerPanel.SetActive(true);
             //Convert object to long
             timeOfAttack = System.Convert.ToInt64(timeOfAttackObject);
             StartCoroutine("updateTime");

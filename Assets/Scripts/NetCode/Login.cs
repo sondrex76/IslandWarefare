@@ -7,8 +7,6 @@ using PlayFab.DataModels;
 using PlayFab.ProfilesModels;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
@@ -75,6 +73,18 @@ public class Login : MonoBehaviour
         PlayerPrefs.SetString("PASSWORD", password);
         GetPlayers();
         loginPanel.SetActive(false);
+
+
+    }
+
+
+ //   void OnCompleted(ExecuteCloudScriptResult result)
+ //  {
+ //  }
+
+    private static void OnErrorShared(PlayFabError error)
+    {
+        Debug.Log(error.GenerateErrorReport());
     }
 
     void OnRegisterFail(PlayFabError error)
@@ -145,13 +155,24 @@ public class Login : MonoBehaviour
             {"IslandID", numberOfPlayers.ToString()}
             }
         },
-            result => Debug.Log("Yay you got an island"),
+            result => PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+            {
+                FunctionName = "addPlayerToDataBase",
+                FunctionParameter = new { },
+                GeneratePlayStreamEvent = true,
+            }, null, OnErrorShared),
+
             error =>
             {
                 Debug.Log("Error setting playerdata");
                 Debug.Log(error.GenerateErrorReport());
             }
             );
+
+
+
+
+       
 
     }
 

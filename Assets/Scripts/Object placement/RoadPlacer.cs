@@ -368,51 +368,6 @@ public class RoadPlacer : MonoBehaviour
     public float tTest;
 
     public Vector3[] points = new Vector3[4];
-    private void OnDrawGizmos() {
-
-
-
-        points[0] = new Vector3(19,15,1);
-        points[1] = new Vector3(12,15,-17);
-        points[2] = new Vector3(40, 17, 2);
-        points[3] = new Vector3(47,50,-17);
-
-        Gizmos.DrawSphere(pts[1], 2);
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(pts[2], 1);
-        Gizmos.color = Color.white;
-
-        Gizmos.DrawMesh(mesh);
-
-        drawMesh(points);
-    }
-
-    public void drawMesh(Vector3[] points){
-
-    OrientedPoint testPoint = GetPoint(points, tTest);
-
-    Vector3[] verts = shape2D.vertices.Select(v => testPoint.LocalToWorldPos(v.point)).ToArray();
-
-
-    void DrawPoint(Vector2 localPos){
-            Gizmos.DrawSphere(testPoint.LocalToWorldPos(localPos * 2f), 0.3f);
-
-
-        }
-
-
-        Handles.PositionHandle(testPoint.position, testPoint.rotation);
-
-
-       for (int i = 0; i < shape2D.lineIndices.Length-1; i++)
-        {
-           Vector3 a = verts[shape2D.lineIndices[i]];
-           Vector3 b = verts[shape2D.lineIndices[i+1]];
-
-           Gizmos.DrawLine(a,b);
-
-        }
-    }
 
     
 }
