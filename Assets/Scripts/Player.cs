@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
             file.Close();
 
             data = new TerrainData();
-            data.size = new Vector3(Const.size, 400, Const.size);
+            data.size = new Vector3(Const.size, Const.islandHeight, Const.size);
             data.heightmapResolution = Const.size - 1;
             data.SetHeights(0, 0, save.ListToArray(Const.size, Const.size));
             

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public static class Const
 {
-    public const int size = 1023;        //Size of islands
-    public const int islandGradient = 100;
-    public const int islandDistance = 40000;
+    public const int size = 255;        //Size of islands
+    public const int islandHeight = 300;
+    public const int islandGradient = 35;
+    public const int islandDistance = 4000;
 }

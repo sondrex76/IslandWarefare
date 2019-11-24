@@ -44,7 +44,7 @@ public class NewIsland : MonoBehaviour
     private void Update()
     {
         //Debug only
-        if (Input.GetKeyDown(KeyCode.D) && Application.platform== RuntimePlatform.WindowsEditor)
+        if (Input.GetKeyDown(KeyCode.Q) && Application.platform== RuntimePlatform.WindowsEditor)
         {
             Debug.Log("Deleting island saves");
             foreach (Island ile in iles)
