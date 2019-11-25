@@ -459,6 +459,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soldier (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 444207107, guid: 0918ce3cf880d414eae343319193aba9, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 444207107, guid: 0918ce3cf880d414eae343319193aba9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 444207109, guid: 0918ce3cf880d414eae343319193aba9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.64
@@ -550,8 +558,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffa1a24e85505e4493fc556b37c802b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Adjacent: []
-  _id: 
+  Adjacent:
+  - {fileID: 1898050480}
+  - {fileID: 1284999005}
+  - {fileID: 2066245387}
+  _id: 3
   ExampleInteger: 0
 --- !u!33 &1220830764
 MeshFilter:
@@ -706,8 +717,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffa1a24e85505e4493fc556b37c802b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Adjacent: []
-  _id: 
+  Adjacent:
+  - {fileID: 1220830763}
+  - {fileID: 2066245387}
+  - {fileID: 2074365044}
+  _id: 4
   ExampleInteger: 0
 --- !u!33 &1284999006
 MeshFilter:
@@ -998,7 +1012,7 @@ GameObject:
   - component: {fileID: 1871813942}
   m_Layer: 0
   m_Name: Graph
-  m_TagString: Untagged
+  m_TagString: Graph
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1017,7 +1031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graph: {fileID: 1871813943}
   _timesliceInterval: 10
-  _currentFrame: 5
+  _currentFrame: 3
 --- !u!114 &1871813943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,8 +1044,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379dafe7304359b409753cd38404119c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Nodes: []
-  Edges: []
+  Nodes:
+  - {fileID: 2066245387}
+  - {fileID: 1898050480}
+  - {fileID: 1220830763}
+  - {fileID: 1284999005}
+  - {fileID: 2074365044}
+  Edges:
+  - StartNode: {fileID: 2066245387}
+    EndNode: {fileID: 1898050480}
+    Weight: 1
+  - StartNode: {fileID: 2066245387}
+    EndNode: {fileID: 1220830763}
+    Weight: 1
+  - StartNode: {fileID: 2066245387}
+    EndNode: {fileID: 1284999005}
+    Weight: 1
+  - StartNode: {fileID: 2066245387}
+    EndNode: {fileID: 2074365044}
+    Weight: 1
+  - StartNode: {fileID: 1898050480}
+    EndNode: {fileID: 2066245387}
+    Weight: 1
+  - StartNode: {fileID: 1898050480}
+    EndNode: {fileID: 1220830763}
+    Weight: 1
+  - StartNode: {fileID: 1898050480}
+    EndNode: {fileID: 2074365044}
+    Weight: 1
+  - StartNode: {fileID: 1220830763}
+    EndNode: {fileID: 2066245387}
+    Weight: 1
+  - StartNode: {fileID: 1220830763}
+    EndNode: {fileID: 1898050480}
+    Weight: 1
+  - StartNode: {fileID: 1220830763}
+    EndNode: {fileID: 1284999005}
+    Weight: 1
+  - StartNode: {fileID: 1284999005}
+    EndNode: {fileID: 2066245387}
+    Weight: 1
+  - StartNode: {fileID: 1284999005}
+    EndNode: {fileID: 1220830763}
+    Weight: 1
+  - StartNode: {fileID: 1284999005}
+    EndNode: {fileID: 2074365044}
+    Weight: 1
+  - StartNode: {fileID: 2074365044}
+    EndNode: {fileID: 1898050480}
+    Weight: 1
+  - StartNode: {fileID: 2074365044}
+    EndNode: {fileID: 1284999005}
+    Weight: 1
+  - StartNode: {fileID: 2074365044}
+    EndNode: {fileID: 2066245387}
+    Weight: 1
 --- !u!4 &1871813944
 Transform:
   m_ObjectHideFlags: 0
@@ -1082,8 +1149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffa1a24e85505e4493fc556b37c802b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Adjacent: []
-  _id: 
+  Adjacent:
+  - {fileID: 2074365044}
+  - {fileID: 2066245387}
+  - {fileID: 1220830763}
+  _id: 2
   ExampleInteger: 0
 --- !u!33 &1898050481
 MeshFilter:
@@ -1236,8 +1306,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffa1a24e85505e4493fc556b37c802b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Adjacent: []
-  _id: 
+  Adjacent:
+  - {fileID: 1220830763}
+  - {fileID: 2074365044}
+  - {fileID: 1898050480}
+  - {fileID: 1284999005}
+  _id: 1
   ExampleInteger: 0
 --- !u!1 &2074365042
 GameObject:
@@ -1288,7 +1362,7 @@ MonoBehaviour:
   - {fileID: 1898050480}
   - {fileID: 1284999005}
   - {fileID: 2066245387}
-  _id: 
+  _id: 5
   ExampleInteger: 0
 --- !u!33 &2074365045
 MeshFilter:
