@@ -44,6 +44,8 @@ public class IslandMapManager : MonoBehaviour
         playerIsland = new Vector3(x, 750, z);
         camera.transform.position = playerIsland;
 
+        camera.GetComponent<CameraControllMapView>().playerIsland = playerIsland;
+
         attackIsland.GetAttackTime(OnGetAttackTime);
     }
 
@@ -209,5 +211,6 @@ public class IslandMapManager : MonoBehaviour
         returnToIslandPanel.SetActive(false);
     }
 
+  
 
 }
