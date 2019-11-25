@@ -44,6 +44,7 @@ public class DestinationList : MonoBehaviour
 
     public void agentDestination(Vector3 arg, bool boolArg) 
     {
+        Debug.Log(arg);
         if (boolArg)
         {
             _listOfDestinations.Add(arg);
