@@ -63,9 +63,11 @@ public class IslandMapManager : MonoBehaviour
                 {
                     islandID = hit.collider.gameObject.GetComponent<IslandOwner>()._islandID;
                     islandIDTxt.text = "Island: " + islandID.ToString();
+                    returnToIslandPanel.SetActive(false);
                     attackIslandPanel.SetActive(true);
                 } else if(hit.collider.name == "Island" + islandIDPlayer)
                 {
+                    attackIslandPanel.SetActive(false);
                     returnToIslandPanel.SetActive(true);
                 }
             }
