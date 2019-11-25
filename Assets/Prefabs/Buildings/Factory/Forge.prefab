@@ -318,7 +318,6 @@ MonoBehaviour:
   - {fileID: 4933372135440917034, guid: fe6a86abaeaf4854791c6f94911d3114, type: 3}
   gui: {fileID: 1697185608}
   shaders: {fileID: 0}
-  outlneMaterial: {fileID: 2100000, guid: e69a0ad63d654e241bf1701236a8ea00, type: 2}
-  prefabButton: {fileID: 2718006527398416709, guid: 989743376da659048a1fe99a09742b7a,
+  prefabOption: {fileID: 5977288545705215745, guid: a12dfbd4b3ba6e345b601944f92e1749,
     type: 3}
   ParentPanel: {fileID: 1697185609}

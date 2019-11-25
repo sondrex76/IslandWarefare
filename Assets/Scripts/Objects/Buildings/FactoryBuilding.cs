@@ -5,25 +5,24 @@ using System.Collections;
 // Factory class
 public class FactoryBuilding : AbstractBuilding
 {
-    [SerializeField] Resource[] producableResources;    // List of producable variables
+    [SerializeField] Resource[] producableResources;    // List of producable resources
     [SerializeField] GameObject gui;                    // GUI element
     [SerializeField] MeshRenderer shaders;              // Shaders of object
-    [SerializeField] Material outlneMaterial;           // Material of outline
+    // [SerializeField] Material outlneMaterial;        // Material of outline
 
     Renderer materialRenderer;
 
     Color materialColor;
     string outline = "_FirstOutlineColor";
 
-    float distOptions = 40;
-    [SerializeField] GameObject prefabButton;
+    [SerializeField] GameObject prefabOption;
     [SerializeField] RectTransform ParentPanel;
 
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
     {
         if (gui == null)                    // Checks if GUI have already been set
-            gui = GameObject.Find("GUI");   // Sets GU
+            gui = GameObject.Find("GUI");   // Sets GUI
 
         // Finds the meshRenderer
         shaders = building.GetComponent<MeshRenderer>();
@@ -38,15 +37,16 @@ public class FactoryBuilding : AbstractBuilding
         // Generate GUI
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
         {
-            GameObject goButton = (GameObject)Instantiate(prefabButton);
+            GameObject goButton = (GameObject)Instantiate(prefabOption);
             goButton.transform.SetParent(ParentPanel, false);
             goButton.transform.localScale = new Vector3(1, 1, 1);
 
-            Button tempButton = goButton.GetComponent<Button>();
-            int tempInt = i;
+            // Initialzes values and sends current resource over
+            goButton.GetComponent<FactoryOption>().InitializeOption(producableResources[i]);
 
             // Adds listener
-            tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
+            // tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
+
             // Modifies text
             goButton.GetComponentInChildren<Text>().text = i + "";
         }
@@ -89,10 +89,11 @@ public class FactoryBuilding : AbstractBuilding
         return finishedBuilding;
     }
 
-
+    /*
     // Button listeners
     void ButtonClicked(int buttonNo)
     {
         Debug.Log("Button clicked = " + buttonNo);
     }
+    */
 }
