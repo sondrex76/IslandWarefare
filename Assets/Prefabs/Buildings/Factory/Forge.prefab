@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: -7836618394683586197}
   - component: {fileID: 5480278459061828825}
   m_Layer: 0
-  m_Name: FactoryTemplate
+  m_Name: Forge
   m_TagString: Factory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,7 +314,8 @@ MonoBehaviour:
   timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0
-  producableResources: []
+  producableResources:
+  - {fileID: 4933372135440917034, guid: fe6a86abaeaf4854791c6f94911d3114, type: 3}
   gui: {fileID: 1697185608}
   shaders: {fileID: 0}
   outlneMaterial: {fileID: 2100000, guid: e69a0ad63d654e241bf1701236a8ea00, type: 2}

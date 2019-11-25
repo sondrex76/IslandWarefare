@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9188593887564592686}
   - component: {fileID: 4933372135440917034}
   m_Layer: 0
-  m_Name: Resource 4
+  m_Name: ResourceFuel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4933372135440917035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.6814346, y: 1278.6434, z: -346.1584}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc83766a44469741a2c3c6de6c8c1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentAmount: []
-  parentResource: []
+  parentResources:
+  - amount: 1
+    resource: {fileID: 4933372135440917034, guid: 1a169d76c1162e84792fdb5c367febdf,
+      type: 3}
   sellingPrice: 0
-  resourceName: Uranium
+  resourceName: Fuel
+  productionTimeSec: 0.1
