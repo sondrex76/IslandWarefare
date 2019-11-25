@@ -10,6 +10,7 @@ TagManager:
   - Resource
   - Building
   - Factory
+  - Graph
   layers:
   - Default
   - TransparentFX

@@ -36,29 +36,6 @@ public class Graph : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!firstFrame) 
-        {
-            firstFrame = true;
-            
-            _eventManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<EventManager>();
-            var f = GameObject.FindGameObjectsWithTag("Player");
-            foreach (var g in f)
-            {
-                _eventManager._listenToFlag.AddListener(g.GetComponent<DestinationList>().agentDestination);
-            }
-            
-            var r = new System.Random();
-            foreach (int i in Enumerable.Range(0, Nodes.Count).OrderBy(x => r.Next()))
-            {
-                _eventManager._listenToFlag.Invoke(Nodes[i].transform.position, true);
-                
-            }
-            foreach (var g in f)
-            {
-                _eventManager._listenToFlag.RemoveListener(g.GetComponent<DestinationList>().agentDestination);
-            }
-            
-        }
         
 
     }
