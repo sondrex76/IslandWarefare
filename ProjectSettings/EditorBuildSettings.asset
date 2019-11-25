@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IslandMap.unity
     guid: a02e3947f9b52e749841374ab8a9479a
+  - enabled: 1
+    path: Assets/Scenes/PrivateIsland.unity
+    guid: cf85e45b2f6f19c40aba1218512432bb
   m_configObjects: {}

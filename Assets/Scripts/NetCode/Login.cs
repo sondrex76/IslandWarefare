@@ -69,12 +69,10 @@ public class Login : MonoBehaviour
     void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
         PlayerPrefs.SetString("EMAIL", email);
-        //Is this a safe way to store passwords?
+        //TODO Hash password
         PlayerPrefs.SetString("PASSWORD", password);
         GetPlayers();
         loginPanel.SetActive(false);
-
-
     }
 
 
@@ -146,6 +144,9 @@ public class Login : MonoBehaviour
     //Set the player data
     void setPlayerData(int numberOfPlayers)
     {
+
+
+        PlayerPrefs.SetInt("ISLANDID", numberOfPlayers);
 
         //Set the playerdata in playfab
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()

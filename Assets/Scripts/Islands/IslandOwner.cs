@@ -9,6 +9,8 @@ public class IslandOwner : MonoBehaviour
 
     public void setStats(int ID, string player)
     {
+        transform.name = "Island" + ID;
+        transform.tag = "Island";
         _islandID = ID;
         playerID = player;
     }

@@ -13,7 +13,6 @@ public class CameraControllMapView : MonoBehaviour
     void Start()
     {
         inputManager = GameManager.inputManager;
-        Debug.Log(inputManager.bindings);
     }
 
     // Update is called once per frame

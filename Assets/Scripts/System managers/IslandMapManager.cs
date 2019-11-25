@@ -4,6 +4,7 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.Json;
+using UnityEngine.SceneManagement;
 
 public class IslandMapManager : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class IslandMapManager : MonoBehaviour
     Camera camera;
     [SerializeField]
     AttackIsland attackIsland;
-
-
+    [SerializeField]
+    int islandIDPlayer;
+    Vector3 playerIsland;
     //Enums for results of battle
     enum resultsBattle { AlreadyInBattle = 0, Success = 1 }
 
@@ -22,13 +24,25 @@ public class IslandMapManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI timeLeftTxt, islandIDTxt;
     [SerializeField]
-    GameObject attackIslandPanel, timerPanel;
+    GameObject attackIslandPanel, timerPanel, returnToIslandPanel;
 
     void Start()
     {
+        islandIDPlayer = PlayerPrefs.GetInt("ISLANDID");
         timeLeftTxt.text = "";
         attackIslandPanel.SetActive(false);
         timerPanel.SetActive(false);
+
+
+        if (!PlayerPrefs.HasKey("ISLANDTRANSFORM_X"))
+        {
+            FindPlayerIsland();
+        } 
+
+        float x = PlayerPrefs.GetFloat("ISLANDTRANSFORM_X");
+        float z = PlayerPrefs.GetFloat("ISLANDTRANSFORM_Z");
+        playerIsland = new Vector3(x, 750, z);
+        camera.transform.position = playerIsland;
 
         attackIsland.GetAttackTime(OnGetAttackTime);
     }
@@ -43,11 +57,14 @@ public class IslandMapManager : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (hit.collider.name == "Terrain")
+                if (hit.collider.tag == "Island" && hit.collider.name != "Island" + islandIDPlayer)
                 {
                     islandID = hit.collider.gameObject.GetComponent<IslandOwner>()._islandID;
                     islandIDTxt.text = "Island: " + islandID.ToString();
                     attackIslandPanel.SetActive(true);
+                } else if(hit.collider.name == "Island" + islandIDPlayer)
+                {
+                    returnToIslandPanel.SetActive(true);
                 }
             }
         }
@@ -170,5 +187,27 @@ public class IslandMapManager : MonoBehaviour
 
         }
     }
+
+
+    void FindPlayerIsland()
+    {
+        playerIsland = GameObject.Find("Island" + islandIDPlayer).transform.position;
+
+        PlayerPrefs.SetFloat("ISLANDTRANSFORM_X", playerIsland.x);
+        PlayerPrefs.SetFloat("ISLANDTRANSFORM_Z", playerIsland.z);
+
+    }
+
+
+    public void ReturnToIsland()
+    {
+        SceneManager.LoadScene("PrivateIsland");
+    }
+
+    public void CloseReturnToIslandPanel()
+    {
+        returnToIslandPanel.SetActive(false);
+    }
+
 
 }
