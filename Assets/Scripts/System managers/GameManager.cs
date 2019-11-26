@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
     public static InputManager inputManager;        // The input manager
     public static bool isPaused = false;            // Is paused
 
-    // Resources, resources[i] and resourceAmounts[i] are for object i
-    public Resource[] resources;
-    public float[] resourceAmounts;
+    // Array of resources
+    public Resource.ResourceAmount[] resources;
+
     // Miltary mght, might be expanded upon later
     public float defensivePower = 0;
     public float offensivePower = 0;
@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public float moneyAmount = 0;                   // Money
     public uint population = 0;                     // Population
     public float happiness = 0;                     // Happiness, might be changed to be a value between 0 and 100 in the future
+
+    // Bools for states
+    public static bool isInGUI;                     // Specifies that the user is in a GUI and it should not be shut down
 
     float previousTimeSpeed = 1;                    // Previous speed of time
 
@@ -38,9 +41,9 @@ public class GameManager : MonoBehaviour
             // Checks if primary mouse button is down
             if (Input.GetMouseButtonDown(0))
             {
-
                 RaycastHit hitInfo = new RaycastHit();
                 
+                // Factory
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.tag == "Factory")
                 {
                     if (currentlySelectedFactory != null)                                           // Checks if a building is already selected
@@ -51,7 +54,7 @@ public class GameManager : MonoBehaviour
 
                     currentlySelectedFactory.ActivateGUI(true);                                     // Activates GUI of game object
                 }
-                else if (currentlySelectedFactory != null)
+                else if (currentlySelectedFactory != null && !isInGUI)                              // Checks if tehre is a factory there and that you are outside of any relevant GUI element
                 {
                     currentlySelectedFactory.ActivateGUI(false);                                    // Disables menu of previously selected game object
                 }

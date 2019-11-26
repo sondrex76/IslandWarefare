@@ -4,9 +4,15 @@
 [System.Serializable]
 public class Resource : MonoBehaviour
 {
-    // Resource parent properties
-    [SerializeField] float[] parentAmount;
-    [SerializeField] Resource[] parentResource;
+    [System.Serializable]
+    public struct ResourceAmount
+    {
+        public float amount;
+        public Resource resource;
+    };
+
+    [SerializeField]
+    ResourceAmount[] parentResources;
 
     // Resource properties
     [SerializeField] float sellingPrice;        // Price the resource can be sold for
@@ -14,9 +20,9 @@ public class Resource : MonoBehaviour
     [SerializeField] float productionTimeSec;   // Production time in seconds
 
     // Returns parents of resource
-    public Resource[] ReturnParents()
+    public ResourceAmount[] ReturnParents()
     {
-        return parentResource;
+        return parentResources;
     }
 
     // Returns resource price

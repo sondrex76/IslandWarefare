@@ -3,25 +3,25 @@
 // Resource gathering building template
 public class AbstractResourceHarvesting : AbstractBuilding
 {
-    bool resourceFound = false;                                     // Specifies if a resource have been found
-    int resourceIndex = 0;                                          // Indext of current resource in GameManager
-    ResourceWorldObject resource;                                   // Resource currently being utilized
+    bool resourceFound = false;                                         // Specifies if a resource have been found
+    int resourceIndex = 0;                                              // Indext of current resource in GameManager
+    ResourceWorldObject resource;                                       // Resource currently being utilized
 
-    [SerializeField] Resource[] neededResource;                     // Valid resource types for building
-    [SerializeField] float resourceExtractionSpeed;                 // Speed of resource extraction(fixed update, is run 50x per second)
+    [SerializeField] Resource[] neededResource;                         // Valid resource types for building
+    [SerializeField] float resourceExtractionSpeed;                     // Speed of resource extraction(fixed update, is run 50x per second)
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();              // Finds game manager
+        gameManager = FindObjectOfType<GameManager>();                  // Finds game manager
     }
 
     // Code to be run on fixedUpdate
     override protected void BuildingFunctionality()
     {
-        if (resourceFound)                                          // If there is a valid resource identified
+        if (resourceFound)                                              // If there is a valid resource identified
         {
             // Updates resource amount
-            gameManager.resourceAmounts[resourceIndex] += UpdateResource();
+            gameManager.resources[resourceIndex].amount += UpdateResource();
         }
     }
 
@@ -58,12 +58,13 @@ public class AbstractResourceHarvesting : AbstractBuilding
     // checks if resource is there
     private void OnTriggerStay(Collider other)
     {
-        if (!resourceFound && other.tag == "Resource")                              // Checks if it is a resource, but only if a resource have not already been found
+        if (!resourceFound && other.tag == "Resource")                  // Checks if it is a resource, but only if a resource have not already been found
         {
             // Goes through all valid resources
-            foreach (Resource type in neededResource)                 // Goes through all valid resources
+            foreach (Resource type in neededResource)                   // Goes through all valid resources
             {
-                if (other.gameObject.GetComponent<ResourceWorldObject>().ReturnType() == type) // If the resource is of the correct type
+                // Checks if the type of the resource is correct
+                if (other.gameObject.GetComponent<ResourceWorldObject>().ReturnType() == type)
                 {
                     resource = other.gameObject.GetComponent<ResourceWorldObject>();
                     resourceFound = true;
@@ -71,7 +72,7 @@ public class AbstractResourceHarvesting : AbstractBuilding
                     // Goes through resources of GameManager and finds which one is being harvested, before setting the resource index to that resource's idnex
                     for (int i = 0; i < gameManager.resources.Length; i++)
                     {
-                        if (gameManager.resources[i] == resource.ReturnType())
+                        if (gameManager.resources[i].resource == resource.ReturnType())
                         {
                             resourceIndex = i;
                         }
