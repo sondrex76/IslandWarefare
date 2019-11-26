@@ -36,12 +36,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        // TODO Make resources loaded not be null
         // Loads all resources automatically
-        
         GameObject[] resourceObjects = Resources.LoadAll("Prefabs/WorldResources").Cast<GameObject>().ToArray();
-        // Resource[] resourceObjects = Resources.LoadAll("Prefabs/WorldResources", typeof(Resource)).Cast<Resource>().ToArray();
-        // resources = new Resource.ResourceAmount[resourceObjects.Length];
         
         // Loads resources into static with 0 as the amount in all cases
         resources = new Resource.ResourceAmount[resourceObjects.Length];

@@ -14,8 +14,21 @@ public class FactoryBuilding : AbstractBuilding
     Color materialColor;
     string outline = "_FirstOutlineColor";
 
+    // Prefabs and parent rect
     [SerializeField] GameObject prefabOption;
+    // [SerializeField] GameObject prefabProgressBar;
     [SerializeField] RectTransform parentPanel;
+
+    // Values related to factory production
+    [SerializeField]float remainingTimeSec = 0;         // Time until the building is no longer busy
+    float timePerRound = -1;                            // Amount of time per round of resource generation
+    int resourceProducedIndex = -1;                     // Index of resource being produced
+    int remainingRounds = 0;                            // Number of rounds of reosurce geeneration which remains
+    int originalNumRounds = 0;                          // Original vlaue of remainingRounds for this cycle, needed for progress bar
+    bool isBusy = false;                                // Bool indicating if the factory is busy or not
+
+    [SerializeField] Slider sliderProgressBar;          // Slider of progress bar
+    [SerializeField] GameObject parentObjectSlider;     // Parent object for slider
 
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
@@ -33,9 +46,25 @@ public class FactoryBuilding : AbstractBuilding
         // Sets activation to disabled
         ActivateGUI(false);
 
-        // Offset upwards to make menu be centered on screen vertically as well as horizontally
+        // Claculates offset
         float posOffset = -producableResources.Length / 2.0f * 43;
 
+        // Sets up slider
+        parentObjectSlider.transform.SetParent(parentPanel, true);
+        parentObjectSlider.transform.localPosition = Vector3.zero;
+        parentObjectSlider.transform.localPosition = new Vector3(132, -posOffset - 10);
+        /*
+        // Spawn progressBar
+        GameObject currentInterationProgressBar = (GameObject)Instantiate(prefabProgressBar);
+        // Offset upwards to make menu be centered on screen vertically as well as horizontally
+        currentInterationProgressBar.transform.SetParent(parentPanel, false);
+        currentInterationProgressBar.transform.localScale = new Vector3(1, 1, 1);
+
+        currentInterationProgressBar.transform.localPosition = new Vector3(40, posOffset - 20 - 43 / 2);
+
+        // Gets Slider object of progress bar
+        sliderProgressBar = currentInterationProgressBar.GetComponentInChildren<Slider>();
+        */
         // Generate GUI
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
         {
@@ -49,7 +78,7 @@ public class FactoryBuilding : AbstractBuilding
             RectTransform rectTransform = optionGUI_Element.GetComponentInChildren<Canvas>().GetComponent<RectTransform>();
 
             // Initialzes values and sends current resource over
-            optionGUI_Element.GetComponent<FactoryOption>().InitializeOption(producableResources[i], rectTransform);
+            optionGUI_Element.GetComponent<FactoryOption>().InitializeOption(producableResources[i], rectTransform, this);
             
             // Modifies text
             optionGUI_Element.GetComponentInChildren<Text>().text = producableResources[i].ReturnResourceName();
@@ -59,7 +88,35 @@ public class FactoryBuilding : AbstractBuilding
     // Code to be run on fixedUpdate
     override protected void BuildingFunctionality()
     {
-        // TODO add code
+        // Checks if factory is busy
+        if (isBusy)
+        {
+            // Updates remaining time
+            remainingTimeSec -= Time.deltaTime;
+
+            // Updates slider for progress bar
+            sliderProgressBar.value = ((timePerRound - remainingTimeSec) + timePerRound * (originalNumRounds - remainingRounds)) / (timePerRound * originalNumRounds);
+
+            // Checks if time limit has been reached
+            if (remainingTimeSec <= 0)
+            {
+                Debug.Log(GameManager.resources[resourceProducedIndex].amount); // DEBUG
+
+                // Checks if more rounds remain and updates remainingRounds
+                if (--remainingRounds > 0)
+                {
+                    remainingTimeSec = timePerRound;
+                    GameManager.resources[resourceProducedIndex].amount++;
+                }
+                else
+                {
+                    GameManager.resources[resourceProducedIndex].amount++;
+                    isBusy = false;
+                    resourceProducedIndex = -1;
+                    timePerRound = -1;
+                }
+            }
+        }
     }
 
     // Activates/deactivates GUI
@@ -93,11 +150,18 @@ public class FactoryBuilding : AbstractBuilding
         return finishedBuilding;
     }
 
-    /*
-    // Button listeners
-    void ButtonClicked(int buttonNo)
+    // Returns if whether factory is busy or not
+    public bool ReturnIsBusy()
     {
-        Debug.Log("Button clicked = " + buttonNo);
+        return isBusy;
     }
-    */
+
+    // Makes factory unable to produce anything until the time sent is finished, and specifies what resource to produce
+    public void SetIsBusy(int index, float timeBusy = 0, int numRounds = 1, bool busy = true)
+    {
+        resourceProducedIndex = index;                  // Updates index
+        timePerRound = remainingTimeSec = timeBusy;     // Updates both current countdown and the time value per countdown
+        remainingRounds = originalNumRounds = numRounds;  // Updates number of remaining rounds
+        isBusy = busy;                                  // Sets isBusy to true
+    }
 }
