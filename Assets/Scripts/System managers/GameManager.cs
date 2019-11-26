@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +10,9 @@ public class GameManager : MonoBehaviour
     public static bool isPaused = false;            // Is paused
 
     // Array of resources
-    public Resource.ResourceAmount[] resources;
+    // [SerializeField] 
+    public static Resource.ResourceAmount[] resources;
+    [SerializeField] Resource.ResourceAmount[] startResources;
 
     // Miltary mght, might be expanded upon later
     public float defensivePower = 0;
@@ -32,6 +36,41 @@ public class GameManager : MonoBehaviour
     FactoryBuilding currentlySelectedFactory;       // Currently selected factory
 
 
+
+    // Start is called before the first frame update
+    void Awake()
+    {
+        // Loads all resources automatically
+        Resource[] resourceObjects1 = Resources.LoadAll("\\Prefabs/Resources/Raw resources", typeof(Resource)).Cast<Resource>().ToArray();
+        Resource[] resourceObjects2 = Resources.LoadAll("\\Prefabs/Resources", typeof(Resource)).Cast<Resource>().ToArray();
+        Resource[] resourceObjects = new Resource[resourceObjects1.Length + resourceObjects2.Length];
+
+        // Loads resources into single array
+        Array.Copy(resourceObjects1, resourceObjects, resourceObjects1.Length);
+        Array.Copy(resourceObjects2, 0, resourceObjects, resourceObjects1.Length, resourceObjects2.Length);
+        
+        // Loads resources into static with 0 as the amount in all cases
+        resources = new Resource.ResourceAmount[resourceObjects.Length];
+        for (int i = 0; i < resourceObjects.Length; i++)
+        {
+            Resource.ResourceAmount currentResource;
+            currentResource.amount = 0;
+            currentResource.resource = resourceObjects[i];
+        }
+        
+        // DEBUG
+        Debug.Log(resourceObjects2.Length);
+
+        // DontDestroyOnLoad(gameObject);  // Stops object from being destroyed
+
+        if (inputManager == null)
+        {
+            inputManager = new InputManager();
+        }
+
+        optionsMenu.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     private void Update()
     {
@@ -60,20 +99,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        // DontDestroyOnLoad(gameObject);  // Stops object from being destroyed
-
-        if (inputManager == null)
-        {
-            inputManager = new InputManager();
-        }
-
-        optionsMenu.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
     }
     
     // Updates canvas to being active or inactive

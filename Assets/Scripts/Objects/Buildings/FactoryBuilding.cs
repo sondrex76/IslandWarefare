@@ -32,15 +32,18 @@ public class FactoryBuilding : AbstractBuilding
 
         // Sets activation to disabled
         ActivateGUI(false);
-        
+
+        // Offset upwards to make menu be centered on screen vertically as well as horizontally
+        float posOffset = -producableResources.Length / 2.0f * 43;
+
         // Generate GUI
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
         {
             GameObject goButton = (GameObject)Instantiate(prefabOption);
             goButton.transform.SetParent(ParentPanel, true);
             goButton.transform.localScale = new Vector3(1, 1, 1);
-
-            goButton.transform.position = new Vector3(0, i * 43, 0);
+            
+            goButton.transform.position = new Vector3(0, posOffset + i * 43, 0);
 
             /*
             if (i == 0)

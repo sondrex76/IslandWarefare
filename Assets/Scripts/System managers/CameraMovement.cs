@@ -3,7 +3,6 @@
 // Requires MainMenu to have run first
 public class CameraMovement : MonoBehaviour
 {
-    InputManager inputManager;                                                              // Input manager
     GameManager gameManager;                                                                // Game manager
 
     Rigidbody cameraBody;
@@ -26,7 +25,6 @@ public class CameraMovement : MonoBehaviour
         // Initializes some values
         cameraBody = GetComponent<Rigidbody>();
         cameraElement = GetComponent<Camera>();
-        inputManager = GameManager.inputManager;
         gameManager = FindObjectOfType<GameManager>();
     }
 
@@ -44,7 +42,7 @@ public class CameraMovement : MonoBehaviour
         cameraZoom = scrollValue; // updates camera zoom value so it does not get reset with the next update
 
         // Zooms if you are clicking the zoom key
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.ZOOM]))
+        if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.ZOOM]))
             scrollValue -= zoomValue;
 
         cameraElement.fieldOfView = scrollValue;
@@ -73,38 +71,38 @@ public class CameraMovement : MonoBehaviour
         cameraElement.transform.rotation = Quaternion.Euler(0, cameraAngleX, 0);
 
         // Key detection for movement
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                   // FORWARDS
+        if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                   // FORWARDS
         {
             cameraBody.velocity += cameraSpeed * transform.forward;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.LEFT]))                       // LEFT
+        if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.LEFT]))                       // LEFT
         {
             cameraBody.velocity -= cameraSpeed * transform.right;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.RIGHT]))                      // RIGHT
+        if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.RIGHT]))                      // RIGHT
         {
             cameraBody.velocity += cameraSpeed * transform.right;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))                  // BACKWARDS
+        if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))                  // BACKWARDS
         {
             cameraBody.velocity -= cameraSpeed * transform.forward;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.UP]) &&                       // UP
+        if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.UP]) &&                       // UP
             cameraBody.position.y < maximumHeight)
         {
             cameraBody.velocity += cameraSpeed * transform.up;
         }
-        if (Input.GetKey(inputManager.bindings[(int)InputManager.Actions.DOWN]) &&                     // DOWN
+        if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.DOWN]) &&                     // DOWN
             cameraBody.position.y > minimumHeight)
         {
             cameraBody.velocity -= cameraSpeed * transform.up;
         }
 
-        if (Input.GetKeyDown(inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE])) {   // Turn camera angle on or off
-            inputManager.frozenAngle = !inputManager.frozenAngle;
+        if (Input.GetKeyDown(GameManager.inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE])) {   // Turn camera angle on or off
+            GameManager.inputManager.frozenAngle = !GameManager.inputManager.frozenAngle;
 
             // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
-            Cursor.visible = GameManager.isPaused || inputManager.frozenAngle;
+            Cursor.visible = GameManager.isPaused || GameManager.inputManager.frozenAngle;
             if (Cursor.visible)
                 Cursor.lockState = CursorLockMode.None;
             else
@@ -122,6 +120,6 @@ public class CameraMovement : MonoBehaviour
     {
         updateZoom();                                      // Updates the zoom of the camera
         updatePosition();                                  // Updates position of the camera
-        if (!inputManager.frozenAngle) updateRotation();   // Updates rotation of the camera
+        if (!GameManager.inputManager.frozenAngle) updateRotation();   // Updates rotation of the camera
     }
 }
