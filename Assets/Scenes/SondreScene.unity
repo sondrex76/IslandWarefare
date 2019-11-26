@@ -5592,19 +5592,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5480278459061828825, guid: 040fd146d33ee814ca064a6c01df28a0,
+    - target: {fileID: 8939713123206424192, guid: 040fd146d33ee814ca064a6c01df28a0,
         type: 3}
-      propertyPath: producableResources.Array.size
-      value: 1
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5480278459061828825, guid: 040fd146d33ee814ca064a6c01df28a0,
+    - target: {fileID: 8939713123206424192, guid: 040fd146d33ee814ca064a6c01df28a0,
         type: 3}
-      propertyPath: producableResources.Array.data[1]
-      value: 
-      objectReference: {fileID: 4933372135440917034, guid: 4fef04f27b1a63144937a1415fdd9152,
-        type: 3}
-    - target: {fileID: 1697185609, guid: 040fd146d33ee814ca064a6c01df28a0, type: 3}
-      propertyPath: m_LocalPosition.z
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

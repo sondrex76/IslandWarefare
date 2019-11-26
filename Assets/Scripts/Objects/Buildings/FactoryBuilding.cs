@@ -16,7 +16,7 @@ public class FactoryBuilding : AbstractBuilding
 
     // Prefabs and parent rect
     [SerializeField] GameObject prefabOption;
-    [SerializeField] GameObject prefabProgressBar;
+    // [SerializeField] GameObject prefabProgressBar;
     [SerializeField] RectTransform parentPanel;
 
     // Values related to factory production
@@ -27,7 +27,8 @@ public class FactoryBuilding : AbstractBuilding
     int originalNumRounds = 0;                          // Original vlaue of remainingRounds for this cycle, needed for progress bar
     bool isBusy = false;                                // Bool indicating if the factory is busy or not
 
-    Slider sliderProgressBar;                           // Slider of progress bar
+    [SerializeField] Slider sliderProgressBar;          // Slider of progress bar
+    [SerializeField] GameObject parentObjectSlider;     // Parent object for slider
 
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
@@ -45,18 +46,25 @@ public class FactoryBuilding : AbstractBuilding
         // Sets activation to disabled
         ActivateGUI(false);
 
+        // Claculates offset
         float posOffset = -producableResources.Length / 2.0f * 43;
 
+        // Sets up slider
+        parentObjectSlider.transform.SetParent(parentPanel, true);
+        parentObjectSlider.transform.localPosition = Vector3.zero;
+        parentObjectSlider.transform.localPosition = new Vector3(132, -posOffset - 10);
+        /*
         // Spawn progressBar
         GameObject currentInterationProgressBar = (GameObject)Instantiate(prefabProgressBar);
         // Offset upwards to make menu be centered on screen vertically as well as horizontally
-        currentInterationProgressBar.transform.SetParent(parentPanel, true);
+        currentInterationProgressBar.transform.SetParent(parentPanel, false);
         currentInterationProgressBar.transform.localScale = new Vector3(1, 1, 1);
+
         currentInterationProgressBar.transform.localPosition = new Vector3(40, posOffset - 20 - 43 / 2);
 
         // Gets Slider object of progress bar
         sliderProgressBar = currentInterationProgressBar.GetComponentInChildren<Slider>();
-
+        */
         // Generate GUI
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
         {
