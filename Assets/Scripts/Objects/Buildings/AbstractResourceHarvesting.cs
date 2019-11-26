@@ -21,7 +21,7 @@ public class AbstractResourceHarvesting : AbstractBuilding
         if (resourceFound)                                              // If there is a valid resource identified
         {
             // Updates resource amount
-            gameManager.resources[resourceIndex].amount += UpdateResource();
+            GameManager.resources[resourceIndex].amount += UpdateResource();
         }
     }
 
@@ -70,9 +70,9 @@ public class AbstractResourceHarvesting : AbstractBuilding
                     resourceFound = true;
 
                     // Goes through resources of GameManager and finds which one is being harvested, before setting the resource index to that resource's idnex
-                    for (int i = 0; i < gameManager.resources.Length; i++)
+                    for (int i = 0; i < GameManager.resources.Length; i++)
                     {
-                        if (gameManager.resources[i].resource == resource.ReturnType())
+                        if (GameManager.resources[i].resource == resource.ReturnType())
                         {
                             resourceIndex = i;
                         }

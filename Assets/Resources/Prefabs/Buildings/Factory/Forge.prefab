@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Top: 20
+    m_Bottom: 20
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
@@ -320,4 +320,4 @@ MonoBehaviour:
   shaders: {fileID: 0}
   prefabOption: {fileID: 5977288545705215745, guid: a12dfbd4b3ba6e345b601944f92e1749,
     type: 3}
-  ParentPanel: {fileID: 1697185609}
+  parentPanel: {fileID: 1697185609}
