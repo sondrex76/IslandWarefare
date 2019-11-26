@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9094777784146383961}
   - component: {fileID: 7310169797518015246}
   m_Layer: 0
-  m_Name: Text
+  m_Name: OptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 97.895004, y: 12}
-  m_SizeDelta: {x: 134.4, y: 18}
+  m_AnchoredPosition: {x: 131.24, y: 12}
+  m_SizeDelta: {x: 201.09, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9094777784146383961
 CanvasRenderer:
@@ -78,4 +78,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Text

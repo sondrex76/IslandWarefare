@@ -15,7 +15,7 @@ public class FactoryBuilding : AbstractBuilding
     string outline = "_FirstOutlineColor";
 
     [SerializeField] GameObject prefabOption;
-    [SerializeField] RectTransform ParentPanel;
+    [SerializeField] RectTransform parentPanel;
 
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
@@ -39,30 +39,20 @@ public class FactoryBuilding : AbstractBuilding
         // Generate GUI
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
         {
-            GameObject goButton = (GameObject)Instantiate(prefabOption);
-            goButton.transform.SetParent(ParentPanel, true);
-            goButton.transform.localScale = new Vector3(1, 1, 1);
-            
-            goButton.transform.position = new Vector3(0, posOffset + i * 43, 0);
+            GameObject optionGUI_Element = (GameObject)Instantiate(prefabOption);
+            optionGUI_Element.transform.SetParent(parentPanel, true);
+            optionGUI_Element.transform.localScale = new Vector3(1, 1, 1);
 
-            /*
-            if (i == 0)
-            {
-                RectTransform.SetAsFirstSibling(goButton);
-            }
-            else
-            {
-                RectTransform.SetAsLastSibling(goButton);
-            }
-            */
+            optionGUI_Element.transform.position = new Vector3(0, posOffset + i * 43, 0);
+
+            // Gets RectTransform of canvas of child
+            RectTransform rectTransform = optionGUI_Element.GetComponentInChildren<Canvas>().GetComponent<RectTransform>();
+
             // Initialzes values and sends current resource over
-            goButton.GetComponent<FactoryOption>().InitializeOption(producableResources[i]);
-
-            // Adds listener
-            // tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
-
+            optionGUI_Element.GetComponent<FactoryOption>().InitializeOption(producableResources[i], rectTransform);
+            
             // Modifies text
-            goButton.GetComponentInChildren<Text>().text = i + "";
+            optionGUI_Element.GetComponentInChildren<Text>().text = i + "";
         }
     }
 
