@@ -12,19 +12,13 @@ public class DestinationList : MonoBehaviour
     List<Vector3> _listOfDestinations;
     bool _AgentHasReached = true;
     Vector3 _destination;
-    Graph _graph;
-    GraphNode _currentNode;
-    bool test;
     
     // Start is called before the first frame update
     void Start()
     {
-        test = true;
-        _graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
         _agent = GetComponent<NavMeshAgent>();
         _destination = new Vector3();
         _listOfDestinations = new List<Vector3>();
-        _currentNode = traverseNodesRandomly();
         
     }
 
@@ -33,18 +27,10 @@ public class DestinationList : MonoBehaviour
     {
         if (_AgentHasReached)
         {
-            if (_listOfDestinations.Count > 0 && !test)
+            if (_listOfDestinations.Count > 0)
             {
                 _destination = _listOfDestinations[0];
                 _listOfDestinations.RemoveAt(0);
-                _agent.destination = _destination;
-                _AgentHasReached = false;
-            }
-            if (test) {
-                
-                var r = new System.Random();
-                _currentNode = _currentNode.Adjacent[r.Next(0, _currentNode.Adjacent.Count)];
-                _destination = _currentNode.transform.position;
                 _agent.destination = _destination;
                 _AgentHasReached = false;
             }
@@ -69,16 +55,5 @@ public class DestinationList : MonoBehaviour
             _agent.destination = _destination;
             _AgentHasReached = false;
         }
-    }
-    
-    // Replace with GOAL based AI functionality
-    // WIll just simulate how an agent would walk between nodes 
-    GraphNode traverseNodesRandomly() 
-    {
-        var r = new System.Random();
-        int i = r.Next(0, _graph.Nodes.Count);
-        
-        return _graph.Nodes[i].Adjacent[r.Next(0, _graph.Nodes[i].Adjacent.Count)];
-        
     }
 }
