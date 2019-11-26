@@ -9,14 +9,12 @@ public class FactoryOption : MonoBehaviour
     Resource resource;                              // Resource
     [SerializeField] Slider slider;                 // Slider contianing number of resource you want to produce
     [SerializeField] Text sliderText;               // Text of slider
-    [SerializeField] Canvas canvas;                 // Canvas, needed to set coordinates to 0, 0 snce the editor won't allow me to do so
 
     // Initializes factory options, cnanot be awake since resources must be sent
     public void InitializeOption(Resource r)
     {
         resource = r;
         transform.SetParent(transform.parent, false);
-        // canvas.transform.position = Vector3.zero;    
     }
 
 
@@ -27,6 +25,8 @@ public class FactoryOption : MonoBehaviour
         {
             // Updates value indicating number of element to be produced
             sliderText.text = slider.value.ToString();
+
+            // gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
 
             // Goes through all resources
             foreach (Resource.ResourceAmount r in resource.ReturnParents())
