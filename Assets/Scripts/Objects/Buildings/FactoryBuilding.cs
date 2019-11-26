@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 // Factory class
 public class FactoryBuilding : AbstractBuilding
@@ -40,7 +39,17 @@ public class FactoryBuilding : AbstractBuilding
             GameObject goButton = (GameObject)Instantiate(prefabOption);
             goButton.transform.SetParent(ParentPanel, false);
             goButton.transform.localScale = new Vector3(1, 1, 1);
-
+            
+            /*
+            if (i == 0)
+            {
+                RectTransform.SetAsFirstSibling(goButton);
+            }
+            else
+            {
+                RectTransform.SetAsLastSibling(goButton);
+            }
+            */
             // Initialzes values and sends current resource over
             goButton.GetComponent<FactoryOption>().InitializeOption(producableResources[i]);
 

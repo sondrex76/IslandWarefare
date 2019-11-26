@@ -5596,6 +5596,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5480278459061828825, guid: 040fd146d33ee814ca064a6c01df28a0,
+        type: 3}
+      propertyPath: producableResources.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480278459061828825, guid: 040fd146d33ee814ca064a6c01df28a0,
+        type: 3}
+      propertyPath: producableResources.Array.data[1]
+      value: 
+      objectReference: {fileID: 4933372135440917034, guid: fe6a86abaeaf4854791c6f94911d3114,
+        type: 3}
+    - target: {fileID: 1743035128, guid: 040fd146d33ee814ca064a6c01df28a0, type: 3}
+      propertyPath: m_Spacing
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 040fd146d33ee814ca064a6c01df28a0, type: 3}
 --- !u!1 &1786102081
