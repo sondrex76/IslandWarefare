@@ -37,9 +37,11 @@ public class FactoryBuilding : AbstractBuilding
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
         {
             GameObject goButton = (GameObject)Instantiate(prefabOption);
-            goButton.transform.SetParent(ParentPanel, false);
+            goButton.transform.SetParent(ParentPanel, true);
             goButton.transform.localScale = new Vector3(1, 1, 1);
-            
+
+            goButton.transform.position = new Vector3(0, i * 43, 0);
+
             /*
             if (i == 0)
             {

@@ -5611,6 +5611,14 @@ PrefabInstance:
       propertyPath: m_Spacing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1743035128, guid: 040fd146d33ee814ca064a6c01df28a0, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743035128, guid: 040fd146d33ee814ca064a6c01df28a0, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 040fd146d33ee814ca064a6c01df28a0, type: 3}
 --- !u!1 &1786102081
