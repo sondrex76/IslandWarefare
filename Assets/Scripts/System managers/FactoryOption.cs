@@ -15,8 +15,8 @@ public class FactoryOption : MonoBehaviour
 
     List<Text> resourceSpecigyingTexts = new List<Text>();  // List of text objects containing needed data
     List<int> resourceIndex = new List<int>();              // Index of equivalent resources
-
-    // Initializes factory options, cnanot be awake since resources must be sent
+    
+    // Initializes factory options, cnanot be in awake since resources must be sent
     public void InitializeOption(Resource r, RectTransform parentPanel)
     {
 
@@ -25,7 +25,7 @@ public class FactoryOption : MonoBehaviour
         transform.SetParent(transform.parent, false);
 
         // Sets text of button to be that of the resource's name
-        buttonText.text = r.name;
+        // buttonText.text = r.name;
 
         // Goes through all parent resources
         // Will not currently handle more then two parent resources well
@@ -101,6 +101,48 @@ public class FactoryOption : MonoBehaviour
                     resourceSpecigyingTexts[i].color = Color.red;
                     button.enabled = false;
                 }
+            }
+        }
+    }
+
+    // Attempts to buy resource
+    public void BuyResource()
+    {
+        // List of amounts, used so calculations need only be done once per button press
+        List<int> amount = new List<int>();
+        
+        // Goes through all resources
+        for (int i = 0; i < resourceIndex.Count; i++)
+        {
+            // Gathers needed and current resource amounts
+            int numProduce = (int)slider.value;
+            int currentResourcAmount = (int)GameManager.resources[resourceIndex[i]].amount;
+            int neededResourceAmount = (int)resource.ReturnParents()[i].amount * numProduce;
+            amount.Add(neededResourceAmount);
+
+            if (currentResourcAmount < neededResourceAmount)   // Checks if there are insufficient amounts of the current resource
+            {
+                return;
+            }
+        }
+
+        // The program has not returned, enough of the resources are present
+        // Reduce amount of required resources by the specified amount
+        for (int i = 0; i < resourceIndex.Count; i++)
+        {
+            GameManager.resources[resourceIndex[i]].amount -= amount[i];
+        }
+
+        // Adds produced resource
+        for (int i = 0; i < GameManager.resources.Length; i++)
+        {
+            // Checks if the right resource has been identified
+            if (GameManager.resources[i].resource == resource)
+            {
+                // Increases amount by 1
+                GameManager.resources[i].amount++;
+                // Returns from function since action has been done
+                return;
             }
         }
     }

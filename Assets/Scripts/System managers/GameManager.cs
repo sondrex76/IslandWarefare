@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         {
             Resource currentResourceObject = resourceObjects[i].GetComponent<Resource>();
             Resource.ResourceAmount currentResource;
-            currentResource.amount = 0;
+            currentResource.amount = 100; // DEBUG, TODO: return value to 0
             currentResource.resource = currentResourceObject;
 
             // Defines current resource
