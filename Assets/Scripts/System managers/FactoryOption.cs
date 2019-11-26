@@ -13,7 +13,7 @@ public class FactoryOption : MonoBehaviour
     [SerializeField] Text buttonText;                       // Text on button
     [SerializeField] Button button;                         // Button
 
-    List<Text> resourceSpecigyingTexts = new List<Text>();  // List of text objects containing needed data
+    List<Text> resourceSpecifyingTexts = new List<Text>();  // List of text objects containing needed data
     List<int> resourceIndex = new List<int>();              // Index of equivalent resources
 
     FactoryBuilding factoryBuilding;
@@ -44,7 +44,7 @@ public class FactoryOption : MonoBehaviour
             Text txt = textObject.GetComponent<Text>();
 
             // Adds text to list
-            resourceSpecigyingTexts.Add(txt);
+            resourceSpecifyingTexts.Add(txt);
 
             // Gets elements needed to set the text
             int index = 0;
@@ -84,20 +84,20 @@ public class FactoryOption : MonoBehaviour
             {
                 int currentResourcAmount = (int)GameManager.resources[resourceIndex[i]].amount;
                 int neededResourceAmount = (int)resource.ReturnParents()[i].amount * numProduce;
-                resourceSpecigyingTexts[i].text = "(" + currentResourcAmount + "/" + neededResourceAmount + ") " + resource.ReturnParents()[i].resource.ReturnResourceName();
+                resourceSpecifyingTexts[i].text = "(" + currentResourcAmount + "/" + neededResourceAmount + ") " + resource.ReturnParents()[i].resource.ReturnResourceName();
 
                 // Changes color of text based on how much resources are available and eenables/disables ability to buy
                 if (currentResourcAmount > neededResourceAmount * 2)        // Enough for more then one purchapse
                 {
-                    resourceSpecigyingTexts[i].color = Color.green;
+                    resourceSpecifyingTexts[i].color = Color.green;
                     button.enabled = true;
                 } else if (currentResourcAmount >= neededResourceAmount)    // Enough for one purchapse
                 {
-                    resourceSpecigyingTexts[i].color = Color.yellow;
+                    resourceSpecifyingTexts[i].color = Color.yellow;
                     button.enabled = true;
                 } else                                                      // Not enough for any purchapse
                 {
-                    resourceSpecigyingTexts[i].color = Color.red;
+                    resourceSpecifyingTexts[i].color = Color.red;
                     button.enabled = false;
                 }
             }

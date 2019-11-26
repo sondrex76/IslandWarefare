@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc9dce1a2baf4f34cacf2fac6598081e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 595056879262461978, guid: 97a65b91a60056b4f8788bd084e23bdc, type: 3}
   building: {fileID: 2357639461811418150}
   maxHealth: 100
   startHealth: 10
@@ -319,4 +319,7 @@ MonoBehaviour:
   shaders: {fileID: 0}
   prefabOption: {fileID: 5977288545705215745, guid: a12dfbd4b3ba6e345b601944f92e1749,
     type: 3}
-  ParentPanel: {fileID: 1697185609}
+  prefabProgressBar: {fileID: 4753058838905799784, guid: ed8f54acddc820042a5c86af2cdd4ce0,
+    type: 3}
+  parentPanel: {fileID: 1697185609}
+  remainingTimeSec: 0

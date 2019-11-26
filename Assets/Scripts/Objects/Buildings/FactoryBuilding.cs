@@ -14,7 +14,9 @@ public class FactoryBuilding : AbstractBuilding
     Color materialColor;
     string outline = "_FirstOutlineColor";
 
+    // Prefabs and parent rect
     [SerializeField] GameObject prefabOption;
+    [SerializeField] GameObject prefabProgressBar;
     [SerializeField] RectTransform parentPanel;
 
     // Values related to factory production
@@ -22,7 +24,10 @@ public class FactoryBuilding : AbstractBuilding
     float timePerRound = -1;                            // Amount of time per round of resource generation
     int resourceProducedIndex = -1;                     // Index of resource being produced
     int remainingRounds = 0;                            // Number of rounds of reosurce geeneration which remains
+    int originalNumRounds = 0;                          // Original vlaue of remainingRounds for this cycle, needed for progress bar
     bool isBusy = false;                                // Bool indicating if the factory is busy or not
+
+    Slider sliderProgressBar;                           // Slider of progress bar
 
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
@@ -40,8 +45,17 @@ public class FactoryBuilding : AbstractBuilding
         // Sets activation to disabled
         ActivateGUI(false);
 
-        // Offset upwards to make menu be centered on screen vertically as well as horizontally
         float posOffset = -producableResources.Length / 2.0f * 43;
+
+        // Spawn progressBar
+        GameObject currentInterationProgressBar = (GameObject)Instantiate(prefabProgressBar);
+        // Offset upwards to make menu be centered on screen vertically as well as horizontally
+        currentInterationProgressBar.transform.SetParent(parentPanel, true);
+        currentInterationProgressBar.transform.localScale = new Vector3(1, 1, 1);
+        currentInterationProgressBar.transform.localPosition = new Vector3(40, posOffset - 20 - 43 / 2);
+
+        // Gets Slider object of progress bar
+        sliderProgressBar = currentInterationProgressBar.GetComponentInChildren<Slider>();
 
         // Generate GUI
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
@@ -71,6 +85,9 @@ public class FactoryBuilding : AbstractBuilding
         {
             // Updates remaining time
             remainingTimeSec -= Time.deltaTime;
+
+            // Updates slider for progress bar
+            sliderProgressBar.value = ((timePerRound - remainingTimeSec) + timePerRound * (originalNumRounds - remainingRounds)) / (timePerRound * originalNumRounds);
 
             // Checks if time limit has been reached
             if (remainingTimeSec <= 0)
@@ -134,9 +151,9 @@ public class FactoryBuilding : AbstractBuilding
     // Makes factory unable to produce anything until the time sent is finished, and specifies what resource to produce
     public void SetIsBusy(int index, float timeBusy = 0, int numRounds = 1, bool busy = true)
     {
-        resourceProducedIndex = index;              // Updates index
-        timePerRound = remainingTimeSec = timeBusy; // Updates both current countdown and the time value per countdown
-        remainingRounds = numRounds;                // Updates number of remaining rounds
-        isBusy = busy;                              // Sets isBusy to true
+        resourceProducedIndex = index;                  // Updates index
+        timePerRound = remainingTimeSec = timeBusy;     // Updates both current countdown and the time value per countdown
+        remainingRounds = originalNumRounds = numRounds;  // Updates number of remaining rounds
+        isBusy = busy;                                  // Sets isBusy to true
     }
 }

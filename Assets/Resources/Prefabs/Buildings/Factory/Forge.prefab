@@ -320,4 +320,7 @@ MonoBehaviour:
   shaders: {fileID: 0}
   prefabOption: {fileID: 5977288545705215745, guid: a12dfbd4b3ba6e345b601944f92e1749,
     type: 3}
+  prefabProgressBar: {fileID: 4753058838905799784, guid: ed8f54acddc820042a5c86af2cdd4ce0,
+    type: 3}
   parentPanel: {fileID: 1697185609}
+  remainingTimeSec: 0
