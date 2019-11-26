@@ -11,6 +11,7 @@ public class FactoryOption : MonoBehaviour
     [SerializeField] Text sliderText;                       // Text of slider
     [SerializeField] GameObject textElement;                // Spawnable text element
     [SerializeField] Text buttonText;                       // Text on button
+    [SerializeField] Button button;                         // Button
 
     List<Text> resourceSpecigyingTexts = new List<Text>();  // List of text objects containing needed data
     List<int> resourceIndex = new List<int>();              // Index of equivalent resources
@@ -24,7 +25,7 @@ public class FactoryOption : MonoBehaviour
         transform.SetParent(transform.parent, false);
 
         // Sets text of button to be that of the resource's name
-        // buttonText.text = r.name;
+        buttonText.text = r.name;
 
         // Goes through all parent resources
         // Will not currently handle more then two parent resources well
@@ -57,10 +58,13 @@ public class FactoryOption : MonoBehaviour
                     break;
                 }
             }
-            float currentResourcAmount = GameManager.resources[index].amount;
-            float neededResourceAmount = newResoruce.amount;
+            int currentResourcAmount = (int)GameManager.resources[index].amount;
+            int neededResourceAmount = (int)newResoruce.amount;
+
+            Debug.Log(currentResourcAmount);
+
             // Sets text of element
-            txt.text = "(" + currentResourcAmount + "/" + neededResourceAmount + ") " + newResoruce.resource.name;
+            txt.text = "(" + currentResourcAmount + "/" + neededResourceAmount + ") " + newResoruce.resource.ReturnResourceName();
             i++;
         }
     }
@@ -68,14 +72,6 @@ public class FactoryOption : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Updates resources text
-        for (int i = 0; i < resourceIndex.Count; i++)
-        {
-            float currentResourcAmount = GameManager.resources[resourceIndex[i]].amount;
-            float neededResourceAmount = resource.ReturnParents()[i].amount;
-            resourceSpecigyingTexts[i].text = "(" + currentResourcAmount + "/" + neededResourceAmount + ") " + resource.ReturnParents()[i].resource.name;
-        }
-
         // Checks if resources is empty or not
         if (resource != null)
         {
@@ -83,6 +79,29 @@ public class FactoryOption : MonoBehaviour
             int numProduce = (int)slider.value;
             // Sets slider text and adds a 0 before the number if it is smaller than 10
             sliderText.text = slider.value.ToString("00");
+
+            // Updates resources text
+            for (int i = 0; i < resourceIndex.Count; i++)
+            {
+                int currentResourcAmount = (int)GameManager.resources[resourceIndex[i]].amount;
+                int neededResourceAmount = (int)resource.ReturnParents()[i].amount * numProduce;
+                resourceSpecigyingTexts[i].text = "(" + currentResourcAmount + "/" + neededResourceAmount + ") " + resource.ReturnParents()[i].resource.ReturnResourceName();
+
+                // Changes color of text based on how much resources are available and eenables/disables ability to buy
+                if (currentResourcAmount > neededResourceAmount * 2)        // Enough for more then one purchapse
+                {
+                    resourceSpecigyingTexts[i].color = Color.green;
+                    button.enabled = true;
+                } else if (currentResourcAmount >= neededResourceAmount)    // Enough for one purchapse
+                {
+                    resourceSpecigyingTexts[i].color = Color.yellow;
+                    button.enabled = true;
+                } else                                                      // Not enough for any purchapse
+                {
+                    resourceSpecigyingTexts[i].color = Color.red;
+                    button.enabled = false;
+                }
+            }
         }
     }
 

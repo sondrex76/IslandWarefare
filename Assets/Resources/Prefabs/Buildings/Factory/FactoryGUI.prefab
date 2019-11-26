@@ -83,7 +83,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2558900835117894806}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 100
+  m_MaxValue: 50
   m_WholeNumbers: 1
   m_Value: 1
   m_OnValueChanged:
@@ -643,6 +643,7 @@ MonoBehaviour:
   textElement: {fileID: 3077353945611887241, guid: 1e3242ad6be83ec4a9e8df2ba42709e2,
     type: 3}
   buttonText: {fileID: 3195658945918158439}
+  button: {fileID: 2770404451424652790}
 --- !u!114 &8723303118259411453
 MonoBehaviour:
   m_ObjectHideFlags: 0

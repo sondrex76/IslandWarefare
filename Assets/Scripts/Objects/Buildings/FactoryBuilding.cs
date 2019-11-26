@@ -52,7 +52,7 @@ public class FactoryBuilding : AbstractBuilding
             optionGUI_Element.GetComponent<FactoryOption>().InitializeOption(producableResources[i], rectTransform);
             
             // Modifies text
-            optionGUI_Element.GetComponentInChildren<Text>().text = i + "";
+            optionGUI_Element.GetComponentInChildren<Text>().text = producableResources[i].ReturnResourceName();
         }
     }
 
