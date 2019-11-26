@@ -29,7 +29,7 @@ public class CitizenDestinationManager : MonoBehaviour
     {
         if (_AgentHasReached)
         {
-                
+            
             var r = new System.Random();
             _currentNode = _currentNode.Adjacent[r.Next(0, _currentNode.Adjacent.Count)];
             _destination = _currentNode.transform.position;
@@ -37,7 +37,8 @@ public class CitizenDestinationManager : MonoBehaviour
             _AgentHasReached = false;
             
         }
-        if (Vector3.Distance(transform.position, _destination) < 1.0f)
+        
+        if (Vector3.SqrMagnitude(transform.position - _destination) <= 1.0f)
         {
             _AgentHasReached = true;
         }
