@@ -36,4 +36,10 @@ public class Resource : MonoBehaviour
     {
         return resourceName;
     }
+
+    // Returns time to produce in seconds
+    public float ReturnProductionTime()
+    {
+        return productionTimeSec;
+    }
 }
