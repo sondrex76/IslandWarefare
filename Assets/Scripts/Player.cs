@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     {
         loadIsland();
         _island = Terrain.CreateTerrainGameObject(data);
-        _island.transform.position = new Vector3(-Const.size / 2, -0.1f, -Const.size / 2);
+        _island.transform.position = new Vector3((-Const.size * 10) / 2, -0.3f, (-Const.size * 10) / 2);
         _island.GetComponent<Terrain>().materialTemplate = _islandMaterial;
     }
 

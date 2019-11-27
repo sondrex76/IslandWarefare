@@ -61,10 +61,10 @@ public class Island : MonoBehaviour
         TerrainData _terrainData = new TerrainData();
         float[,] dataArray = LoadMap();
         _terrainData.size = new Vector3(Const.size, Const.islandHeight, Const.size);
-        _terrainData.heightmapResolution = Const.size - 1;
-        _terrainData.SetHeights(0, 0, dataArray);
+        _terrainData.heightmapResolution = Const.size - 1;      //Set how tall the resolution for the height of the terrain is
+        _terrainData.SetHeights(0, 0, dataArray);               //Set the heights for the terrain
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
-        terrain.GetComponent<Terrain>().materialTemplate = _material;
+        terrain.GetComponent<Terrain>().materialTemplate = _material;   //Set the material on the terrain
         terrain.transform.position = new Vector3(xCord * Const.islandDistance + xOffSet, -0.3f, zCord * Const.islandDistance + xOffSet);
         terrain.AddComponent<IslandOwner>().setStats(ID, "");
     }

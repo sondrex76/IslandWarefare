@@ -23,6 +23,7 @@ public static class PerlinNoise
         return map;
     }
 
+    //Make the noise into an island
     private static float distanceSquared(int x, int z, int xSize, int zSize)
     {
         float dx = 2 * (float)x / xSize - 1;

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static bool isPaused = false;            // Is paused
 
     // Array of resources
-    public Resource.ResourceAmount[] resources;
+    public static Resource.ResourceAmount[] resources;
 
     // Miltary mght, might be expanded upon later
     public float defensivePower = 0;
@@ -30,8 +32,36 @@ public class GameManager : MonoBehaviour
     [SerializeField] OptionsManager optionsManager; // The options manager
 
     FactoryBuilding currentlySelectedFactory;       // Currently selected factory
+    
+    // Start is called before the first frame update
+    void Awake()
+    {
+        // Loads all resources automatically
+        GameObject[] resourceObjects = Resources.LoadAll("Prefabs/WorldResources").Cast<GameObject>().ToArray();
+        
+        // Loads resources into static with 0 as the amount in all cases
+        resources = new Resource.ResourceAmount[resourceObjects.Length];
+        for (int i = 0; i < resourceObjects.Length; i++)
+        {
+            Resource currentResourceObject = resourceObjects[i].GetComponent<Resource>();
+            Resource.ResourceAmount currentResource;
+            currentResource.amount = 100; // DEBUG, TODO: return value to 0
+            currentResource.resource = currentResourceObject;
 
+            // Defines current resource
+            resources[i] = currentResource;
+        }
+        
+        // DontDestroyOnLoad(gameObject);  // Stops object from being destroyed
 
+        if (inputManager == null)
+        {
+            inputManager = new InputManager();
+        }
+
+        optionsMenu.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     private void Update()
     {
@@ -60,20 +90,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        // DontDestroyOnLoad(gameObject);  // Stops object from being destroyed
-
-        if (inputManager == null)
-        {
-            inputManager = new InputManager();
-        }
-
-        optionsMenu.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
     }
     
     // Updates canvas to being active or inactive

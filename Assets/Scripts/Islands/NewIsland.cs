@@ -56,43 +56,46 @@ public class NewIsland : MonoBehaviour
         //Only check if there needs to be an update to rendering if the camera has moved
         if (_prevCamPos != _camera.transform.position)
         {
+            //Save new camera position
             _prevCamPos = _camera.transform.position;
 
             List<int> newRenders = new List<int>();
             List<int> deRenders = new List<int>();
 
+            //Check every rendered island if they are outside render distance
             foreach (int id in renderedIslands)
             {
                 if (!(iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance) || !(iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance) ||
                     !(iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance) || !(iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance))
                 {
-                    Debug.Log("what");
-                    unrenderedIslands.Add(id);
+                    //Add the islands to a list for those that are being rendered
                     iles[id].EndRender();
-                    newRenders.Add(id);
+                    deRenders.Add(id);
                 }
             }
 
+            //Check every unrendered island if they are insinde render distance
             foreach (int id in unrenderedIslands)
             {
                 if (iles[id].xCord * Const.islandDistance > _camera.transform.position.x - distance && iles[id].xCord * Const.islandDistance < _camera.transform.position.x + distance &&
                     iles[id].zCord * Const.islandDistance > _camera.transform.position.z - distance && iles[id].zCord * Const.islandDistance < _camera.transform.position.z + distance)
                 {
-                    Debug.Log(id);
-                    renderedIslands.Add(id);
+                    //Add the islands to a list for those that are being derendered
                     iles[id].StartRender();
-                    deRenders.Add(id);
+                    newRenders.Add(id);
                 }
             }
-
+            
             foreach (int id in newRenders)
             {
-                renderedIslands.Remove(id);
+                unrenderedIslands.Remove(id);
+                renderedIslands.Add(id);
             }
 
             foreach (int id in deRenders)
             {
-                unrenderedIslands.Remove(id);
+                renderedIslands.Remove(id);
+                unrenderedIslands.Add(id);
             }
         }
     }
@@ -253,10 +256,10 @@ public class NewIsland : MonoBehaviour
                 iles.Add(isle);
                 isle = null;
                 amount++;
-                //Debug.Log($"current amount of islands: {amount}");
             }
         }
 
+        //Check for which islands are to start rendered
         for (int i = 0; i < iles.Count; i++)
         {
             if (iles[i].xCord * Const.islandDistance > _camera.transform.position.x - distance && iles[i].xCord * Const.islandDistance < _camera.transform.position.x + distance &&
