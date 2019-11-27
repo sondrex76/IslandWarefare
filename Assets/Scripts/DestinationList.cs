@@ -35,7 +35,7 @@ public class DestinationList : MonoBehaviour
                 _AgentHasReached = false;
             }
         }
-        if (Vector3.Distance(transform.position, _destination) < 1.0f)
+        if (Vector3.SqrMagnitude(transform.position - _destination) <= 1.0f)
         {
             _AgentHasReached = true;
         }

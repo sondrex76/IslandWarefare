@@ -31,10 +31,13 @@ public class CitizenDestinationManager : MonoBehaviour
         {
             
             var r = new System.Random();
+            
             _currentNode = _currentNode.Adjacent[r.Next(0, _currentNode.Adjacent.Count)];
             _destination = _currentNode.transform.position;
             _agent.destination = _destination;
             _AgentHasReached = false;
+            
+            
             
         }
         
@@ -44,8 +47,6 @@ public class CitizenDestinationManager : MonoBehaviour
         }
         
     }
-
-
     
     // Replace with GOAL based AI functionality
     // WIll just simulate how an agent would walk between nodes 
