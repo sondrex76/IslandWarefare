@@ -6,6 +6,17 @@ public class GraphNode : MonoBehaviour
 {
     [SerializeField]
     public List<GraphNode> Adjacent;
+    public enum Attribute
+    {
+        Road,
+        Residential,
+        Commnerical,
+        Industrial,
+        Office,
+        Millitary,
+
+    }
+    public Attribute _attribute;
 
     [SerializeField]
     private string _id;

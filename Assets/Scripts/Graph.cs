@@ -16,6 +16,8 @@ public class Graph : MonoBehaviour
         public int Weight;
     }
 
+    
+
     public List<GraphNode> Nodes;
     public List<Edge> Edges; 
     EventManager _eventManager;
@@ -23,39 +25,13 @@ public class Graph : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Nodes = GetComponentsInChildren<GraphNode>(true).ToList();
-        for (int i = 0; i < Nodes.Count; i++) {
-            Nodes[i].Adjacent.Clear();
-            for (int j = 0; j < Nodes.Count; j++) {
-                if (i != j)
-                {
-                    if(Vector3.Distance(Nodes[i].transform.position, Nodes[j].transform.position) < 6.0f) {
-                        Nodes[i].Adjacent.Add(Nodes[j]);
-                    }
-                    
-                }
-            }
-            Debug.Log(Nodes[i].Adjacent.Count);
-        }
+        AddNodes();
 
     }
 
     private void Reset()
     {
-         Nodes = GetComponentsInChildren<GraphNode>(true).ToList();
-        for (int i = 0; i < Nodes.Count; i++) {
-            Nodes[i].Adjacent.Clear();
-            for (int j = 0; j < Nodes.Count; j++) {
-                if (i != j)
-                {
-                    if(Vector3.Distance(Nodes[i].transform.position, Nodes[j].transform.position) < 6.0f) {
-                        Nodes[i].Adjacent.Add(Nodes[j]);
-                    }
-                    
-                }
-            }
-            Debug.Log(Nodes[i].Adjacent.Count);
-        }
+        AddNodes();
         
     }
 
@@ -64,5 +40,34 @@ public class Graph : MonoBehaviour
     {
         
 
+    }
+
+    void AddNodes()
+    {
+        Nodes = GetComponentsInChildren<GraphNode>(true).ToList();
+        for (int i = 0; i < Nodes.Count; i++) {
+            Nodes[i].Adjacent.Clear();
+            for (int j = 0; j < Nodes.Count; j++) {
+                if (i != j)
+                {
+                    switch(Nodes[i]._attribute)
+                    {
+                        case GraphNode.Attribute.Road : 
+                            if(Vector3.Distance(Nodes[i].transform.position, Nodes[j].transform.position) < 1.0f) {
+                                Nodes[i].Adjacent.Add(Nodes[j]);
+                            }
+                            break;
+                        default :
+                            if(Vector3.Distance(Nodes[i].transform.position, Nodes[j].transform.position) < 10.0f) {
+                                Nodes[i].Adjacent.Add(Nodes[j]);
+                            }
+                            break;
+                    }
+                    
+                    
+                }
+            }
+            Debug.Log(Nodes[i].Adjacent.Count);
+        }
     }
 }
