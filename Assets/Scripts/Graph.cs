@@ -67,7 +67,6 @@ public class Graph : MonoBehaviour
                     
                 }
             }
-            Debug.Log(Nodes[i].Adjacent.Count);
         }
     }
 }
