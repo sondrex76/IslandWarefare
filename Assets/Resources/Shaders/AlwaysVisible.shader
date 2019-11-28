@@ -2,8 +2,7 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
-		_Color("Always visible color", Color) = (0,0,0,0)
+		[PerRendererData]_Color("Always visible color", Color) = (0,0,0,0)
     }
     SubShader
     {
