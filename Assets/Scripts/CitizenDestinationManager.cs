@@ -16,7 +16,6 @@ public class CitizenDestinationManager : MonoBehaviour
     GraphNode _currentNode;
     GraphNode AStarStartTest;
     GraphNode AStarGoalTest;
-
     IList<GraphNode> _path;
     // Start is called before the first frame update
     void Start()
@@ -27,7 +26,7 @@ public class CitizenDestinationManager : MonoBehaviour
         _path = new List<GraphNode>();
         _currentNode = traverseNodesRandomly();
         AStarStartTest = _graph.Nodes[0];
-        AStarGoalTest = _graph.Nodes[400];
+        AStarGoalTest = _graph.Nodes[20];
 
       _path = FindShortestPath(AStarStartTest, AStarGoalTest);
       Debug.Log(_path.Count);

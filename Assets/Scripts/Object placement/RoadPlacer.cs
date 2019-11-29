@@ -5,6 +5,9 @@ using UnityEditor;
 using System.Linq;
 
 
+/*
+If you read this I must apologize for the horrendous crimes against every possible coding standard I've done here
+*/
 
 
 public struct OrientedPoint {
@@ -73,7 +76,6 @@ public class RoadPlacer : MonoBehaviour
     float yOffset;
 
 
-
     OrientedPoint GetPoint(Vector3[] pts, float t){
         float omt = 1f-t;
         float omt2 = omt * omt;
@@ -117,6 +119,10 @@ public class RoadPlacer : MonoBehaviour
     List<Vector3> verts;
     List<Vector3> normals;
     List<int> triangleIndices;
+    List<Vector3> graphhNodesPos;
+
+    public GameObject graph;
+
 
     void GenerateMesh(Vector3[] pts){
 
@@ -125,11 +131,17 @@ public class RoadPlacer : MonoBehaviour
         //Verts
         verts = new List<Vector3>();
         normals = new List<Vector3>();
+        graphhNodesPos = new List<Vector3>();
 
-        for(int ring = 0; ring < edgeRingCount; ring++){
+
+        for (int ring = 0; ring < edgeRingCount; ring++){
             float t = ring / (edgeRingCount - 1f);
             OrientedPoint op = GetPoint(pts, t);
-             for(int i = 0; i < shape2D.VertexCount(); i++){
+
+            graphhNodesPos.Add(op.position);
+
+
+             for (int i = 0; i < shape2D.VertexCount(); i++){
                 verts.Add(op.LocalToWorldPos(shape2D.vertices[i].point));
                 normals.Add(op.LocalToWorldDir(shape2D.vertices[i].normal));
 
@@ -164,6 +176,8 @@ public class RoadPlacer : MonoBehaviour
             }
         }
 
+
+
         mesh.SetVertices(verts);
         mesh.SetNormals(normals);
         mesh.SetTriangles(triangleIndices, 0);
@@ -173,7 +187,7 @@ public class RoadPlacer : MonoBehaviour
         layerMask = ~layerMask;
         mesh = new Mesh();
 
-
+        
         Debug.Log("Placing new road");
 
     }
@@ -189,18 +203,15 @@ public class RoadPlacer : MonoBehaviour
 
             if(Input.GetButtonDown("Jump")){
                 if(isPlacing){
-
                     Destroy(roadTemp);
                     GameObject road = new GameObject("Road: " + roadCounter);
                     road.transform.position = new Vector3(road.transform.position.x, road.transform.position.y + yOffset, road.transform.position.z);
                     road.layer = 9;
                     road.AddComponent<MeshFilter>();
                     road.AddComponent<MeshRenderer>();
-
                     road.GetComponent<MeshFilter>().mesh.SetVertices(verts);
                     road.GetComponent<MeshFilter>().mesh.SetNormals(normals);
                     road.GetComponent<MeshFilter>().mesh.SetTriangles(triangleIndices, 0);
-
                     road.GetComponent<MeshRenderer>().material = m_material;
                     road.AddComponent<roadStruct>();
                     road.AddComponent<MeshCollider>();
@@ -210,10 +221,24 @@ public class RoadPlacer : MonoBehaviour
                     road.tag = "Road";
                     Debug.Log("Placing new road");
                     isPlacing = false;
+
+
+                    foreach (Vector3 nodePos in graphhNodesPos)
+                    {
+                        GameObject node = new GameObject();
+                        node.transform.position = new Vector3(nodePos.x, Mathf.Floor(nodePos.y), nodePos.z);
+                        node.transform.parent = graph.transform;
+                        node.AddComponent<GraphNode>();
+                        node.GetComponent<GraphNode>()._attribute = GraphNode.Attribute.Road;
+                        node.GetComponent<GraphNode>().Adjacent = new List<GraphNode>();
+                    }
+
                     Instantiate(road);
                     Destroy(road);
                     roadCounter++;
                     straight = false;
+                    graph.GetComponent<Graph>().AddNodes();
+
                 }
 
 
@@ -232,7 +257,6 @@ public class RoadPlacer : MonoBehaviour
 
                         float distanceToStart = Vector3.Distance(hit.point, connectingroadStart);
                         float distanceToEnd = Vector3.Distance(hit.point, connectingRoadEnd);
-                        Vector3 closestPoint;
 
                         if (distanceToStart < distanceToEnd)
                         {

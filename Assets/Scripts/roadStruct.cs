@@ -13,6 +13,7 @@ public class roadStruct : MonoBehaviour
     void Start()
     {
         GetComponent<MeshCollider>().convex = true;
+        GetComponent<MeshCollider>().isTrigger = true;
         gameObject.layer = 10;
     }
 

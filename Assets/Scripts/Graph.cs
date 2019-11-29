@@ -42,7 +42,7 @@ public class Graph : MonoBehaviour
 
     }
 
-    void AddNodes()
+    public void AddNodes()
     {
         Nodes = GetComponentsInChildren<GraphNode>(true).ToList();
         for (int i = 0; i < Nodes.Count; i++) {
@@ -53,7 +53,7 @@ public class Graph : MonoBehaviour
                     switch(Nodes[i]._attribute)
                     {
                         case GraphNode.Attribute.Road : 
-                            if(Vector3.Distance(Nodes[i].transform.position, Nodes[j].transform.position) < 1.0f) {
+                            if(Vector3.Distance(Nodes[i].transform.position, Nodes[j].transform.position) < 5.0f) {
                                 Nodes[i].Adjacent.Add(Nodes[j]);
                             }
                             break;
