@@ -14,33 +14,66 @@ public class CitizenDestinationManager : MonoBehaviour
     Vector3 _destination;
     Graph _graph;
     GraphNode _currentNode;
-    GraphNode AStarStartTest;
-    GraphNode AStarGoalTest;
-    IList<GraphNode> _path;
+    Queue<GraphNode> _path;
+    GraphNode _home;
+    GraphNode _work;
+    GraphNode _shop;
+
     // Start is called before the first frame update
     void Start()
     {
         _graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
         _agent = GetComponent<NavMeshAgent>();
         _destination = new Vector3();
-        _path = new List<GraphNode>();
-        _currentNode = traverseNodesRandomly();
-        AStarStartTest = _graph.Nodes[0];
-        AStarGoalTest = _graph.Nodes[20];
-
-      _path = FindShortestPath(AStarStartTest, AStarGoalTest);
-      Debug.Log(_path.Count);
+        _path = new Queue<GraphNode>();
+        _currentNode = _home;
+        List<GraphNode> work = new List<GraphNode>();
+        foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Office))
+        {
+            work.Add(x);
+        }
+        System.Random randomWork = new System.Random();
+        _work = work[randomWork.Next(0, work.Count)];
+        _work.GetComponent<OfficeManager>().AddWorker(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_path.Count == 0)
+        {
+            if (_currentNode == _home)
+            {
+                _path = FindShortestPath(_home, _work);
+                Debug.Log(_path.Count);
+                Debug.Log("to work");
+                _currentNode = _work;
+            }
+            else if (_currentNode == _work) 
+            {
+                List<GraphNode> shops = new List<GraphNode>();
+                foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Commnerical))
+                {
+                    shops.Add(x);
+                }
+                System.Random randomShop = new System.Random();
+                _shop = shops[randomShop.Next(0, shops.Count)];
+                _path = FindShortestPath(_work, _shop);
+                Debug.Log("to store");
+                _currentNode = _shop;
+            }
+            else if (_currentNode == _shop)
+            {
+                _path = FindShortestPath(_shop, _home);
+                Debug.Log("to home");
+                _currentNode = _home;
+            }
+        }
         if (_AgentHasReached)
         {
             //RandomWalk();
-            
+        
             AStarWalk();
-            
             
         }
         
@@ -50,6 +83,17 @@ public class CitizenDestinationManager : MonoBehaviour
         }
         
     }
+
+    public void SetHome(GraphNode home)
+    {
+        _home = home;
+    }
+
+    public void SetWork(GraphNode work)
+    {
+        _work = work;
+    }
+
     void RandomWalk() {
         var r = new System.Random();
             
@@ -63,8 +107,7 @@ public class CitizenDestinationManager : MonoBehaviour
       if (_path != null) {
         if (_path.Count > 0)
             {
-                _destination = _path[0].transform.position;
-                _path.RemoveAt(0);
+                _destination = _path.Dequeue().transform.position;
                 _agent.destination = _destination;
                 _AgentHasReached = false;
             }
@@ -89,26 +132,27 @@ public class CitizenDestinationManager : MonoBehaviour
     }
     IDictionary<GraphNode, GraphNode> nodeParents = new Dictionary<GraphNode, GraphNode>();
 
-    IList<GraphNode> FindShortestPath(GraphNode startNode, GraphNode goalNode) {
-      IList<GraphNode> path = new List<GraphNode>();
-      GraphNode goal;
+    Queue<GraphNode> FindShortestPath(GraphNode startNode, GraphNode goalNode) {
+        Queue<GraphNode> path = new Queue<GraphNode>();
+        GraphNode goal;
 
-      goal = FindShortestPAthAStar(startNode, goalNode);
-      if (goal == startNode || !nodeParents.ContainsKey(nodeParents[goal])) {
-        Debug.Log("this is wrong");
-        return null;
-      }
-      GraphNode curr = goal;
-      while (curr != startNode) {
-        path.Add(curr);
-        curr = nodeParents[curr];
-      }
-
-      return path;
+        goal = FindShortestPAthAStar(startNode, goalNode);
+        if (goal == startNode || !nodeParents.ContainsKey(nodeParents[goal])) {
+            Debug.Log("this is wrong");
+            return null;
+        }
+        GraphNode curr = goal;
+        while (curr != startNode) {
+            path.Enqueue(curr);
+            curr = nodeParents[curr];
+        }
+        path = new Queue<GraphNode>(path.Reverse());
+        return path;
     }
 
     GraphNode FindShortestPAthAStar(GraphNode start, GraphNode goal)
     {
+        nodeParents = new Dictionary<GraphNode, GraphNode>();
         uint nodeVisitCount = 0;
         float timeNow = Time.realtimeSinceStartup;
 
