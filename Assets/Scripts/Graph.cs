@@ -68,5 +68,15 @@ public class Graph : MonoBehaviour
                 }
             }
         }
+        // Finds all non road nodes
+        // Thne it finds those nodes adjacent nodes that are roads
+        // And add the noode to the adjacent nodes of the road nodes
+        foreach(var x in Nodes.Where(i => i._attribute != GraphNode.Attribute.Road))
+        {
+            foreach(var y in x.Adjacent.Where(j => j._attribute == GraphNode.Attribute.Road))
+            {
+                y.Adjacent.Add(x);
+            }
+        }
     }
 }
