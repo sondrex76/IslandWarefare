@@ -21,25 +21,25 @@ public class SunManager : MonoBehaviour
         // If game manager is not paused the sun will be moved
         if (!GameManager.isPaused)
         {
-            /*
+            
             sun.transform.RotateAround(Vector3.zero, Vector3.right, rotationSpeed);
             sun.transform.LookAt(Vector3.zero);
             
-            moon.transform.RotateAround(Vector3.zero, Vector3.right, rotationSpeed);
-            moon.transform.LookAt(Vector3.zero);
-            */
-            /*
+           // moon.transform.RotateAround(Vector3.zero, Vector3.right, rotationSpeed);
+           // moon.transform.LookAt(Vector3.zero);
+            
+            
             // if the sun is above the horizon
             if (sun.transform.position.y >= 0)
             {
-                moon.enabled = false;
+               // moon.enabled = false;
                 sun.enabled = true;
             }
             else
             {
                 sun.enabled = false;
-                moon.enabled = true;
-            }*/
+             //   moon.enabled = true;
+            }
 
         }   
     }
