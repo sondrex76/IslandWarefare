@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1697185612}
   - component: {fileID: 1697185611}
   - component: {fileID: 1697185610}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6806715056064936141}
   - component: {fileID: 5508462105662105589}
   - component: {fileID: 8561571122835540564}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 8213316345774627249}
   - component: {fileID: -7836618394683586197}
   - component: {fileID: 5480278459061828825}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Forge
   m_TagString: Factory
   m_Icon: {fileID: 0}
@@ -219,8 +219,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6488853407038031113}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.09490609, y: -0, z: -0.088187076, w: 0.99157244}
+  m_LocalPosition: {x: 142.75586, y: 27.751034, z: -199.11243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2357639461811418150}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 8939713123206424192}
   - component: {fileID: 8939713123206424194}
   - component: {fileID: 8939713123206424195}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ProgressFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8939713124117018369}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ProgressFillArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 8939713124180667884}
   - component: {fileID: 8939713124180667885}
   - component: {fileID: 8939713124180667882}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 8939713124927462666}
   - component: {fileID: 8939713124927462668}
   - component: {fileID: 8939713124927462669}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ProgressBarBacking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8939713124953456355}
   - component: {fileID: 8939713124953456354}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ProgressSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
