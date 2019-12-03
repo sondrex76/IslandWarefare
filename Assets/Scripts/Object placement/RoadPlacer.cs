@@ -201,7 +201,7 @@ public class RoadPlacer : MonoBehaviour
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
 
 
-            if(Input.GetButtonDown("Jump")){
+            if(Input.GetMouseButtonDown(0)){
                 if(isPlacing){
                     Destroy(roadTemp);
                     GameObject road = new GameObject("Road: " + roadCounter);
