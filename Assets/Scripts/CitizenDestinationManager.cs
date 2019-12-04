@@ -40,29 +40,32 @@ public class CitizenDestinationManager : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _speed);
-        if (_path.Count == 0)
+        if (_path != null)
         {
-            if (_currentNode == _home)
+            if (_path.Count == 0)
             {
-                _path = FindShortestPath(_home, _work);
-                _currentNode = _work;
-            }
-            else if (_currentNode == _work) 
-            {
-                List<GraphNode> shops = new List<GraphNode>();
-                foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Commnerical))
+                if (_currentNode == _home)
                 {
-                    shops.Add(x);
+                    _path = FindShortestPath(_home, _work);
+                    _currentNode = _work;
                 }
-                System.Random randomShop = new System.Random();
-                _shop = shops[randomShop.Next(0, shops.Count)];
-                _path = FindShortestPath(_work, _shop);
-                _currentNode = _shop;
-            }
-            else if (_currentNode == _shop)
-            {
-                _path = FindShortestPath(_shop, _home);
-                _currentNode = _home;
+                else if (_currentNode == _work)
+                {
+                    List<GraphNode> shops = new List<GraphNode>();
+                    foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Commnerical))
+                    {
+                        shops.Add(x);
+                    }
+                    System.Random randomShop = new System.Random();
+                    _shop = shops[randomShop.Next(0, shops.Count)];
+                    _path = FindShortestPath(_work, _shop);
+                    _currentNode = _shop;
+                }
+                else if (_currentNode == _shop)
+                {
+                    _path = FindShortestPath(_shop, _home);
+                    _currentNode = _home;
+                }
             }
         }
         if (_AgentHasReached)
