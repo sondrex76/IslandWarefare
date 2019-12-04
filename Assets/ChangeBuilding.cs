@@ -41,16 +41,27 @@ public class ChangeBuilding : MonoBehaviour
 
             ImageText.transform.parent = ImageButton.transform;
             RectTransform trans = ImageText.AddComponent<RectTransform>();
+            //trans.anchorMin = new Vector2(0.5f, 0.5f);
+            //trans.anchorMax = new Vector2(0.5f, 0.5f);
+
 
             // Rect rect = new Rect(0f, -67f, 75f, 45f);
             trans.localPosition = new Vector2(0, -67);
-            trans.sizeDelta.Set(75, 45);
+           // trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 75f);
+           // trans.sizeDelta = new Vector2(75, -23);
 
             TMPro.TextMeshProUGUI text = ImageText.AddComponent<TMPro.TextMeshProUGUI>();
             text.text = building.transform.name;
             text.alignment = TextAlignmentOptions.Center;
+            
             text.enableAutoSizing = true;
-            text.fontSize = 30;
+            text.fontSizeMin = 10;
+            text.fontSizeMax = 18;
+            text.fontSize = 20;
+
+
+          
+
         }
     }
 
