@@ -28,6 +28,7 @@ public class ObjectPlacer : MonoBehaviour
         objectToPlaceTemp.AddComponent<CanBePlaced>();
 
         m_MyQuaternion = new Quaternion();
+        this.enabled = false;
     }
 
     // Update is called once per frame

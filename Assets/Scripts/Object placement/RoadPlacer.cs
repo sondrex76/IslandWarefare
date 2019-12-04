@@ -187,8 +187,8 @@ public class RoadPlacer : MonoBehaviour
         layerMask = ~layerMask;
         mesh = new Mesh();
 
-        
-        Debug.Log("Placing new road");
+
+        this.enabled = false;
 
     }
 

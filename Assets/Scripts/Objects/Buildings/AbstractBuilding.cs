@@ -18,6 +18,7 @@ public class AbstractBuilding : MonoBehaviour
 
     protected bool finishedBuilding = false;        // Bool specifying if building is finished being built
     [SerializeField] float currentHealth;           // Current health, serialized for convenience' sake but works automatically
+    public Sprite clickableIcon;                    // Icon to show a user when selecting a building
 
     protected void Awake()
     {

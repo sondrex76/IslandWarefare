@@ -534,6 +534,7 @@ MonoBehaviour:
   timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0
+  clickableIcon: {fileID: 21300000, guid: 7e6d978e18fcfd54e848c7b062a78c18, type: 3}
   producableResources:
   - {fileID: 4933372135440917034, guid: 7751e10d30c42914eb3ba116b6874c68, type: 3}
   - {fileID: 4933372135440917034, guid: 657080100a0e68d4eabb0be8aae75b94, type: 3}

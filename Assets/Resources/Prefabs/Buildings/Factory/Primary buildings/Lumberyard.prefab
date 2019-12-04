@@ -646,6 +646,7 @@ MonoBehaviour:
   timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0
+  clickableIcon: {fileID: 21300000, guid: 98869f6dd11b9f34393653359b479db6, type: 3}
   producableResources:
   - {fileID: 4933372135440917034, guid: dcc889ce600a1c44697a3d7458876376, type: 3}
   gui: {fileID: 2966931606259716097}
