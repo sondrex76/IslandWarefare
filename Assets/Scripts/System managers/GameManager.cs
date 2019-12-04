@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -81,7 +82,7 @@ public class GameManager : MonoBehaviour
                         currentlySelectedFactory.ActivateGUI(false);                                // Disables menu of previously selected game object
                     }
                     currentlySelectedFactory = hitInfo.transform.GetComponent<FactoryBuilding>();   // Sets newly selected game object
-
+                    
                     currentlySelectedFactory.ActivateGUI(true);                                     // Activates GUI of game object
                 }
                 else if (currentlySelectedFactory != null && !isInGUI)                              // Checks if tehre is a factory there and that you are outside of any relevant GUI element
