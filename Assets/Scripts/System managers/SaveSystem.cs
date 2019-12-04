@@ -81,6 +81,22 @@ public class SaveSystem : MonoBehaviour
                 harvester.LoadFromSave(harvesterData.presentHealth, harvesterData.buildingFinished, harvesterData.yOffset);
             }
 
+            // Load houses
+            int numHouses = (int)formatter.Deserialize(stream);
+            for (int i = 0; i < numHouses; i++)
+            {
+                BuildingSave houseData = formatter.Deserialize(stream) as BuildingSave;
+
+                // Instantiate harvester
+                // GameObject resourceObject = Resources.Load("Prefabs/Buildings/" + RemoveCopyInName(houseData.objectName)) as GameObject;
+                GameObject resourceObject = Resources.Load("Prefabs/Buildings/HouseTemplate") as GameObject;
+                GameObject worldObject = LoadObject(resourceObject, houseData.position, houseData.rotation);
+
+                // Updates position, makes sure the building finishes building if it is finished
+                AbstractResourceHarvesting house = worldObject.GetComponent<AbstractResourceHarvesting>();
+                house.LoadFromSave(houseData.presentHealth, houseData.buildingFinished, houseData.yOffset);
+            }
+
 
             // Close stream
             stream.Close();
@@ -94,7 +110,7 @@ public class SaveSystem : MonoBehaviour
     // Saves save to file
     void Save()
     {
-        GameManager.isPaused = true;                                                        // Pauses game to ensure values does not update needlessly
+        GameManager.isPaused = true;                                                                // Pauses game to ensure values does not update needlessly
         // Creates new file or overwrites the old one
         FileStream streamEnsureExists = new FileStream(path, FileMode.Create);
         streamEnsureExists.Close();
@@ -103,8 +119,8 @@ public class SaveSystem : MonoBehaviour
         FileStream stream = new FileStream(path, FileMode.Append);
         
         // Resources
-        ResourceWorldObject[] worldResources = FindObjectsOfType<ResourceWorldObject>();    // Gets all resource objects
-        formatter.Serialize(stream, worldResources.Length);                                 // Stores number of resources as an int
+        ResourceWorldObject[] worldResources = FindObjectsOfType<ResourceWorldObject>();            // Gets all resource objects
+        formatter.Serialize(stream, worldResources.Length);                                         // Stores number of resources as an int
 
         for (int i = 0; i < worldResources.Length; i++)
         {
@@ -114,8 +130,8 @@ public class SaveSystem : MonoBehaviour
         }
 
         // Factories
-        FactoryBuilding[] factories = FindObjectsOfType<FactoryBuilding>();                 // Gets all resource objects
-        formatter.Serialize(stream, factories.Length);                                      // Stores number of factories as an int
+        FactoryBuilding[] factories = FindObjectsOfType<FactoryBuilding>();                         // Gets all resource objects
+        formatter.Serialize(stream, factories.Length);                                              // Stores number of factories as an int
         
         for (int i = 0; i < factories.Length; i++)
         {
@@ -134,6 +150,16 @@ public class SaveSystem : MonoBehaviour
             // FactorySave
             BuildingSave harvester = harvesters[i].ReturnBuildingSave(harvesters[i].transform.position, harvesters[i].transform.eulerAngles);
             formatter.Serialize(stream, harvester);
+        }
+
+        // Houses
+        AbstractHouse[] houses = FindObjectsOfType<AbstractHouse>();
+        formatter.Serialize(stream, houses.Length);                                                 // Stores number of houses as an int
+
+        for (int i = 0; i < houses.Length; i++)
+        {
+            BuildingSave house = houses[i].ReturnBuildingSave(houses[i].transform.position, houses[i].transform.eulerAngles);
+            formatter.Serialize(stream, house);
         }
 
 
