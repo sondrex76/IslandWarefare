@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // save system
 public class SaveSystem : MonoBehaviour
 {
     string path;
     BinaryFormatter formatter = new BinaryFormatter();
-
+    
     private void Awake()
     {
-        path = Application.dataPath + "/save.binary"; // Application.persistantDataPath
-        Load();
+        path = Application.dataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary"; // Application.persistantDataPath
+        if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
+            Load();
     }
 
     private void OnApplicationQuit()
     {
-        Save();
+        if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
+            Save();
     }
 
     // Loads save from file
@@ -30,13 +33,30 @@ public class SaveSystem : MonoBehaviour
             // Opens stream
             FileStream stream = new FileStream(path, FileMode.Open);
             
+            // Loads resources
             int numResources = (int)formatter.Deserialize(stream);
             for (int i = 0; i < numResources; i++)
             {
                 ResourceSave resourceData = formatter.Deserialize(stream) as ResourceSave;
-                Debug.Log(resourceData.resourceAmount + ", " + resourceData.resourceName);
+                
+                // Instantiate resource
+                GameObject resourceObject = Resources.Load("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.resourceName)) as GameObject;
+                GameObject worldObject = LoadObject(resourceObject, resourceData.position, resourceData.rotation);
             }
 
+            // Load factories
+            int numFactories = (int)formatter.Deserialize(stream);
+            for (int i = 0; i < numFactories; i++)
+            {
+                FactorySave factoryData = formatter.Deserialize(stream) as FactorySave;
+
+                // Instantiate factory
+                GameObject resourceObject = Resources.Load("Prefabs/Buildings/Factory/Primary buildings/" + RemoveCopyInName(factoryData.factoryName)) as GameObject;
+                GameObject worldObject = LoadObject(resourceObject, factoryData.position, factoryData.rotation);
+
+                // Updates position, makes sure the building finishes building if it is finished
+                worldObject.GetComponent<FactoryBuilding>().LoadFromSave(factoryData.presentHealth, factoryData.buildingFinished, factoryData.yOffset);
+            }
 
 
             // Close stream
@@ -61,22 +81,48 @@ public class SaveSystem : MonoBehaviour
         
         // Resources
         ResourceWorldObject[] worldResources = FindObjectsOfType<ResourceWorldObject>();    // Gets all resource objects
-        formatter.Serialize(stream, worldResources.Length);                                 // Stores number of resources as a float
+        formatter.Serialize(stream, worldResources.Length);                                 // Stores number of resources as an int
 
         for (int i = 0; i < worldResources.Length; i++)
         {
-            float amount = worldResources[i].resourceAmount;
-            string name = worldResources[i].ReturnType().transform.name;
-
-            ResourceSave resourceData = new ResourceSave(amount, name, worldResources[i].transform.position, worldResources[i].transform.eulerAngles);
+            // Resource
+            ResourceSave resourceData = worldResources[i].ReturnResourceSave(worldResources[i].transform.position, worldResources[i].transform.eulerAngles);
             formatter.Serialize(stream, resourceData);
-            Debug.Log("DEBUG");
         }
 
-
-
-
+        // Factories
+        FactoryBuilding[] factories = FindObjectsOfType<FactoryBuilding>();                 // Gets all resource objects
+        formatter.Serialize(stream, factories.Length);                                      // Stores number of factories as an int
+        
+        for (int i = 0; i < factories.Length; i++)
+        {
+            // FactorySave
+            FactorySave factory = factories[i].ReturnFactorySave(factories[i].transform.position, factories[i].transform.eulerAngles);
+            formatter.Serialize(stream, factory);
+        }
+        
         // closes stream
         stream.Close();
+    }
+
+    // Removes "Clone" from the end of the name
+    string RemoveCopyInName(string name)
+    {
+        if (name.EndsWith("(Clone)"))
+            return name.Substring(0, name.Length - 7);
+        else
+            return name;
+    }
+
+    // send spawned object, position and rotation and get spawned the world object in return
+    GameObject LoadObject(GameObject spawnedObject, float[] pos, float[] rot)
+    {
+        return Instantiate(spawnedObject, FloatsToVectors(pos), Quaternion.Euler(FloatsToVectors(rot)));
+    }
+
+    // Makes array of three floats into Vector3
+    Vector3 FloatsToVectors(float[] floats)
+    {
+        return new Vector3(floats[0], floats[1], floats[2]);
     }
 }

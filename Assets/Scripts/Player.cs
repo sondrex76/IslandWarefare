@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +19,15 @@ public class Player : MonoBehaviour
             return _instance;
         }
     }
+
+    [System.Serializable]
+    public class TerrainGenerated : UnityEvent
+    {
+
+    }
+
+    [SerializeField]
+    private TerrainGenerated generated;
 
     [SerializeField]
     protected Material _islandMaterial;
@@ -50,8 +60,10 @@ public class Player : MonoBehaviour
         data.SetHeights(0, 0, map);
 
         _island = Terrain.CreateTerrainGameObject(data);
-        _island.transform.position = new Vector3((-Const.size * 10) / 2, -0.3f, (-Const.size * 10) / 2);
+        _island.transform.position = new Vector3((-Const.size * 10) / 2, 0, (-Const.size * 10) / 2);
         _island.GetComponent<Terrain>().materialTemplate = _islandMaterial;
+
+        generated.Invoke();
     }
   
 }

@@ -11,8 +11,9 @@ public class FactorySave: BuildingSave
     public int index;
     public int remainingRounds;
     public int originalRounds;
+    public string factoryName;
 
-    public FactorySave(bool active, float t, float tRound, int i, int rounds, int startRounds, float health, float yPos, bool finished, Vector3 position, Vector3 rotation) : 
+    public FactorySave(bool active, float t, float tRound, int i, int rounds, int startRounds, string name, float health, float yPos, bool finished, Vector3 position, Vector3 rotation) : 
         base(health, yPos, finished, position, rotation)
     {
         isWorking = active;
@@ -21,5 +22,6 @@ public class FactorySave: BuildingSave
         index = i;
         remainingRounds = rounds;
         originalRounds = startRounds;
+        factoryName = name;
     }
 }
