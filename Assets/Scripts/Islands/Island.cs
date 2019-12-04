@@ -14,7 +14,7 @@ public class Island : MonoBehaviour
     protected int xOffSet;
     protected int zOffSet;
 
-    private string fileName;
+    public string fileName;
 
     //Keeps info on whether there is an island next to it or not
     public int northIsland;
@@ -51,7 +51,7 @@ public class Island : MonoBehaviour
         if (!File.Exists(Application.persistentDataPath + "/island" + ID))
         {
             float[,] dataArray = PerlinNoise.GetPerlinNoise(Const.size, Const.size, ID, Const.islandGradient);
-            SaveMap(dataArray);
+            IslandSaveManager.SaveIsland(dataArray, fileName);
         }
 
     }
@@ -59,7 +59,7 @@ public class Island : MonoBehaviour
     public void StartRender()
     {
         TerrainData _terrainData = new TerrainData();
-        float[,] dataArray = LoadMap();
+        float[,] dataArray = IslandSaveManager.LoadIsland(fileName, ID);
         _terrainData.size = new Vector3(Const.size, Const.islandHeight, Const.size);
         _terrainData.heightmapResolution = Const.size - 1;      //Set how tall the resolution for the height of the terrain is
         _terrainData.SetHeights(0, 0, dataArray);               //Set the heights for the terrain
@@ -73,44 +73,5 @@ public class Island : MonoBehaviour
     {
         Destroy(terrain);
     }
-    
-    private void SaveMap(float[,] dataArr)
-    {
-        BinaryFormatter bf = new BinaryFormatter();
 
-        Debug.Log(dataArr[Const.size / 2, Const.size / 2]);
-
-        IslandSave save = new IslandSave(dataArr, Const.size, Const.size);
-        FileStream file = File.Create(Application.persistentDataPath + fileName);
-        bf.Serialize(file, save);
-        file.Close();
-
-        Debug.Log("Should have been saved");
-    }
-
-    private float[,] LoadMap()
-    {
-        if (File.Exists(Application.persistentDataPath + fileName))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-
-            FileStream file = File.Open(Application.persistentDataPath + fileName, FileMode.Open);
-            IslandSave save = (IslandSave)bf.Deserialize(file);
-            file.Close();
-
-            return save.ListToArray(Const.size, Const.size);
-        }
-        else Debug.Log("File does not exist when trying to load it");
-
-        //Map was not saved, create a new one
-        float[,]map = PerlinNoise.GetPerlinNoise(Const.size, Const.size, ID, Const.islandGradient);
-        SaveMap(map);
-
-        return map;
-    }
-
-    public void DeleteMapSave()
-    {
-        File.Delete(Application.persistentDataPath + fileName);
-    }
 }

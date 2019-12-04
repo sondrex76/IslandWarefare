@@ -6,7 +6,7 @@ public class NewIsland : MonoBehaviour
 {
 
     List<Island> iles;
-    int amount, nextID;
+    int nextID;
     List<int> nearbyIsle;
     List<int> renderedIslands;
     List<int> unrenderedIslands;
@@ -30,8 +30,6 @@ public class NewIsland : MonoBehaviour
         nearbyIsle = new List<int>();
         renderedIslands = new List<int>();
         unrenderedIslands = new List<int>();
-        amount = 0;
-        //For now, till the game is online
         nextID = 0;
         Random.InitState(91133);
 
@@ -49,7 +47,7 @@ public class NewIsland : MonoBehaviour
             Debug.Log("Deleting island saves");
             foreach (Island ile in iles)
             {
-                ile.DeleteMapSave();
+                IslandSaveManager.DeleteMapSave(ile.fileName);
             }
         }
 
@@ -114,7 +112,6 @@ public class NewIsland : MonoBehaviour
                 nearbyIsle.Add(isle.ID);
                 iles.Add(isle);
                 isle = null;
-                amount++;
             }
 
             else
@@ -255,7 +252,6 @@ public class NewIsland : MonoBehaviour
 
                 iles.Add(isle);
                 isle = null;
-                amount++;
             }
         }
 

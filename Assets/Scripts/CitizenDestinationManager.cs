@@ -8,8 +8,8 @@ using UnityEngine.AI;
 
 public class CitizenDestinationManager : MonoBehaviour
 {
-    
-    NavMeshAgent _agent;
+    [Range(0, 100)]
+    public float _speed;
     bool _AgentHasReached = true;
     Vector3 _destination;
     Graph _graph;
@@ -23,7 +23,6 @@ public class CitizenDestinationManager : MonoBehaviour
     void Start()
     {
         _graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
-        _agent = GetComponent<NavMeshAgent>();
         _destination = new Vector3();
         _path = new Queue<GraphNode>();
         _currentNode = _home;
@@ -40,13 +39,12 @@ public class CitizenDestinationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _speed);
         if (_path.Count == 0)
         {
             if (_currentNode == _home)
             {
                 _path = FindShortestPath(_home, _work);
-                Debug.Log(_path.Count);
-                Debug.Log("to work");
                 _currentNode = _work;
             }
             else if (_currentNode == _work) 
@@ -59,22 +57,17 @@ public class CitizenDestinationManager : MonoBehaviour
                 System.Random randomShop = new System.Random();
                 _shop = shops[randomShop.Next(0, shops.Count)];
                 _path = FindShortestPath(_work, _shop);
-                Debug.Log("to store");
                 _currentNode = _shop;
             }
             else if (_currentNode == _shop)
             {
                 _path = FindShortestPath(_shop, _home);
-                Debug.Log("to home");
                 _currentNode = _home;
             }
         }
         if (_AgentHasReached)
         {
-            //RandomWalk();
-        
             AStarWalk();
-            
         }
         
         if (Vector3.SqrMagnitude(transform.position - _destination) <= 1.0f)
@@ -94,21 +87,12 @@ public class CitizenDestinationManager : MonoBehaviour
         _work = work;
     }
 
-    void RandomWalk() {
-        var r = new System.Random();
-            
-        _currentNode = _currentNode.Adjacent[r.Next(0, _currentNode.Adjacent.Count)];
-        _destination = _currentNode.transform.position;
-        _agent.destination = _destination;
-        _AgentHasReached = false;
-    }
 
     void AStarWalk() {
       if (_path != null) {
         if (_path.Count > 0)
             {
                 _destination = _path.Dequeue().transform.position;
-                _agent.destination = _destination;
                 _AgentHasReached = false;
             }
       }

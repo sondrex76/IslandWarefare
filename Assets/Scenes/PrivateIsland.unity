@@ -484,21 +484,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5747539374874257872, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5034609294094613948, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3421693237100646003, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3421693237113459597, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -723,6 +708,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -335
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034609294094613948, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932676633682312079, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932676633682312079, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747539374874257872, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3421693237100646003, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3367440771280650493, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
@@ -1072,7 +1082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graph: {fileID: 1119214619}
   _timesliceInterval: 10
-  _currentFrame: 8
+  _currentFrame: 6
 --- !u!114 &1119214619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,6 +1128,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DaylghtCycle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5435528468571910279, guid: 294dcf8c841d2a14880a86f90578ebe5,
         type: 3}
@@ -1193,31 +1228,6 @@ PrefabInstance:
         type: 3}
       propertyPath: moon
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5435528466733850338, guid: 294dcf8c841d2a14880a86f90578ebe5,
-        type: 3}
-      propertyPath: m_Shadows.m_Type
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5435528468685655664, guid: 294dcf8c841d2a14880a86f90578ebe5,
         type: 3}

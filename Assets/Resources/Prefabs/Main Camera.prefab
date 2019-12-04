@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fff665be8c5a94591545ebf8ff857c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraSpeed: 7
+  cameraSpeed: 20
   cameraAngleX: 0
   cameraAngleY: 30
   cameraZoom: 90
@@ -158,7 +158,7 @@ MonoBehaviour:
   minimumZoom: 50
   maximumZoom: 150
   minimumHeight: 0
-  maximumHeight: 100
+  maximumHeight: 125
   minimumVerticalTilt: -35
   maximumVerticalTilt: 35
   zoomValue: 20

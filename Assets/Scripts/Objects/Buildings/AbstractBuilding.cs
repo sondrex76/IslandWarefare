@@ -31,7 +31,7 @@ public class AbstractBuilding : MonoBehaviour
 
         // Sets position to the appropriate starting position
         if (building != null)               // DEBUG, in case object has no model, should not be needed later
-            building.localPosition = new Vector3(0, building.transform.localPosition.y - startOffsetY, 0);
+            building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.transform.localPosition.y - startOffsetY, Random.Range(-randomFluct, randomFluct));
     }
 
     // Updates 50 times a second independent of framerate
@@ -115,13 +115,25 @@ public class AbstractBuilding : MonoBehaviour
         GameObject newObject = Instantiate(gameObject, coordinates, Quaternion.Euler(rotation));   // Places object
     }
 
-    // Function defining the building as finished beng built, used when loading level
-    public virtual void IsFinished(float health)
+    // Loads everything except coordinates based on variables sent in it, not meant to be overwritten
+    // Factory must also run LoadFactory(<variables>)
+    public virtual void LoadFromSave(float presentHealth, bool buildingFinished, float yOffset)
     {
-        // sets position to 0, next fixedUpdate will set the building to a finished state
-        building.localPosition = new Vector3(0, 0, 0);
+        // Updates bool
+        finishedBuilding = buildingFinished;
 
+        // Checks if building is finished building
+        if (finishedBuilding)
+        {
+            // sets position to 0, next fixedUpdate will set the building to a finished state
+            building.localPosition = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            // Sets coordinates to position while building
+            building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), yOffset, Random.Range(-randomFluct, randomFluct));
+        }
         // Updates health
-        currentHealth = health;
+        currentHealth = presentHealth;
     }
 }
