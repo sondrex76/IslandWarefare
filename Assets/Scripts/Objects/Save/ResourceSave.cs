@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 // save for resource objects
+[System.Serializable]
 public class ResourceSave : WorldObjectSave
 {
     public float resourceAmount;

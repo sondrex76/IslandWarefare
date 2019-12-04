@@ -2,6 +2,7 @@
 using UnityEngine;
 
 // Basic data for building needed for reconstructing them when saving & loading
+[System.Serializable]
 public class FactorySave: BuildingSave
 {
     public bool isWorking;
