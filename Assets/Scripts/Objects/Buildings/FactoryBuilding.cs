@@ -24,7 +24,7 @@ public class FactoryBuilding : AbstractBuilding
     float timePerRound = -1;                            // Amount of time per round of resource generation
     int resourceProducedIndex = -1;                     // Index of resource being produced
     int remainingRounds = 0;                            // Number of rounds of reosurce geeneration which remains
-    int originalNumRounds = 0;                          // Original vlaue of remainingRounds for this cycle, needed for progress bar
+    int originalNumRounds = 0;                          // Original value of remaining rounds for this cycle, needed for progress bar
     bool isBusy = false;                                // Bool indicating if the factory is busy or not
 
     [SerializeField] Slider sliderProgressBar;          // Slider of progress bar
@@ -53,18 +53,7 @@ public class FactoryBuilding : AbstractBuilding
         parentObjectSlider.transform.SetParent(parentPanel, true);
         parentObjectSlider.transform.localPosition = Vector3.zero;
         parentObjectSlider.transform.localPosition = new Vector3(132, -posOffset - 10);
-        /*
-        // Spawn progressBar
-        GameObject currentInterationProgressBar = (GameObject)Instantiate(prefabProgressBar);
-        // Offset upwards to make menu be centered on screen vertically as well as horizontally
-        currentInterationProgressBar.transform.SetParent(parentPanel, false);
-        currentInterationProgressBar.transform.localScale = new Vector3(1, 1, 1);
 
-        currentInterationProgressBar.transform.localPosition = new Vector3(40, posOffset - 20 - 43 / 2);
-
-        // Gets Slider object of progress bar
-        sliderProgressBar = currentInterationProgressBar.GetComponentInChildren<Slider>();
-        */
         // Generate GUI
         for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
         {
@@ -159,9 +148,26 @@ public class FactoryBuilding : AbstractBuilding
     // Makes factory unable to produce anything until the time sent is finished, and specifies what resource to produce
     public void SetIsBusy(int index, float timeBusy = 0, int numRounds = 1, bool busy = true)
     {
-        resourceProducedIndex = index;                  // Updates index
-        timePerRound = remainingTimeSec = timeBusy;     // Updates both current countdown and the time value per countdown
-        remainingRounds = originalNumRounds = numRounds;  // Updates number of remaining rounds
-        isBusy = busy;                                  // Sets isBusy to true
+        resourceProducedIndex = index;                      // Updates index
+        timePerRound = remainingTimeSec = timeBusy;         // Updates both current countdown and the time value per countdown
+        remainingRounds = originalNumRounds = numRounds;    // Updates number of remaining rounds
+        isBusy = busy;                                      // Sets isBusy to true
+    }
+
+
+    // LoadFactory code, must be run when loading factory
+    public void LoadFactory(bool isWorking = false, float rTime = 0, float tRound = 0, int resourceIndex = 0, int rounds = 0, int origRounds = 0)
+    {
+        isBusy = isWorking;
+        // Checks if the building is in the process of producing
+        if (isBusy)
+        {
+            // Updates values
+            remainingTimeSec = rTime;
+            timePerRound = rTime;
+            resourceProducedIndex = resourceIndex;
+            remainingRounds = rounds;
+            originalNumRounds = origRounds;
+        }
     }
 }
