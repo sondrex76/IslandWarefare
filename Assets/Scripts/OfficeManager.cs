@@ -7,9 +7,12 @@ public class OfficeManager : MonoBehaviour
     [Range(0, 20)]
     public int _workerCapacity;
     List<GameObject> _workers;
+    [SerializeField]
+    Graph _graph;
     void Start()
     {
         _workers = new List<GameObject>();
+        _graph.GetComponent<Graph>().AddNodes();
     }
 
     // Update is called once per frame

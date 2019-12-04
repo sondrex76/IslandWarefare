@@ -7,9 +7,11 @@ public class CommercialManager : MonoBehaviour
     [Range(0, 20)]
     public int _shopperCapacity;
     List<GameObject> _shopper;
+    [SerializeField]
+    Graph _graph;
     void Start()
     {
-        
+        _graph.GetComponent<Graph>().AddNodes();
     }
 
     // Update is called once per frame
