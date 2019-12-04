@@ -2631,14 +2631,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5413e9b571691ef428277caf96f544c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1756119169}
-  attackIsland: {fileID: 1756119172}
+  camera: {fileID: 0}
+  attackIsland: {fileID: 0}
   islandIDPlayer: 0
-  timeLeftTxt: {fileID: 1834743599}
-  islandIDTxt: {fileID: 2075692973}
-  attackIslandPanel: {fileID: 1074356076}
-  timerPanel: {fileID: 434962302}
-  returnToIslandPanel: {fileID: 1592367630}
+  timeLeftTxt: {fileID: 0}
+  islandIDTxt: {fileID: 0}
+  attackIslandPanel: {fileID: 0}
+  timerPanel: {fileID: 0}
+  returnToIslandPanel: {fileID: 0}
 --- !u!114 &1756119172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2663,7 +2663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fcea8daa4dbd9498376efc89bae0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 0
   playerIsland: {x: 0, y: 0, z: 0}
 --- !u!114 &1756119174
 MonoBehaviour:
@@ -2677,8 +2677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0427bc861830034d891006e73bdee36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resources: []
-  resourceAmounts: []
   defensivePower: 0
   offensivePower: 0
   supplyPower: 0
