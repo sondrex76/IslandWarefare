@@ -16,24 +16,27 @@ public class ChangeBuilding : MonoBehaviour
     [SerializeField]
     GameObject panel;
 
-
+    //Hides or shows the panel with buttons
     public void SetPanel()
     {
         panel.SetActive(!panel.activeSelf);
     }
 
+    //Activates road placing
     public void SetPlaceRoads()
     {
         objectPlacer.enabled = false;
         roadPlacer.enabled = true;
+        SetPanel();
     }
 
+    //Activates forge placing
     public void SetForge()
     {
         roadPlacer.enabled = false;
         objectPlacer.enabled = true;
         objectPlacer.objectToPlace = buildings[0];
+        objectPlacer.objectToPlaceTemp.SetActive(true);
+        SetPanel();
     }
-
-
 }

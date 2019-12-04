@@ -9,6 +9,8 @@ public class ResidentialSpawner : MonoBehaviour
     public int _capacity;
     public List<GameObject> _citizenLiving;
     ObjectPool _pool;
+    [SerializeField]
+    Graph _graph;
     void Start()
     {
         _pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
@@ -20,7 +22,7 @@ public class ResidentialSpawner : MonoBehaviour
             temp.SetActive(true);
             _citizenLiving.Add(temp);
         }
-        
+        _graph.GetComponent<Graph>().AddNodes();
     }
 
     // Update is called once per frame
