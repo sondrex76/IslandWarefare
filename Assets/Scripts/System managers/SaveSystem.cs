@@ -12,13 +12,13 @@ public class SaveSystem : MonoBehaviour
 
     private void Awake()
     {
-        path = Application.dataPath + "/save.binary";
-        // Load();
+        path = Application.dataPath + "/save.binary"; // Application.persistantDataPath
+        Load();
     }
 
     private void OnApplicationQuit()
     {
-        // Save();
+        Save();
     }
 
     // Loads save from file
@@ -70,6 +70,7 @@ public class SaveSystem : MonoBehaviour
 
             ResourceSave resourceData = new ResourceSave(amount, name, worldResources[i].transform.position, worldResources[i].transform.eulerAngles);
             formatter.Serialize(stream, resourceData);
+            Debug.Log("DEBUG");
         }
 
 
