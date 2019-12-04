@@ -17,4 +17,9 @@ public class ResourceWorldObject : MonoBehaviour
     {
         resourceAmount = amount;
     }
+
+    public ResourceSave ReturnResourceSave(Vector3 position, Vector3 rotation)
+    {
+        return new ResourceSave(resourceAmount, resourceType.transform.name, transform.position, transform.eulerAngles);
+    }
 }
