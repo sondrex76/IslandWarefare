@@ -164,7 +164,7 @@ public class FactoryBuilding : AbstractBuilding
         {
             // Updates values
             remainingTimeSec = rTime;
-            timePerRound = rTime;
+            timePerRound = tRound;
             resourceProducedIndex = resourceIndex;
             remainingRounds = rounds;
             originalNumRounds = origRounds;

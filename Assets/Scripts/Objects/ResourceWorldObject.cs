@@ -10,4 +10,11 @@ public class ResourceWorldObject : MonoBehaviour
     {
         return resourceType;
     }
+
+    // Function to run when loading a resource from a save which updates the amount of the resource present
+
+    public void LoadFromSave(float amount)
+    {
+        resourceAmount = amount;
+    }
 }
