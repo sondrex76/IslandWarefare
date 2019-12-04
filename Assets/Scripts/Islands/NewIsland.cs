@@ -49,7 +49,7 @@ public class NewIsland : MonoBehaviour
             Debug.Log("Deleting island saves");
             foreach (Island ile in iles)
             {
-                ile.DeleteMapSave();
+                IslandSaveManager.DeleteMapSave(ile.fileName);
             }
         }
 
