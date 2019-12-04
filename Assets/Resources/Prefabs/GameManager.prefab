@@ -823,7 +823,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildings:
+  - {fileID: 6488853407038031113, guid: 98e2f127595baf04291f8732ceb6499c, type: 3}
+  - {fileID: 6488853407038031113, guid: 6007fec146ac4f443b3359f36e1d1c6f, type: 3}
+  - {fileID: 6488853407038031113, guid: a40e5f9a99ca4bf4b8cb1ce05a4226df, type: 3}
   - {fileID: 6488853407038031113, guid: 45010b4ac58132c49888f890dfb85496, type: 3}
+  - {fileID: 6488853407038031113, guid: 108400f2cce29f44e908e6f8df4e1257, type: 3}
+  - {fileID: 6488853407038031113, guid: 569370d88a3410546b128cdb882dcc24, type: 3}
+  - {fileID: 6488853407038031113, guid: 2f2f4d6df801c8140ae607c9d40eca16, type: 3}
+  - {fileID: 6488853407038031113, guid: c9ef8239cd5be494eaf7759a374372c9, type: 3}
+  - {fileID: 6488853407038031113, guid: 3dc799393efecd346bda7123c4ae9147, type: 3}
+  - {fileID: 6488853407038031113, guid: 369c3bafed446514781ebd4cf333204b, type: 3}
   roadPlacer: {fileID: 0}
   objectPlacer: {fileID: 0}
   panel: {fileID: 1573539254838734589}

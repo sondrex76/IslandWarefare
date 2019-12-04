@@ -1101,11 +1101,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
-      propertyPath: buildings.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
       propertyPath: roadPlacer
       value: 
       objectReference: {fileID: 1098615587}
@@ -1114,66 +1109,6 @@ PrefabInstance:
       propertyPath: objectPlacer
       value: 
       objectReference: {fileID: 1098615586}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[1]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 6007fec146ac4f443b3359f36e1d1c6f,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[2]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: a40e5f9a99ca4bf4b8cb1ce05a4226df,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[3]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 45010b4ac58132c49888f890dfb85496,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[4]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 108400f2cce29f44e908e6f8df4e1257,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[5]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 569370d88a3410546b128cdb882dcc24,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[6]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 2f2f4d6df801c8140ae607c9d40eca16,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[7]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: c9ef8239cd5be494eaf7759a374372c9,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[8]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 3dc799393efecd346bda7123c4ae9147,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[9]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 369c3bafed446514781ebd4cf333204b,
-        type: 3}
-    - target: {fileID: 2575118087263870198, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: buildings.Array.data[0]
-      value: 
-      objectReference: {fileID: 6488853407038031113, guid: 98e2f127595baf04291f8732ceb6499c,
-        type: 3}
     - target: {fileID: 1364282993616768079, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
