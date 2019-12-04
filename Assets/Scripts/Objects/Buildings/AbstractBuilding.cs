@@ -141,6 +141,6 @@ public class AbstractBuilding : MonoBehaviour
     // Returns datavalues of class for use in saving
     public BuildingSave ReturnBuildingSave(Vector3 position, Vector3 rotation)
     {
-        return new BuildingSave(currentHealth, startOffsetY, finishedBuilding, position, rotation);
+        return new BuildingSave(currentHealth, startOffsetY, finishedBuilding, transform.name, position, rotation);
     }
 }

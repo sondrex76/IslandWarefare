@@ -8,7 +8,7 @@ public class BuildingSave : WorldObjectSave
     public float yOffset;
     public bool buildingFinished;
 
-    public BuildingSave(float health, float yPos, bool finished, Vector3 position, Vector3 rotation) : base(position, rotation)
+    public BuildingSave(float health, float yPos, bool finished, string name, Vector3 position, Vector3 rotation) : base(name, position, rotation)
     {
         presentHealth = health;
         yOffset = yPos;
