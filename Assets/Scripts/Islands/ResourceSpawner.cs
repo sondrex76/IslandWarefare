@@ -21,8 +21,8 @@ public class ResourceSpawner : MonoBehaviour
         int y = terrain.terrainData.heightmapHeight;
 
         float[,] map = terrain.terrainData.GetHeights(0, 0, x, y);
-        float scaleX = terrain.terrainData.size.x / Const.size;
-        float scaleZ = terrain.terrainData.size.z / Const.size;
+        float scaleX = terrain.terrainData.size.x / x;
+        float scaleZ = terrain.terrainData.size.z / y;
 
         Debug.Log(Const.size + " " + terrain.terrainData.size.y);
         Debug.Log(scaleX);
@@ -34,7 +34,7 @@ public class ResourceSpawner : MonoBehaviour
                 if (map[i, j] * Const.islandHeight > 14.3f)
                 {
                     int numb = Random.Range(0, resources.Count);
-                    Vector3 position = new Vector3((-Const.size * 10) / 2 + j * scaleX, map[i, j] * Const.islandHeight, (-Const.size * 10) / 2 +  i * scaleZ);
+                    Vector3 position = new Vector3(terrain.transform.position.x + j * scaleX, map[i, j] * Const.islandHeight, terrain.transform.position.z +  i * scaleZ);
                     Instantiate(resources[numb], position, transform.rotation, transform);
                 }
             }
