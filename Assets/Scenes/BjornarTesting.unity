@@ -1074,26 +1074,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5215735221211237864, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_CellSize.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5215735221211237864, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_CellSize.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5215735221211237864, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_Spacing.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5215735221211237864, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_Spacing.x
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 1573539254838734589, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: m_IsActive

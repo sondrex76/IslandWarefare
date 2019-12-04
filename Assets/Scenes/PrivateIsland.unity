@@ -786,36 +786,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: IslandMap
       objectReference: {fileID: 0}
-    - target: {fileID: 7476549775303568643, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7476549775303568643, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7476549775303568643, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7476549775303568643, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7476549775303568643, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 7476549775303568643, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4479d599ec0d3224d9244ffaa8c7bfc9, type: 3}
 --- !u!114 &1504648887 stripped
