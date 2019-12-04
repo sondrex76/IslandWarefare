@@ -238,6 +238,7 @@ public class RoadPlacer : MonoBehaviour
                     roadCounter++;
                     straight = false;
                     graph.GetComponent<Graph>().AddNodes();
+                    this.enabled = false;
 
                 }
 

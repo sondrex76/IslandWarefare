@@ -13,7 +13,7 @@ public class CanBePlaced : MonoBehaviour
             try
             {
                 transform.parent.GetComponent<ObjectPlacer>().CollisionDetected(this);
-                Debug.Log("REEE");
+                Debug.Log(transform.name);
             }
             catch(Exception e)
             {

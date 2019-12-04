@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPlacer : MonoBehaviour
 {
     public GameObject objectToPlace;
-
+    public GameObject objectToPlaceTemp;
     public Camera camera;
 
     public float maxSlope = 20;
@@ -21,12 +21,13 @@ public class ObjectPlacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       layerMask = ~layerMask;
-       objectToPlace = Instantiate(objectToPlace, new Vector3(0,0,0), Quaternion.identity);
-       objectToPlace.layer = 9;
-       objectToPlace.transform.parent = this.transform;
+        layerMask = ~layerMask;
+        objectToPlaceTemp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        objectToPlaceTemp.layer = 9;
+        objectToPlaceTemp.transform.parent = this.transform;
+        objectToPlaceTemp.AddComponent<CanBePlaced>();
 
-       m_MyQuaternion = new Quaternion();
+        m_MyQuaternion = new Quaternion();
     }
 
     // Update is called once per frame
@@ -36,26 +37,27 @@ public class ObjectPlacer : MonoBehaviour
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
-            objectToPlace.transform.position = hit.point;
+            objectToPlaceTemp.transform.position = hit.point;
             Vector3 up = hit.normal;
             m_MyQuaternion.SetFromToRotation(Vector3.up, up);
 
 
             float angle = Vector3.Angle(hit.normal, Vector3.up);
 
-            objectToPlace.transform.rotation = m_MyQuaternion;
+            objectToPlaceTemp.transform.rotation = m_MyQuaternion;
             yRotation += Input.mouseScrollDelta.y;
-            objectToPlace.transform.Rotate(Vector3.up, yRotation * 10f);
+            objectToPlaceTemp.transform.Rotate(Vector3.up, yRotation * 10f);
 
-             objectToPlace.SetActive(true);
+            //objectToPlaceTemp.SetActive(true);
 
-              if(Input.GetButtonDown("Fire1") && canBePlaced && angle < maxSlope){
-                    GameObject newObject = Instantiate(objectToPlace, objectToPlace.transform.position, objectToPlace.transform.rotation);
-                    Destroy(newObject.GetComponent<CanBePlaced>());
-                }
-        } else{
-           objectToPlace.SetActive(false);
-        }
+             if(Input.GetButtonDown("Fire1") && canBePlaced && angle < maxSlope){
+                objectToPlaceTemp.SetActive(false);
+                objectToPlace.SetActive(true);
+                GameObject newObject = Instantiate(objectToPlace, objectToPlaceTemp.transform.position, objectToPlaceTemp.transform.rotation);
+                Destroy(newObject.GetComponent<CanBePlaced>());
+                this.enabled = false;
+             }
+        } 
 
       
     }
