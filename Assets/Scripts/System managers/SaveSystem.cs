@@ -40,8 +40,13 @@ public class SaveSystem : MonoBehaviour
                 ResourceSave resourceData = formatter.Deserialize(stream) as ResourceSave;
                 
                 // Instantiate resource
-                GameObject resourceObject = Resources.Load("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.resourceName)) as GameObject;
+                GameObject resourceObject = Resources.Load("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.objectName)) as GameObject;
                 GameObject worldObject = LoadObject(resourceObject, resourceData.position, resourceData.rotation);
+
+                ResourceWorldObject resource = worldObject.GetComponentInChildren<ResourceWorldObject>();
+
+                // ERROR lies here, somehow
+                resource.LoadFromSave(resourceData.resourceAmount);
             }
 
             // Load factories
@@ -49,13 +54,31 @@ public class SaveSystem : MonoBehaviour
             for (int i = 0; i < numFactories; i++)
             {
                 FactorySave factoryData = formatter.Deserialize(stream) as FactorySave;
-
+                
                 // Instantiate factory
-                GameObject resourceObject = Resources.Load("Prefabs/Buildings/Factory/Primary buildings/" + RemoveCopyInName(factoryData.factoryName)) as GameObject;
-                GameObject worldObject = LoadObject(resourceObject, factoryData.position, factoryData.rotation);
+                GameObject factoryObject = Resources.Load("Prefabs/Buildings/Factory/Primary buildings/" + RemoveCopyInName(factoryData.objectName)) as GameObject;
+                GameObject worldObject = LoadObject(factoryObject, factoryData.position, factoryData.rotation);
 
                 // Updates position, makes sure the building finishes building if it is finished
-                worldObject.GetComponent<FactoryBuilding>().LoadFromSave(factoryData.presentHealth, factoryData.buildingFinished, factoryData.yOffset);
+                FactoryBuilding factory = worldObject.GetComponent<FactoryBuilding>();
+                factory.LoadFromSave(factoryData.presentHealth, factoryData.buildingFinished, factoryData.yOffset);
+                factory.LoadFactory(factoryData.isWorking, factoryData.remainingTime, factoryData.timeRound, factoryData.index, factoryData.remainingRounds, factoryData.originalRounds);
+            }
+
+            
+            // Load harvesters
+            int numHarvesters = (int)formatter.Deserialize(stream);
+            for (int i = 0; i < numHarvesters; i++)
+            {
+                BuildingSave harvesterData = formatter.Deserialize(stream) as BuildingSave;
+
+                // Instantiate harvester
+                GameObject resourceObject = Resources.Load("Prefabs/Buildings/ResourceGathering/" + RemoveCopyInName(harvesterData.objectName)) as GameObject;
+                GameObject worldObject = LoadObject(resourceObject, harvesterData.position, harvesterData.rotation);
+
+                // Updates position, makes sure the building finishes building if it is finished
+                AbstractResourceHarvesting harvester = worldObject.GetComponent<AbstractResourceHarvesting>();
+                harvester.LoadFromSave(harvesterData.presentHealth, harvesterData.buildingFinished, harvesterData.yOffset);
             }
 
 
@@ -100,7 +123,20 @@ public class SaveSystem : MonoBehaviour
             FactorySave factory = factories[i].ReturnFactorySave(factories[i].transform.position, factories[i].transform.eulerAngles);
             formatter.Serialize(stream, factory);
         }
+
         
+        // Resource gatherng buildings
+        AbstractResourceHarvesting[] harvesters = FindObjectsOfType<AbstractResourceHarvesting>();  // Gets all resource objects
+        formatter.Serialize(stream, harvesters.Length);                                             // Stores number of factories as an int
+        
+        for (int i = 0; i < harvesters.Length; i++)
+        {
+            // FactorySave
+            BuildingSave harvester = harvesters[i].ReturnBuildingSave(harvesters[i].transform.position, harvesters[i].transform.eulerAngles);
+            formatter.Serialize(stream, harvester);
+        }
+
+
         // closes stream
         stream.Close();
     }

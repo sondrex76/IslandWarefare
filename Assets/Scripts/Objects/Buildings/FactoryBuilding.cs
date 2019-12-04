@@ -176,9 +176,9 @@ public class FactoryBuilding : AbstractBuilding
     { // bool finished, Vector3 position, Vector3 rotation
         BuildingSave building = ReturnBuildingSave(position, rotation);
         return new FactorySave(
-            isBusy, remainingTimeSec, timePerRound, resourceProducedIndex, remainingRounds, originalNumRounds, transform.name,  // Factory
-            building.presentHealth, building.yOffset, building.buildingFinished,                                                // Building
-            position, rotation                                                                                                  // Transform
+            isBusy, remainingTimeSec, timePerRound, resourceProducedIndex, remainingRounds, originalNumRounds,  // Factory
+            building.presentHealth, building.yOffset, building.buildingFinished,                                // Building
+            transform.name, position, rotation                                                                  // Transform
             );
     }
 }
