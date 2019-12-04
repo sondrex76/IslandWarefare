@@ -38,13 +38,26 @@ public class SaveSystem : MonoBehaviour
             for (int i = 0; i < numResources; i++)
             {
                 ResourceSave resourceData = formatter.Deserialize(stream) as ResourceSave;
-
-                Debug.Log("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.resourceName));
-
+                
                 // Instantiate resource
                 GameObject resourceObject = Resources.Load("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.resourceName)) as GameObject;
                 GameObject worldObject = LoadObject(resourceObject, resourceData.position, resourceData.rotation);
             }
+
+            // Load factories
+            int numFactories = (int)formatter.Deserialize(stream);
+            for (int i = 0; i < numFactories; i++)
+            {
+                FactorySave factoryData = formatter.Deserialize(stream) as FactorySave;
+
+                // Instantiate factory
+                GameObject resourceObject = Resources.Load("Prefabs/Buildings/Factory/Primary buildings/" + RemoveCopyInName(factoryData.factoryName)) as GameObject;
+                GameObject worldObject = LoadObject(resourceObject, factoryData.position, factoryData.rotation);
+
+                // Updates position, makes sure the building finishes building if it is finished
+                worldObject.GetComponent<FactoryBuilding>().LoadFromSave(factoryData.presentHealth, factoryData.buildingFinished, factoryData.yOffset);
+            }
+
 
             // Close stream
             stream.Close();
@@ -68,20 +81,26 @@ public class SaveSystem : MonoBehaviour
         
         // Resources
         ResourceWorldObject[] worldResources = FindObjectsOfType<ResourceWorldObject>();    // Gets all resource objects
-        formatter.Serialize(stream, worldResources.Length);                                 // Stores number of resources as a float
+        formatter.Serialize(stream, worldResources.Length);                                 // Stores number of resources as an int
 
         for (int i = 0; i < worldResources.Length; i++)
         {
-            float amount = worldResources[i].resourceAmount;
-            string name = worldResources[i].ReturnType().transform.name;
-
-            ResourceSave resourceData = new ResourceSave(amount, name, worldResources[i].transform.position, worldResources[i].transform.eulerAngles);
+            // Resource
+            ResourceSave resourceData = worldResources[i].ReturnResourceSave(worldResources[i].transform.position, worldResources[i].transform.eulerAngles);
             formatter.Serialize(stream, resourceData);
         }
 
         // Factories
-        string[] factorytypeNames = { "", "", "", "", "", "", "", "", "", "" };
-
+        FactoryBuilding[] factories = FindObjectsOfType<FactoryBuilding>();                 // Gets all resource objects
+        formatter.Serialize(stream, factories.Length);                                      // Stores number of factories as an int
+        
+        for (int i = 0; i < factories.Length; i++)
+        {
+            // FactorySave
+            FactorySave factory = factories[i].ReturnFactorySave(factories[i].transform.position, factories[i].transform.eulerAngles);
+            formatter.Serialize(stream, factory);
+        }
+        
         // closes stream
         stream.Close();
     }
