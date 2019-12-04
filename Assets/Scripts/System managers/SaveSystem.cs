@@ -33,6 +33,7 @@ public class SaveSystem : MonoBehaviour
             // Opens stream
             FileStream stream = new FileStream(path, FileMode.Open);
             
+            // Loads resources
             int numResources = (int)formatter.Deserialize(stream);
             for (int i = 0; i < numResources; i++)
             {
@@ -44,8 +45,6 @@ public class SaveSystem : MonoBehaviour
                 GameObject resourceObject = Resources.Load("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.resourceName)) as GameObject;
                 GameObject worldObject = LoadObject(resourceObject, resourceData.position, resourceData.rotation);
             }
-
-
 
             // Close stream
             stream.Close();
@@ -80,12 +79,14 @@ public class SaveSystem : MonoBehaviour
             formatter.Serialize(stream, resourceData);
         }
 
+        // Factories
+        string[] factorytypeNames = { "", "", "", "", "", "", "", "", "", "" };
 
         // closes stream
         stream.Close();
     }
 
-    // Removes "copy" from the end of the name
+    // Removes "Clone" from the end of the name
     string RemoveCopyInName(string name)
     {
         if (name.EndsWith("(Clone)"))
