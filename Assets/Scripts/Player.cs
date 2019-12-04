@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
         data.SetHeights(0, 0, map);
 
         _island = Terrain.CreateTerrainGameObject(data);
-        _island.transform.position = new Vector3((-Const.size * 10) / 2, 0, (-Const.size * 10) / 2);
+        _island.transform.position = new Vector3((-Const.size * 8) / 2, 0, (-Const.size * 8) / 2);
         _island.GetComponent<Terrain>().materialTemplate = _islandMaterial;
 
         generated.Invoke();
