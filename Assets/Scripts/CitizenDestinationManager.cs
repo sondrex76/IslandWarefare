@@ -45,8 +45,6 @@ public class CitizenDestinationManager : MonoBehaviour
             if (_currentNode == _home)
             {
                 _path = FindShortestPath(_home, _work);
-                Debug.Log(_path.Count);
-                Debug.Log("to work");
                 _currentNode = _work;
             }
             else if (_currentNode == _work) 
@@ -59,13 +57,11 @@ public class CitizenDestinationManager : MonoBehaviour
                 System.Random randomShop = new System.Random();
                 _shop = shops[randomShop.Next(0, shops.Count)];
                 _path = FindShortestPath(_work, _shop);
-                Debug.Log("to store");
                 _currentNode = _shop;
             }
             else if (_currentNode == _shop)
             {
                 _path = FindShortestPath(_shop, _home);
-                Debug.Log("to home");
                 _currentNode = _home;
             }
         }
