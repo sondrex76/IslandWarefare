@@ -20,7 +20,7 @@ public class NewIsland : MonoBehaviour
     protected int distance = 100000;   //Distance away from camera an island will be rendered
 
     //Debug
-    protected int antIslands = 100;
+    protected int antIslands;
 
     // Start is called before the first frame update
     void Start()
