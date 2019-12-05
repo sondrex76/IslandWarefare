@@ -126,6 +126,11 @@ public class IslandMapManager : MonoBehaviour
 
         Debug.Log(timeOfAttack);
 
+        if(timeOfAttack == null)
+        {
+            return;
+        }
+
         if (timeOfAttackObject.ToString() == "cancelled")
         {
             timerPanel.SetActive(true);

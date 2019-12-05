@@ -164,9 +164,14 @@ public class Login : MonoBehaviour
         {
             Data = new Dictionary<string, string>()
             {
-            {"IslandID", numberOfPlayers.ToString()}
+            {"IslandID", numberOfPlayers.ToString()},
+            {"SupportPower", "5"},
+            {"AttackPower", "5"},
+            {"DefencePower", "5"},
+            {"warID", "0"}
             }
         },
+
             result => PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
             {
                 FunctionName = "addPlayerToDataBase",
