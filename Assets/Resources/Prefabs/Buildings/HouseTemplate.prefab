@@ -141,13 +141,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
-  building: {fileID: 0}
+  building: {fileID: 7558737659029236964}
   maxHealth: 20
   startHealth: 1
   startOffsetY: 2
   timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0
+  clickableIcon: {fileID: 0}
 --- !u!65 &2532693350963540978
 BoxCollider:
   m_ObjectHideFlags: 0

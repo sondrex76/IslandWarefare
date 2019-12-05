@@ -93,7 +93,7 @@ public class SaveSystem : MonoBehaviour
                 GameObject worldObject = LoadObject(resourceObject, houseData.position, houseData.rotation);
 
                 // Updates position, makes sure the building finishes building if it is finished
-                AbstractResourceHarvesting house = worldObject.GetComponent<AbstractResourceHarvesting>();
+                AbstractHouse house = worldObject.GetComponent<AbstractHouse>();
                 house.LoadFromSave(houseData.presentHealth, houseData.buildingFinished, houseData.yOffset);
             }
 
