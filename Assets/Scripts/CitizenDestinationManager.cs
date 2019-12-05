@@ -27,20 +27,24 @@ public class CitizenDestinationManager : MonoBehaviour
         _path = new Queue<GraphNode>();
         _currentNode = _home;
         List<GraphNode> work = new List<GraphNode>();
-        foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Office))
+        if (_graph.Nodes.Count > 0)
         {
-            work.Add(x);
+            foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Office))
+            {
+                work.Add(x);
+            }
+            System.Random randomWork = new System.Random();
+            _work = work[randomWork.Next(0, work.Count)];
+            _work.GetComponent<OfficeManager>().AddWorker(gameObject);
         }
-        System.Random randomWork = new System.Random();
-        _work = work[randomWork.Next(0, work.Count)];
-        _work.GetComponent<OfficeManager>().AddWorker(gameObject);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _speed);
-        if (_path != null)
+        if (_path != null && _graph.Nodes.Count > 1)
         {
             if (_path.Count == 0)
             {
