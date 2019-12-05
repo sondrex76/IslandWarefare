@@ -47,7 +47,7 @@ public class RoadPlacer : MonoBehaviour
     [SerializeField]
     Mesh2D shape2D;
     Mesh mesh;
-    [Range(2,32)]
+    [Range(2,64)]
     public int edgeRingCount = 8;
     Vector3[] pts = new Vector3[4];
     bool isPlacing;
