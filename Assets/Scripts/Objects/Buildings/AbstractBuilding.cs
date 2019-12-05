@@ -20,12 +20,20 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float currentHealth;           // Current health, serialized for convenience' sake but works automatically
     public Sprite clickableIcon;                    // Icon to show a user when selecting a building
 
+
+    [SerializeField] GameObject graph;              // Graph to place Nodes under
+    [SerializeField] GameObject node;               // Node which will be spawned from building
+    [SerializeField] string nodeKey;                // Key for getting node from object pool
+
+
+    protected bool test = false;
     protected void Awake()
     {
         // Sets health to starting health
         currentHealth = startHealth;            
         gameManager = FindObjectOfType<GameManager>();
-
+        
+        
         // If building is not defined it searches for object called "Building"
         if (building == null)               
             building = transform.Find("Building").GetComponent<Transform>();
@@ -45,6 +53,22 @@ public class AbstractBuilding : MonoBehaviour
             {
                 // Runs the building's primary functionality
                 BuildingFunctionality();
+                if (!test)
+                {
+                    // Move code below
+                    ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
+                    graph = GameObject.FindGameObjectWithTag("Graph");
+                    node = pool.GetPooledObject(nodeKey);
+                    if (node == null)
+                    {
+                        
+                    }
+                    node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
+                    node.transform.parent = graph.transform;
+                    node.SetActive(true);
+                    test = true;
+                }
+                
             }
             else                                // Building is being built
             {
