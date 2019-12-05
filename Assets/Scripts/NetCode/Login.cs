@@ -147,7 +147,7 @@ public class Login : MonoBehaviour
 
     void setNumberOfPlayers(int numberOfPlayers)
     {
-        PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers);
+        PlayerPrefs.SetInt("NumberOfPlayers", 100);
     }
 
 
@@ -159,38 +159,13 @@ public class Login : MonoBehaviour
         PlayerPrefs.SetInt("ISLANDID", numberOfPlayers);
         PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers);
 
-        //Set the playerdata in playfab
-        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
-            Data = new Dictionary<string, string>()
-            {
-            {"IslandID", numberOfPlayers.ToString()},
-            {"SupportPower", "5"},
-            {"AttackPower", "5"},
-            {"DefencePower", "5"},
-            {"warID", "0"}
-            }
-        },
-
-            result => PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
-            {
-                FunctionName = "addPlayerToDataBase",
-                FunctionParameter = new { },
-                GeneratePlayStreamEvent = true,
-            }, null, OnErrorShared),
-
-            error =>
-            {
-                Debug.Log("Error setting playerdata");
-                Debug.Log(error.GenerateErrorReport());
-            }
-            );
-
-
-
-
-       
-
+            FunctionName = "addPlayerToDataBase",
+            FunctionParameter = new { },
+            GeneratePlayStreamEvent = true,
+        }, null, OnErrorShared);
     }
 
 
