@@ -24,10 +24,11 @@ public class CitizenDestinationManager : MonoBehaviour
     {
         _graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
         _destination = new Vector3();
+        _destination = transform.position;
         _path = new Queue<GraphNode>();
         _currentNode = _home;
         List<GraphNode> work = new List<GraphNode>();
-        if (_graph.Nodes.Count > 0)
+        if (_graph.Nodes.Any())
         {
             foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Office))
             {
@@ -44,9 +45,11 @@ public class CitizenDestinationManager : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _speed);
-        if (_path != null && _graph.Nodes.Count > 1)
+        if (_path != null)
         {
-            if (_path.Count == 0)
+
+            
+            if (_path.Count == 0 && _graph.Nodes.Any())
             {
                 if (_currentNode == _home)
                 {
