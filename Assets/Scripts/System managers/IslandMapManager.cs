@@ -25,14 +25,15 @@ public class IslandMapManager : MonoBehaviour
     private TMPro.TextMeshProUGUI timeLeftTxt, islandIDTxt;
     [SerializeField]
     GameObject attackIslandPanel, timerPanel, returnToIslandPanel;
-
+    [SerializeField]
+    Canvas canvas;
     void Start()
     {
         islandIDPlayer = PlayerPrefs.GetInt("ISLANDID");
         timeLeftTxt.text = "";
         attackIslandPanel.SetActive(false);
         timerPanel.SetActive(false);
-
+        canvas.enabled = true;
 
         if (!PlayerPrefs.HasKey("ISLANDTRANSFORM_X"))
         {
@@ -124,6 +125,11 @@ public class IslandMapManager : MonoBehaviour
         jsonResult.TryGetValue("timeOfAttack", out timeOfAttackObject);
 
         Debug.Log(timeOfAttack);
+
+        if(timeOfAttack == null)
+        {
+            return;
+        }
 
         if (timeOfAttackObject.ToString() == "cancelled")
         {
