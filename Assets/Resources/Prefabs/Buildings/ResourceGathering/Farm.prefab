@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8204359035405568815}
   - component: {fileID: 3258835447395128278}
   - component: {fileID: 444101873723945812}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Farm
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -82,6 +82,7 @@ MonoBehaviour:
   timeSecondsBuild: 15
   randomFluct: 0.1
   currentHealth: 0
+  clickableIcon: {fileID: 21300000, guid: da978b42904f5e84a91caf34d73a0007, type: 3}
   neededResource:
   - {fileID: 4933372135440917034, guid: 06284050885bad147bc46b1e0d00d08b, type: 3}
   resourceExtractionSpeed: 0.02
@@ -125,7 +126,7 @@ GameObject:
   - component: {fileID: 6237668451505298037}
   - component: {fileID: 7986518277193264838}
   - component: {fileID: 6572064951301649057}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}

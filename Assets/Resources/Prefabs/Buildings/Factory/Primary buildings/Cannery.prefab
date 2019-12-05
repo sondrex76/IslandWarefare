@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 6806715056064936141}
   - component: {fileID: 5508462105662105589}
   - component: {fileID: 8561571122835540564}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 8213316345774627249}
   - component: {fileID: -7836618394683586197}
   - component: {fileID: 5480278459061828825}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cannery
   m_TagString: Factory
   m_Icon: {fileID: 0}
