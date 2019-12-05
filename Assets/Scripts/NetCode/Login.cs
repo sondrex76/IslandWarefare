@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Login : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class Login : MonoBehaviour
     {
 
 
-
+        GetPlayersLogin();
         //Setting the title ID so playfab knows what endpoint to connect to just incase something buggs in editor
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
         {
@@ -115,8 +116,7 @@ public class Login : MonoBehaviour
     public void LoginClicked()
     {
 
-        Debug.Log(email);
-        Debug.Log(password);
+        
 
         var request = new LoginWithEmailAddressRequest { Email = email, Password = password };
         PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFail);
@@ -139,6 +139,16 @@ public class Login : MonoBehaviour
         await networkhelper.GetAllPlayerSegments(setPlayerData);
     }
 
+    public async Task GetPlayersLogin()
+    {
+        await networkhelper.GetAllPlayerSegments(setNumberOfPlayers);
+    }
+
+
+    void setNumberOfPlayers(int numberOfPlayers)
+    {
+        PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers);
+    }
 
 
     //Set the player data
@@ -147,6 +157,7 @@ public class Login : MonoBehaviour
 
 
         PlayerPrefs.SetInt("ISLANDID", numberOfPlayers);
+        PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers);
 
         //Set the playerdata in playfab
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()

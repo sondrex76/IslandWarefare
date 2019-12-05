@@ -34,6 +34,7 @@ public class NewIsland : MonoBehaviour
         Random.InitState(91133);
 
         float temp = Time.time;
+        antIslands = PlayerPrefs.GetInt("NumberOfPlayers");
         GenerateIsland();
         Debug.Log("Time for MyExpensiveFunction: " + (Time.time - temp).ToString("f6"));
         
