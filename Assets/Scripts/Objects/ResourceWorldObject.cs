@@ -20,6 +20,7 @@ public class ResourceWorldObject : MonoBehaviour
 
     public ResourceSave ReturnResourceSave(Vector3 position, Vector3 rotation)
     {
-        return new ResourceSave(resourceAmount, resourceType.transform.name, transform.position, transform.eulerAngles);
+        Debug.Log(resourceType.transform.name);
+        return new ResourceSave(resourceAmount, resourceType.transform.name, position, rotation);
     }
 }

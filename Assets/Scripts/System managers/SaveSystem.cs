@@ -35,6 +35,7 @@ public class SaveSystem : MonoBehaviour
             
             // Loads resources
             int numResources = (int)formatter.Deserialize(stream);
+            Debug.Log("resources: " + numResources); // DEBUG
             for (int i = 0; i < numResources; i++)
             {
                 ResourceSave resourceData = formatter.Deserialize(stream) as ResourceSave;
@@ -51,6 +52,7 @@ public class SaveSystem : MonoBehaviour
 
             // Load factories
             int numFactories = (int)formatter.Deserialize(stream);
+            Debug.Log("factories: " + numFactories); // DEBUG
             for (int i = 0; i < numFactories; i++)
             {
                 FactorySave factoryData = formatter.Deserialize(stream) as FactorySave;
@@ -68,6 +70,7 @@ public class SaveSystem : MonoBehaviour
             
             // Load harvesters
             int numHarvesters = (int)formatter.Deserialize(stream);
+            Debug.Log("harvesters: " + numHarvesters); // DEBUG
             for (int i = 0; i < numHarvesters; i++)
             {
                 BuildingSave harvesterData = formatter.Deserialize(stream) as BuildingSave;
@@ -83,6 +86,7 @@ public class SaveSystem : MonoBehaviour
 
             // Load houses
             int numHouses = (int)formatter.Deserialize(stream);
+            Debug.Log("houses: " + numHouses); // DEBUG
             for (int i = 0; i < numHouses; i++)
             {
                 BuildingSave houseData = formatter.Deserialize(stream) as BuildingSave;
@@ -121,6 +125,7 @@ public class SaveSystem : MonoBehaviour
         // Resources
         ResourceWorldObject[] worldResources = FindObjectsOfType<ResourceWorldObject>();            // Gets all resource objects
         formatter.Serialize(stream, worldResources.Length);                                         // Stores number of resources as an int
+        Debug.Log("resources: " + worldResources.Length); // DEBUG
 
         for (int i = 0; i < worldResources.Length; i++)
         {
@@ -132,7 +137,8 @@ public class SaveSystem : MonoBehaviour
         // Factories
         FactoryBuilding[] factories = FindObjectsOfType<FactoryBuilding>();                         // Gets all resource objects
         formatter.Serialize(stream, factories.Length);                                              // Stores number of factories as an int
-        
+        Debug.Log("factories: " + factories.Length); // DEBUG
+
         for (int i = 0; i < factories.Length; i++)
         {
             // FactorySave
@@ -144,7 +150,8 @@ public class SaveSystem : MonoBehaviour
         // Resource gatherng buildings
         AbstractResourceHarvesting[] harvesters = FindObjectsOfType<AbstractResourceHarvesting>();  // Gets all resource objects
         formatter.Serialize(stream, harvesters.Length);                                             // Stores number of factories as an int
-        
+        Debug.Log("harvesters: " + harvesters.Length); // DEBUG
+
         for (int i = 0; i < harvesters.Length; i++)
         {
             // FactorySave
@@ -155,6 +162,7 @@ public class SaveSystem : MonoBehaviour
         // Houses
         AbstractHouse[] houses = FindObjectsOfType<AbstractHouse>();
         formatter.Serialize(stream, houses.Length);                                                 // Stores number of houses as an int
+        Debug.Log("houses: " + houses.Length); // DEBUG
 
         for (int i = 0; i < houses.Length; i++)
         {

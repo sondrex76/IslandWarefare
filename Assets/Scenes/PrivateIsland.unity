@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 618330222073584710, guid: bb78fe0b53f0ede46929f8d8de882269,
         type: 3}
       propertyPath: m_Name
-      value: resources (1)
+      value: resources
       objectReference: {fileID: 0}
     - target: {fileID: 618330222073584711, guid: bb78fe0b53f0ede46929f8d8de882269,
         type: 3}

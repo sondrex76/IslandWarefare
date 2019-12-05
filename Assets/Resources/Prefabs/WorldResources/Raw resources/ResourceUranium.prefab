@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c90fbeada9579942baaf36a307154d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: {fileID: 0}
+  resourceType: {fileID: 4933372135440917034}
   resourceAmount: 100
 --- !u!54 &8896103711246107006
 Rigidbody:
