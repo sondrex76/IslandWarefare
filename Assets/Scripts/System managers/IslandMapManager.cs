@@ -126,8 +126,9 @@ public class IslandMapManager : MonoBehaviour
 
         Debug.Log(timeOfAttack);
 
-        if(timeOfAttack == null)
+        if(timeOfAttackObject.ToString() == "noBattle")
         {
+            Debug.Log("Work it");
             return;
         }
 
