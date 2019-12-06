@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8022413863540587819}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 67.59715, y: 32, z: -434.61157}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,3 +63,4 @@ MonoBehaviour:
   _capacity: 7
   _citizenLiving: []
   _graph: {fileID: 4754099598964084280, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
+  _prebab: {fileID: 54603371646707491, guid: 5812d269a89e5784eae6a72c9b931b4e, type: 3}
