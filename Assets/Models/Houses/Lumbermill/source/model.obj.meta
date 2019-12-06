@@ -3,7 +3,87 @@ guid: 20fa3a8b3a90c9144a5f8fdd9fbeac8a
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: chimney
+    second: {fileID: 2100000, guid: f47b4195dea9c4241b36a1a62bd9cc02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor
+    second: {fileID: 2100000, guid: 077a06f2c808f8e49bad3109a56c65eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor_sides
+    second: {fileID: 2100000, guid: 813fb0905f7dc204cbceff69bab62bc1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frame
+    second: {fileID: 2100000, guid: 95b275b137b793c469ecb244b7104c23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frame_edges
+    second: {fileID: 2100000, guid: 958331141e52dcb44b887050dccaa6ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frame_wall
+    second: {fileID: 2100000, guid: 3396b6a61eb9e664182daeb3ae06d4e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: roof
+    second: {fileID: 2100000, guid: c7a27c54cd0c4ad45a1d73ffb22ff90d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saw_blade
+    second: {fileID: 2100000, guid: 54a9de1a31c23de47ba0faeab914545d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saw_blade_effect
+    second: {fileID: 2100000, guid: 820d1ee970aac704297a2ade635b4b09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saw_blade_frame
+    second: {fileID: 2100000, guid: ffb31cd379920ed409fda2740cc5b5eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saw_blade_pole
+    second: {fileID: 2100000, guid: 153bc738893c24b4896bc601b5c83ce4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saw_table
+    second: {fileID: 2100000, guid: 09169d0de8088ab47b6e210c86bc92a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saw_table_side
+    second: {fileID: 2100000, guid: d3adf2511702b3240af7dc439e8c557d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: smoke
+    second: {fileID: 2100000, guid: 4462dd83316591c4392b354496c0bb9d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: woodPlanks_inside
+    second: {fileID: 2100000, guid: a9dd7d57ee0263d42b86add0ac67de7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: woodPlanks_outside
+    second: {fileID: 2100000, guid: 130dd0e556ec5cf48a8fbf59d796e7cf, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
