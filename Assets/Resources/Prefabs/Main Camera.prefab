@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fff665be8c5a94591545ebf8ff857c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraSpeed: 45
+  cameraSpeed: 100
   cameraAngleX: 0
   cameraAngleY: 30
   cameraZoom: 90
@@ -172,11 +172,11 @@ Rigidbody:
   m_GameObject: {fileID: 5249086544048794037}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 10
+  m_Drag: 20
   m_AngularDrag: 10
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!135 &5249086545521145245

@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        // DEBUG, limit framerate
+        QualitySettings.vSyncCount = 1;
+
         // Loads all resources automatically
         GameObject[] resourceObjects = Resources.LoadAll("Prefabs/WorldResources").Cast<GameObject>().ToArray();
         
