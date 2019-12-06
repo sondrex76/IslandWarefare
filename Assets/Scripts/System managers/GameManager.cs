@@ -67,6 +67,11 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    private void Start()
+    {
+       GameObject.Find("Terrain").layer = LayerMask.NameToLayer("Ground");
+    }
+
     private void Update()
     {
         // If the game is not paused
