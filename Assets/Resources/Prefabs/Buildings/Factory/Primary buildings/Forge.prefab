@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 2835070613021463349}
   - component: {fileID: 1574222881371369271}
   m_Layer: 0
-  m_Name: Forge_Building
+  m_Name: Forge
   m_TagString: Factory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
