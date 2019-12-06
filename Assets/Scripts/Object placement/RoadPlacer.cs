@@ -47,7 +47,7 @@ public class RoadPlacer : MonoBehaviour
     [SerializeField]
     Mesh2D shape2D;
     Mesh mesh;
-    [Range(2,64)]
+    [Range(2,128)]
     public int edgeRingCount = 8;
     Vector3[] pts = new Vector3[4];
     bool isPlacing;
@@ -137,6 +137,15 @@ public class RoadPlacer : MonoBehaviour
         for (int ring = 0; ring < edgeRingCount; ring++){
             float t = ring / (edgeRingCount - 1f);
             OrientedPoint op = GetPoint(pts, t);
+
+
+            RaycastHit hit;
+            // Does the ray intersect any objects excluding the player layer
+            if (Physics.Raycast(op.position + Vector3.up * 100f, Vector3.down, out hit, Mathf.Infinity, layerMask))
+            {
+                op.position = hit.point;
+            }
+
 
             graphhNodesPos.Add(op.position);
 
@@ -345,8 +354,6 @@ public class RoadPlacer : MonoBehaviour
 
                     pts[3] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
                 }
-
-                Debug.Log(connecting);
 
                 GenerateMesh(pts);
 

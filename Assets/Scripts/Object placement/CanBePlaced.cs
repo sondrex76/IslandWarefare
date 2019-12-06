@@ -17,6 +17,7 @@ public class CanBePlaced : MonoBehaviour
             }
             catch(Exception e)
             {
+                Debug.Log(transform.name);
                 Debug.Log("Error in OnCollisionStay within canBePlaced");
             }
         }
@@ -33,6 +34,7 @@ public class CanBePlaced : MonoBehaviour
             }
             catch(Exception e)
             {
+                Debug.Log(transform.name);
                 Debug.Log("Error in OnCollisionExit within canBePlaced");
             }
         }
