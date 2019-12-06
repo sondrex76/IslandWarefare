@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.Events;
-using UnityEngine.AI;
 
 public class CitizenDestinationManager : MonoBehaviour
 {
@@ -18,6 +14,7 @@ public class CitizenDestinationManager : MonoBehaviour
     GraphNode _home;
     GraphNode _work;
     GraphNode _shop;
+    private int _randomAStarUpdate;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +35,8 @@ public class CitizenDestinationManager : MonoBehaviour
             _work = work[randomWork.Next(0, work.Count)];
             _work.GetComponent<OfficeManager>().AddWorker(gameObject);
         }
+        SecureRandom rng = new SecureRandom();
+        _randomAStarUpdate = rng.Next(1, 1000);
         
     }
 
@@ -49,7 +48,7 @@ public class CitizenDestinationManager : MonoBehaviour
         {
 
             
-            if (_path.Count == 0 && _graph.Nodes.Any())
+            if (_path.Count == 0 && _graph.Nodes.Any() && Time.frameCount % _randomAStarUpdate == 0)
             {
                 if (_currentNode == _home)
                 {
@@ -210,43 +209,4 @@ public class CitizenDestinationManager : MonoBehaviour
 
 }
 
-class PriorityQueue<P, V>
-{
-    private SortedDictionary<P, Queue<V>> list = new SortedDictionary<P, Queue<V>>();
 
-  public int Count {
-    get { return list.Count; }
-  }
-
-
-     public void Enqueue(P priority, V value)
-    {
-        Queue<V> q;
-        if (!list.TryGetValue(priority, out q))
-        {
-            q = new Queue<V>();
-            list.Add(priority, q);
-        }
-        q.Enqueue(value);
-    }
-    public V Dequeue()
-    {
-        // will throw if there isn’t any first element!
-        var pair = list.First();
-        var v = pair.Value.Dequeue();
-        if (pair.Value.Count == 0) // nothing left of the top priority.
-            list.Remove(pair.Key);
-        return v;
-    }
-    public bool IsEmpty
-    {
-        get { return !list.Any(); }
-    }
-
-  public bool Contains(V item) {
-    foreach (var x in list.Where(i => EqualityComparer<V>.Equals(i.Key, item))) {
-        return true;
-    }
-    return false;
-  }
-}
