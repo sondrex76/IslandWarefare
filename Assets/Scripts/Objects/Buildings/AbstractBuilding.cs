@@ -58,7 +58,7 @@ public class AbstractBuilding : MonoBehaviour
                     // Move code below
                     ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
                     graph = GameObject.FindGameObjectWithTag("Graph");
-                    node = pool.GetPooledObject(nodeKey);
+                    node = pool.GetPooledObject(node.name);
                     if (node == null)
                     {
                         

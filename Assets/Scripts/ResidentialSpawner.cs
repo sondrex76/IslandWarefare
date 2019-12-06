@@ -9,14 +9,14 @@ public class ResidentialSpawner : MonoBehaviour
     public int _capacity;
     public List<GameObject> _citizenLiving;
     ObjectPool _pool;
-    [SerializeField]
-    Graph _graph;
+    [SerializeField] Graph _graph;
+    [SerializeField] GameObject _prebab;
     void Start()
     {
         _pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
         for (int i = 0; i < _capacity; i++)
         {
-            GameObject temp = _pool.GetPooledObject("Citizen");
+            GameObject temp = _pool.GetPooledObject(_prebab.name);
             temp.transform.SetPositionAndRotation(this.transform.position, this.transform.rotation);
             temp.GetComponent<CitizenDestinationManager>().SetHome(this.GetComponent<GraphNode>());
             temp.SetActive(true);
