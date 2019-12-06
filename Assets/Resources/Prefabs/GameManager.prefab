@@ -4197,7 +4197,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6084654788410082426}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7547750231980955616}
+        m_MethodName: changeMenuScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: IslandMap
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &4185309610070706603
@@ -4802,6 +4813,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2733781053969139721}
   - component: {fileID: 8839987540811447451}
+  - component: {fileID: 7547750231980955616}
   m_Layer: 0
   m_Name: GUI
   m_TagString: Untagged
@@ -4846,6 +4858,18 @@ MonoBehaviour:
   - {fileID: 3249774309046493095, guid: 1a2c29e4ab62ec84d9a8b29dac201040, type: 3}
   - {fileID: -4687537800070459747, guid: 1a2c29e4ab62ec84d9a8b29dac201040, type: 3}
   - {fileID: -8613548704610057322, guid: 1a2c29e4ab62ec84d9a8b29dac201040, type: 3}
+--- !u!114 &7547750231980955616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747539374874257872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039ff357d02557147b1a87ecffaed2be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6299447656080285099
 GameObject:
   m_ObjectHideFlags: 0

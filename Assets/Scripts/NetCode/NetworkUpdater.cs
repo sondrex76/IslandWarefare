@@ -16,7 +16,7 @@ public class NetworkUpdater : MonoBehaviour
 
     private void Start()
     {
-        GetPlayersLogin();
+        StartCoroutine(updateTimer());
     }
 
 
@@ -29,7 +29,18 @@ public class NetworkUpdater : MonoBehaviour
 
     void setNumberOfPlayers(int numberOfPlayers)
     {
-        PlayerPrefs.SetInt("NumberOfPlayers", 100);
+        PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers);
+    }
+
+
+
+    IEnumerator updateTimer()
+    {
+        for (; ; )
+        {
+            GetPlayersLogin();
+            yield return new WaitForSeconds(120f);
+        } 
     }
 
 
