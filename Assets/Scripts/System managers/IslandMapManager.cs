@@ -58,7 +58,7 @@ public class IslandMapManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 if (hit.collider.tag == "Island" && hit.collider.name != "Island" + islandIDPlayer)
                 {
