@@ -22,6 +22,9 @@ public class ChangeBuilding : MonoBehaviour
     private void Start()
     {
 
+        roadPlacer = GameObject.Find("Manager(Has to be at 0,0,0)").GetComponent<RoadPlacer>();
+        objectPlacer = GameObject.Find("Manager(Has to be at 0,0,0)").GetComponent<ObjectPlacer>();
+
         foreach (GameObject building in buildings)
         {
             GameObject ImageButton = new GameObject();

@@ -647,6 +647,9 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: 98869f6dd11b9f34393653359b479db6, type: 3}
+  graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
+  node: {fileID: 3147991547511696097, guid: 69bbb5775245f5544835a4e9322278c3, type: 3}
+  nodeKey: 
   producableResources:
   - {fileID: 4933372135440917034, guid: dcc889ce600a1c44697a3d7458876376, type: 3}
   gui: {fileID: 2966931606259716097}

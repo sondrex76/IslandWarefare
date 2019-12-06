@@ -42,7 +42,9 @@ public class FactoryBuilding : AbstractBuilding
         {
             shaders = building.GetComponentInChildren<MeshRenderer>();
         }
-        materialColor = shaders.materials[1].GetColor(outline);
+
+        // Requires the last material of mesh renderer to be "Outline"
+        materialColor = shaders.materials[shaders.materials.Length - 1].GetColor(outline);
         
         // Sets the renderer
         materialRenderer = gameObject.GetComponentInChildren<Renderer>();
@@ -54,15 +56,15 @@ public class FactoryBuilding : AbstractBuilding
         float posOffset = -producableResources.Length / 2.0f * 43;
 
         // Sets up slider
-        parentObjectSlider.transform.SetParent(parentPanel, true);
+        parentObjectSlider.transform.SetParent(parentPanel, true);                                  // HERE
         parentObjectSlider.transform.localPosition = Vector3.zero;
         parentObjectSlider.transform.localPosition = new Vector3(132, -posOffset - 10);
 
         // Generate GUI
-        for (int i = 0; i < producableResources.Length; i++) //  producableResources.Length; i++)
+        for (int i = 0; i < producableResources.Length; i++)
         {
             GameObject optionGUI_Element = (GameObject)Instantiate(prefabOption);
-            optionGUI_Element.transform.SetParent(parentPanel, true);
+            optionGUI_Element.transform.SetParent(parentPanel, true);                               // HERE
             optionGUI_Element.transform.localScale = new Vector3(1, 1, 1);
 
             optionGUI_Element.transform.position = new Vector3(0, posOffset + i * 43, 0);

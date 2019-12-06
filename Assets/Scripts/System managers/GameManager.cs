@@ -69,7 +69,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-       GameObject.Find("Terrain").layer = LayerMask.NameToLayer("Ground");
+        try
+        {
+            GameObject.Find("Terrain").layer = LayerMask.NameToLayer("Ground");
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
     private void Update()
