@@ -1059,7 +1059,7 @@ MonoBehaviour:
   - {fileID: 6488853407038031113, guid: 98e2f127595baf04291f8732ceb6499c, type: 3}
   - {fileID: 6488853407038031113, guid: 6007fec146ac4f443b3359f36e1d1c6f, type: 3}
   - {fileID: 6488853407038031113, guid: a40e5f9a99ca4bf4b8cb1ce05a4226df, type: 3}
-  - {fileID: 6488853407038031113, guid: 45010b4ac58132c49888f890dfb85496, type: 3}
+  - {fileID: 8588364613911376152, guid: 5485ecf552bf7344f84384211e7dcfbc, type: 3}
   - {fileID: 6488853407038031113, guid: 108400f2cce29f44e908e6f8df4e1257, type: 3}
   - {fileID: 6488853407038031113, guid: 569370d88a3410546b128cdb882dcc24, type: 3}
   - {fileID: 6488853407038031113, guid: 2f2f4d6df801c8140ae607c9d40eca16, type: 3}
@@ -2935,12 +2935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0427bc861830034d891006e73bdee36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defensivePower: 0
-  offensivePower: 0
-  supplyPower: 0
-  moneyAmount: 1500
-  population: 14
-  happiness: 0
   optionsMenu: {fileID: 3421693237100645956}
   optionsManager: {fileID: 3421693237100645964}
 --- !u!114 &2335593960640897624
@@ -4845,7 +4839,6 @@ MonoBehaviour:
   moneyLabel: {fileID: 7938749231811906752}
   populationLabel: {fileID: 126036057973496298}
   happyLabel: {fileID: 4291520853631364773}
-  gameManager: {fileID: 3421693238018016332}
   happinessLevelsImage: {fileID: 2232874420217612347}
   sprites:
   - {fileID: 6082423491657574595, guid: 1a2c29e4ab62ec84d9a8b29dac201040, type: 3}
