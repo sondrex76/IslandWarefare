@@ -12,7 +12,7 @@ public class roadStruct : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<MeshCollider>().convex = true;
+        GetComponent<MeshCollider>().convex = false;
         GetComponent<MeshCollider>().isTrigger = true;
         gameObject.layer = 10;
     }
