@@ -147,7 +147,7 @@ public class Login : MonoBehaviour
 
     void setNumberOfPlayers(int numberOfPlayers)
     {
-        PlayerPrefs.SetInt("NumberOfPlayers", 100);
+        PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers);
     }
 
 

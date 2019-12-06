@@ -79,7 +79,7 @@ public class CitizenDestinationManager : MonoBehaviour
             AStarWalk();
         }
         
-        if (Vector3.SqrMagnitude(transform.position - _destination) <= 1.0f)
+        if (Vector3.SqrMagnitude(transform.position - _destination) <= 5.0f)
         {
             _AgentHasReached = true;
         }
