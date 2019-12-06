@@ -65,7 +65,7 @@ public class CameraMovement : MonoBehaviour
     // Gets inout keys and updates position
     void updatePosition()
     {
-        cameraBody.velocity = 0 * transform.right; // sets speed to 0 as the base
+        cameraBody.velocity = Vector3.zero; // sets speed to 0 as the base
 
         // changes vertical angle to 0 temporarily, ensures camera cannot be moved higher then max or lower then minimum
         cameraElement.transform.rotation = Quaternion.Euler(0, cameraAngleX, 0);
@@ -73,34 +73,48 @@ public class CameraMovement : MonoBehaviour
         // Key detection for movement
         if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.FORWARDS]))                   // FORWARDS
         {
-            cameraBody.velocity += cameraSpeed * transform.forward;
+            cameraBody.velocity += transform.forward * Time.deltaTime;
         }
         if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.LEFT]))                       // LEFT
         {
-            cameraBody.velocity -= cameraSpeed * transform.right;
+            cameraBody.velocity -= transform.right * Time.deltaTime;
         }
         if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.RIGHT]))                      // RIGHT
         {
-            cameraBody.velocity += cameraSpeed * transform.right;
+            cameraBody.velocity += transform.right * Time.deltaTime;
         }
         if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.BACKWARDS]))                  // BACKWARDS
         {
-            cameraBody.velocity -= cameraSpeed * transform.forward;
+            cameraBody.velocity -= transform.forward * Time.deltaTime;
         }
         if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.UP]) &&                       // UP
             cameraBody.position.y < maximumHeight)
         {
-            cameraBody.velocity += cameraSpeed * transform.up;
+            cameraBody.velocity += transform.up * Time.deltaTime;
         }
         if (Input.GetKey(GameManager.inputManager.bindings[(int)InputManager.Actions.DOWN]) &&                     // DOWN
             cameraBody.position.y > minimumHeight)
         {
-            cameraBody.velocity -= cameraSpeed * transform.up;
+            cameraBody.velocity -= transform.up * Time.deltaTime;
         }
+        
+        // Normalizes speed
+        cameraBody.velocity = cameraBody.velocity.normalized * cameraSpeed;
+        // Modifies speed based on timescale
+        cameraBody.velocity /= Time.timeScale;
 
-        if (Input.GetKeyDown(GameManager.inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE])) {   // Turn camera angle on or off
+        // Resets vertical angle
+        cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        // Changes mode when correct key has been clicked, needs to be in update to detect key press
+        if (Input.GetKeyDown(GameManager.inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE]))
+        {   // Turn camera angle on or off
             GameManager.inputManager.frozenAngle = !GameManager.inputManager.frozenAngle;
-
+            Debug.Log("MODE");
             // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
             Cursor.visible = GameManager.isPaused || GameManager.inputManager.frozenAngle;
             if (Cursor.visible)
@@ -109,17 +123,9 @@ public class CameraMovement : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
         }
 
-        cameraBody.velocity /= Time.timeScale;
-
-        // Resets vertical angle
-        cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
         updateZoom();                                      // Updates the zoom of the camera
         updatePosition();                                  // Updates position of the camera
-        if (!GameManager.inputManager.frozenAngle) updateRotation();   // Updates rotation of the camera
+        // Updates rotation of the camera
+        if (!GameManager.inputManager.frozenAngle) updateRotation();   
     }
 }

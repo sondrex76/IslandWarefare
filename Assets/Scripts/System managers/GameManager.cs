@@ -14,14 +14,14 @@ public class GameManager : MonoBehaviour
     public static Resource.ResourceAmount[] resources;
 
     // Miltary mght, might be expanded upon later
-    public float defensivePower = 0;
-    public float offensivePower = 0;
-    public float supplyPower = 0;
+    public static float defensivePower = 0;
+    public static float offensivePower = 0;
+    public static float supplyPower = 0;
 
     // Amount of resources generated through various systems
-    public float moneyAmount = 0;                   // Money
-    public uint population = 0;                     // Population
-    public float happiness = 0;                     // Happiness, might be changed to be a value between 0 and 100 in the future
+    public static float moneyAmount = 0;            // Money
+    public static uint population = 0;              // Population
+    public static float happiness = 0;              // Happiness, might be changed to be a value between 0 and 100 in the future
 
     // Bools for states
     public static bool isInGUI;                     // Specifies that the user is in a GUI and it should not be shut down
@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        // DEBUG, limit framerate
+        QualitySettings.vSyncCount = 1;
+
         // Loads all resources automatically
         GameObject[] resourceObjects = Resources.LoadAll("Prefabs/WorldResources").Cast<GameObject>().ToArray();
         
@@ -46,7 +49,7 @@ public class GameManager : MonoBehaviour
         {
             Resource currentResourceObject = resourceObjects[i].GetComponent<Resource>();
             Resource.ResourceAmount currentResource;
-            currentResource.amount = 100; // DEBUG, TODO: return value to 0
+            currentResource.amount = 0; // DEBUG, TODO: return value to 0
             currentResource.resource = currentResourceObject;
 
             // Defines current resource
@@ -62,6 +65,11 @@ public class GameManager : MonoBehaviour
 
         optionsMenu.enabled = false;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    private void Start()
+    {
+       GameObject.Find("Terrain").layer = LayerMask.NameToLayer("Ground");
     }
 
     private void Update()
@@ -143,5 +151,11 @@ public class GameManager : MonoBehaviour
     public void ToggleResourceRendering()
     {
         Camera.main.cullingMask ^= 1 << LayerMask.NameToLayer("Resources");
+    }
+
+    // Quits application
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

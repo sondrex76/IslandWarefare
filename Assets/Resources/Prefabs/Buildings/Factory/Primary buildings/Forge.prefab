@@ -187,7 +187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4437970262772147098
 RectTransform:
   m_ObjectHideFlags: 0
@@ -521,8 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc9dce1a2baf4f34cacf2fac6598081e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 595056879262461978, guid: 97a65b91a60056b4f8788bd084e23bdc, type: 3}
-  building: {fileID: 2357639461811418150}
+  prefab: {fileID: 0}
+  building: {fileID: 0}
   maxHealth: 100
   startHealth: 10
   startOffsetY: 2
@@ -578,7 +578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -658, y: -374}
+  m_AnchoredPosition: {x: 132, y: 11.5}
   m_SizeDelta: {x: 362, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3378096075488992218

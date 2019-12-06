@@ -15,8 +15,8 @@ public class OptionsManager : MonoBehaviour
         // Updates button labels
         for (int i = 0; i < GameManager.inputManager.bindings.Length; i++)
         {
-            // Gets the correct child, is offset with 2 since the back button and Key mappings string are above the options
-            UpdateButtonText(GameManager.inputManager.bindings[i], buttons.transform.GetChild(i + 2).gameObject);
+            // Gets the correct child, is offset with 3 since there are two buttons and one text element above the options
+            UpdateButtonText(GameManager.inputManager.bindings[i], buttons.transform.GetChild(i + 3).gameObject);
         }
     }
 
