@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
         _ID = PlayerPrefs.GetInt("ISLANDID");
         _islandFileName = "/island" + _ID;
 
+        Debug.Log(Application.persistentDataPath);
+
         float[,] map = IslandSaveManager.LoadIsland(_islandFileName, _ID);
         data = new TerrainData {
             size = new Vector3(Const.size, Const.islandHeight, Const.size),

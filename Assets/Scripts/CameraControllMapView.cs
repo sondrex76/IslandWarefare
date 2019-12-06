@@ -65,7 +65,8 @@ public class CameraControllMapView : MonoBehaviour
         var duration = 1.0f;
         for (var t = 0.0f; t < duration; t += Time.deltaTime)
         {
-            transform.position = Vector3.Lerp(transform.position, playerIsland, t / duration);
+            Vector3 isPos = new Vector3((Const.size * 8) / 2 + playerIsland.x, 200, (Const.size * 8) / 2 + playerIsland.z);
+            transform.position = Vector3.Lerp(transform.position, isPos, t / duration);
             yield return 0;
         }
 
