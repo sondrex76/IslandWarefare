@@ -38,6 +38,10 @@ public class FactoryBuilding : AbstractBuilding
 
         // Finds the meshRenderer
         shaders = building.GetComponent<MeshRenderer>();
+        if (!shaders)
+        {
+            shaders = building.GetComponentInChildren<MeshRenderer>();
+        }
         materialColor = shaders.materials[1].GetColor(outline);
         
         // Sets the renderer
