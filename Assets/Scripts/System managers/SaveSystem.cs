@@ -11,7 +11,7 @@ public class SaveSystem : MonoBehaviour
     string path;
     BinaryFormatter formatter = new BinaryFormatter();
     
-    private void Awake()
+    private void Start()
     {
         path = Application.persistentDataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary";
 
@@ -26,7 +26,7 @@ public class SaveSystem : MonoBehaviour
     }
 
     // Loads save from file
-    void Load()
+    public void Load()
     {
         // Load
         if (File.Exists(path))
@@ -97,7 +97,16 @@ public class SaveSystem : MonoBehaviour
                 AbstractHouse house = worldObject.GetComponent<AbstractHouse>();
                 house.LoadFromSave(houseData.presentHealth, houseData.buildingFinished, houseData.yOffset);
             }
+            
+            // Resource amounts
+            for (int i = 0; i < GameManager.resources.Length; i++)
+            {
+                // Sends in amount of resource
+                GameManager.resources[i].amount = (float)formatter.Deserialize(stream);
+            }
 
+            // Money
+            GameManager.moneyAmount = (float)formatter.Deserialize(stream);
 
             // Close stream
             stream.Close();
@@ -109,7 +118,7 @@ public class SaveSystem : MonoBehaviour
     }
 
     // Saves save to file
-    void Save()
+    public void Save()
     {
         GameManager.isPaused = true;                                                                // Pauses game to ensure values does not update needlessly
         // Creates new file or overwrites the old one
@@ -163,6 +172,15 @@ public class SaveSystem : MonoBehaviour
             formatter.Serialize(stream, house);
         }
 
+        // Resource amounts
+        for (int i = 0; i < GameManager.resources.Length; i++)
+        {
+            // Sends in amount of resource
+            formatter.Serialize(stream, GameManager.resources[i].amount);
+        }
+
+        // Money
+        formatter.Serialize(stream, GameManager.moneyAmount);
 
         // closes stream
         stream.Close();

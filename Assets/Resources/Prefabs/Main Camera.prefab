@@ -154,7 +154,7 @@ MonoBehaviour:
   cameraZoom: 90
   zoomSpeed: 0
   horizontalAngularSpeed: 5
-  verticalAngularSpeed: 3
+  verticalAngularSpeed: 5
   minimumZoom: 50
   maximumZoom: 150
   minimumHeight: 0

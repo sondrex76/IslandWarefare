@@ -6,7 +6,6 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Text moneyLabel;
     [SerializeField] Text populationLabel;
     [SerializeField] Text happyLabel;
-    [SerializeField] GameManager gameManager;
     [SerializeField] Image happinessLevelsImage;
 
 
@@ -20,22 +19,22 @@ public class GUIManager : MonoBehaviour
         //populationLabel.text = gameManager.population + "";
         //happyLabel.text = gameManager.happiness + "";
         
-        moneyLabel.text = "$" + System.String.Format("{0:n0}", (int)gameManager.moneyAmount);
-        populationLabel.text = System.String.Format("{0:n0}", gameManager.population);
-        happyLabel.text = System.String.Format("{0:n}", gameManager.happiness);
+        moneyLabel.text = "$" + System.String.Format("{0:n0}", (int)GameManager.moneyAmount);
+        populationLabel.text = System.String.Format("{0:n0}", GameManager.population);
+        happyLabel.text = System.String.Format("{0:n}", GameManager.happiness);
 
-        if (gameManager.happiness >= 90)        // Happy
+        if (GameManager.happiness >= 90)        // Happy
         {
             happinessLevelsImage.sprite = sprites[0];
-        } else if (gameManager.happiness >= 66) // Content
+        } else if (GameManager.happiness >= 66) // Content
         {
             happinessLevelsImage.sprite = sprites[1];
         }
-        else if (gameManager.happiness >= 33)   // Middeling
+        else if (GameManager.happiness >= 33)   // Middeling
         {
             happinessLevelsImage.sprite = sprites[2];
         }
-        else if (gameManager.happiness >= 15)   // Somewhat displeased
+        else if (GameManager.happiness >= 15)   // Somewhat displeased
         {
             happinessLevelsImage.sprite = sprites[3];
         } else                                  // Unhappy
