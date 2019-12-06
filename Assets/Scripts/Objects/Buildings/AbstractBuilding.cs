@@ -26,7 +26,7 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] string nodeKey;                // Key for getting node from object pool
 
 
-    protected bool test = false;
+    // protected bool test = false;
     protected void Awake()
     {
         // Sets health to starting health
@@ -53,22 +53,6 @@ public class AbstractBuilding : MonoBehaviour
             {
                 // Runs the building's primary functionality
                 BuildingFunctionality();
-                if (!test)
-                {
-                    // Move code below
-                    ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
-                    graph = GameObject.FindGameObjectWithTag("Graph");
-                    node = pool.GetPooledObject(node.name);
-                    if (node == null)
-                    {
-                        
-                    }
-                    node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
-                    node.transform.parent = graph.transform;
-                    node.SetActive(true);
-                    test = true;
-                }
-                
             }
             else                                // Building is being built
             {
@@ -87,9 +71,29 @@ public class AbstractBuilding : MonoBehaviour
                         currentHealth = maxHealth; 
                     // Sets position to base position
                     building.localPosition = new Vector3(0, 0, 0);
+
+                    // Node
+                    MakeNode();
                 }
             }
         }
+    }
+
+    // Runs code to generate node
+    private void MakeNode()
+    {
+        // Move code below
+        ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
+        graph = GameObject.FindGameObjectWithTag("Graph");
+        node = pool.GetPooledObject(node.name);
+        if (node == null)
+        {
+
+        }
+        node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
+        node.transform.parent = graph.transform;
+        node.SetActive(true);
+        // test = true;
     }
 
     // How much health should the building take, negative value for healing
@@ -152,6 +156,7 @@ public class AbstractBuilding : MonoBehaviour
         {
             // sets position to 0, next fixedUpdate will set the building to a finished state
             building.localPosition = new Vector3(0, 0, 0);
+            MakeNode(); // runs node related code
         }
         else
         {
