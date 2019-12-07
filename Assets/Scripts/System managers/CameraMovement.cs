@@ -101,7 +101,8 @@ public class CameraMovement : MonoBehaviour
         // Normalizes speed
         cameraBody.velocity = cameraBody.velocity.normalized * cameraSpeed;
         // Modifies speed based on timescale
-        cameraBody.velocity /= Time.timeScale;
+        if (Time.timeScale != 0)
+            cameraBody.velocity /= Time.timeScale;
 
         // Resets vertical angle
         cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);

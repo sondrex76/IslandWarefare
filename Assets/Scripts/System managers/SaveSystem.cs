@@ -111,6 +111,8 @@ public class SaveSystem : MonoBehaviour
             // Money
             GameManager.moneyAmount = (float)formatter.Deserialize(stream);
 
+            // Roads
+
             int numRoads = (int)formatter.Deserialize(stream);
             roadPlacer.enabled = true;
             Debug.Log("NumberOfRoads: " + numRoads);

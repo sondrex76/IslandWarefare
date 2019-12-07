@@ -83,6 +83,8 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: fa2fc887079ed6b4d9f31e8e3c2197ea, type: 3}
+  graph: {fileID: 0}
+  key: Office
   neededResource:
   - {fileID: 4933372135440917034, guid: 1a169d76c1162e84792fdb5c367febdf, type: 3}
   resourceExtractionSpeed: 0.02

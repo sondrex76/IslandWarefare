@@ -84,7 +84,7 @@ MonoBehaviour:
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: da978b42904f5e84a91caf34d73a0007, type: 3}
   graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
-  key: 
+  key: Office
   neededResource:
   - {fileID: 4933372135440917034, guid: 06284050885bad147bc46b1e0d00d08b, type: 3}
   resourceExtractionSpeed: 0.02
