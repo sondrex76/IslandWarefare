@@ -27,6 +27,15 @@ public class SecureRandom : RandomNumberGenerator
         return (int)Math.Floor((minValue + ((double)maxValue - minValue) * NextDouble()));
     }
 
+    public float NextFloat(float minValue, float maxValue)
+    {
+        if (minValue > maxValue)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+        return (float)((minValue + ((double)maxValue - minValue) * NextDouble()));
+    }
+
     public double NextDouble()
     {
         var data = new byte[sizeof(uint)];

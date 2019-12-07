@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System.Linq;
 
@@ -15,7 +16,7 @@ public class CitizenDestinationManager : MonoBehaviour
     GraphNode _home;
     GraphNode _work;
     GraphNode _shop;
-    private int _randomAStarUpdate;
+    private float _randomAStarUpdate;
     private Rigidbody _rigidbody;
     float timeOfDay; // Should be a static global for everything
 
@@ -58,7 +59,7 @@ public class CitizenDestinationManager : MonoBehaviour
             _work.GetComponent<OfficeManager>().AddWorker(gameObject);
         }
         SecureRandom rng = new SecureRandom();
-        _randomAStarUpdate = rng.Next(1, 3000);
+        _randomAStarUpdate = rng.NextFloat(1, 20);
         
     }
 
@@ -193,7 +194,16 @@ public class CitizenDestinationManager : MonoBehaviour
 
     public void CitizenStateManager(Animator animator, AnimatorStateInfo stateInfo, string state)
     {
-        switch(state)
+        StartCoroutine(Example(state));
+        
+        
+        
+    }
+
+    IEnumerator Example(string state)
+    {
+        yield return new WaitForSecondsRealtime(_randomAStarUpdate);
+        switch (state)
         {
             case "Work":
                 {
@@ -216,9 +226,9 @@ public class CitizenDestinationManager : MonoBehaviour
                     _animator.SetBool("shouldShop", false);
                 }
                 break;
-            case "Random":  
+            case "Random":
                 break;
-            case "Idle":    
+            case "Idle":
                 break;
             case "Home":
                 {
@@ -227,7 +237,7 @@ public class CitizenDestinationManager : MonoBehaviour
                     _animator.SetBool("shouldHome", false);
                 }
                 break;
-            default:break;
+            default: break;
         }
     }
 
