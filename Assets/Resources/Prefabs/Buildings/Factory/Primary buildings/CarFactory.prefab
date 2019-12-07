@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 2532693350963540978}
   - component: {fileID: 8213316345774627249}
   - component: {fileID: 5480278459061828825}
+  - component: {fileID: -6046074646562819906}
   m_Layer: 9
   m_Name: CarFactory
   m_TagString: Factory
@@ -506,6 +507,22 @@ MonoBehaviour:
   remainingTimeSec: 0
   sliderProgressBar: {fileID: 6111936929625547972}
   parentObjectSlider: {fileID: 2559758192726151194}
+--- !u!54 &-6046074646562819906
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488853407038031113}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7631453909697361560
 GameObject:
   m_ObjectHideFlags: 0

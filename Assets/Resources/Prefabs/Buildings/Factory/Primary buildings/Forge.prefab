@@ -562,6 +562,7 @@ GameObject:
   - component: {fileID: 4713960133626823435}
   - component: {fileID: 4670356771661247584}
   - component: {fileID: 1574222881371369271}
+  - component: {fileID: 3767460240781303345}
   m_Layer: 0
   m_Name: Forge
   m_TagString: Factory
@@ -631,3 +632,19 @@ MonoBehaviour:
   sliderProgressBar: {fileID: 8712485758275183853, guid: 45010b4ac58132c49888f890dfb85496,
     type: 3}
   parentObjectSlider: {fileID: 2647417665747200953}
+--- !u!54 &3767460240781303345
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588364613911376152}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
