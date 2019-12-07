@@ -106,8 +106,8 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: fa2fc887079ed6b4d9f31e8e3c2197ea, type: 3}
-  graph: {fileID: 0}
-  node: {fileID: 0}
+  graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
+  node: {fileID: 3147991547511696097, guid: 69bbb5775245f5544835a4e9322278c3, type: 3}
   nodeKey: 
   neededResource:
   - {fileID: 4933372135440917034, guid: 1a169d76c1162e84792fdb5c367febdf, type: 3}
@@ -131,31 +131,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1139136840027304416}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Name
-      value: PumpJack
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: -7864589950880962471, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 58d5f13d3a9d7af4bb3bcaf35f86f8e2, type: 2}
-    - target: {fileID: -5846359032012811821, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -210,6 +185,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Name
+      value: PumpJack
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -7864589950880962471, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 58d5f13d3a9d7af4bb3bcaf35f86f8e2, type: 2}
+    - target: {fileID: -5846359032012811821, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -3893227595389692002, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
         type: 3}

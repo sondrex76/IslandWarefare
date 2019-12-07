@@ -83,8 +83,8 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: da978b42904f5e84a91caf34d73a0007, type: 3}
-  graph: {fileID: 0}
-  node: {fileID: 0}
+  graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
+  node: {fileID: 3147991547511696097, guid: 69bbb5775245f5544835a4e9322278c3, type: 3}
   nodeKey: 
   neededResource:
   - {fileID: 4933372135440917034, guid: 06284050885bad147bc46b1e0d00d08b, type: 3}

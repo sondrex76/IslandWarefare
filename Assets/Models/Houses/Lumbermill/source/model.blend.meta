@@ -27,6 +27,15 @@ ModelImporter:
   - first:
       74: -960898424075949690
     second: Armature.001|ArmatureAction
+  - first:
+      74: 1989289236423521904
+    second: Default Take
+  - first:
+      74: 7176209919637214875
+    second: Action
+  - first:
+      74: -3568346632355011234
+    second: saw_blade_action
   externalObjects:
   - first:
       type: UnityEngine:Material
