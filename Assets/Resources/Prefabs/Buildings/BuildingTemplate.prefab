@@ -4901,6 +4901,9 @@ MonoBehaviour:
   timeSecondsBuild: 10
   randomFluct: 0.08
   currentHealth: 0
+  clickableIcon: {fileID: 0}
+  graph: {fileID: 0}
+  key: Change This
 --- !u!65 &2532693350963540978
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -22,8 +22,7 @@ public class AbstractBuilding : MonoBehaviour
 
 
     [SerializeField] GameObject graph;              // Graph to place Nodes under
-    [SerializeField] GameObject node;               // Node which will be spawned from building
-    [SerializeField] string nodeKey;                // Key for getting node from object pool
+    [SerializeField] string key;                    // Key for getting node from object pool
 
 
     // protected bool test = false;
@@ -85,15 +84,12 @@ public class AbstractBuilding : MonoBehaviour
         // Move code below
         ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
         graph = GameObject.FindGameObjectWithTag("Graph");
-        node = pool.GetPooledObject(node.name);
-        if (node == null)
-        {
+        GameObject node = pool.GetPooledObject(key);
 
-        }
         node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
         node.transform.parent = graph.transform;
         node.SetActive(true);
-        // test = true;
+        graph.GetComponent<Graph>().AddNodes();
     }
 
     // How much health should the building take, negative value for healing

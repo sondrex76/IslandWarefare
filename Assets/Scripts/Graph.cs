@@ -26,21 +26,13 @@ public class Graph : MonoBehaviour
     void Start()
     {
         AddNodes();
-
     }
 
     private void Reset()
     {
         AddNodes();
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        AddNodes();
-
-    }
 
     public void AddNodes()
     {
