@@ -226,7 +226,8 @@ public class RoadPlacer : MonoBehaviour
                     road.AddComponent<MeshCollider>();
                     road.GetComponent<roadStruct>().roadStart = pts[0];
                     road.GetComponent<roadStruct>().roadEnd = pts[3];
-                    road.GetComponent<roadStruct>().pivotPoint = pts[2];
+                    road.GetComponent<roadStruct>().controllNode1 = pts[1];
+                    road.GetComponent<roadStruct>().controllNode2 = pts[2];
                     road.tag = "Road";
                     Debug.Log("Placing new road");
                     isPlacing = false;
@@ -325,14 +326,14 @@ public class RoadPlacer : MonoBehaviour
 
                     if(distanceToStart < 5f)
                     {
-                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
+                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.controllNode2;
 
                         pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * 0.1f;
                         pts[3] = connectingRoad.roadStart;
                     }
                     else if(distanceToEnd < 5f)
                     {
-                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.pivotPoint;
+                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.controllNode2;
 
                         pts[2] = connectingRoad.roadEnd + vectorThoughConnectingRoad * 0.1f;
                         pts[3] = connectingRoad.roadEnd;
@@ -381,7 +382,7 @@ public class RoadPlacer : MonoBehaviour
 
                 connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
                 connectingroadStart = hit2.collider.gameObject.GetComponent<roadStruct>().roadStart;
-                roadMiddlePoint = hit2.collider.gameObject.GetComponent<roadStruct>().pivotPoint;
+                roadMiddlePoint = hit2.collider.gameObject.GetComponent<roadStruct>().controllNode2;
 
                
                 connecting = true;
@@ -400,6 +401,59 @@ public class RoadPlacer : MonoBehaviour
     public float tTest;
 
     public Vector3[] points = new Vector3[4];
+
+
+    public void GenerateRoad(Vector3 startPos, Vector3 controllNode1, Vector3 controllNode2, Vector3 endPos)
+    {
+        mesh = new Mesh();
+
+        pts[0] = startPos;
+        pts[1] = controllNode1;
+        pts[2] = controllNode2;
+        pts[3] = endPos;
+
+        GenerateMesh(pts);
+
+        Destroy(roadTemp);
+        GameObject road = new GameObject("Road: " + roadCounter);
+        road.transform.position = new Vector3(road.transform.position.x, road.transform.position.y + yOffset, road.transform.position.z);
+        road.layer = 9;
+        road.AddComponent<MeshFilter>();
+        road.AddComponent<MeshRenderer>();
+        road.GetComponent<MeshFilter>().mesh.SetVertices(verts);
+        road.GetComponent<MeshFilter>().mesh.SetNormals(normals);
+        road.GetComponent<MeshFilter>().mesh.SetTriangles(triangleIndices, 0);
+        road.GetComponent<MeshRenderer>().material = m_material;
+        road.AddComponent<roadStruct>();
+        road.AddComponent<MeshCollider>();
+        road.GetComponent<roadStruct>().roadStart = pts[0];
+        road.GetComponent<roadStruct>().roadEnd = pts[3];
+        road.GetComponent<roadStruct>().controllNode1 = pts[1];
+        road.GetComponent<roadStruct>().controllNode2 = pts[2];
+        road.tag = "Road";
+        Debug.Log("Placing new road");
+        isPlacing = false;
+
+
+        foreach (Vector3 nodePos in graphhNodesPos)
+        {
+            GameObject node = new GameObject();
+            node.transform.position = new Vector3(nodePos.x, Mathf.Floor(nodePos.y), nodePos.z);
+            node.transform.parent = graph.transform;
+            node.AddComponent<GraphNode>();
+            node.GetComponent<GraphNode>()._attribute = GraphNode.Attribute.Road;
+            node.GetComponent<GraphNode>().Adjacent = new List<GraphNode>();
+        }
+
+        Instantiate(road);
+        Destroy(road);
+        roadCounter++;
+        straight = false;
+        graph.GetComponent<Graph>().AddNodes();
+
+
+    }
+
 
     
 }

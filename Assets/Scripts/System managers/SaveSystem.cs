@@ -10,9 +10,12 @@ public class SaveSystem : MonoBehaviour
 {
     string path;
     BinaryFormatter formatter = new BinaryFormatter();
+    RoadPlacer roadPlacer;
     
     private void Start()
     {
+        roadPlacer = FindObjectOfType<RoadPlacer>();
+
         path = Application.persistentDataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary";
 
         if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
@@ -108,8 +111,30 @@ public class SaveSystem : MonoBehaviour
             // Money
             GameManager.moneyAmount = (float)formatter.Deserialize(stream);
 
-            // Close stream
-            stream.Close();
+            int numRoads = (int)formatter.Deserialize(stream);
+            roadPlacer.enabled = true;
+            Debug.Log("NumberOfRoads: " + numRoads);
+
+            for (int i = 0; i < numRoads; i++)
+            {
+                RoadSave roadeData = formatter.Deserialize(stream) as RoadSave;
+
+                Vector3 startPos = new Vector3(roadeData.startPos_X, roadeData.startPos_Y, roadeData.startPos_Z);
+                Vector3 controllNode1 = new Vector3(roadeData.controllNode1_X, roadeData.controllNode1_Y, roadeData.controllNode1_Z);
+                Vector3 controllNode2 = new Vector3(roadeData.controllNode2_X, roadeData.controllNode2_Y, roadeData.controllNode2_Z);
+                Vector3 endPos = new Vector3(roadeData.endPos_X, roadeData.endPos_Y, roadeData.endPos_Z);
+
+
+
+                roadPlacer.GenerateRoad(startPos, controllNode1, controllNode2, endPos);
+                Debug.Log("LoadingRoads");
+
+            }
+            roadPlacer.enabled = false;
+
+
+                // Close stream
+                stream.Close();
         }
         else
         {
@@ -181,6 +206,17 @@ public class SaveSystem : MonoBehaviour
 
         // Money
         formatter.Serialize(stream, GameManager.moneyAmount);
+
+        //Roads
+        roadStruct[] roads = FindObjectsOfType<roadStruct>();
+        formatter.Serialize(stream, roads.Length);
+
+        for (int i = 0; i < roads.Length; i++)
+        {
+            Debug.Log("Saving road");
+            formatter.Serialize(stream, roads[i].ReturnRoadSave());
+        }
+
 
         // closes stream
         stream.Close();
