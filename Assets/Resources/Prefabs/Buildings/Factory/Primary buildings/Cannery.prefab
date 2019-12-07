@@ -409,8 +409,8 @@ GameObject:
   - component: {fileID: 6488853407038031115}
   - component: {fileID: 2532693350963540978}
   - component: {fileID: 8213316345774627249}
-  - component: {fileID: -7836618394683586197}
   - component: {fileID: 5480278459061828825}
+  - component: {fileID: 7367944295414126319}
   m_Layer: 9
   m_Name: Cannery
   m_TagString: Factory
@@ -459,22 +459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f569f252bb1154942993780b80b266e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &-7836618394683586197
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6488853407038031113}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!114 &5480278459061828825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,8 +481,7 @@ MonoBehaviour:
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: bf4995bae8e4a584e9bc599d9a524303, type: 3}
   graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
-  node: {fileID: 3147991547511696097, guid: 69bbb5775245f5544835a4e9322278c3, type: 3}
-  nodeKey: 
+  key: Office
   producableResources: []
   gui: {fileID: 671736168650298809}
   shaders: {fileID: 0}
@@ -508,6 +491,22 @@ MonoBehaviour:
   remainingTimeSec: 0
   sliderProgressBar: {fileID: 4235128259811279341}
   parentObjectSlider: {fileID: 6414600404011161316}
+--- !u!54 &7367944295414126319
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488853407038031113}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8103995225828216382
 GameObject:
   m_ObjectHideFlags: 0

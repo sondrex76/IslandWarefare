@@ -62,5 +62,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _capacity: 7
   _citizenLiving: []
-  _graph: {fileID: 4754099598964084280, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
-  _prebab: {fileID: 54603371646707491, guid: 5812d269a89e5784eae6a72c9b931b4e, type: 3}
+  key: Simple Citizen
