@@ -561,7 +561,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4713960133626823435}
   - component: {fileID: 4670356771661247584}
-  - component: {fileID: 2835070613021463349}
   - component: {fileID: 1574222881371369271}
   m_Layer: 0
   m_Name: Forge
@@ -598,22 +597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f569f252bb1154942993780b80b266e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &2835070613021463349
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8588364613911376152}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!114 &1574222881371369271
 MonoBehaviour:
   m_ObjectHideFlags: 0
