@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _viewPath: []
   citizenStateInfo:
     money: 0
     wakingUp: 0

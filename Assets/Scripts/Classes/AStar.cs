@@ -20,7 +20,7 @@ public class AStar
         goal = FindShortestPAthAStar(startNode, goalNode, graph);
         if (goal == startNode || !nodeParents.ContainsKey(nodeParents[goal]))
         {
-            Debug.Log("this is wrong");
+            //Debug.Log("this is wrong");
             return null;
         }
         GraphNode curr = goal;
