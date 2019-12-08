@@ -43,47 +43,68 @@ public struct OrientedPoint {
 
 public class RoadPlacer : MonoBehaviour
 {
-    // Start is called before the first frame updateMesh2D shape2D;
+    //The 2D slice we use to construct the road
     [SerializeField]
     Mesh2D shape2D;
     Mesh mesh;
+    //Amount of segments the roads will be split into to make the road curve
     [Range(2,128)]
     public int edgeRingCount = 8;
+    //Points for setting start of road and the two controllpoints used in the bezier curve
     Vector3[] pts = new Vector3[4];
+    //Check for if we are currently placing the end of the road
     bool isPlacing;
     Vector3 root;
     public Camera camera;
     public Material m_material;
 
+    //Layermask to make sure raycast ignore the temp road to visualize
     int layerMask = 1 << 9;
     int layerMask2 = 1 << 10;
 
 
     Vector3 startPoint;
-    Vector3 troughStartAndEnd;
-
-
+    //End of road we are connecting to
     Vector3 connectingRoadEnd;
+    //Start of road we are connecting to
     Vector3 connectingroadStart;
+    //Middle of road we are connecting to
     Vector3 roadMiddlePoint;
 
+    //Just used for naming the roads for easier debugging
     int roadCounter = 0;
-
+    //Check for if we are connecting to another road
     public bool connecting = false;
+    //Check if the current road we are making is straight
     bool straight;
 
+    //To make sure the road is over the ground and not in it
     [SerializeField]
     float yOffset;
 
 
-    OrientedPoint GetPoint(Vector3[] pts, float t){
-        float omt = 1f-t;
-        float omt2 = omt * omt;
-        float t2 = t*t;
 
-        Vector3 pos = pts[0] *  (omt2 * omt)     +
-                pts[1] * (3f * omt2 * t)         +
-                pts[2] * (3f * omt * t2)         +
+    //List of vertices used to construct the road
+    List<Vector3> verts;
+    //List of the normal of the road
+    List<Vector3> normals;
+    //List of indices to connect the vertices
+    List<int> triangleIndices;
+    //List of the position to the graphnodes that the road is going to create
+    List<Vector3> graphhNodesPos;
+
+    public GameObject graph;
+
+    //Get the a point that corresponds to t on the bezier curve
+    OrientedPoint GetPoint(Vector3[] pts, float t)
+    {
+        float omt = 1f - t;
+        float omt2 = omt * omt;
+        float t2 = t * t;
+
+        Vector3 pos = pts[0] * (omt2 * omt) +
+                pts[1] * (3f * omt2 * t) +
+                pts[2] * (3f * omt * t2) +
                 pts[3] * (t2 * t);
 
 
@@ -92,50 +113,35 @@ public class RoadPlacer : MonoBehaviour
         return new OrientedPoint(pos, tangent);
     }
 
-    Vector3 GetTangent(Vector3[] pts, float t){
-        float omt = 1f-t;
+    Vector3 GetTangent(Vector3[] pts, float t)
+    {
+        float omt = 1f - t;
         float omt2 = omt * omt;
-        float t2 = t*t;
+        float t2 = t * t;
 
 
-         return pts[0] *  (-omt2)                +
-               pts[1] * (3f * omt2  - 2 * omt)   +
-               pts[2] * (-3f * t2 + 2 * t)       +
-               pts[3] * (t2);
+        return pts[0] * (-omt2) +
+              pts[1] * (3f * omt2 - 2 * omt) +
+              pts[2] * (-3f * t2 + 2 * t) +
+              pts[3] * (t2);
     }
 
-    Vector3 GetNormal(Vector3[] pts, float t, Vector3 up){
-        Vector3 tng = GetTangent(pts, t);
-        Vector3 binormal = Vector3.Cross(up, tng).normalized;
-        return Vector3.Cross(tng, binormal);
-    }
 
-    Quaternion GetOrientation(Vector3[] pts, float t, Vector3 up){
-        Vector3 tng = GetTangent(pts, t);
-        Vector3 nrm = GetNormal(pts ,t, up);
-        return Quaternion.LookRotation(tng, nrm);
-    }
-
-    List<Vector3> verts;
-    List<Vector3> normals;
-    List<int> triangleIndices;
-    List<Vector3> graphhNodesPos;
-
-    public GameObject graph;
-
-
+    //Generate the mesh of the road
     void GenerateMesh(Vector3[] pts){
 
+        //Clear the mesh for good measure
         mesh.Clear();
 
-        //Verts
+        //Verts, normals and graph nodes
         verts = new List<Vector3>();
         normals = new List<Vector3>();
         graphhNodesPos = new List<Vector3>();
 
-
+        //Loop through every segment ring
         for (int ring = 0; ring < edgeRingCount; ring++){
             float t = ring / (edgeRingCount - 1f);
+            //Get a point given the points and ring position in segment
             OrientedPoint op = GetPoint(pts, t);
 
 
@@ -146,10 +152,10 @@ public class RoadPlacer : MonoBehaviour
                 op.position = hit.point;
             }
 
-
+            //Add graphnodes at segment position
             graphhNodesPos.Add(op.position);
 
-
+            //Looping through each vertex in shape2D, adding vertecies and normals on the position that the ring is
              for (int i = 0; i < shape2D.VertexCount(); i++){
                 verts.Add(op.LocalToWorldPos(shape2D.vertices[i].point));
                 normals.Add(op.LocalToWorldDir(shape2D.vertices[i].normal));
@@ -157,8 +163,10 @@ public class RoadPlacer : MonoBehaviour
             }
         }
 
+
         triangleIndices = new List<int>();
 
+        //Loops through each segment connecting the vertexes
         for(int ring = 0; ring < edgeRingCount - 1; ring++){
 
             int rootIndex = ring * shape2D.VertexCount();
@@ -209,9 +217,9 @@ public class RoadPlacer : MonoBehaviour
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
 
-
             if(Input.GetMouseButtonDown(0)){
-                if(isPlacing){
+                //Placing road when left click is pressed and is placing end
+                if (isPlacing){
                     Destroy(roadTemp);
                     GameObject road = new GameObject("Road: " + roadCounter);
                     road.transform.position = new Vector3(road.transform.position.x, road.transform.position.y + yOffset, road.transform.position.z);
@@ -232,7 +240,8 @@ public class RoadPlacer : MonoBehaviour
                     Debug.Log("Placing new road");
                     isPlacing = false;
 
-
+                    //TODO: Make Nodes place based on length of road not segments
+                    //Placing graph nodes along road
                     foreach (Vector3 nodePos in graphhNodesPos)
                     {
                         GameObject node = new GameObject();
@@ -242,20 +251,24 @@ public class RoadPlacer : MonoBehaviour
                         node.GetComponent<GraphNode>()._attribute = GraphNode.Attribute.Road;
                         node.GetComponent<GraphNode>().Adjacent = new List<GraphNode>();
                     }
-
+                    //Place road
                     Instantiate(road);
+                    //Destory gameobject
                     Destroy(road);
                     roadCounter++;
                     straight = false;
+                    //Add nodes to the graph
                     graph.GetComponent<Graph>().AddNodes();
+                    //Disable script
                     this.enabled = false;
 
                 }
 
 
-
+                //Start placing roads start point
                 else {
-
+                    //If we are not connecting to another road place the starting point at raycast hit
+                    //and set second controll point to the same so we get a straight line
                     if (!connecting){
                         startPoint = hit.point;
                         isPlacing = true;
@@ -265,10 +278,12 @@ public class RoadPlacer : MonoBehaviour
                         Debug.Log("Starting placement of road");
                     } else
                     {
-
+                        //Get the distance to the start and end of the road we are connecting to
                         float distanceToStart = Vector3.Distance(hit.point, connectingroadStart);
                         float distanceToEnd = Vector3.Distance(hit.point, connectingRoadEnd);
 
+                        //If we connect to the start of the road, we set the start point of the new road to the start of the connection.
+                        //Find a line through the connecting road and set the controll points on that line 
                         if (distanceToStart < distanceToEnd)
                         {
                             Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
@@ -294,9 +309,10 @@ public class RoadPlacer : MonoBehaviour
 
                 connecting = false;
         }
-
+            //Generate a temp road that show how the road is going to look
             if (isPlacing)
             {
+                //Destory it each frame
                 Destroy(roadTemp);
 
                 roadTemp = new GameObject("Road: " + roadCounter);
@@ -314,8 +330,8 @@ public class RoadPlacer : MonoBehaviour
 
 
             if (isPlacing){
-               
-              
+
+                //If we are connecting to the end/start of a road get the road we are connecting to and the distance to end/start               
                 if(hit.collider.gameObject.tag == "Road")
                 {
 
@@ -324,6 +340,7 @@ public class RoadPlacer : MonoBehaviour
                     float distanceToStart = Vector3.Distance(hit.point, connectingRoad.roadStart);
                     float distanceToEnd = Vector3.Distance(hit.point, connectingRoad.roadEnd);
 
+                    //Set controllpoint2 at the line through the  connecting road, and set the end of the road to the start of the connecting road
                     if(distanceToStart < 5f)
                     {
                         Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.controllNode2;
@@ -343,7 +360,7 @@ public class RoadPlacer : MonoBehaviour
              
                 } else
                 {
-                    
+                    //Set controllpoin2 to start of the road and controllpoint1 to the hit point
                     if (!connecting)
                     {
                         pts[2] = startPoint;
@@ -352,7 +369,7 @@ public class RoadPlacer : MonoBehaviour
                     {
                         pts[2] = pts[1];
                     }
-
+                    //Set the end point to the hit point
                     pts[3] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
                 }
 
@@ -361,11 +378,15 @@ public class RoadPlacer : MonoBehaviour
 
             }
 
+
+            //Cancle the placement
             if (Input.GetMouseButtonDown(2)){
                 mesh.Clear();
+                Destroy(roadTemp);
                 isPlacing = false;
                 connecting = false;
                 straight = false;
+                this.enabled = false;
             }
 
            
@@ -373,7 +394,7 @@ public class RoadPlacer : MonoBehaviour
 
         RaycastHit hit2;
         Ray ray2 = camera.ScreenPointToRay(Input.mousePosition);
-
+        //When the ray hit a road, get the data from the road and set connecting to true
         if(Physics.Raycast(ray2, out hit2, Mathf.Infinity, layerMask2)){
 
             Debug.Log(hit2.collider.tag);
@@ -402,7 +423,7 @@ public class RoadPlacer : MonoBehaviour
 
     public Vector3[] points = new Vector3[4];
 
-
+    //Generate the roads from save file
     public void GenerateRoad(Vector3 startPos, Vector3 controllNode1, Vector3 controllNode2, Vector3 endPos)
     {
         mesh = new Mesh();
