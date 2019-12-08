@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Loading Island");
         _ID = PlayerPrefs.GetInt("ISLANDID");
         _islandFileName = "/island" + _ID;
 
@@ -66,6 +67,8 @@ public class Player : MonoBehaviour
         _island.GetComponent<Terrain>().materialTemplate = _islandMaterial;
 
         generated.Invoke();
+        Debug.Log("Loading Island Done");
+
     }
-  
+
 }

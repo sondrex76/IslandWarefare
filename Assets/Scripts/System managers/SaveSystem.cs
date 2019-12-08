@@ -11,6 +11,8 @@ public class SaveSystem : MonoBehaviour
     string path;
     BinaryFormatter formatter = new BinaryFormatter();
     RoadPlacer roadPlacer;
+    [SerializeField]
+    bool firstFrame;
     
     private void Start()
     {
@@ -18,14 +20,24 @@ public class SaveSystem : MonoBehaviour
 
         path = Application.persistentDataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary";
 
-        if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
-            Load();
+        //if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
+          //  Load();
     }
 
     private void OnApplicationQuit()
     {
         if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
             Save();
+    }
+
+    private void Update()
+    {
+        //This is needed to fit the roads to the terrain, since the terrain is loaded after the start function
+        if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland" && !firstFrame)
+        {
+            Load();
+            firstFrame = true;
+        }
     }
 
     // Loads save from file
