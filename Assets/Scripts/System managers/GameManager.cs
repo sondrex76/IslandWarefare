@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
+using UnityEngine.UI;
 using System.IO;
 
 public class GameManager : MonoBehaviour
@@ -26,6 +27,9 @@ public class GameManager : MonoBehaviour
     // Bools for states
     public static bool isInGUI;                     // Specifies that the user is in a GUI and it should not be shut down
 
+    [SerializeField] Image arrow;                   // Arrow to be placed above buildings
+
+
     float previousTimeSpeed = 1;                    // Previous speed of time
 
     // Options
@@ -33,7 +37,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] OptionsManager optionsManager; // The options manager
 
     FactoryBuilding currentlySelectedFactory;       // Currently selected factory
-    
+    bool factorySelected = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -49,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             Resource currentResourceObject = resourceObjects[i].GetComponent<Resource>();
             Resource.ResourceAmount currentResource;
-            currentResource.amount = 0;
+            currentResource.amount = 100;
             currentResource.resource = currentResourceObject;
 
             // Defines current resource
@@ -84,6 +89,7 @@ public class GameManager : MonoBehaviour
         // If the game is not paused
         if (!isPaused)
         {
+
             // Checks if primary mouse button is down
             if (Input.GetMouseButtonDown(0))
             {
@@ -101,14 +107,30 @@ public class GameManager : MonoBehaviour
                     // Makes sure it only trggers if FactoryBuilding were found
                     if (currentlySelectedFactory != null)
                     {
-                        currentlySelectedFactory.ActivateGUI(true);                                     // Activates GUI of game object
-                    }
+                        factorySelected = true;                                                     // Updates if factory is enabled
+                        currentlySelectedFactory.ActivateGUI(true);                                 // Activates GUI of game object
 
+                        // Sets arrow position above currently selected building
+                        arrow.transform.position = new Vector3(currentlySelectedFactory.transform.position.x, currentlySelectedFactory.transform.position.y + 45, currentlySelectedFactory.transform.position.z);
+                        arrow.enabled = true;
+                    }
                 }
-                else if (currentlySelectedFactory != null && !isInGUI)                              // Checks if tehre is a factory there and that you are outside of any relevant GUI element
+                else if (currentlySelectedFactory != null && !isInGUI)                              // Checks if there is a factory there and that you are outside of any relevant GUI element
                 {
+                    factorySelected = false;
+                    arrow.enabled = false;
                     currentlySelectedFactory.ActivateGUI(false);                                    // Disables menu of previously selected game object
                 }
+                else
+                {
+                    factorySelected = false;
+                }
+            }
+
+            if (factorySelected) // checks if the user is in a relevant GUI(Factory)
+            {
+                // Make the arrow always face the player while active
+                arrow.transform.LookAt(new Vector3(Camera.main.transform.position.x, currentlySelectedFactory.transform.position.y, Camera.main.transform.position.z));
             }
         }
     }

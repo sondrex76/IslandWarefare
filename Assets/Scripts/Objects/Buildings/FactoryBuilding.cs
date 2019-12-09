@@ -6,7 +6,6 @@ public class FactoryBuilding : AbstractBuilding
 {
     [SerializeField] Resource[] producableResources;    // List of producable resources
     [SerializeField] GameObject gui;                    // GUI element
-    [SerializeField] Image arrow;                       // Arrow object above building
 
     // [SerializeField] Material outlneMaterial;        // Material of outline
     
@@ -32,11 +31,6 @@ public class FactoryBuilding : AbstractBuilding
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
     {
-        // Makes arrow point stright downwards
-        arrow.transform.eulerAngles = Vector3.zero;
-        // Makes the arro be right above the building
-        arrow.transform.position = new Vector3(transform.position.x, transform.position.y + 45, transform.position.z);
-
         if (gui == null)                    // Checks if GUI have already been set
             gui = GameObject.Find("GUI");   // Sets GUI
         
@@ -73,12 +67,7 @@ public class FactoryBuilding : AbstractBuilding
 
     // Code to be run on fixedUpdate
     override protected void BuildingFunctionality()
-    {
-        if (arrow.enabled) // if the arrow is enabled
-        {
-            arrow.transform.LookAt(Camera.main.transform.position);
-        }
-        
+    {   
         // Checks if factory is busy
         if (isBusy)
         {
@@ -118,13 +107,11 @@ public class FactoryBuilding : AbstractBuilding
         {
             // Activates GUI
             gui.SetActive(activate);
-            arrow.enabled = activate;
         }
         // If the building is not complete it disables the menu and sets outline to not be colored
         else
         {
             gui.SetActive(false);
-            arrow.enabled = false;
         }
 
         return finishedBuilding;
