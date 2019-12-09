@@ -3004,12 +3004,12 @@ MonoBehaviour:
     prefab: {fileID: 8022413863540587819, guid: 1c5b04eef3520334484f37e1518e6019,
       type: 3}
     capacity: 2000
-  - key: CommercialNode
-    prefab: {fileID: 6291367990823752870, guid: 41a1f2715c74cd34d94346f76f9c71c7,
+  - key: AbstractNode
+    prefab: {fileID: 3147991547511696097, guid: 69bbb5775245f5544835a4e9322278c3,
       type: 3}
     capacity: 2000
   - key: OfficeNode
-    prefab: {fileID: 3147991547511696097, guid: 69bbb5775245f5544835a4e9322278c3,
+    prefab: {fileID: 7073515818529127951, guid: 44d7d70324b35c94386cd4c88160f297,
       type: 3}
     capacity: 2000
 --- !u!114 &1123012585

@@ -21,8 +21,6 @@ public class AbstractBuilding : MonoBehaviour
     public Sprite clickableIcon;                    // Icon to show a user when selecting a building
 
 
-    [SerializeField] GameObject graph;              // Graph to place Nodes under
-    [SerializeField] string key;                    // Key for getting node from object pool
 
 
     // protected bool test = false;
@@ -86,16 +84,16 @@ public class AbstractBuilding : MonoBehaviour
     }
 
     // Runs code to generate node
-    private void MakeNode()
+    protected virtual void MakeNode()
     {
         // Move code below
         ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
-        graph = GameObject.FindGameObjectWithTag("Graph");
-        GameObject node = pool.GetPooledObject(key);
+        GameObject graph = GameObject.FindGameObjectWithTag("Graph");
+        GameObject node = pool.GetPooledObject("AbstractNode");
 
         node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
         node.transform.parent = graph.transform;
-        node.SetActive(true);
+        node.SetActive(true); 
         graph.GetComponent<Graph>().AddNodes();
     }
 
