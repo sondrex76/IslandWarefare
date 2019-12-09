@@ -404,7 +404,6 @@ GameObject:
   - component: {fileID: 2532693350963540978}
   - component: {fileID: 8213316345774627249}
   - component: {fileID: 5480278459061828825}
-  - component: {fileID: -7032525687270008594}
   m_Layer: 9
   m_Name: KEIA
   m_TagString: Factory
@@ -474,8 +473,6 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: 62ab665fc4e53724081fdc8338a3a46c, type: 3}
-  graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
-  key: Office
   producableResources: []
   gui: {fileID: 1395442309026226745}
   shaders: {fileID: 0}
@@ -485,22 +482,6 @@ MonoBehaviour:
   remainingTimeSec: 0
   sliderProgressBar: {fileID: 3231814231193973488}
   parentObjectSlider: {fileID: 6736012330067758629}
---- !u!54 &-7032525687270008594
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6488853407038031113}
-  serializedVersion: 2
-  m_Mass: 0.0000001
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6736012330067758629
 GameObject:
   m_ObjectHideFlags: 0

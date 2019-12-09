@@ -13,6 +13,7 @@ TagManager:
   - Graph
   - Citizen
   - Node
+  - Harvester
   layers:
   - Default
   - TransparentFX

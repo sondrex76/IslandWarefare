@@ -280,7 +280,6 @@ GameObject:
   - component: {fileID: 2955916110105169971}
   - component: {fileID: 2541515086315947232}
   - component: {fileID: 6514426384833964048}
-  - component: {fileID: 4774459604572167475}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -350,20 +349,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4774459604572167475
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2827216799907452037}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -2432090755550338912, guid: acc6ea3c11e3a064883cdd8604cdab68, type: 3}
 --- !u!1 &4022721737326448776
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,7 +547,7 @@ GameObject:
   - component: {fileID: 4713960133626823435}
   - component: {fileID: 4670356771661247584}
   - component: {fileID: 1574222881371369271}
-  - component: {fileID: 3767460240781303345}
+  - component: {fileID: 702695560992844905}
   m_Layer: 0
   m_Name: Forge
   m_TagString: Factory
@@ -619,8 +604,6 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: 28ff66c23d8ec9d488ac61fdfd6df5c8, type: 3}
-  graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
-  key: Office
   producableResources:
   - {fileID: 4933372135440917034, guid: fe6a86abaeaf4854791c6f94911d3114, type: 3}
   gui: {fileID: 1147260773815484290}
@@ -632,19 +615,16 @@ MonoBehaviour:
   sliderProgressBar: {fileID: 8712485758275183853, guid: 45010b4ac58132c49888f890dfb85496,
     type: 3}
   parentObjectSlider: {fileID: 2647417665747200953}
---- !u!54 &3767460240781303345
-Rigidbody:
+--- !u!65 &702695560992844905
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8588364613911376152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 0.0000001
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Size: {x: 8.56129, y: 6.8631954, z: 8.465819}
+  m_Center: {x: 2.5631485, y: 3.5083055, z: -0.9355408}

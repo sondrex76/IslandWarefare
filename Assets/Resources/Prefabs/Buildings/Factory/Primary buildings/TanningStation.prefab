@@ -444,7 +444,6 @@ GameObject:
   - component: {fileID: 2532693350963540978}
   - component: {fileID: 8213316345774627249}
   - component: {fileID: 5480278459061828825}
-  - component: {fileID: 6889728775753927654}
   m_Layer: 9
   m_Name: TanningStation
   m_TagString: Factory
@@ -514,8 +513,6 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: f0b9db1b53c232b418315f0b286ffbdb, type: 3}
-  graph: {fileID: 4754099598964084282, guid: f81d24db2c628c146b2acce2296e8bd9, type: 3}
-  key: Office
   producableResources:
   - {fileID: 4933372135440917034, guid: 4fef04f27b1a63144937a1415fdd9152, type: 3}
   gui: {fileID: 1740761304321632827}
@@ -526,22 +523,6 @@ MonoBehaviour:
   remainingTimeSec: 0
   sliderProgressBar: {fileID: 7647266832696220194}
   parentObjectSlider: {fileID: 8411043484153164912}
---- !u!54 &6889728775753927654
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6488853407038031113}
-  serializedVersion: 2
-  m_Mass: 0.0000001
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6989775149142055230
 GameObject:
   m_ObjectHideFlags: 0
