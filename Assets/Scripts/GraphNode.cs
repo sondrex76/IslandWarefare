@@ -15,6 +15,7 @@ public class GraphNode : MonoBehaviour
         Industrial,
         Office,
         Millitary,
+        Abstract,
 
     }
     public Attribute _attribute;

@@ -9,7 +9,7 @@ public class AbstractHouse : AbstractBuilding
         // Move code below
         ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
         GameObject graph = GameObject.FindGameObjectWithTag("Graph");
-        GameObject node = pool.GetPooledObject("ResidentialNode");
+        node = pool.GetPooledObject("ResidentialNode");
 
         node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
         node.transform.parent = graph.transform;

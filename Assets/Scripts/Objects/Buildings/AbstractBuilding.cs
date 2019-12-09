@@ -20,7 +20,7 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float currentHealth;           // Current health, serialized for convenience' sake but works automatically
     public Sprite clickableIcon;                    // Icon to show a user when selecting a building
 
-
+    [SerializeField] protected GameObject node;
 
 
     // protected bool test = false;
@@ -89,7 +89,7 @@ public class AbstractBuilding : MonoBehaviour
         // Move code below
         ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
         GameObject graph = GameObject.FindGameObjectWithTag("Graph");
-        GameObject node = pool.GetPooledObject("AbstractNode");
+        node = pool.GetPooledObject("AbstractNode");
 
         node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
         node.transform.parent = graph.transform;
