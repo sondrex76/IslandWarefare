@@ -3012,6 +3012,10 @@ MonoBehaviour:
     prefab: {fileID: 7073515818529127951, guid: 44d7d70324b35c94386cd4c88160f297,
       type: 3}
     capacity: 2000
+  - key: CommercialNode
+    prefab: {fileID: 6893266852299015756, guid: 50a001bc3e6ddae48822903be960b77a,
+      type: 3}
+    capacity: 2000
 --- !u!114 &1123012585
 MonoBehaviour:
   m_ObjectHideFlags: 0

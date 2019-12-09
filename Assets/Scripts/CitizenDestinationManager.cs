@@ -65,6 +65,7 @@ public class CitizenDestinationManager : MonoBehaviour
         {
             _timeInactive += Time.fixedDeltaTime;
         }
+        if (_path != null)
         if (_path.Count == 0 && _AgentHasReached && _timeInactive > 2f)
         {
             
