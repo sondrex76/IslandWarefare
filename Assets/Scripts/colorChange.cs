@@ -25,4 +25,10 @@ public class colorChange : MonoBehaviour
         // Sets color of object
         // material.SetColor("_Color", color);
     }
+
+    // Returns color
+    public Color ReturnColor()
+    {
+        return color;
+    }
 }
