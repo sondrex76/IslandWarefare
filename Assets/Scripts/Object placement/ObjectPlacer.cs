@@ -22,10 +22,7 @@ public class ObjectPlacer : MonoBehaviour
     void Start()
     {
         layerMask = ~layerMask;
-        objectToPlaceTemp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        objectToPlaceTemp.layer = 9;
-        objectToPlaceTemp.transform.parent = this.transform;
-        objectToPlaceTemp.AddComponent<CanBePlaced>();
+     
 
         m_MyQuaternion = new Quaternion();
         this.enabled = false;
@@ -49,10 +46,12 @@ public class ObjectPlacer : MonoBehaviour
             yRotation += Input.mouseScrollDelta.y;
             objectToPlaceTemp.transform.Rotate(Vector3.up, yRotation * 10f);
 
+            objectToPlaceTemp.transform.parent = this.transform;
+
             //objectToPlaceTemp.SetActive(true);
 
              if(Input.GetButtonDown("Fire1") && canBePlaced && angle < maxSlope){
-                objectToPlaceTemp.SetActive(false);
+                Destroy(objectToPlaceTemp);
                 objectToPlace.SetActive(true);
                 GameObject newObject = Instantiate(objectToPlace, objectToPlaceTemp.transform.position, objectToPlaceTemp.transform.rotation);
                 Destroy(newObject.GetComponent<CanBePlaced>());
