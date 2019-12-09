@@ -124,6 +124,7 @@ public class FactoryBuilding : AbstractBuilding
         else
         {
             gui.SetActive(false);
+            arrow.enabled = false;
         }
 
         return finishedBuilding;
