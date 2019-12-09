@@ -8,6 +8,7 @@ public class ResourceGuiManager : MonoBehaviour
 {
     // GUI elements
     [SerializeField] Canvas currentCanvas;
+    [SerializeField] Canvas parentCanvas;
     [SerializeField] GameObject prefab;
 
     // Start is called before the first frame update
@@ -36,11 +37,11 @@ public class ResourceGuiManager : MonoBehaviour
         }
 
         // Disables GUI
-        ToggleGUI();
+        ToggleGUI(parentCanvas);
     }
-
-    // Toggles GUI
-    public void ToggleGUI()
+    
+    // Toggles parent Canvas
+    public void ToggleGUI(Canvas currentCanvas)
     {
         currentCanvas.enabled = !currentCanvas.enabled;
     }
