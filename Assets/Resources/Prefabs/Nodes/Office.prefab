@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7857760824125094743}
   m_Layer: 0
   m_Name: Office
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Adjacent: []
   _attribute: 4
-  _id: 
-  ExampleInteger: 0
+  heuristicScore: 0
+  distanceFromStart: 0
 --- !u!114 &-7857760824125094743
 MonoBehaviour:
   m_ObjectHideFlags: 0

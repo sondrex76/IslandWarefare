@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8022413863540587822}
   m_Layer: 0
   m_Name: Residential
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Adjacent: []
   _attribute: 1
-  _id: 0
-  ExampleInteger: 0
+  heuristicScore: 0
+  distanceFromStart: 0
 --- !u!114 &8022413863540587822
 MonoBehaviour:
   m_ObjectHideFlags: 0

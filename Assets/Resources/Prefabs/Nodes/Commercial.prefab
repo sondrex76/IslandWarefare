@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1574836556874565251}
   m_Layer: 0
   m_Name: Commercial
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Adjacent: []
   _attribute: 2
-  _id: 
-  ExampleInteger: 0
+  heuristicScore: 0
+  distanceFromStart: 0
 --- !u!114 &-1574836556874565251
 MonoBehaviour:
   m_ObjectHideFlags: 0
