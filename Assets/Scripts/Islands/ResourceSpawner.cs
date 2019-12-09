@@ -40,7 +40,8 @@ public class ResourceSpawner : MonoBehaviour
                     {
                         int numb = Random.Range(0, resources.Count);
                         Vector3 position = new Vector3(terrain.transform.position.x + j * scaleX, map[i, j] * Const.islandHeight, terrain.transform.position.z + i * scaleZ);
-                        Instantiate(resources[numb], position, transform.rotation, transform);
+                        GameObject res = Instantiate(resources[numb], position, transform.rotation, transform);
+                        res.name = resources[numb].name;
                         Debug.Log("Wat");
                     }
                 }

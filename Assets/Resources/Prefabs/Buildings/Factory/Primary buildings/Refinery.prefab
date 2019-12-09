@@ -92,11 +92,11 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: 7e6d978e18fcfd54e848c7b062a78c18, type: 3}
+  node: {fileID: 0}
   producableResources:
   - {fileID: 4933372135440917034, guid: 7751e10d30c42914eb3ba116b6874c68, type: 3}
   - {fileID: 4933372135440917034, guid: 657080100a0e68d4eabb0be8aae75b94, type: 3}
   gui: {fileID: 7565601959355943636}
-  arrow: {fileID: 0}
   prefabOption: {fileID: 5977288545705215745, guid: a12dfbd4b3ba6e345b601944f92e1749,
     type: 3}
   parentPanel: {fileID: 5521605338900717149}

@@ -256,7 +256,9 @@ public class SaveSystem : MonoBehaviour
     // send spawned object, position and rotation and get spawned the world object in return
     GameObject LoadObject(GameObject spawnedObject, float[] pos, float[] rot)
     {
-        return Instantiate(spawnedObject, FloatsToVectors(pos), Quaternion.Euler(FloatsToVectors(rot)));
+        GameObject obj = Instantiate(spawnedObject, FloatsToVectors(pos), Quaternion.Euler(FloatsToVectors(rot)));
+        obj.name = spawnedObject.name;
+        return obj;
     }
 
     // Makes array of three floats into Vector3
