@@ -51,7 +51,7 @@ public class CitizenDestinationManager : MonoBehaviour
             }
             System.Random randomWork = new System.Random();
             _work = work[randomWork.Next(0, work.Count)];
-            _work.GetComponent<OfficeManager>().AddWorker(gameObject);
+            _work.GetComponent<OfficeNode>().AddCitizen(gameObject);
         }
         SecureRandom rng = new SecureRandom();
         _randomAStarUpdate = rng.NextFloat(1, 20);

@@ -12,6 +12,7 @@ TagManager:
   - Factory
   - Graph
   - Citizen
+  - Node
   layers:
   - Default
   - TransparentFX
