@@ -2,19 +2,19 @@
 {
 	Properties
 	{
-		_Metalness("Metalness", Range(0, 1)) = 0.1
-		_Smoothness("Smoothness", Range(0, 1)) = 0.1
-		_Multiply("Multiply", Range(0, 1)) = 1
+		_MultiplySand("Multiply", Range(0, 1)) = 1
 		_Sand("Sand", 2D) = "white" {}
 		_SandNormal("SandNormal", 2D) = "bump" {}
 		_SandHeight("Sand Height", Range(-50, 50)) = 0
 		_BlendSharpness("Blend Sharpness", Range(0.06, 4)) = 0.75
 
 		[Space(30)]
+			_MultiplyGrass("Multiply", Range(0, 1)) = 1
 			_Grass("Grass", 2D) = "white" {}
 			_GrassNormal("SandNormal", 2D) = "bump" {}
 			_GrassHeight("Grass Height", Range(0, 20)) = 1
 		[Space(20)]
+			_MultiplyStone("Multiply", Range(0, 1)) = 1
 			_Stone("Stone", 2D) = "white" {}
 			_StoneNormal("SandNormal", 2D) = "bump" {}
 			_StoneHeight("Stone Height", Range(0, 20)) = 1
@@ -28,19 +28,18 @@
 				#pragma surface surf Standard
 				#pragma target 3.0
 
-				float _Metalness;
-				float _Smoothness;
-				float _Multiply;
-
+				float _MultiplySand;
 				sampler2D _Sand;
 				sampler2D _SandNormal;
 				float _SandHeight;
 				float _BlendSharpness;
 
+				float _MultiplyGrass;
 				sampler2D _Grass;
 				sampler2D _GrassNormal;
 				float _GrassHeight;
 
+				float _MultiplyStone;
 				sampler2D _Stone;
 				sampler2D _StoneNormal;
 				float _StoneHeight;
@@ -77,24 +76,24 @@
 
 				void surf(Input IN, inout SurfaceOutputStandard o)
 				{
-					float2 mult = float2(IN.worldPos.x * _Multiply, IN.worldPos.z * _Multiply);
+					float2 multSand = float2(IN.worldPos.x * _MultiplySand, IN.worldPos.z * _MultiplySand);
+					float2 multGrass = float2(IN.worldPos.x * _MultiplyGrass, IN.worldPos.z * _MultiplyGrass);
+					float2 multStone = float2(IN.worldPos.x * _MultiplyStone, IN.worldPos.z * _MultiplyStone);
 
 					blendingData bdata;
 					bdata.height = IN.worldPos.y - _SandHeight;
-					bdata.result = tex2D(_Sand, IN.uv_Sand * mult);
-					bdata.resultNormal = tex2D(_SandNormal, IN.uv_Sand * mult);
-					float4 grass = tex2D(_Grass, IN.uv_Grass * mult);
-					float4 grassNormal = tex2D(_GrassNormal, IN.uv_GrassNormal * mult);
-					float4 stone = tex2D(_Stone, IN.uv_Stone * mult);
-					float4 stoneNormal = tex2D(_StoneNormal, IN.uv_StoneNormal * mult);
+					bdata.result = tex2D(_Sand, IN.uv_Sand * multSand);
+					bdata.resultNormal = tex2D(_SandNormal, IN.uv_Sand * multSand);
+					float4 grass = tex2D(_Grass, IN.uv_Grass * multGrass);
+					float4 grassNormal = tex2D(_GrassNormal, IN.uv_GrassNormal * multGrass);
+					float4 stone = tex2D(_Stone, IN.uv_Stone * multStone);
+					float4 stoneNormal = tex2D(_StoneNormal, IN.uv_StoneNormal * multStone);
 
 					bdata = BlendLayer(grass, grassNormal, _GrassHeight, bdata);
 					bdata = BlendLayer(stone, stoneNormal, _StoneHeight, bdata);
 
 					o.Albedo = bdata.result;
 					o.Normal = bdata.resultNormal;
-					o.Metallic = _Metalness;
-					o.Smoothness = _Smoothness;
 				}
 				ENDCG
 			}
