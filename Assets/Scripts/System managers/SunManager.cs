@@ -30,6 +30,7 @@ public class SunManager : MonoBehaviour
             
             
             // if the sun is above the horizon
+            /*
             if (sun.transform.position.y >= 0)
             {
                // moon.enabled = false;
@@ -40,7 +41,7 @@ public class SunManager : MonoBehaviour
                 sun.enabled = false;
              //   moon.enabled = true;
             }
-
+            */
         }   
     }
 }

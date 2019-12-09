@@ -57,6 +57,13 @@ public class AbstractBuilding : MonoBehaviour
             {
                 // Updates postion by one 50th of startOffsetY / timeSecondsBuild to make the time it takes to reach ideal position to be timeSecondsBuild
                 building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.localPosition.y + (startOffsetY / 50 / timeSecondsBuild), Random.Range(-randomFluct, randomFluct));
+                building.localPosition = Vector3.Scale(building.localPosition, transform.up);
+                /*
+                building.localPosition = new Vector3(
+                    transform.right.y * Random.Range(-randomFluct, randomFluct), 
+                    transform.up.x * (building.localPosition.y + (startOffsetY / 50 / timeSecondsBuild)),
+                    transform.forward.z * Random.Range(-randomFluct, randomFluct));
+                */
 
                 // Updates health so that it becomes full by the time the building is finished building
                 HurtBuilding(-(1.0f / 50 / timeSecondsBuild) * (maxHealth - startHealth));

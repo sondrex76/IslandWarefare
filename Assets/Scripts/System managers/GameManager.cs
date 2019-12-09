@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         // DEBUG, limit framerate
         QualitySettings.vSyncCount = 1;
 
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
         {
             Resource currentResourceObject = resourceObjects[i].GetComponent<Resource>();
             Resource.ResourceAmount currentResource;
-            currentResource.amount = 0; // DEBUG, TODO: return value to 0
+            currentResource.amount = 0;
             currentResource.resource = currentResourceObject;
 
             // Defines current resource

@@ -35,8 +35,8 @@ public class SaveSystem : MonoBehaviour
         //This is needed to fit the roads to the terrain, since the terrain is loaded after the start function
         if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland" && !firstFrame)
         {
-            Load();
             firstFrame = true;
+            Load();
         }
     }
 
@@ -48,107 +48,115 @@ public class SaveSystem : MonoBehaviour
         {
             // Opens stream
             FileStream stream = new FileStream(path, FileMode.Open);
-            
-            // Loads resources
-            int numResources = (int)formatter.Deserialize(stream);
-            for (int i = 0; i < numResources; i++)
+
+            Debug.Log("Should only run once");
+
+            try
             {
-                ResourceSave resourceData = formatter.Deserialize(stream) as ResourceSave;
-                
-                // Instantiate resource
-                GameObject resourceObject = Resources.Load("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.objectName)) as GameObject;
-                GameObject worldObject = LoadObject(resourceObject, resourceData.position, resourceData.rotation);
+                // Loads resources
+                int numResources = (int)formatter.Deserialize(stream);
+                for (int i = 0; i < numResources; i++)
+                {
+                    ResourceSave resourceData = formatter.Deserialize(stream) as ResourceSave;
 
-                ResourceWorldObject resource = worldObject.GetComponentInChildren<ResourceWorldObject>();
+                    // Instantiate resource
+                    GameObject resourceObject = Resources.Load("Prefabs/WorldResources/Raw resources/" + RemoveCopyInName(resourceData.objectName)) as GameObject;
+                    GameObject worldObject = LoadObject(resourceObject, resourceData.position, resourceData.rotation);
 
-                // ERROR lies here, somehow
-                resource.LoadFromSave(resourceData.resourceAmount);
+                    ResourceWorldObject resource = worldObject.GetComponentInChildren<ResourceWorldObject>();
+
+                    // ERROR lies here, somehow
+                    resource.LoadFromSave(resourceData.resourceAmount);
+                }
+
+                // Load factories
+                int numFactories = (int)formatter.Deserialize(stream);
+                for (int i = 0; i < numFactories; i++)
+                {
+                    FactorySave factoryData = formatter.Deserialize(stream) as FactorySave;
+
+                    // Instantiate factory
+                    GameObject factoryObject = Resources.Load("Prefabs/Buildings/Factory/Primary buildings/" + RemoveCopyInName(factoryData.objectName)) as GameObject;
+                    GameObject worldObject = LoadObject(factoryObject, factoryData.position, factoryData.rotation);
+
+                    // Updates position, makes sure the building finishes building if it is finished
+                    FactoryBuilding factory = worldObject.GetComponent<FactoryBuilding>();
+                    factory.LoadFromSave(factoryData.presentHealth, factoryData.buildingFinished, factoryData.yOffset);
+                    factory.LoadFactory(factoryData.isWorking, factoryData.remainingTime, factoryData.timeRound, factoryData.index, factoryData.remainingRounds, factoryData.originalRounds);
+                }
+
+
+                // Load harvesters
+                int numHarvesters = (int)formatter.Deserialize(stream);
+                for (int i = 0; i < numHarvesters; i++)
+                {
+                    BuildingSave harvesterData = formatter.Deserialize(stream) as BuildingSave;
+
+                    // Instantiate harvester
+                    GameObject resourceObject = Resources.Load("Prefabs/Buildings/ResourceGathering/" + RemoveCopyInName(harvesterData.objectName)) as GameObject;
+                    GameObject worldObject = LoadObject(resourceObject, harvesterData.position, harvesterData.rotation);
+
+                    // Updates position, makes sure the building finishes building if it is finished
+                    AbstractResourceHarvesting harvester = worldObject.GetComponent<AbstractResourceHarvesting>();
+                    harvester.LoadFromSave(harvesterData.presentHealth, harvesterData.buildingFinished, harvesterData.yOffset);
+                }
+
+                // Load houses
+                int numHouses = (int)formatter.Deserialize(stream);
+                for (int i = 0; i < numHouses; i++)
+                {
+                    BuildingSave houseData = formatter.Deserialize(stream) as BuildingSave;
+
+                    // Instantiate harvester
+                    // GameObject resourceObject = Resources.Load("Prefabs/Buildings/" + RemoveCopyInName(houseData.objectName)) as GameObject;
+                    GameObject resourceObject = Resources.Load("Prefabs/Buildings/HouseTemplate") as GameObject;
+                    GameObject worldObject = LoadObject(resourceObject, houseData.position, houseData.rotation);
+
+                    // Updates position, makes sure the building finishes building if it is finished
+                    AbstractHouse house = worldObject.GetComponent<AbstractHouse>();
+                    house.LoadFromSave(houseData.presentHealth, houseData.buildingFinished, houseData.yOffset);
+                }
+
+                // Resource amounts
+                for (int i = 0; i < GameManager.resources.Length; i++)
+                {
+                    // Sends in amount of resource
+                    GameManager.resources[i].amount = (float)formatter.Deserialize(stream);
+                }
+
+                // Money
+                GameManager.moneyAmount = (float)formatter.Deserialize(stream);
+
+                // Roads
+
+                int numRoads = (int)formatter.Deserialize(stream);
+                roadPlacer.enabled = true;
+                Debug.Log("NumberOfRoads: " + numRoads);
+
+                for (int i = 0; i < numRoads; i++)
+                {
+                    RoadSave roadeData = formatter.Deserialize(stream) as RoadSave;
+
+                    Vector3 startPos = new Vector3(roadeData.startPos_X, roadeData.startPos_Y, roadeData.startPos_Z);
+                    Vector3 controllNode1 = new Vector3(roadeData.controllNode1_X, roadeData.controllNode1_Y, roadeData.controllNode1_Z);
+                    Vector3 controllNode2 = new Vector3(roadeData.controllNode2_X, roadeData.controllNode2_Y, roadeData.controllNode2_Z);
+                    Vector3 endPos = new Vector3(roadeData.endPos_X, roadeData.endPos_Y, roadeData.endPos_Z);
+
+
+
+                    roadPlacer.GenerateRoad(startPos, controllNode1, controllNode2, endPos);
+                    Debug.Log("LoadingRoads");
+
+                }
+                roadPlacer.enabled = false;
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Error: " + e);
             }
 
-            // Load factories
-            int numFactories = (int)formatter.Deserialize(stream);
-            for (int i = 0; i < numFactories; i++)
-            {
-                FactorySave factoryData = formatter.Deserialize(stream) as FactorySave;
-                
-                // Instantiate factory
-                GameObject factoryObject = Resources.Load("Prefabs/Buildings/Factory/Primary buildings/" + RemoveCopyInName(factoryData.objectName)) as GameObject;
-                GameObject worldObject = LoadObject(factoryObject, factoryData.position, factoryData.rotation);
-
-                // Updates position, makes sure the building finishes building if it is finished
-                FactoryBuilding factory = worldObject.GetComponent<FactoryBuilding>();
-                factory.LoadFromSave(factoryData.presentHealth, factoryData.buildingFinished, factoryData.yOffset);
-                factory.LoadFactory(factoryData.isWorking, factoryData.remainingTime, factoryData.timeRound, factoryData.index, factoryData.remainingRounds, factoryData.originalRounds);
-            }
-
-            
-            // Load harvesters
-            int numHarvesters = (int)formatter.Deserialize(stream);
-            for (int i = 0; i < numHarvesters; i++)
-            {
-                BuildingSave harvesterData = formatter.Deserialize(stream) as BuildingSave;
-
-                // Instantiate harvester
-                GameObject resourceObject = Resources.Load("Prefabs/Buildings/ResourceGathering/" + RemoveCopyInName(harvesterData.objectName)) as GameObject;
-                GameObject worldObject = LoadObject(resourceObject, harvesterData.position, harvesterData.rotation);
-
-                // Updates position, makes sure the building finishes building if it is finished
-                AbstractResourceHarvesting harvester = worldObject.GetComponent<AbstractResourceHarvesting>();
-                harvester.LoadFromSave(harvesterData.presentHealth, harvesterData.buildingFinished, harvesterData.yOffset);
-            }
-
-            // Load houses
-            int numHouses = (int)formatter.Deserialize(stream);
-            for (int i = 0; i < numHouses; i++)
-            {
-                BuildingSave houseData = formatter.Deserialize(stream) as BuildingSave;
-
-                // Instantiate harvester
-                // GameObject resourceObject = Resources.Load("Prefabs/Buildings/" + RemoveCopyInName(houseData.objectName)) as GameObject;
-                GameObject resourceObject = Resources.Load("Prefabs/Buildings/HouseTemplate") as GameObject;
-                GameObject worldObject = LoadObject(resourceObject, houseData.position, houseData.rotation);
-
-                // Updates position, makes sure the building finishes building if it is finished
-                AbstractHouse house = worldObject.GetComponent<AbstractHouse>();
-                house.LoadFromSave(houseData.presentHealth, houseData.buildingFinished, houseData.yOffset);
-            }
-            
-            // Resource amounts
-            for (int i = 0; i < GameManager.resources.Length; i++)
-            {
-                // Sends in amount of resource
-                GameManager.resources[i].amount = (float)formatter.Deserialize(stream);
-            }
-
-            // Money
-            GameManager.moneyAmount = (float)formatter.Deserialize(stream);
-
-            // Roads
-
-            int numRoads = (int)formatter.Deserialize(stream);
-            roadPlacer.enabled = true;
-            Debug.Log("NumberOfRoads: " + numRoads);
-
-            for (int i = 0; i < numRoads; i++)
-            {
-                RoadSave roadeData = formatter.Deserialize(stream) as RoadSave;
-
-                Vector3 startPos = new Vector3(roadeData.startPos_X, roadeData.startPos_Y, roadeData.startPos_Z);
-                Vector3 controllNode1 = new Vector3(roadeData.controllNode1_X, roadeData.controllNode1_Y, roadeData.controllNode1_Z);
-                Vector3 controllNode2 = new Vector3(roadeData.controllNode2_X, roadeData.controllNode2_Y, roadeData.controllNode2_Z);
-                Vector3 endPos = new Vector3(roadeData.endPos_X, roadeData.endPos_Y, roadeData.endPos_Z);
-
-
-
-                roadPlacer.GenerateRoad(startPos, controllNode1, controllNode2, endPos);
-                Debug.Log("LoadingRoads");
-
-            }
-            roadPlacer.enabled = false;
-
-
-                // Close stream
-                stream.Close();
+            // Close stream
+            stream.Close();
         }
         else
         {
