@@ -1,6 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+
+/// <summary>
+/// Deprecated due to GC issues
+/// </summary>
+/// <typeparam name="P" ="P"></typeparam>
+/// <typeparam name="V"></typeparam>
 class PriorityQueue<P, V>
 {
     private SortedDictionary<P, Queue<V>> list = new SortedDictionary<P, Queue<V>>();
@@ -37,7 +43,9 @@ class PriorityQueue<P, V>
 
     public bool Contains(V item)
     {
-        foreach (var x in list.Where(i => EqualityComparer<V>.Equals(i.Key, item)))
+        var e = list.GetEnumerator();
+        
+        foreach (var x in list.Where(i => Equals(e.Current.Key, item)))
         {
             return true;
         }

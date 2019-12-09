@@ -7,37 +7,23 @@ public class CitizenDestinationManager : MonoBehaviour
 {
     [Range(0, 100)]
     public float _speed;
-    bool _AgentHasReached = true;
+    
     Animator _animator;
     MeshRenderer _meshRenderer;
+
     Vector3 _destination;
     Graph _graph;
     GraphNode _currentNode;
     Queue<GraphNode> _path;
-    public List<GraphNode> _viewPath; 
     GraphNode _home;
     GraphNode _work;
     GraphNode _shop;
     private float _randomAStarUpdate;
-    
-    private Rigidbody _rigidbody;
-    float timeOfDay; // Should be a static global for everything
+    bool _AgentHasReached = true;
 
-    [System.Serializable]
-    struct InternalCitizenState
-    {
-        public int money;
-        public float wakingUp;
-        public float workTime;
-        public float lunchTime;
-        public float workDoneTime;
-        public float dinnerTime;
-        public float bedTime;
-        public float awakeDuration;
-        public float awakeLimit;
-    }
-    
-    [SerializeField] InternalCitizenState citizenStateInfo;
+    private Rigidbody _rigidbody;
+    float _timeInactive;
+
 
 
     // Start is called before the first frame update
@@ -48,26 +34,24 @@ public class CitizenDestinationManager : MonoBehaviour
         _meshRenderer = GetComponent<MeshRenderer>();
         _graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
 
-        citizenStateInfo = new InternalCitizenState();
         
         _destination = new Vector3();
         _destination = transform.position;
         _currentNode = _home;
 
         _path = new Queue<GraphNode>();
-        _viewPath = new List<GraphNode>();
 
 
         List<GraphNode> work = new List<GraphNode>();
         if (_graph.Nodes.Any())
         {
-            foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Office))
+            foreach (var node in _graph.Nodes.Where(node => node._attribute == GraphNode.Attribute.Office))
             {
-                work.Add(x);
+                work.Add(node);
             }
             System.Random randomWork = new System.Random();
             _work = work[randomWork.Next(0, work.Count)];
-            _work.GetComponent<OfficeManager>().AddWorker(gameObject);
+            _work.GetComponent<OfficeNode>().AddCitizen(gameObject);
         }
         SecureRandom rng = new SecureRandom();
         _randomAStarUpdate = rng.NextFloat(1, 20);
@@ -76,8 +60,31 @@ public class CitizenDestinationManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        
+       
+        if (_rigidbody.velocity.sqrMagnitude < 2f)
+        {
+            _timeInactive += Time.fixedDeltaTime;
+        }
+        if (_path.Count == 0 && _AgentHasReached && _timeInactive > 2f)
+        {
+            
+            _rigidbody.Sleep();
+            _meshRenderer.enabled = false;
+        }
+        else
+        {
+            _rigidbody.WakeUp();
+            _meshRenderer.enabled = true;
+        }
+        if (Vector3.SqrMagnitude(transform.position - _destination) <= 5.0f)
+        {
+            _AgentHasReached = true;
+        }
+        if (!_rigidbody.IsSleeping())
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _speed);
+            //rigidbody.velocity += new Vector3(0f, Physics.gravity.y * Time.deltaTime, 0f);
+        }
 
     }
 
@@ -91,30 +98,8 @@ public class CitizenDestinationManager : MonoBehaviour
             
         }
         OnFinishedPath();
-        if (Vector3.SqrMagnitude(transform.position - _destination) <= 5.0f)
-        {
-            _AgentHasReached = true;
-        }
-        /// This conversion is more or less just for debugging to view Queue in editor
-        /// Not should not be used as its expensive and complains a lot
-        ///_viewPath = _path.ToList();
-        ///
-        if (!_rigidbody.IsSleeping())
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _speed);
-            //rigidbody.velocity += new Vector3(0f, Physics.gravity.y * Time.deltaTime, 0f);
-        }
-
-        if (_path.Count == 0 && _AgentHasReached)
-        {
-            _rigidbody.Sleep();
-            _meshRenderer.enabled = false;
-        }
-        else
-        {
-            _rigidbody.WakeUp();
-            _meshRenderer.enabled = true;
-        }
+        
+        
 
     }
 
@@ -186,6 +171,7 @@ public class CitizenDestinationManager : MonoBehaviour
             {
                 _destination = _path.Dequeue().transform.position;
                 _AgentHasReached = false;
+                _timeInactive = 0f;
             }
       }
     }
@@ -193,27 +179,14 @@ public class CitizenDestinationManager : MonoBehaviour
     // Finds closest node for on the fly A* purposes
     GraphNode findClosestNode(Graph graph)
     {
-        GraphNode closest = null;
-        float distance = Mathf.Infinity;
-        Vector3 position = transform.position;
-        foreach(GraphNode node in graph.Nodes)
-        {
-            Vector3 differnce = node.transform.position - position;
-            float currentDistance = differnce.sqrMagnitude;
-            if(currentDistance <= distance)
-            {
-                closest = node;
-                distance = currentDistance;
-            }
-        }
-        return closest;
+        return graph.Nodes
+            .OrderBy(node => (node.transform.position - transform.position).sqrMagnitude)
+            .FirstOrDefault();
     }
 
     public void CitizenStateManager(Animator animator, AnimatorStateInfo stateInfo, string state)
     {
         StartCoroutine(Example(state));
-        
-        
         
     }
 
@@ -226,9 +199,9 @@ public class CitizenDestinationManager : MonoBehaviour
             case "Work":
                 {
                     List<GraphNode> shops = new List<GraphNode>();
-                    foreach (var x in _graph.Nodes.Where(i => i._attribute == GraphNode.Attribute.Commnerical))
+                    foreach (var node in _graph.Nodes.Where(node => node._attribute == GraphNode.Attribute.Commnerical))
                     {
-                        shops.Add(x);
+                        shops.Add(node);
                     }
                     if (shops.Count > 0)
                     {

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AStar
 {
-    static int EuclideanEstimate(Vector3 node, Vector3 goal)
+    static int ManhattanEstimate(Vector3 node, Vector3 goal)
     {
-        return (int)Mathf.Sqrt(Mathf.Pow(node.x - goal.x, 2) +
-            Mathf.Pow(node.y - goal.y, 2) +
-            Mathf.Pow(node.z - goal.z, 2));
+        return (int)Mathf.Abs(Mathf.Abs(node.x - goal.x) +
+            Mathf.Abs(node.y - goal.y) +
+            Mathf.Abs(node.z - goal.z));
     }
-    static IDictionary<GraphNode, GraphNode> nodeParents = new Dictionary<GraphNode, GraphNode>();
+    static Dictionary<GraphNode, GraphNode> nodeParents = new Dictionary<GraphNode, GraphNode>();
 
     public static Queue<GraphNode> FindShortestPath(GraphNode startNode, GraphNode goalNode, Graph graph)
     {
@@ -18,7 +18,7 @@ public class AStar
         GraphNode goal;
 
         goal = FindShortestPAthAStar(startNode, goalNode, graph);
-        if (goal == startNode || !nodeParents.ContainsKey(nodeParents[goal]))
+        if (!nodeParents.ContainsKey(nodeParents[goal]))
         {
             //Debug.Log("this is wrong");
             return null;
@@ -36,29 +36,28 @@ public class AStar
     static GraphNode FindShortestPAthAStar(GraphNode start, GraphNode goal, Graph graph)
     {
         nodeParents = new Dictionary<GraphNode, GraphNode>();
-        uint nodeVisitCount = 0;
-        float timeNow = Time.realtimeSinceStartup;
-
-        IDictionary<GraphNode, int> heuristicScore = new Dictionary<GraphNode, int>();
-
-        IDictionary<GraphNode, int> distanceFromStart = new Dictionary<GraphNode, int>();
 
         foreach (GraphNode node in graph.Nodes)
         {
-            heuristicScore.Add(new KeyValuePair<GraphNode, int>(node, int.MaxValue));
-            distanceFromStart.Add(new KeyValuePair<GraphNode, int>(node, int.MaxValue));
+            node.heuristicScore = int.MaxValue;
+            node.distanceFromStart = int.MaxValue;
         }
 
-        heuristicScore[start] = EuclideanEstimate(start.transform.position, goal.transform.position);
-        distanceFromStart[start] = 0;
+        start.heuristicScore = ManhattanEstimate(start.transform.position, goal.transform.position);
+        start.distanceFromStart = 0;
 
-        PriorityQueue<int, GraphNode> priorityQueue = new PriorityQueue<int, GraphNode>();
-        priorityQueue.Enqueue(heuristicScore[start], start);
-        while (priorityQueue.Count > 0)
+        //PriorityQueue<int, GraphNode> priorityQueue = new PriorityQueue<int, GraphNode>();
+
+        Queue<GraphNode> open = new Queue<GraphNode>();
+        HashSet<GraphNode> closed = new HashSet<GraphNode>();
+
+        open.Enqueue(start);
+        
+        while (open.Count > 0)
         {
             // Get the node with the least distance from the start
-            GraphNode curr = priorityQueue.Dequeue();
-            nodeVisitCount++;
+            GraphNode curr = open.Dequeue();
+            closed.Add(start);
 
             // If our current node is the goal then stop
             if (curr == goal)
@@ -70,25 +69,25 @@ public class AStar
             foreach (GraphNode node in curr.Adjacent)
             {
                 // Get the distance so far, add it to the distance to the neighbor
-                int currScore = distanceFromStart[curr];
+                int currScore = curr.distanceFromStart;
 
                 // If our distance to this neighbor is LESS than another calculated shortest path
                 //    to this neighbor, set a new node parent and update the scores as our current
                 //    best for the path so far.
-                if (currScore < distanceFromStart[node])
+                if (currScore < node.distanceFromStart)
                 {
                     nodeParents[node] = curr;
-                    distanceFromStart[node] = currScore;
+                    node.distanceFromStart = currScore;
 
-                    int hScore = distanceFromStart[node] + EuclideanEstimate(node.transform.position, goal.transform.position);
-                    heuristicScore[node] = hScore;
+                    int hScore = node.distanceFromStart + ManhattanEstimate(node.transform.position, goal.transform.position);
+                    node.heuristicScore = hScore;
 
                     // If this node isn't already in the queue, make sure to add it. Since the
                     //    algorithm is always looking for the smallest distance, any existing entry
                     //    would have a higher priority anyway.
-                    if (!priorityQueue.Contains(node))
+                    if (!closed.Contains(node))
                     {
-                        priorityQueue.Enqueue(hScore, node);
+                        open.Enqueue(node);
                     }
                 }
             }

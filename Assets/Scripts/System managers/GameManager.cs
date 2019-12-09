@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         // DEBUG, limit framerate
         QualitySettings.vSyncCount = 1;
 
@@ -109,6 +108,12 @@ public class GameManager : MonoBehaviour
         }
     }
     
+
+    public void TrggerCanvas()
+    {
+        UpdateCanvas(!isPaused);
+    }
+
     // Updates canvas to being active or inactive
     public void UpdateCanvas(bool active)
     {
@@ -124,15 +129,19 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = previousTimeSpeed;
         }
-        // Freezes rotation while paused, needed to fix a bug causing major rotation sometimes, TODO: Find and fix that bug, then remove the following line of code
-        Camera.main.transform.GetComponent<Rigidbody>().freezeRotation = !active;
 
-        // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
-        Cursor.visible = active || inputManager.frozenAngle; // WIP
+        // Checks to see if the camera exists in case we are on the pause menu
+        if (Camera.main.transform.GetComponent<Rigidbody>() != null)
+        {
+            Camera.main.transform.GetComponent<Rigidbody>().freezeRotation = !active;
+
+            // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
+            Cursor.visible = active || inputManager.frozenAngle; // WIP
             if (Cursor.visible)
                 Cursor.lockState = CursorLockMode.None;
             else
                 Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     // Sets system to expect an action's input to be changed

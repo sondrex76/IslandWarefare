@@ -21,50 +21,49 @@ public class ChangeBuilding : MonoBehaviour
 
     private void Start()
     {
+        // Checks if manager exists, also indicates if the main menu is where the manager is located)
+        if (GameObject.Find("Manager(Has to be at 0,0,0)") != null) { 
 
         roadPlacer = GameObject.Find("Manager(Has to be at 0,0,0)").GetComponent<RoadPlacer>();
         objectPlacer = GameObject.Find("Manager(Has to be at 0,0,0)").GetComponent<ObjectPlacer>();
 
-        foreach (GameObject building in buildings)
-        {
-            GameObject ImageButton = new GameObject();
-            GameObject ImageText = new GameObject();
-            ImageButton.transform.parent = panel.transform;
-            Sprite image = building.GetComponent<AbstractBuilding>().clickableIcon;
-            ImageButton.AddComponent<RectTransform>();
-            ImageButton.AddComponent<Image>();
-            ImageButton.AddComponent<Button>();
-            ImageButton.GetComponent<Image>().sprite = image;
+            foreach (GameObject building in buildings)
+            {
+                GameObject ImageButton = new GameObject();
+                GameObject ImageText = new GameObject();
+                ImageButton.transform.parent = panel.transform;
+                Sprite image = building.GetComponent<AbstractBuilding>().clickableIcon;
+                ImageButton.AddComponent<RectTransform>();
+                ImageButton.AddComponent<Image>();
+                ImageButton.AddComponent<Button>();
+                ImageButton.GetComponent<Image>().sprite = image;
 
-            ObjectSelectButton selectScript = ImageButton.AddComponent<ObjectSelectButton>();
-            selectScript.building = building;
-            selectScript.change = this;
-            ImageButton.GetComponent<Button>().onClick.AddListener(selectScript.SetBuilding);
-
-
-            ImageText.transform.parent = ImageButton.transform;
-            RectTransform trans = ImageText.AddComponent<RectTransform>();
-            //trans.anchorMin = new Vector2(0.5f, 0.5f);
-            //trans.anchorMax = new Vector2(0.5f, 0.5f);
+                ObjectSelectButton selectScript = ImageButton.AddComponent<ObjectSelectButton>();
+                selectScript.building = building;
+                selectScript.change = this;
+                ImageButton.GetComponent<Button>().onClick.AddListener(selectScript.SetBuilding);
 
 
-            // Rect rect = new Rect(0f, -67f, 75f, 45f);
-            trans.localPosition = new Vector2(0, -67);
-           // trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 75f);
-           // trans.sizeDelta = new Vector2(75, -23);
-
-            TMPro.TextMeshProUGUI text = ImageText.AddComponent<TMPro.TextMeshProUGUI>();
-            text.text = building.transform.name;
-            text.alignment = TextAlignmentOptions.Center;
-            
-            text.enableAutoSizing = true;
-            text.fontSizeMin = 10;
-            text.fontSizeMax = 18;
-            text.fontSize = 20;
+                ImageText.transform.parent = ImageButton.transform;
+                RectTransform trans = ImageText.AddComponent<RectTransform>();
+                //trans.anchorMin = new Vector2(0.5f, 0.5f);
+                //trans.anchorMax = new Vector2(0.5f, 0.5f);
 
 
-          
+                // Rect rect = new Rect(0f, -67f, 75f, 45f);
+                trans.localPosition = new Vector2(0, -67);
+                // trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 75f);
+                // trans.sizeDelta = new Vector2(75, -23);
 
+                TMPro.TextMeshProUGUI text = ImageText.AddComponent<TMPro.TextMeshProUGUI>();
+                text.text = building.transform.name;
+                text.alignment = TextAlignmentOptions.Center;
+
+                text.enableAutoSizing = true;
+                text.fontSizeMin = 10;
+                text.fontSizeMax = 18;
+                text.fontSize = 20;
+            }
         }
     }
 

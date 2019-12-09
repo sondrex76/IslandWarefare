@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GraphNode : MonoBehaviour
 {
@@ -18,16 +19,8 @@ public class GraphNode : MonoBehaviour
     }
     public Attribute _attribute;
 
-    [SerializeField]
-    private string _id;
-
-    [Range(0, 10)]
-    public int ExampleInteger;
-
-    private void Update()
-    {
-        
-    }
+    public int heuristicScore;
+    public int distanceFromStart;
 
     private void OnDrawGizmos()
     {
