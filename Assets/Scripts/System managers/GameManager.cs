@@ -98,7 +98,12 @@ public class GameManager : MonoBehaviour
                     }
                     currentlySelectedFactory = hitInfo.transform.GetComponent<FactoryBuilding>();   // Sets newly selected game object
                     
-                    currentlySelectedFactory.ActivateGUI(true);                                     // Activates GUI of game object
+                    // Makes sure it only trggers if FactoryBuilding were found
+                    if (currentlySelectedFactory != null)
+                    {
+                        currentlySelectedFactory.ActivateGUI(true);                                     // Activates GUI of game object
+                    }
+
                 }
                 else if (currentlySelectedFactory != null && !isInGUI)                              // Checks if tehre is a factory there and that you are outside of any relevant GUI element
                 {

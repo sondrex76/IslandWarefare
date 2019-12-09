@@ -6,11 +6,10 @@ public class FactoryBuilding : AbstractBuilding
 {
     [SerializeField] Resource[] producableResources;    // List of producable resources
     [SerializeField] GameObject gui;                    // GUI element
-    [SerializeField] MeshRenderer shaders;              // Shaders of object
+    [SerializeField] Image arrow;                       // Arrow object above building
+
     // [SerializeField] Material outlneMaterial;        // Material of outline
-
-    Renderer materialRenderer;
-
+    
     Color materialColor;
     string outline = "_FirstOutlineColor";
 
@@ -33,22 +32,14 @@ public class FactoryBuilding : AbstractBuilding
     // Code to run at start after initialization code in AbstractBuilding
     private void Start()
     {
+        // Makes arrow point stright downwards
+        arrow.transform.eulerAngles = Vector3.zero;
+        // Makes the arro be right above the building
+        arrow.transform.position = new Vector3(transform.position.x, transform.position.y + 45, transform.position.z);
+
         if (gui == null)                    // Checks if GUI have already been set
             gui = GameObject.Find("GUI");   // Sets GUI
-
-        // Finds the meshRenderer
-        shaders = building.GetComponent<MeshRenderer>();
-        if (!shaders)
-        {
-            shaders = building.GetComponentInChildren<MeshRenderer>();
-        }
-
-        // Requires the last material of mesh renderer to be "Outline"
-        materialColor = shaders.materials[shaders.materials.Length - 1].GetColor(outline);
         
-        // Sets the renderer
-        materialRenderer = gameObject.GetComponentInChildren<Renderer>();
-
         // Sets activation to disabled
         ActivateGUI(false);
 
@@ -83,6 +74,11 @@ public class FactoryBuilding : AbstractBuilding
     // Code to be run on fixedUpdate
     override protected void BuildingFunctionality()
     {
+        if (arrow.enabled) // if the arrow is enabled
+        {
+            arrow.transform.LookAt(Camera.main.transform.position);
+        }
+        
         // Checks if factory is busy
         if (isBusy)
         {
@@ -122,24 +118,13 @@ public class FactoryBuilding : AbstractBuilding
         {
             // Activates GUI
             gui.SetActive(activate);
-
-            // Checks if it should activate or deactivate the outline
-            if (activate)
-            {
-                // Sets outline color back to default
-                materialRenderer.materials[1].SetColor(outline, materialColor);
-            }
-            else
-            {
-                // Hides outline, TODO: completely disable instead of just making it invisible
-                materialRenderer.materials[1].SetColor(outline, new Color(0, 0, 0, 0));
-            }
+            arrow.enabled = activate;
         }
         // If the building is not complete it disables the menu and sets outline to not be colored
         else
         {
-            materialRenderer.materials[1].SetColor(outline, new Color(0, 0, 0, 0));
             gui.SetActive(false);
+            arrow.enabled = false;
         }
 
         return finishedBuilding;
