@@ -63,16 +63,12 @@ public class AbstractResourceHarvesting : AbstractBuilding
         {
             // Goes through all valid resources
             foreach (Resource type in neededResource)                   // Goes through all valid resources
-            {
-
-                Debug.Log(other.gameObject.GetComponentInChildren<ResourceWorldObject>().ReturnType());
-                Debug.Log(type);
+            {    
                 // Checks if the type of the resource is correct
                 if (other.gameObject.GetComponentInChildren<ResourceWorldObject>().ReturnType().ToString() == type.ToString())
                 {
                     resource = other.gameObject.GetComponent<ResourceWorldObject>();
                     resourceFound = true;
-                    Debug.Log("OIL");
 
                     // Goes through resources of GameManager and finds which one is being harvested, before setting the resource index to that resource's idnex
                     for (int i = 0; i < GameManager.resources.Length; i++)
