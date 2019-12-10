@@ -147,6 +147,7 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 0}
+  node: {fileID: 0}
 --- !u!65 &2532693350963540978
 BoxCollider:
   m_ObjectHideFlags: 0

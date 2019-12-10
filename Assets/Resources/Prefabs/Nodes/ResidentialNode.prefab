@@ -60,5 +60,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125b74b31b3accd47b6a48276e63d4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 2
+  _capacity: 15
   _citizens: []

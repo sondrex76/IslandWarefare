@@ -18,7 +18,7 @@ public class AStar
         GraphNode goal;
 
         goal = FindShortestPAthAStar(startNode, goalNode, graph);
-        if (!nodeParents.ContainsKey(nodeParents[goal]))
+        if (goal == startNode || !nodeParents.ContainsKey(nodeParents[goal]))
         {
             //Debug.Log("this is wrong");
             return null;
