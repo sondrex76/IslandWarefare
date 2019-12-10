@@ -1073,7 +1073,6 @@ MonoBehaviour:
   - {fileID: 403810479990522434, guid: 602a303918634484099f607f32ae6814, type: 3}
   - {fileID: 403810479990522434, guid: 9f8f08fe2d28b044eb8a683f5f0689ca, type: 3}
   - {fileID: 6488853407038031113, guid: f9ac65124740d4a49a2a986a3ba0c70a, type: 3}
-  - {fileID: 5066792416018065299, guid: 94720edc2e183a6448776766ecf257fe, type: 3}
   roadPlacer: {fileID: 0}
   objectPlacer: {fileID: 0}
   panel: {fileID: 1573539254838734589}
@@ -2935,6 +2934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0427bc861830034d891006e73bdee36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrow: {fileID: 0}
   optionsMenu: {fileID: 3421693237100645956}
   optionsManager: {fileID: 3421693237100645964}
 --- !u!114 &2335593960640897624
