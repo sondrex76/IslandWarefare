@@ -1080,6 +1080,26 @@ PrefabInstance:
       objectReference: {fileID: 76520977}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4479d599ec0d3224d9244ffaa8c7bfc9, type: 3}
+--- !u!1 &749364940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3421693237131094266, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+    type: 3}
+  m_PrefabInstance: {fileID: 726894118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &749364941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749364940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a15a67c375adaf4ebe75b21458efc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rainParticles: {fileID: 1454639160}
+  player: {fileID: 1860419905}
 --- !u!1 &1019284643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,6 +1326,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3421693237131094267, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
     type: 3}
   m_PrefabInstance: {fileID: 726894118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1454639160 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6416795919227809863, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+    type: 3}
+  m_PrefabInstance: {fileID: 2037371308}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1504648887 stripped
 MonoBehaviour:
@@ -1802,6 +1828,75 @@ Transform:
   m_Father: {fileID: 1169007698}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2037371308
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6416795919227809861, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_Name
+      value: Rain
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 230
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416795919227809856, guid: 282fc7816bcb2b1468d1c4b2d66b1817,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 282fc7816bcb2b1468d1c4b2d66b1817, type: 3}
 --- !u!1001 &6832054442462489833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1956,7 +2051,7 @@ PrefabInstance:
     - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
         type: 3}
       propertyPath: generated.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
         type: 3}
@@ -1981,6 +2076,31 @@ PrefabInstance:
     - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
         type: 3}
       propertyPath: generated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
+        type: 3}
+      propertyPath: generated.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
+        type: 3}
+      propertyPath: generated.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
+        type: 3}
+      propertyPath: generated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 749364941}
+    - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
+        type: 3}
+      propertyPath: generated.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Setup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869106972069627990, guid: 2feeb8b6973035f4991160e09085f17d,
+        type: 3}
+      propertyPath: generated.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
