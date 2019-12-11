@@ -1078,6 +1078,22 @@ PrefabInstance:
       propertyPath: arrow
       value: 
       objectReference: {fileID: 76520977}
+    - target: {fileID: 4971142792200257784, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: pools.Array.data[4].capacity
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971142792200257784, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: pools.Array.data[4].key
+      value: CommercialNode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971142792200257784, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: pools.Array.data[4].prefab
+      value: 
+      objectReference: {fileID: 6893266852299015756, guid: 50a001bc3e6ddae48822903be960b77a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4479d599ec0d3224d9244ffaa8c7bfc9, type: 3}
 --- !u!1 &749364940 stripped
