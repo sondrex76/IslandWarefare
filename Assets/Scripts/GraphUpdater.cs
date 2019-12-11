@@ -1,49 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class GraphUpdater : MonoBehaviour
 {
     [SerializeField]
-    private Graph _graph;
+    private Graph graph;
 
     [SerializeField]
-    private int _timesliceInterval;
+    private int timesliceInterval;
 
     [SerializeField]
-    private int _currentFrame;
+    private int currentFrame;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (_graph == null)
-            _graph = GetComponent<Graph>();
+        if (graph == null)
+            graph = GetComponent<Graph>();
 
-        _currentFrame = 0;
+        currentFrame = 0;
 
         // timeslices should happen every other frame
-        if (_timesliceInterval <= 0)
-            _timesliceInterval = 10;
+        if (timesliceInterval <= 0)
+            timesliceInterval = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_graph == null)
+        if (graph == null)
             return;
 
-        _currentFrame++;
+        currentFrame++;
 
         // Wait for the frame count to surpass the timeslice interval, so we do not execute the update every frame
-        if (_currentFrame < _timesliceInterval)
+        if (currentFrame < timesliceInterval)
             return;
         else
-            _currentFrame = 0;
+            currentFrame = 0;
 
         // loop through all graph nodes
-        foreach (var node in _graph.Nodes)
+        foreach (var node in graph.Nodes)
         {
             // look through the adjacent nodes
             foreach(var adjacentNode in node.Adjacent)
@@ -51,11 +48,11 @@ public class GraphUpdater : MonoBehaviour
                 if (node == adjacentNode)
                     continue;
 
-                if (_graph.Edges == null)
+                if (graph.Edges == null)
                     continue;
 
                 // find an existing directional edge that is cached in the graph
-                var existingEdge = _graph.Edges.Find(edge => edge.EndNode == adjacentNode
+                var existingEdge = graph.Edges.Find(edge => edge.EndNode == adjacentNode
                    && edge.StartNode == node);
 
                 // create the directional edge if its not cached
@@ -66,7 +63,7 @@ public class GraphUpdater : MonoBehaviour
                     edge.EndNode = adjacentNode;
                     edge.Weight = 1;
 
-                    _graph.Edges.Add(edge);
+                    graph.Edges.Add(edge);
                 }
             }
         }

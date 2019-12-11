@@ -1,16 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
-using PlayFab.DataModels;
-using PlayFab.ProfilesModels;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
-using System;
 
 public class Login : MonoBehaviour
 {

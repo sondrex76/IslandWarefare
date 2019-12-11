@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
-using PlayFab.Json;
-using TMPro;
-using System.Threading.Tasks;
 using System;
 
 public class AttackIsland : MonoBehaviour
