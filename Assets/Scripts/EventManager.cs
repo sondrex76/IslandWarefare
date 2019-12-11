@@ -7,6 +7,6 @@ using UnityEngine.Events;
 public class EventManager : MonoBehaviour
 {
   
-    public UnityEventVector3 _listenToFlag;
+    public UnityEventVector3 listenToFlag;
     
 }

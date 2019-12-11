@@ -20,7 +20,7 @@ public class Graph : MonoBehaviour
 
     public List<GraphNode> Nodes;
     public List<Edge> Edges; 
-    EventManager _eventManager;
+    EventManager eventManager;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,7 @@ public class Graph : MonoBehaviour
             for (int j = 0; j < Nodes.Count; j++) {
                 if (i != j)
                 {
-                    switch(Nodes[i]._attribute)
+                    switch(Nodes[i].attribute)
                     {
                         case GraphNode.Attribute.Road : 
                             if(Vector3.Distance(Nodes[i].transform.position, Nodes[j].transform.position) < 5.0f) {
@@ -63,9 +63,9 @@ public class Graph : MonoBehaviour
         // Finds all non road nodes
         // Thne it finds those nodes adjacent nodes that are roads
         // And add the noode to the adjacent nodes of the road nodes
-        foreach(var x in Nodes.Where(i => i._attribute != GraphNode.Attribute.Road))
+        foreach(var x in Nodes.Where(i => i.attribute != GraphNode.Attribute.Road))
         {
-            foreach(var y in x.Adjacent.Where(j => j._attribute == GraphNode.Attribute.Road))
+            foreach(var y in x.Adjacent.Where(j => j.attribute == GraphNode.Attribute.Road))
             {
                 y.Adjacent.Add(x);
             }

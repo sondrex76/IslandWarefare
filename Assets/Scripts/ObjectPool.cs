@@ -14,13 +14,13 @@ public class ObjectPool : MonoBehaviour
     }
 
     [SerializeField]
-    public List<Pool> _pools;
-    public IDictionary<string, Queue<GameObject>> _poolDictionary;
+    public List<Pool> pools;
+    public IDictionary<string, Queue<GameObject>> poolDictionary;
     // Start is called before the first frame update
     void Awake()
     {
-        _poolDictionary = new Dictionary<string, Queue<GameObject>>();
-        foreach(Pool p in _pools)
+        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        foreach(Pool p in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
             for (int i = 0; i < p.capacity; i++)
@@ -29,24 +29,24 @@ public class ObjectPool : MonoBehaviour
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
-            _poolDictionary.Add(p.prefab.name, objectPool);  
+            poolDictionary.Add(p.prefab.name, objectPool);  
         }
     }
 
     public GameObject GetPooledObject(string key) 
     {
-        GameObject obj = _poolDictionary[key].Dequeue();
+        GameObject obj = poolDictionary[key].Dequeue();
         if (!obj.activeInHierarchy)
         {
             return obj;
         }
-        _poolDictionary[key].Enqueue(obj);
+        poolDictionary[key].Enqueue(obj);
         return null;
     }
 
     public void AddObjcetToPool(string key, GameObject obj)
     {
         obj.SetActive(false);
-        _poolDictionary[key].Enqueue(obj);
+        poolDictionary[key].Enqueue(obj);
     }
 }

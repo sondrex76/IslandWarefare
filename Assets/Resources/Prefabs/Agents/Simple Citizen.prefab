@@ -110,18 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04459ed9c4c1e8e49a1007b55f5ae3f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _viewPath: []
-  citizenStateInfo:
-    money: 0
-    wakingUp: 0
-    workTime: 0
-    lunchTime: 0
-    workDoneTime: 0
-    dinnerTime: 0
-    bedTime: 0
-    awakeDuration: 0
-    awakeLimit: 0
+  speed: 5
 --- !u!65 &-4381626610106426823
 BoxCollider:
   m_ObjectHideFlags: 0

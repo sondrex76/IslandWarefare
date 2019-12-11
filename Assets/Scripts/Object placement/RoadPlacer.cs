@@ -248,7 +248,7 @@ public class RoadPlacer : MonoBehaviour
                         node.transform.position = new Vector3(nodePos.x, Mathf.Floor(nodePos.y), nodePos.z);
                         node.transform.parent = graph.transform;
                         node.AddComponent<GraphNode>();
-                        node.GetComponent<GraphNode>()._attribute = GraphNode.Attribute.Road;
+                        node.GetComponent<GraphNode>().attribute = GraphNode.Attribute.Road;
                         node.GetComponent<GraphNode>().Adjacent = new List<GraphNode>();
                     }
                     //Place road
@@ -462,7 +462,7 @@ public class RoadPlacer : MonoBehaviour
             node.transform.position = new Vector3(nodePos.x, Mathf.Floor(nodePos.y), nodePos.z);
             node.transform.parent = graph.transform;
             node.AddComponent<GraphNode>();
-            node.GetComponent<GraphNode>()._attribute = GraphNode.Attribute.Road;
+            node.GetComponent<GraphNode>().attribute = GraphNode.Attribute.Road;
             node.GetComponent<GraphNode>().Adjacent = new List<GraphNode>();
         }
 

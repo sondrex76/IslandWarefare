@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class WalkingState : StateMachineBehaviour
 {
-    CitizenDestinationManager _cdm;
+    CitizenDestinationManager cdm;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _cdm = animator.GetComponent<CitizenDestinationManager>();
+        cdm = animator.GetComponent<CitizenDestinationManager>();
        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _cdm.AStarWalk();
+        cdm.AStarWalk();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
