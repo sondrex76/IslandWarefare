@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class roadStruct : MonoBehaviour
+public class RoadStruct : MonoBehaviour
 {
 
     public Vector3 roadStart;

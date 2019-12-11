@@ -227,12 +227,12 @@ public class RoadPlacer : MonoBehaviour
                     road.GetComponent<MeshFilter>().mesh.SetNormals(normals);
                     road.GetComponent<MeshFilter>().mesh.SetTriangles(triangleIndices, 0);
                     road.GetComponent<MeshRenderer>().material = m_material;
-                    road.AddComponent<roadStruct>();
+                    road.AddComponent<RoadStruct>();
                     road.AddComponent<MeshCollider>();
-                    road.GetComponent<roadStruct>().roadStart = pts[0];
-                    road.GetComponent<roadStruct>().roadEnd = pts[3];
-                    road.GetComponent<roadStruct>().controllNode1 = pts[1];
-                    road.GetComponent<roadStruct>().controllNode2 = pts[2];
+                    road.GetComponent<RoadStruct>().roadStart = pts[0];
+                    road.GetComponent<RoadStruct>().roadEnd = pts[3];
+                    road.GetComponent<RoadStruct>().controllNode1 = pts[1];
+                    road.GetComponent<RoadStruct>().controllNode2 = pts[2];
                     road.tag = "Road";
                     Debug.Log("Placing new road");
                     isPlacing = false;
@@ -332,7 +332,7 @@ public class RoadPlacer : MonoBehaviour
                 if(hit.collider.gameObject.tag == "Road")
                 {
 
-                    roadStruct connectingRoad = hit.collider.gameObject.GetComponent<roadStruct>();
+                    RoadStruct connectingRoad = hit.collider.gameObject.GetComponent<RoadStruct>();
 
                     float distanceToStart = Vector3.Distance(hit.point, connectingRoad.roadStart);
                     float distanceToEnd = Vector3.Distance(hit.point, connectingRoad.roadEnd);
@@ -398,9 +398,9 @@ public class RoadPlacer : MonoBehaviour
 
             if (hit2.collider.gameObject.tag == "Road" && !straight){
 
-                connectingRoadEnd = hit2.collider.gameObject.GetComponent<roadStruct>().roadEnd;
-                connectingroadStart = hit2.collider.gameObject.GetComponent<roadStruct>().roadStart;
-                roadMiddlePoint = hit2.collider.gameObject.GetComponent<roadStruct>().controllNode2;
+                connectingRoadEnd = hit2.collider.gameObject.GetComponent<RoadStruct>().roadEnd;
+                connectingroadStart = hit2.collider.gameObject.GetComponent<RoadStruct>().roadStart;
+                roadMiddlePoint = hit2.collider.gameObject.GetComponent<RoadStruct>().controllNode2;
 
                
                 connecting = true;
@@ -442,12 +442,12 @@ public class RoadPlacer : MonoBehaviour
         road.GetComponent<MeshFilter>().mesh.SetNormals(normals);
         road.GetComponent<MeshFilter>().mesh.SetTriangles(triangleIndices, 0);
         road.GetComponent<MeshRenderer>().material = m_material;
-        road.AddComponent<roadStruct>();
+        road.AddComponent<RoadStruct>();
         road.AddComponent<MeshCollider>();
-        road.GetComponent<roadStruct>().roadStart = pts[0];
-        road.GetComponent<roadStruct>().roadEnd = pts[3];
-        road.GetComponent<roadStruct>().controllNode1 = pts[1];
-        road.GetComponent<roadStruct>().controllNode2 = pts[2];
+        road.GetComponent<RoadStruct>().roadStart = pts[0];
+        road.GetComponent<RoadStruct>().roadEnd = pts[3];
+        road.GetComponent<RoadStruct>().controllNode1 = pts[1];
+        road.GetComponent<RoadStruct>().controllNode2 = pts[2];
         road.tag = "Road";
         Debug.Log("Placing new road");
         isPlacing = false;
