@@ -117,7 +117,7 @@ public class CameraMovement : MonoBehaviour
             GameManager.inputManager.frozenAngle = !GameManager.inputManager.frozenAngle;
             Debug.Log("MODE");
             // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
-            Cursor.visible = GameManager.isPaused || GameManager.inputManager.frozenAngle;
+            Cursor.visible = /*GameManager.isPaused || */ GameManager.inputManager.frozenAngle;
             if (Cursor.visible)
                 Cursor.lockState = CursorLockMode.None;
             else

@@ -22,19 +22,19 @@ public class Island : MonoBehaviour
     public int southIsland;
     public int westIsland;
 
-    protected Material _material;
+    protected Material material;
 
     //Size is always 2^x + 1, and 33 might just be the best size
     private GameObject terrain;
 
-    public Island(int x, int z, int islandID, Material material)
+    public Island(int x, int z, int islandID, Material mat)
     {
 
         ID = islandID;
         xCord = x;
         zCord = z;
         IslandsNextTo = 0;
-        _material = material;
+        material = mat;
         fileName = "/island" + ID;
 
         //Always starts with no island next to it
@@ -64,7 +64,7 @@ public class Island : MonoBehaviour
         _terrainData.heightmapResolution = Const.size - 1;      //Set how tall the resolution for the height of the terrain is
         _terrainData.SetHeights(0, 0, dataArray);               //Set the heights for the terrain
         terrain = Terrain.CreateTerrainGameObject(_terrainData);
-        terrain.GetComponent<Terrain>().materialTemplate = _material;   //Set the material on the terrain
+        terrain.GetComponent<Terrain>().materialTemplate = material;   //Set the material on the terrain
         terrain.transform.position = new Vector3(xCord * Const.islandDistance + xOffSet, -0.3f, zCord * Const.islandDistance + xOffSet);
         terrain.AddComponent<IslandOwner>().setStats(ID, "");
     }

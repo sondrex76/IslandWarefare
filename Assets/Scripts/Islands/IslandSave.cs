@@ -5,17 +5,17 @@ using UnityEngine;
 [System.Serializable]
 public class IslandSave
 {
-    public List<float> _heigthMap;
+    public List<float> heigthMapList;
 
     public IslandSave(float[,] heightMap, int xSize, int zSize)
     {
-        _heigthMap = new List<float>();
+        heigthMapList = new List<float>();
 
         for (int x = 0; x < xSize; x++)
         {
             for (int z = 0; z < zSize; z++)
             {
-                _heigthMap.Add(heightMap[x, z]);
+                heigthMapList.Add(heightMap[x, z]);
             }
         }
     }
@@ -28,7 +28,7 @@ public class IslandSave
         {
             for (int z = 0; z < zSize; z++)
             {
-                map[x, z] = _heigthMap[x * xSize + z];
+                map[x, z] = heigthMapList[x * xSize + z];
             }
         }
 

@@ -29,7 +29,7 @@ public class TimeManager : MonoBehaviour
         Image currentButton = speed.GetComponent<Image>();
 
         // Resets previously clicked button if it exists
-        previousButton.color = Color.white;
+        if (previousButton != null) previousButton.color = Color.white;
 
         // Checks which button were clicked and responds accordingly
         if (speed.name != "" + 0)
