@@ -16,7 +16,7 @@ public static class PerlinNoise
             {
                 float X = (seed * 1000 + x) / gradient;
                 float Z = (seed * 1000 + z) /  gradient;
-                map[x,z] = Mathf.PerlinNoise(X , Z) - distanceSquared(x, z, xWidth, zWidth);
+                map[x,z] = Mathf.PerlinNoise(X , Z) - DistanceSquared(x, z, xWidth, zWidth);
             }
         }
         
@@ -24,7 +24,7 @@ public static class PerlinNoise
     }
 
     //Make the noise into an island
-    private static float distanceSquared(int x, int z, int xSize, int zSize)
+    private static float DistanceSquared(int x, int z, int xSize, int zSize)
     {
         float dx = 2f * (float)x / xSize - 1;
         float dz = 2f * (float)z / zSize - 1;

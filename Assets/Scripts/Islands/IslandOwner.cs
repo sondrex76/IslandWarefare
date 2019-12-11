@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class IslandOwner : MonoBehaviour
 {
-    public int _islandID;
+    public int islandID;
     public string playerID;
 
     public void setStats(int ID, string player)
     {
         transform.name = "Island" + ID;
         transform.tag = "Island";
-        _islandID = ID;
+        islandID = ID;
         playerID = player;
     }
 }
