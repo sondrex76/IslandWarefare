@@ -29,19 +29,19 @@ public class InputManager
     {
         bindings = new KeyCode[System.Enum.GetValues(typeof(Actions)).Length];                      // Initializes bindings
 
-        bindings[(int)Actions.FORWARDS] = getKeyCodeFromPlayerPrefs(Actions.FORWARDS, KeyCode.W);
-        bindings[(int)Actions.LEFT] = getKeyCodeFromPlayerPrefs(Actions.LEFT, KeyCode.A);
-        bindings[(int)Actions.BACKWARDS] = getKeyCodeFromPlayerPrefs(Actions.BACKWARDS, KeyCode.S);
-        bindings[(int)Actions.RIGHT] = getKeyCodeFromPlayerPrefs(Actions.RIGHT, KeyCode.D);
-        bindings[(int)Actions.UP] = getKeyCodeFromPlayerPrefs(Actions.UP, KeyCode.Space);
-        bindings[(int)Actions.DOWN] = getKeyCodeFromPlayerPrefs(Actions.DOWN, KeyCode.LeftShift);
-        bindings[(int)Actions.ZOOM] = getKeyCodeFromPlayerPrefs(Actions.ZOOM, KeyCode.LeftControl);
-        bindings[(int)Actions.PAUSE] = getKeyCodeFromPlayerPrefs(Actions.PAUSE, KeyCode.Escape);
-        bindings[(int)Actions.CHANGE_CAMERA_MODE] = getKeyCodeFromPlayerPrefs(Actions.CHANGE_CAMERA_MODE, KeyCode.LeftAlt);
+        bindings[(int)Actions.FORWARDS] = GetKeyCodeFromPlayerPrefs(Actions.FORWARDS, KeyCode.W);
+        bindings[(int)Actions.LEFT] = GetKeyCodeFromPlayerPrefs(Actions.LEFT, KeyCode.A);
+        bindings[(int)Actions.BACKWARDS] = GetKeyCodeFromPlayerPrefs(Actions.BACKWARDS, KeyCode.S);
+        bindings[(int)Actions.RIGHT] = GetKeyCodeFromPlayerPrefs(Actions.RIGHT, KeyCode.D);
+        bindings[(int)Actions.UP] = GetKeyCodeFromPlayerPrefs(Actions.UP, KeyCode.Space);
+        bindings[(int)Actions.DOWN] = GetKeyCodeFromPlayerPrefs(Actions.DOWN, KeyCode.LeftShift);
+        bindings[(int)Actions.ZOOM] = GetKeyCodeFromPlayerPrefs(Actions.ZOOM, KeyCode.LeftControl);
+        bindings[(int)Actions.PAUSE] = GetKeyCodeFromPlayerPrefs(Actions.PAUSE, KeyCode.Escape);
+        bindings[(int)Actions.CHANGE_CAMERA_MODE] = GetKeyCodeFromPlayerPrefs(Actions.CHANGE_CAMERA_MODE, KeyCode.LeftAlt);
     }
 
     // Changes selected control to the specified key-code
-    public void changeControl(Actions action, KeyCode keyCode)
+    public void ChangeControl(Actions action, KeyCode keyCode)
     {
         bindings[(int)action] = keyCode;
         PlayerPrefs.SetString(action.ToString(), keyCode.ToString());
@@ -54,32 +54,32 @@ public class InputManager
     }
 
     // Gets keycode for specified action
-    private KeyCode getKeyCodeFromPlayerPrefs(Actions action, KeyCode defaultValue)
+    private KeyCode GetKeyCodeFromPlayerPrefs(Actions action, KeyCode defaultValue)
     {
         return (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(System.Enum.GetName(typeof(Actions), action), System.Enum.GetName(typeof(KeyCode), defaultValue)));
     }
 
     // Returns true if a keybinding is in the process of being changed
-    public bool isSelectingInput()
+    public bool IsSelectingInput()
     {
         return currentlyReSelectingInput;
     }
     
     // Returns currently selected action
-    public Actions returnCurrentlySelectedAction() 
+    public Actions ReturnCurrentlySelectedAction() 
     {
         return currentReSelect;
     }
 
     // Updates currently selected action and sets currentlyReSelectingInput to true
-    public void updateSelectedAction(int selectedAction)
+    public void UpdateSelectedAction(int selectedAction)
     {
         currentReSelect = (Actions)selectedAction;
         currentlyReSelectingInput = true;
     }
 
     // Updates key when finished
-    public void finishedUpdateKey()
+    public void FinishedUpdateKey()
     {
         currentlyReSelectingInput = false;
     }

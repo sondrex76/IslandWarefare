@@ -21,7 +21,7 @@ public class ResourceGuiManager : MonoBehaviour
         // Loads name and color of resources
         for (int i = 0; i < resourceObjects.Length; i++)
         {
-            colors[i] = resourceObjects[i].GetComponentInChildren<colorChange>().ReturnColor();
+            colors[i] = resourceObjects[i].GetComponentInChildren<ColorChange>().ReturnColor();
             names[i] = resourceObjects[i].GetComponent<Resource>().ReturnResourceName();
 
             // Spawns GUI element and sets color and text

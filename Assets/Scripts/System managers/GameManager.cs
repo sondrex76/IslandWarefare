@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
     // Sets system to expect an action's input to be changed
     public void UpdateInputKey(int selectedAction)
     {
-        inputManager.updateSelectedAction(selectedAction);
+        inputManager.UpdateSelectedAction(selectedAction);
         optionsManager.currentButton = EventSystem.current.currentSelectedGameObject;
     }
 

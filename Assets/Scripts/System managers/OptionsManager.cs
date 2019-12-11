@@ -29,15 +29,15 @@ public class OptionsManager : MonoBehaviour
         }
 
         // Input change
-        if (GameManager.inputManager.isSelectingInput()) // Checks if a key is currently being rebound
+        if (GameManager.inputManager.IsSelectingInput()) // Checks if a key is currently being rebound
         {
             // Gets the currently clicked button if there are any
             foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
             {
                 if (Input.GetKey(vKey))
                 {
-                    GameManager.inputManager.changeControl(GameManager.inputManager.returnCurrentlySelectedAction(), vKey);
-                    GameManager.inputManager.finishedUpdateKey();
+                    GameManager.inputManager.ChangeControl(GameManager.inputManager.ReturnCurrentlySelectedAction(), vKey);
+                    GameManager.inputManager.FinishedUpdateKey();
 
                     UpdateButtonText(vKey, currentButton);
 

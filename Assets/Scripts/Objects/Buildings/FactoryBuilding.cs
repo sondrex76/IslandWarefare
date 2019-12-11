@@ -6,12 +6,7 @@ public class FactoryBuilding : AbstractBuilding
 {
     [SerializeField] Resource[] producableResources;    // List of producable resources
     [SerializeField] GameObject gui;                    // GUI element
-
-    // [SerializeField] Material outlneMaterial;        // Material of outline
     
-    Color materialColor;
-    string outline = "_FirstOutlineColor";
-
     // Prefabs and parent rect
     [SerializeField] GameObject prefabOption;
     // [SerializeField] GameObject prefabProgressBar;

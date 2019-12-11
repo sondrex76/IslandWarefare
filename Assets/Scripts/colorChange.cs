@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 
-public class colorChange : MonoBehaviour
+public class ColorChange : MonoBehaviour
 {
     [SerializeField] Color color;
 
-    private Renderer _renderer;
-    private MaterialPropertyBlock _propBlock;
+    private Renderer render;
+    private MaterialPropertyBlock propertyBlock;
 
     // Start is called before the first frame update
     void Awake()
     {
-        _propBlock = new MaterialPropertyBlock();
-        _renderer = GetComponent<Renderer>();
+        propertyBlock = new MaterialPropertyBlock();
+        render = GetComponent<Renderer>();
 
         // Get the current value of the material properties in the renderer.
-        _renderer.GetPropertyBlock(_propBlock);
+        render.GetPropertyBlock(propertyBlock);
         // Assign our new value.
-        _propBlock.SetColor("_Color", color);
+        propertyBlock.SetColor("_Color", color);
         // Apply the edited values to the renderer.
-        _renderer.SetPropertyBlock(_propBlock);
+        render.SetPropertyBlock(propertyBlock);
 
         // Sets color of object
         // material.SetColor("_Color", color);
