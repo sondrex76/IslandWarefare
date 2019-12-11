@@ -5,18 +5,18 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    private static Player instance;
+    private static Player _instance;
 
     public static Player Instance
     {
         get
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = FindObjectOfType<Player>();
+                _instance = FindObjectOfType<Player>();
             }
 
-            return instance;
+            return _instance;
         }
     }
 
