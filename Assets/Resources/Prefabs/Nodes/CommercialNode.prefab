@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Adjacent: []
-  _attribute: 2
+  attribute: 2
   heuristicScore: 0
   distanceFromStart: 0
 --- !u!114 &1932003690006144694
@@ -60,5 +60,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483cede5f1da5b34e8ae8c94f8ecfa3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 22
-  _citizens: []
+  capacity: 0
+  citizens: []

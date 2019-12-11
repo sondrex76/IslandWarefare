@@ -2975,7 +2975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ba989f2cd7ae945bc605b863525e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listenToFlag:
+  listenToFlag:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEventVector3, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -2992,30 +2992,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26554d207bdf50499554fae8e09462e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pools:
-  - key: Citizen
-    prefab: {fileID: 54603371646707491, guid: 5812d269a89e5784eae6a72c9b931b4e, type: 3}
+  pools:
+  - key: OfficeNode
+    prefab: {fileID: 7073515818529127951, guid: 44d7d70324b35c94386cd4c88160f297,
+      type: 3}
+    capacity: 2500
+  - key: ResidentialNode
+    prefab: {fileID: 8022413863540587819, guid: 1c5b04eef3520334484f37e1518e6019,
+      type: 3}
     capacity: 2500
   - key: RoadNode
     prefab: {fileID: 4766101666283548569, guid: 0802f4a1ae5f5004297fea9af10b3b8e,
       type: 3}
     capacity: 40000
-  - key: ResidentialNode
-    prefab: {fileID: 8022413863540587819, guid: 1c5b04eef3520334484f37e1518e6019,
-      type: 3}
-    capacity: 2000
-  - key: AbstractNode
-    prefab: {fileID: 3147991547511696097, guid: 69bbb5775245f5544835a4e9322278c3,
-      type: 3}
-    capacity: 2000
-  - key: OfficeNode
-    prefab: {fileID: 7073515818529127951, guid: 44d7d70324b35c94386cd4c88160f297,
-      type: 3}
-    capacity: 2000
-  - key: CommercialNode
-    prefab: {fileID: 6893266852299015756, guid: 50a001bc3e6ddae48822903be960b77a,
-      type: 3}
-    capacity: 2000
+  - key: Simple Citizen
+    prefab: {fileID: 54603371646707491, guid: 5812d269a89e5784eae6a72c9b931b4e, type: 3}
+    capacity: 3000
+  - key: 
+    prefab: {fileID: 0}
+    capacity: 0
 --- !u!114 &1123012585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5525,8 +5520,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: -7
-    height: 0
+    width: 75
+    height: 45
   m_margins: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8164606012748474118
 GameObject:

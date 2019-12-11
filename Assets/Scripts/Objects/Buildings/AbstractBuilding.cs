@@ -75,7 +75,7 @@ public class AbstractBuilding : MonoBehaviour
                         currentHealth = maxHealth; 
                     // Sets position to base position
                     building.localPosition = new Vector3(0, 0, 0);
-
+                    
                     // Node
                     MakeNode();
                 }
@@ -90,7 +90,7 @@ public class AbstractBuilding : MonoBehaviour
         ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
         GameObject graph = GameObject.FindGameObjectWithTag("Graph");
         node = pool.GetPooledObject("AbstractNode");
-
+        
         node.transform.position = new Vector3(transform.position.x, Mathf.Floor(transform.position.y), transform.position.z);
         node.transform.parent = graph.transform;
         node.SetActive(true); 

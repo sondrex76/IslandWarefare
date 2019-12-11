@@ -18,7 +18,7 @@ public class GraphNode : MonoBehaviour
         Abstract,
 
     }
-    public Attribute _attribute;
+    public Attribute attribute;
 
     public int heuristicScore;
     public int distanceFromStart;

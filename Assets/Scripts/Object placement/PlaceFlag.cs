@@ -4,18 +4,18 @@
     using System.Collections.Generic;
     
     public class PlaceFlag : MonoBehaviour {
-        bool _list;
-        EventManager _eventManager;
+        bool list;
+        EventManager eventManager;
         void Start() {
-            _list = false;
-            _eventManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<EventManager>();
+            list = false;
+            eventManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<EventManager>();
         }
         
         void Update() {
             if (Input.GetButtonDown("Fire2"))
             {
                 // GetButton locking something? ketkey for now
-                _list = Input.GetKey(KeyCode.LeftShift);
+                list = Input.GetKey(KeyCode.LeftShift);
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
@@ -25,7 +25,7 @@
                     {
                       
                         //transform.Translate(Time.deltaTime, 0, 0, Space.Self);
-                        _eventManager._listenToFlag.Invoke(hit.point, _list); 
+                        eventManager.listenToFlag.Invoke(hit.point, list); 
                            
                     }
                 } 

@@ -5,26 +5,26 @@ using UnityEngine;
 public class AbstractNode : MonoBehaviour
 {
     [Range(2, 100)]
-    public int _capacity;
-    public List<GameObject> _citizens;
+    public int capacity;
+    public List<GameObject> citizens;
 
     protected virtual void Start()
     {
-       _citizens = new List<GameObject>();
+       citizens = new List<GameObject>();
     }
 
     public void AddCitizen(GameObject citizen)
     {
-        _citizens.Add(citizen);
+        citizens.Add(citizen);
     }
 
     public void RemoveCitizen(GameObject citizen)
     {
-        _citizens.Remove(citizen);
+        citizens.Remove(citizen);
     }
 
     public bool OverCapacity()
     {
-        return _citizens.Count >= _capacity;
+        return citizens.Count >= capacity;
     }
 }

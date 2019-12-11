@@ -27,10 +27,10 @@ public class RTSSelection : MonoBehaviour
     private Rect rt;
  
     private bool isSelecting;
-    EventManager _eventManager;
+    EventManager eventManager;
     void Awake()
     {
-        _eventManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<EventManager>();
+        eventManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<EventManager>();
         if (canvas == null)
             canvas = FindObjectOfType<Canvas>();
     }
@@ -120,9 +120,9 @@ public class RTSSelection : MonoBehaviour
         if (s.isSelected != value)
         {
             if(value)
-                _eventManager._listenToFlag.AddListener(s.gameObject.GetComponent<DestinationList>().agentDestination);
+                eventManager.listenToFlag.AddListener(s.gameObject.GetComponent<DestinationList>().agentDestination);
             else 
-                _eventManager._listenToFlag.RemoveListener(s.gameObject.GetComponent<DestinationList>().agentDestination);
+                eventManager.listenToFlag.RemoveListener(s.gameObject.GetComponent<DestinationList>().agentDestination);
             s.isSelected = value;  
         }
     }

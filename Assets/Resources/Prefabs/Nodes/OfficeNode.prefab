@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3798024855282162778}
   - component: {fileID: 1894591767738058274}
   m_Layer: 0
-  m_Name: OfficeNode Variant
+  m_Name: OfficeNode
   m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Adjacent: []
-  _attribute: 4
+  attribute: 4
   heuristicScore: 0
   distanceFromStart: 0
 --- !u!114 &1894591767738058274
@@ -60,5 +60,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca626801e4f9a741981156239f647f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 8
-  _citizens: []
+  capacity: 19
+  citizens: []

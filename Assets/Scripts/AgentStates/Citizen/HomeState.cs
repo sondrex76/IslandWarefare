@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class HomeState : StateMachineBehaviour
 {
-    CitizenDestinationManager _cdm;
+    CitizenDestinationManager cdm;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _cdm = animator.GetComponent<CitizenDestinationManager>();
-        _cdm.CitizenStateManager(animator, stateInfo, "Home");
+        cdm = animator.GetComponent<CitizenDestinationManager>();
+        cdm.CitizenStateManager(animator, stateInfo, "Home");
 
-        _cdm.SleepAgent();
+        cdm.SleepAgent();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -23,7 +23,7 @@ public class HomeState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _cdm.WakeAgent();
+        cdm.WakeAgent();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
