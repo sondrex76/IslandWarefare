@@ -48,10 +48,25 @@ public class CitizenDestinationManager : MonoBehaviour
             {
                 work.Add(node);
             }
-            System.Random randomWork = new System.Random();
-            this.work = work[randomWork.Next(0, work.Count)];
-            this.work.GetComponent<OfficeNode>().AddCitizen(gameObject);
+            if (work.Count > 0)
+            {
+                System.Random randomWork = new System.Random();
+                this.work = work[randomWork.Next(0, work.Count)];
+                this.work.GetComponent<OfficeNode>().AddCitizen(gameObject);
+            } else
+            {
+                destination = new Vector3();
+                destination = transform.position;
+                currentNode = home;
+
+                ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
+
+                pool.AddObjcetToPool("Simple Citizen", gameObject);
+                gameObject.SetActive(false);
+            }
+            
         }
+
         SecureRandom rng = new SecureRandom();
         randomAStarUpdate = rng.NextFloat(1, 20);
 
@@ -84,13 +99,45 @@ public class CitizenDestinationManager : MonoBehaviour
     // Incase agent gets stuck or something simillar 
     void ResetOnError()
     {
-        Start();
-        StartCoroutine(Example("Default"));
+        Debug.Log("An error has occured agent will be reset");
+        rigidbody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
+
+
+        destination = new Vector3();
+        destination = transform.position;
+        currentNode = home;
+
+        path = new Queue<GraphNode>();
+
+
+        List<GraphNode> work = new List<GraphNode>();
+        if (graph.Nodes.Any())
+        {
+            foreach (var node in graph.Nodes.Where(node => node.attribute == GraphNode.Attribute.Office))
+            {
+                work.Add(node);
+            }
+            System.Random randomWork = new System.Random();
+            this.work = work[randomWork.Next(0, work.Count)];
+            this.work.GetComponent<OfficeNode>().AddCitizen(gameObject);
+        }
+
+        SecureRandom rng = new SecureRandom();
+        randomAStarUpdate = rng.NextFloat(1, 20);
     }
 
     void OnFinishedPath()
     {
-        if (path == null) ResetOnError();
+        if (path == null)
+        {
+            if (Time.deltaTime % randomAStarUpdate == 0)
+            {
+                ResetOnError();
+            }
+        }
 
         if (path.Count <= 0 && AgentHasReached)
         {
