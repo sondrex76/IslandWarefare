@@ -14,4 +14,9 @@ public class AbstractHouse : AbstractBuilding
         node.SetActive(true);
         graph.GetComponent<Graph>().AddNodes();
     }
+
+    public int HousePopulation()
+    {
+        return node.GetComponent<ResidentialNode>().citizens.Count;
+    }
 }
