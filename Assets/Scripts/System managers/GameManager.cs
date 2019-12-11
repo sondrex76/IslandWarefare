@@ -125,12 +125,14 @@ public class GameManager : MonoBehaviour
                     factorySelected = false;
                 }
             }
+        }
 
-            if (factorySelected) // checks if the user is in a relevant GUI(Factory)
-            {
-                // Make the arrow always face the player while active
-                arrow.transform.LookAt(new Vector3(Camera.main.transform.position.x, currentlySelectedFactory.transform.position.y, Camera.main.transform.position.z));
-            }
+        if (factorySelected) // checks if the user is in a relevant GUI(Factory)
+        {
+            Debug.Log(currentlySelectedFactory.transform.position.y);
+
+            // Make the arrow always face the player while active
+            arrow.transform.LookAt(new Vector3(Camera.main.transform.position.x, currentlySelectedFactory.transform.position.y + 45, Camera.main.transform.position.z));
         }
     }
     

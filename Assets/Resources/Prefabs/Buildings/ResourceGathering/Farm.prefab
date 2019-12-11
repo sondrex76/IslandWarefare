@@ -82,7 +82,7 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: da978b42904f5e84a91caf34d73a0007, type: 3}
-  node: {fileID: 0}
+  node: {fileID: 7073515818529127951, guid: 44d7d70324b35c94386cd4c88160f297, type: 3}
   neededResource:
   - {fileID: 4933372135440917034, guid: 06284050885bad147bc46b1e0d00d08b, type: 3}
   resourceExtractionSpeed: 0.02
@@ -105,31 +105,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 403810479990522432}
     m_Modifications:
-    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7594329940877321302, guid: 5007c20a9501fff40a8dc22967de14bc,
         type: 3}
       propertyPath: m_Name
@@ -199,6 +174,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Convex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747680584650822888, guid: 5007c20a9501fff40a8dc22967de14bc,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1117905391523564691, guid: 5007c20a9501fff40a8dc22967de14bc, type: 3}
