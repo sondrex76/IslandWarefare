@@ -47,8 +47,6 @@ public class SaveSystem : MonoBehaviour
             // Opens stream
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            Debug.Log("Should only run once");
-
             try
             {
                 // Loads resources
@@ -155,7 +153,9 @@ public class SaveSystem : MonoBehaviour
 
             // Camera position
             Camera.main.transform.position = new Vector3((float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream));
-            Camera.main.transform.eulerAngles = new Vector3((float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream));
+
+            // Camera rotation
+            CameraMovement.LoadAngles((float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream));
 
             // Close stream
             stream.Close();
@@ -241,14 +241,15 @@ public class SaveSystem : MonoBehaviour
             formatter.Serialize(stream, roads[i].ReturnRoadSave());
         }
 
-        // Camera position and rotation
-        formatter.Serialize(stream, Camera.main.transform.position.x);                              // Stores position
-        formatter.Serialize(stream, Camera.main.transform.position.y);                              // Stores position
-        formatter.Serialize(stream, Camera.main.transform.position.z);                              // Stores position
+        // Camera position
+        formatter.Serialize(stream, Camera.main.transform.position.x);                              // Stores position(x)
+        formatter.Serialize(stream, Camera.main.transform.position.y);                              // Stores position(y)
+        formatter.Serialize(stream, Camera.main.transform.position.z);                              // Stores position(z)
 
-        formatter.Serialize(stream, Camera.main.transform.eulerAngles.x);                           // Stores rotation
-        formatter.Serialize(stream, Camera.main.transform.eulerAngles.y);                           // Stores rotation
-        formatter.Serialize(stream, Camera.main.transform.eulerAngles.z);                           // Stores rotation
+        // Camera rotation
+        Debug.Log("RotationEnd: " + Camera.main.transform.eulerAngles.x + ", " + Camera.main.transform.eulerAngles.y);
+        formatter.Serialize(stream, Camera.main.transform.eulerAngles.x);                           // Stores rotation(x)
+        formatter.Serialize(stream, Camera.main.transform.eulerAngles.y);                           // Stores rotation(y)
 
 
         // closes stream
