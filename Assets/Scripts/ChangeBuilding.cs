@@ -91,9 +91,9 @@ public class ChangeBuilding : MonoBehaviour
         objectPlacer.enabled = true;
 
         GameObject buildingShow = building;
-        Destroy(buildingShow.GetComponent<AbstractBuilding>());
 
         objectPlacer.objectToPlaceTemp = Instantiate(buildingShow);
+        Destroy(objectPlacer.objectToPlaceTemp.GetComponent<AbstractBuilding>());
         objectPlacer.objectToPlaceTemp.transform.GetChild(0).gameObject.transform.position = new Vector3(0,0,0);
         Rigidbody rig = objectPlacer.objectToPlaceTemp.AddComponent<Rigidbody>();
         rig.isKinematic = false;
