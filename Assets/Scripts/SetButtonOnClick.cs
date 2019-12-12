@@ -11,7 +11,7 @@ public class SetButtonOnClick : MonoBehaviour
 
     Button button;
 
-    // Start is called before the first frame update
+    // Add l istener to button so we can click it
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -20,7 +20,7 @@ public class SetButtonOnClick : MonoBehaviour
         button.onClick.AddListener(delegate { gameManager.AddPower(unit); });
     }
 
-
+    //Checks if we can afford building, if not disable button
     private void Update()
     {
         if (gameManager.GetMoneyAmount() < unit.cost)

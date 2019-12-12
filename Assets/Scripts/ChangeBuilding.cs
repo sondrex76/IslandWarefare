@@ -84,12 +84,17 @@ public class ChangeBuilding : MonoBehaviour
         SetPanel();
     }
 
-    //Activates forge placing
+    //Activates building placing
     public void SetBuilding(GameObject building)
     {
         roadPlacer.enabled = false;
         objectPlacer.enabled = true;
-        objectPlacer.objectToPlaceTemp = Instantiate(building);
+
+        GameObject buildingShow = building;
+        Destroy(buildingShow.GetComponent<AbstractBuilding>());
+
+        objectPlacer.objectToPlaceTemp = Instantiate(buildingShow);
+        objectPlacer.objectToPlaceTemp.transform.GetChild(0).gameObject.transform.position = new Vector3(0,0,0);
         Rigidbody rig = objectPlacer.objectToPlaceTemp.AddComponent<Rigidbody>();
         rig.isKinematic = false;
         rig.constraints = RigidbodyConstraints.FreezeAll;
