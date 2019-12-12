@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 using System;
 using System.Linq;
 using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,9 +17,9 @@ public class GameManager : MonoBehaviour
     public static Resource.ResourceAmount[] resources;
 
     // Miltary mght, might be expanded upon later
-    public static float defensivePower = 0;
-    public static float offensivePower = 0;
-    public static float supplyPower = 0;
+    public static int defensivePower = 0;
+    public static int attackPower = 0;
+    public static int supplyPower = 0;
 
     // Amount of resources generated through various systems
     public static float moneyAmount = 0;            // Money
@@ -76,6 +79,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        GetUserData();
         try
         {
             GameObject.Find("Terrain").layer = LayerMask.NameToLayer("Ground");
@@ -217,4 +221,52 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    //Get the the diffrent powers from server
+    void GetUserData()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            Keys = null
+        }, SetPowers, (error) => {
+            Debug.Log("Got error retrieving user data:");
+            Debug.Log(error.GenerateErrorReport());
+        });
+    }
+
+    //Set the powers gotten from server
+    void SetPowers(GetUserDataResult result) 
+    {
+        attackPower = Int32.Parse(result.Data["AttackPower"].Value);
+        defensivePower = Int32.Parse(result.Data["DefencePower"].Value);
+        attackPower = Int32.Parse(result.Data["SupportPower"].Value);
+    }
+
+    //Add the powers when buying new units
+    public void AddPower(MilitaryUnit unit)
+    {
+        attackPower += unit.attackPower;
+        defensivePower += unit.defencePower;
+        supplyPower += unit.supplyPower;
+
+
+        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+        {
+            Data = new Dictionary<string, string>() {
+            {"AttackPower", attackPower.ToString()},
+            {"DefencePower", defensivePower.ToString()},
+            {"SupportPower", supplyPower.ToString()}
+        }
+        },
+  result => Debug.Log("Successfully updated user data"),
+  error => {
+      Debug.Log("Got error setting user data Ancestor to Arthur");
+      Debug.Log(error.GenerateErrorReport());
+  });
+
+
+    }
+
+
+
 }

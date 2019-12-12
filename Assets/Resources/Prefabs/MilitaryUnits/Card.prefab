@@ -943,6 +943,7 @@ GameObject:
   - component: {fileID: 3839609505760846646}
   - component: {fileID: 6249735435874685025}
   - component: {fileID: 3614046990961298409}
+  - component: {fileID: 5298658957659250720}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Factory
@@ -1049,6 +1050,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6249735435874685025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &5298658957659250720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7544143970982909139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab081ea695a259d44bf5df521b0f9f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
