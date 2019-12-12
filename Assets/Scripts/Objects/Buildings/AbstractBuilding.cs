@@ -23,7 +23,9 @@ public class AbstractBuilding : MonoBehaviour
 
     [SerializeField] protected GameObject node;
     public int price;
-
+    
+    // time value, stores here to make it needed to be calculated only once
+    float timeValue;
 
     // protected bool test = false;
     protected void Awake()
@@ -40,6 +42,8 @@ public class AbstractBuilding : MonoBehaviour
         // Sets position to the appropriate starting position
         if (building != null)               // DEBUG, in case object has no model, should not be needed later
             building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.transform.localPosition.y - startOffsetY, Random.Range(-randomFluct, randomFluct));
+
+        timeValue = (startOffsetY + posOffset) / 50 / timeSecondsBuild;
     }
 
     // Updates 50 times a second independent of framerate
@@ -56,13 +60,14 @@ public class AbstractBuilding : MonoBehaviour
             else                                // Building is being built
             {
                 // Updates postion by one 50th of startOffsetY / timeSecondsBuild to make the time it takes to reach ideal position to be timeSecondsBuild
-                building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.localPosition.y + (startOffsetY / 50 / timeSecondsBuild), Random.Range(-randomFluct, randomFluct));
+                building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.localPosition.y + timeValue, Random.Range(-randomFluct, randomFluct));
                 building.localPosition = Vector3.Scale(building.localPosition, transform.up);
 
                 // Updates health so that it becomes full by the time the building is finished building
                 HurtBuilding(-(1.0f / 50 / timeSecondsBuild) * (maxHealth - startHealth));
 
-                if (building.localPosition.y >= 0) // Building is finished building
+                // TODO: make posOffset instead of 0 work here, should be posOffset but building stops moving upwards for no obvious reason
+                if (building.localPosition.y >= 0/*posOffset*/) // Building is finished building
                 {
                     // Increases number of houses present
                     GameManager.numHouses++;    
@@ -154,7 +159,7 @@ public class AbstractBuilding : MonoBehaviour
         if (finishedBuilding)
         {
             // sets position to 0, next fixedUpdate will set the building to a finished state
-            building.localPosition = new Vector3(0, 0, 0);
+            building.localPosition = new Vector3(0, posOffset, 0);
             MakeNode();                 // runs node related code
             GameManager.numHouses++;    // Increases number of houses
         }
