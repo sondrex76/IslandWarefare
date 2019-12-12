@@ -30,7 +30,13 @@ public class GameManager : MonoBehaviour
     public static bool isInGUI;                     // Specifies that the user is in a GUI and it should not be shut down
 
     public static int numHouses = 0;                // Number of houses
-    [SerializeField] float houseMoneyRate = 0.1f;   // Production rate of resources from houses per house per second
+    [SerializeField] float houseMoneyRate = 0.2f;   // Production rate of resources from houses per house per second
+    
+    public static int numFactories = 0;             // Number of houses
+    [SerializeField] float factoryMoneyRate = 1.5f; // Production rate of resources from houses per house per second
+
+    public static int numGatherers = 0;             // Number of houses
+    [SerializeField] float gatherMoneyRate = 2.0f; // Production rate of resources from houses per house per second
 
     [SerializeField] Image arrow;                   // Arrow to be placed above buildings
 
