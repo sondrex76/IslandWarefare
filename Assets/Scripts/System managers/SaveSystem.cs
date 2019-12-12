@@ -153,6 +153,10 @@ public class SaveSystem : MonoBehaviour
                 Debug.Log("Error: " + e);
             }
 
+            // Camera position
+            Camera.main.transform.position = new Vector3((float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream));
+            Camera.main.transform.eulerAngles = new Vector3((float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream));
+
             // Close stream
             stream.Close();
         }
@@ -236,6 +240,15 @@ public class SaveSystem : MonoBehaviour
             Debug.Log("Saving road");
             formatter.Serialize(stream, roads[i].ReturnRoadSave());
         }
+
+        // Camera position and rotation
+        formatter.Serialize(stream, Camera.main.transform.position.x);                              // Stores position
+        formatter.Serialize(stream, Camera.main.transform.position.y);                              // Stores position
+        formatter.Serialize(stream, Camera.main.transform.position.z);                              // Stores position
+
+        formatter.Serialize(stream, Camera.main.transform.eulerAngles.x);                           // Stores rotation
+        formatter.Serialize(stream, Camera.main.transform.eulerAngles.y);                           // Stores rotation
+        formatter.Serialize(stream, Camera.main.transform.eulerAngles.z);                           // Stores rotation
 
 
         // closes stream
