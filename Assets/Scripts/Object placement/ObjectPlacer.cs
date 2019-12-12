@@ -4,6 +4,7 @@ public class ObjectPlacer : MonoBehaviour
 {
     public GameObject objectToPlace;
     public GameObject objectToPlaceTemp;
+    public GameManager gameManager;
     public Camera camera;
 
     public float maxSlope = 20;
@@ -20,7 +21,7 @@ public class ObjectPlacer : MonoBehaviour
     void Start()
     {
         layerMask = ~layerMask;
-     
+        gameManager = FindObjectOfType<GameManager>();
 
         m_MyQuaternion = new Quaternion();
         this.enabled = false;
@@ -51,6 +52,8 @@ public class ObjectPlacer : MonoBehaviour
              if(Input.GetButtonDown("Fire1") && canBePlaced && angle < maxSlope){
                 Destroy(objectToPlaceTemp);
                 objectToPlace.SetActive(true);
+                AbstractBuilding building = objectToPlace.GetComponent<AbstractBuilding>();
+                gameManager.BuyBuilding(building.price);
                 GameObject newObject = Instantiate(objectToPlace, objectToPlaceTemp.transform.position, objectToPlaceTemp.transform.rotation);
                 Destroy(newObject.GetComponent<CanBePlaced>());
                 this.enabled = false;

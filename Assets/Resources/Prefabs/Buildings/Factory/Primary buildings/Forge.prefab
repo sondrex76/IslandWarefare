@@ -604,6 +604,7 @@ MonoBehaviour:
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: 28ff66c23d8ec9d488ac61fdfd6df5c8, type: 3}
   node: {fileID: 0}
+  price: 100
   producableResources:
   - {fileID: 4933372135440917034, guid: fe6a86abaeaf4854791c6f94911d3114, type: 3}
   gui: {fileID: 1147260773815484290}
@@ -611,6 +612,7 @@ MonoBehaviour:
     type: 3}
   parentPanel: {fileID: 951427148382156662}
   remainingTimeSec: 0
+  price: 0
   sliderProgressBar: {fileID: 1138701497212509749}
   parentObjectSlider: {fileID: 2647417665747200953}
 --- !u!65 &702695560992844905

@@ -21,6 +21,7 @@ public class AbstractBuilding : MonoBehaviour
     public Sprite clickableIcon;                    // Icon to show a user when selecting a building
 
     [SerializeField] protected GameObject node;
+    public int price;
 
 
     // protected bool test = false;

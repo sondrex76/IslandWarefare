@@ -262,6 +262,7 @@ MonoBehaviour:
   currentHealth: 6
   clickableIcon: {fileID: 21300000, guid: b54c7cda8e6407e4b92987d5e8ca0331, type: 3}
   node: {fileID: 0}
+  price: 100
   producableResources: []
   gui: {fileID: 2366621532446517868}
   prefabOption: {fileID: 0}
@@ -649,6 +650,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4941941287979324157, guid: 2eccdb1edb0d5104d9ba19b7cca81b39,
+        type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 11400000, guid: ebf85d040cd00e54782f2f1113c2269c,
+        type: 2}
     - target: {fileID: 4941941286402343278, guid: 2eccdb1edb0d5104d9ba19b7cca81b39,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -759,12 +766,6 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4941941287979324157, guid: 2eccdb1edb0d5104d9ba19b7cca81b39,
-        type: 3}
-      propertyPath: unit
-      value: 
-      objectReference: {fileID: 11400000, guid: ebf85d040cd00e54782f2f1113c2269c,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2eccdb1edb0d5104d9ba19b7cca81b39, type: 3}
 --- !u!224 &5997133731969775322 stripped
@@ -1485,6 +1486,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4459405109757313513}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 07901f1cea2facf47b011ac2fcc5f3f6,
+        type: 3}
+      propertyPath: m_Name
+      value: building
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 07901f1cea2facf47b011ac2fcc5f3f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1539,11 +1545,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 07901f1cea2facf47b011ac2fcc5f3f6,
-        type: 3}
-      propertyPath: m_Name
-      value: building
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 07901f1cea2facf47b011ac2fcc5f3f6,
         type: 3}

@@ -283,6 +283,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BuyBuilding(int cost)
+    {
+        moneyAmount -= cost;
+    }
+
 
     public float GetMoneyAmount()
     {

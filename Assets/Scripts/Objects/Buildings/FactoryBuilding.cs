@@ -20,6 +20,7 @@ public class FactoryBuilding : AbstractBuilding
     int originalNumRounds = 0;                          // Original value of remaining rounds for this cycle, needed for progress bar
     bool isBusy = false;                                // Bool indicating if the factory is busy or not
 
+
     [SerializeField] Slider sliderProgressBar;          // Slider of progress bar
     [SerializeField] GameObject parentObjectSlider;     // Parent object for slider
 

@@ -513,14 +513,16 @@ MonoBehaviour:
   randomFluct: 0.1
   currentHealth: 0
   clickableIcon: {fileID: 21300000, guid: f0b9db1b53c232b418315f0b286ffbdb, type: 3}
+  node: {fileID: 0}
+  price: 100
   producableResources:
   - {fileID: 4933372135440917034, guid: 4fef04f27b1a63144937a1415fdd9152, type: 3}
   gui: {fileID: 1740761304321632827}
-  arrow: {fileID: 0}
   prefabOption: {fileID: 5977288545705215745, guid: a12dfbd4b3ba6e345b601944f92e1749,
     type: 3}
   parentPanel: {fileID: 4778133357014155324}
   remainingTimeSec: 0
+  price: 0
   sliderProgressBar: {fileID: 7647266832696220194}
   parentObjectSlider: {fileID: 8411043484153164912}
 --- !u!1 &6989775149142055230
