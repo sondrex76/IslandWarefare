@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     // Bools for states
     public static bool isInGUI;                     // Specifies that the user is in a GUI and it should not be shut down
 
+    public static int numHouses = 0;                // Number of houses
+    [SerializeField] float houseMoneyRate = 0.1f;   // Production rate of resources from houses per house per second
+
     [SerializeField] Image arrow;                   // Arrow to be placed above buildings
 
 
@@ -96,6 +99,8 @@ public class GameManager : MonoBehaviour
         // If the game is not paused
         if (!isPaused)
         {
+            // Increases amount of money based on how much time have passed since the last update and number of houses
+            moneyAmount += Time.deltaTime * Time.timeScale * numHouses * houseMoneyRate;
 
             // Checks if primary mouse button is down
             if (Input.GetMouseButtonDown(0))

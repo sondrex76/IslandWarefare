@@ -243,7 +243,6 @@ public class SaveSystem : MonoBehaviour
 
             for (int i = 0; i < roads.Length; i++)
             {
-                Debug.Log("Saving road");
                 formatter.Serialize(stream, roads[i].ReturnRoadSave());
             }
 
@@ -253,7 +252,6 @@ public class SaveSystem : MonoBehaviour
             formatter.Serialize(stream, Camera.main.transform.position.z);                              // Stores position(z)
 
             // Camera rotation
-            Debug.Log("RotationEnd: " + Camera.main.transform.eulerAngles.x + ", " + Camera.main.transform.eulerAngles.y);
             formatter.Serialize(stream, Camera.main.transform.eulerAngles.x);                           // Stores rotation(x)
             formatter.Serialize(stream, Camera.main.transform.eulerAngles.y);                           // Stores rotation(y)
 

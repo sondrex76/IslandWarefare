@@ -136,6 +136,5 @@ public class CameraMovement : MonoBehaviour
     {
         cameraAngleX += y;
         cameraAngleY += x;
-        Debug.Log("RotationStart: " + x + ", " + y);
     }
 }

@@ -977,6 +977,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3421693238018016332, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
+        type: 3}
+      propertyPath: houseMoneyRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5747539374874257872, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: m_IsActive
