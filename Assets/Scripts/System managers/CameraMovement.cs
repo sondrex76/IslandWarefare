@@ -132,7 +132,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     // Function which loads and defines angles
-    static public void LoadAngles(float x, float y)
+    public void LoadAngles(float x, float y)
     {
         cameraAngleX += y;
         cameraAngleY += x;
