@@ -7,7 +7,7 @@ using TMPro;
 public class CardDisplay : MonoBehaviour
 {
 
-    public TextMeshProUGUI supplyTxt, defenceTxt, attackTxt, nameTxt, descTxt;
+    public TextMeshProUGUI supplyTxt, defenceTxt, attackTxt, nameTxt, descTxt, costTxt;
     public Image image;
     
 
@@ -21,6 +21,7 @@ public class CardDisplay : MonoBehaviour
         attackTxt.text = unit.attackPower.ToString();
         defenceTxt.text = unit.defencePower.ToString();
         supplyTxt.text = unit.supplyPower.ToString();
+        costTxt.text = unit.cost.ToString()+"$";
         image.sprite = unit.img;
     }
 

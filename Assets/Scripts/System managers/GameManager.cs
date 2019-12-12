@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GetUserData();
         try
         {
             GameObject.Find("Terrain").layer = LayerMask.NameToLayer("Ground");
@@ -98,6 +97,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(e);
         }
         graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
+        GetUserData();
     }
 
     private void Update()
@@ -256,26 +256,37 @@ public class GameManager : MonoBehaviour
     //Add the powers when buying new units
     public void AddPower(MilitaryUnit unit)
     {
-        attackPower += unit.attackPower;
-        defensivePower += unit.defencePower;
-        supplyPower += unit.supplyPower;
-
-
-        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+        if (moneyAmount >= unit.cost)
         {
-            Data = new Dictionary<string, string>() {
-            {"AttackPower", attackPower.ToString()},
-            {"DefencePower", defensivePower.ToString()},
-            {"SupportPower", supplyPower.ToString()}
+            attackPower += unit.attackPower;
+            defensivePower += unit.defencePower;
+            supplyPower += unit.supplyPower;
+
+            moneyAmount -= unit.cost;
+
+            //Update the powers in database
+            PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+            {
+                Data = new Dictionary<string, string>() {
+                    {"AttackPower", attackPower.ToString()},
+                    {"DefencePower", defensivePower.ToString()},
+                    {"SupportPower", supplyPower.ToString()}
+                }
+            },
+              result => Debug.Log("Successfully updated user data"),
+              error =>
+              {
+                  Debug.Log("Got error setting user data Ancestor to Arthur");
+                  Debug.Log(error.GenerateErrorReport());
+              });
+
         }
-        },
-  result => Debug.Log("Successfully updated user data"),
-  error => {
-      Debug.Log("Got error setting user data Ancestor to Arthur");
-      Debug.Log(error.GenerateErrorReport());
-  });
+    }
 
 
+    public float GetMoneyAmount()
+    {
+        return moneyAmount;
     }
 
 
