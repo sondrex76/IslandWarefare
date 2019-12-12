@@ -67,7 +67,7 @@ public class AbstractBuilding : MonoBehaviour
                 HurtBuilding(-(1.0f / 50 / timeSecondsBuild) * (maxHealth - startHealth));
 
                 // TODO: make posOffset instead of 0 work here, should be posOffset but building stops moving upwards for no obvious reason
-                if (building.localPosition.y >= 0/*posOffset*/) // Building is finished building
+                if (building.localPosition.y >= 0) // Building is finished building
                 {
                     // Increases number of houses present
                     GameManager.numHouses++;    
@@ -77,7 +77,7 @@ public class AbstractBuilding : MonoBehaviour
                     if (currentHealth > maxHealth)
                         currentHealth = maxHealth; 
                     // Sets position to base position
-                    building.localPosition = new Vector3(0, 0, 0);
+                    building.localPosition = new Vector3(0, posOffset, 0);
                     
                     // Node
                     MakeNode();
