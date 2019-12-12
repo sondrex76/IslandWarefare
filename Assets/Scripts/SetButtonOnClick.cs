@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class setButtonOnClick : MonoBehaviour
+public class SetButtonOnClick : MonoBehaviour
 {
     [SerializeField]
     GameManager gameManager;
