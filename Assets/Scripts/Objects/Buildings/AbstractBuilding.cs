@@ -13,6 +13,7 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float maxHealth;               // Max health for building
     [SerializeField] float startHealth;             // Starting health
     [SerializeField] float startOffsetY = 20;       // How far below the surface the building starts
+    [SerializeField] float posOffset = 0.0f;        // Offset for end coordinates
     [SerializeField] float timeSecondsBuild;        // Time in seconds for how long it will take ofr the building to finish building
     [SerializeField] float randomFluct = 0.1f;      // Max fluctuation from zero for building
 
@@ -22,7 +23,9 @@ public class AbstractBuilding : MonoBehaviour
 
     [SerializeField] protected GameObject node;
     public int price;
-
+    
+    // time value, stores here to make it needed to be calculated only once
+    float timeValue;
 
     // protected bool test = false;
     protected void Awake()
@@ -39,6 +42,8 @@ public class AbstractBuilding : MonoBehaviour
         // Sets position to the appropriate starting position
         if (building != null)               // DEBUG, in case object has no model, should not be needed later
             building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.transform.localPosition.y - startOffsetY, Random.Range(-randomFluct, randomFluct));
+
+        timeValue = (startOffsetY + posOffset) / 50 / timeSecondsBuild;
     }
 
     // Updates 50 times a second independent of framerate
@@ -55,12 +60,13 @@ public class AbstractBuilding : MonoBehaviour
             else                                // Building is being built
             {
                 // Updates postion by one 50th of startOffsetY / timeSecondsBuild to make the time it takes to reach ideal position to be timeSecondsBuild
-                building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.localPosition.y + (startOffsetY / 50 / timeSecondsBuild), Random.Range(-randomFluct, randomFluct));
+                building.localPosition = new Vector3(Random.Range(-randomFluct, randomFluct), building.localPosition.y + timeValue, Random.Range(-randomFluct, randomFluct));
                 building.localPosition = Vector3.Scale(building.localPosition, transform.up);
 
                 // Updates health so that it becomes full by the time the building is finished building
                 HurtBuilding(-(1.0f / 50 / timeSecondsBuild) * (maxHealth - startHealth));
 
+                // TODO: make posOffset instead of 0 work here, should be posOffset but building stops moving upwards for no obvious reason
                 if (building.localPosition.y >= 0) // Building is finished building
                 {
                     // Increases number of houses present
@@ -71,7 +77,7 @@ public class AbstractBuilding : MonoBehaviour
                     if (currentHealth > maxHealth)
                         currentHealth = maxHealth; 
                     // Sets position to base position
-                    building.localPosition = new Vector3(0, 0, 0);
+                    building.localPosition = new Vector3(0, posOffset, 0);
                     
                     // Node
                     MakeNode();
@@ -153,7 +159,7 @@ public class AbstractBuilding : MonoBehaviour
         if (finishedBuilding)
         {
             // sets position to 0, next fixedUpdate will set the building to a finished state
-            building.localPosition = new Vector3(0, 0, 0);
+            building.localPosition = new Vector3(0, posOffset, 0);
             MakeNode();                 // runs node related code
             GameManager.numHouses++;    // Increases number of houses
         }
