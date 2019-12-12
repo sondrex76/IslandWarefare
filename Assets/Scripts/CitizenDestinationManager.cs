@@ -153,6 +153,7 @@ public class CitizenDestinationManager : MonoBehaviour
             {
                 ResetOnError();
             }
+            return;
         }
 
         if (path.Count <= 0 && AgentHasReached)
