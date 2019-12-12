@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
                         arrow.enabled = true;
                     }
                 }
-                else if (currentlySelectedFactory != null && !isInGUI)                              // Checks if there is a factory there and that you are outside of any relevant GUI element
+                else if (currentlySelectedFactory != null && !isInGUI && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())                              // Checks if there is a factory there and that you are outside of any relevant GUI element
                 {
                     factorySelected = false;
                     arrow.enabled = false;

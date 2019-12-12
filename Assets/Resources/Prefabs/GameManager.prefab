@@ -1073,6 +1073,7 @@ MonoBehaviour:
   - {fileID: 403810479990522434, guid: 602a303918634484099f607f32ae6814, type: 3}
   - {fileID: 403810479990522434, guid: 9f8f08fe2d28b044eb8a683f5f0689ca, type: 3}
   - {fileID: 6488853407038031113, guid: f9ac65124740d4a49a2a986a3ba0c70a, type: 3}
+  - {fileID: 4077604692608407157, guid: 3616ff6d98dc0f14ba4718ab72e398c9, type: 3}
   roadPlacer: {fileID: 0}
   objectPlacer: {fileID: 0}
   panel: {fileID: 1573539254838734589}

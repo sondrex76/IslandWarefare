@@ -228,7 +228,7 @@ public class SaveSystem : MonoBehaviour
         formatter.Serialize(stream, GameManager.moneyAmount);
 
         //Roads
-        roadStruct[] roads = FindObjectsOfType<roadStruct>();
+        RoadStruct[] roads = FindObjectsOfType<RoadStruct>();
         formatter.Serialize(stream, roads.Length);
 
         for (int i = 0; i < roads.Length; i++)
