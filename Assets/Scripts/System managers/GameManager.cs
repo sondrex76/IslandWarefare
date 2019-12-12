@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
             arrow.transform.LookAt(new Vector3(Camera.main.transform.position.x, currentlySelectedFactory.transform.position.y + 45, Camera.main.transform.position.z));
         }
 
-        if (Time.frameCount % 500 == 0)
+        if (Time.frameCount % 500 == 0 && graph != null)
         {
             uint newPop = 0;
             foreach(var node in graph.Nodes.Where(node => node.attribute == GraphNode.Attribute.Residential))
