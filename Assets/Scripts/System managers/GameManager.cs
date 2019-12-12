@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     FactoryBuilding currentlySelectedFactory;       // Currently selected factory
     bool factorySelected = false;
 
+    Graph graph;
+    
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(e);
         }
+        graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
     }
 
     private void Update()
@@ -133,6 +137,16 @@ public class GameManager : MonoBehaviour
 
             // Make the arrow always face the player while active
             arrow.transform.LookAt(new Vector3(Camera.main.transform.position.x, currentlySelectedFactory.transform.position.y + 45, Camera.main.transform.position.z));
+        }
+
+        if (Time.frameCount % 500 == 0)
+        {
+            uint newPop = 0;
+            foreach(var node in graph.Nodes.Where(node => node.attribute == GraphNode.Attribute.Residential))
+            {
+                newPop += (uint)node.GetComponent<ResidentialNode>().citizens.Count;
+            }
+            population = newPop;
         }
     }
     

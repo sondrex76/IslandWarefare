@@ -99,7 +99,7 @@ public class CitizenDestinationManager : MonoBehaviour
     // Incase agent gets stuck or something simillar 
     void ResetOnError()
     {
-        Debug.Log("An error has occured agent will be reset");
+
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -120,13 +120,29 @@ public class CitizenDestinationManager : MonoBehaviour
             {
                 work.Add(node);
             }
-            System.Random randomWork = new System.Random();
-            this.work = work[randomWork.Next(0, work.Count)];
-            this.work.GetComponent<OfficeNode>().AddCitizen(gameObject);
+            if (work.Count > 0)
+            {
+                System.Random randomWork = new System.Random();
+                this.work = work[randomWork.Next(0, work.Count)];
+                this.work.GetComponent<OfficeNode>().AddCitizen(gameObject);
+            }
+            else
+            {
+                destination = new Vector3();
+                destination = transform.position;
+                currentNode = home;
+
+                ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
+
+                pool.AddObjcetToPool("Simple Citizen", gameObject);
+                gameObject.SetActive(false);
+            }
+
         }
 
         SecureRandom rng = new SecureRandom();
         randomAStarUpdate = rng.NextFloat(1, 20);
+
     }
 
     void OnFinishedPath()
