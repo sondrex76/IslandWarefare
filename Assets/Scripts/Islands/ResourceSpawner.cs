@@ -41,7 +41,6 @@ public class ResourceSpawner : MonoBehaviour
                         Vector3 position = new Vector3(terrain.transform.position.x + j * scaleX, map[i, j] * Const.islandHeight, terrain.transform.position.z + i * scaleZ);
                         GameObject res = Instantiate(resources[numb], position, transform.rotation, transform);
                         res.name = resources[numb].name;
-                        Debug.Log("Wat");
                     }
                 }
             }

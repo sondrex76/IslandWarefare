@@ -88,6 +88,7 @@ MonoBehaviour:
   maxHealth: 100
   startHealth: 10
   startOffsetY: 2
+  posOffset: 0
   timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0

@@ -5,7 +5,7 @@ public class CanBePlaced : MonoBehaviour
 {
     void OnCollisionStay(Collision collision)
      {
-        if (collision.transform.tag == "Building" || collision.transform.tag == "Road" || collision.transform.tag == "Factory")
+        if (collision.transform.tag == "Building" || collision.transform.tag == "Road" || collision.transform.tag == "Factory" || collision.transform.tag == "Harvester")
         {
             try
             {
@@ -22,7 +22,7 @@ public class CanBePlaced : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
      {
-        if (collision.collider.tag == "Building" || collision.collider.tag == "Road" || collision.transform.tag == "Factory")
+        if (collision.collider.tag == "Building" || collision.collider.tag == "Road" || collision.transform.tag == "Factory" || collision.transform.tag == "Harvester")
         {
             try
             {

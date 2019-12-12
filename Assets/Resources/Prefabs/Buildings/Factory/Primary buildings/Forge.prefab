@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 2955916110105169971}
   - component: {fileID: 2541515086315947232}
   - component: {fileID: 6514426384833964048}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 4670356771661247584}
   - component: {fileID: 1574222881371369271}
   - component: {fileID: 702695560992844905}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Forge
   m_TagString: Factory
   m_Icon: {fileID: 0}
@@ -595,10 +595,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
-  building: {fileID: 0}
+  building: {fileID: 2955916110105169971}
   maxHealth: 100
   startHealth: 10
   startOffsetY: 2
+  posOffset: 0
   timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0
@@ -612,7 +613,6 @@ MonoBehaviour:
     type: 3}
   parentPanel: {fileID: 951427148382156662}
   remainingTimeSec: 0
-  price: 0
   sliderProgressBar: {fileID: 1138701497212509749}
   parentObjectSlider: {fileID: 2647417665747200953}
 --- !u!65 &702695560992844905
