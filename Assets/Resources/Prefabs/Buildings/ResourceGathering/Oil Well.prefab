@@ -135,7 +135,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 18.49459
+  m_Radius: 8
   m_Center: {x: 0, y: -7.3790226, z: 0}
 --- !u!1001 &5765974670256875768
 PrefabInstance:
@@ -144,31 +144,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1139136840027304416}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Name
-      value: PumpJack
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7358008008801674104, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: -3893227595389692002, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251908933381604275, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -223,6 +198,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Name
+      value: PumpJack
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3893227595389692002, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7251908933381604275, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358008008801674104, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: f9e8cb737dc83804ea7a7a6ca23a91ff,
         type: 3}

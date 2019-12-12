@@ -13,6 +13,7 @@ public class AbstractBuilding : MonoBehaviour
     [SerializeField] float maxHealth;               // Max health for building
     [SerializeField] float startHealth;             // Starting health
     [SerializeField] float startOffsetY = 20;       // How far below the surface the building starts
+    [SerializeField] float posOffset = 0.0f;        // Offset for end coordinates
     [SerializeField] float timeSecondsBuild;        // Time in seconds for how long it will take ofr the building to finish building
     [SerializeField] float randomFluct = 0.1f;      // Max fluctuation from zero for building
 

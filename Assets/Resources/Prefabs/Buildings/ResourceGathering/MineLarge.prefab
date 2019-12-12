@@ -59,7 +59,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8204359035405568815
 MonoBehaviour:
@@ -78,6 +78,7 @@ MonoBehaviour:
   maxHealth: 200
   startHealth: 25
   startOffsetY: 20
+  posOffset: 2.5
   timeSecondsBuild: 20
   randomFluct: 0.1
   currentHealth: 0
@@ -132,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 7594494189606761701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 403810479990522432}
   m_RootOrder: 0

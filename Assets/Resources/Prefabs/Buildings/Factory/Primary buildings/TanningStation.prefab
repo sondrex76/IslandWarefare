@@ -292,7 +292,7 @@ Transform:
   m_GameObject: {fileID: 5179021491372879265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 6488853407038031115}
   m_RootOrder: 0
@@ -509,6 +509,7 @@ MonoBehaviour:
   maxHealth: 100
   startHealth: 10
   startOffsetY: 2
+  posOffset: 1.5
   timeSecondsBuild: 2
   randomFluct: 0.1
   currentHealth: 0
@@ -522,7 +523,6 @@ MonoBehaviour:
     type: 3}
   parentPanel: {fileID: 4778133357014155324}
   remainingTimeSec: 0
-  price: 0
   sliderProgressBar: {fileID: 7647266832696220194}
   parentObjectSlider: {fileID: 8411043484153164912}
 --- !u!1 &6989775149142055230
