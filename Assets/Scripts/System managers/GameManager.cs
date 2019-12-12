@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GetUserData();
         try
         {
             GameObject.Find("Terrain").layer = LayerMask.NameToLayer("Ground");
@@ -98,6 +97,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(e);
         }
         graph = GameObject.FindGameObjectWithTag("Graph").GetComponent<Graph>();
+        GetUserData();
     }
 
     private void Update()
