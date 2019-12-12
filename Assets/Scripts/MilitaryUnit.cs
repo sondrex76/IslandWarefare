@@ -8,5 +8,5 @@ public class MilitaryUnit : ScriptableObject
     public new string name;
     public string decription;
     public Sprite img;
-    public int attackPower, defencePower, supplyPower;
+    public int attackPower, defencePower, supplyPower, cost;
 }

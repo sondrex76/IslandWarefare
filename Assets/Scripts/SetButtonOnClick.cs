@@ -9,11 +9,28 @@ public class SetButtonOnClick : MonoBehaviour
     [SerializeField]
     MilitaryUnit unit;
 
+    Button button;
+
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         unit = transform.parent.GetComponent<CardDisplay>().unit;
-        GetComponent<Button>().onClick.AddListener(delegate { gameManager.AddPower(unit); });
+        button = GetComponent<Button>();
+        button.onClick.AddListener(delegate { gameManager.AddPower(unit); });
     }
+
+
+    private void Update()
+    {
+        if (gameManager.GetMoneyAmount() < unit.cost)
+        {
+            button.interactable = false;
+        } else
+        {
+            button.interactable = true;
+        }
+    }
+
+
 }
