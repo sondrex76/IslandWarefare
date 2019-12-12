@@ -13,6 +13,7 @@ public class Rain : MonoBehaviour
     private bool isRaining;
     private bool cycleChange;
     private float nextCycle;
+    private float currentCycleTime;
 
     // Start is called before the first frame update
     public void Setup()
@@ -46,7 +47,8 @@ public class Rain : MonoBehaviour
         rainParticles.transform.position = pos;
 
         cycleChange = false;
-        nextCycle = Time.time + Random.Range(100, 500);
+        nextCycle = Random.Range(100, 500);
+        currentCycleTime = 0;
         setupDone = true;
     }
 
@@ -58,9 +60,11 @@ public class Rain : MonoBehaviour
             Vector3 pos = new Vector3(player.transform.position.x, rainParticles.transform.position.y, player.transform.position.z);
             rainParticles.transform.position = pos;
 
+            currentCycleTime += Time.fixedDeltaTime;
+
             if (cycleChange)
             {
-                if (isRaining)
+                if (!isRaining)
                 {
                     float grass = mat.GetFloat("Vector1_46396BE3");
                     float stone = mat.GetFloat("Vector1_1F126B9E");
@@ -72,8 +76,6 @@ public class Rain : MonoBehaviour
                     mat.SetFloat("Vector1_1F126B9E", stone);
 
                     rainParticles.Stop();
-
-                    Debug.Log(grass + " " + stone);
 
                     //Check if the smoothness has changed
                     if (grass <= 0f && stone <= 0f) cycleChange = false;
@@ -91,19 +93,20 @@ public class Rain : MonoBehaviour
                     mat.SetFloat("Vector1_1F126B9E", stone);
 
                     rainParticles.Play();
-                    
-                    Debug.Log(grass + " " + stone);
 
                     //Check if the smoothness has changed
                     if (grass >= 0.45f && stone >= 0.45f) cycleChange = false;
                 }
             }
 
-            if (Time.time >= nextCycle)
+            if (currentCycleTime >= nextCycle)
             {
+                Debug.Log(isRaining);
                 cycleChange = true;
                 isRaining = !isRaining;
-                nextCycle = Time.time + Random.Range(100, 500);
+                nextCycle = Random.Range(100, 500);
+                currentCycleTime = 0;
+                Debug.Log("Nya");
             }
         }
     }
