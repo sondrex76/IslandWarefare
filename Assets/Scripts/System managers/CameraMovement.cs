@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
     Rigidbody cameraBody;
     Camera cameraElement;
     [SerializeField] float cameraSpeed = 10.0f;                                             // Speed of camera
-    [SerializeField] float cameraAngleX = 0, cameraAngleY = 0;                              // Angle of camera
+    [SerializeField] static float cameraAngleX = 0, cameraAngleY = 0;                       // Angle of camera, names based on mouse input axis name
     [SerializeField] float cameraZoom = 90.0f;                                              // Zoom of camera
     [SerializeField] float zoomSpeed = 2.0f;                                                // Speed of scrolling
     [SerializeField] float horizontalAngularSpeed = 1, verticalAngularSpeed = 1;            // Rotation speed of camera
@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float zoomValue = 25.0f;                                               // Added zoom from zoom button(ctrl)
     [SerializeField] bool reverseVertical = false;                                          // Bool for determining if vertical mvoement should be inverted
     // float previousTime;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +59,7 @@ public class CameraMovement : MonoBehaviour
         if (limitedAngle <= maximumVerticalTilt && limitedAngle >= minimumVerticalTilt)
             cameraAngleY = limitedAngle;   
         
-        cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);         // Updates current angle
+        cameraElement.transform.eulerAngles = new Vector3(cameraAngleY, cameraAngleX, 0);
     }
 
     // Gets inout keys and updates position
@@ -105,7 +105,8 @@ public class CameraMovement : MonoBehaviour
             cameraBody.velocity /= Time.timeScale;
 
         // Resets vertical angle
-        cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);
+        // cameraElement.transform.rotation = Quaternion.Euler(cameraAngleY, cameraAngleX, 0);
+        cameraElement.transform.eulerAngles = new Vector3(cameraAngleY, cameraAngleX, 0);
     }
 
     // Update is called once per frame
@@ -128,5 +129,13 @@ public class CameraMovement : MonoBehaviour
         updatePosition();                                  // Updates position of the camera
         // Updates rotation of the camera
         if (!GameManager.inputManager.frozenAngle) updateRotation();   
+    }
+
+    // Function which loads and defines angles
+    public void LoadAngles(float x, float y)
+    {
+        cameraAngleX += y;
+        cameraAngleY += x;
+        Debug.Log("RotationStart: " + x + ", " + y);
     }
 }
