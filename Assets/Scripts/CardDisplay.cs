@@ -13,7 +13,7 @@ public class CardDisplay : MonoBehaviour
 
     public MilitaryUnit unit;
 
-    // Start is called before the first frame update
+    // Set the text to the unit data
     void Start()
     {
         nameTxt.text = unit.name;

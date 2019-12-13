@@ -10,7 +10,8 @@ public class RoadSave
     public float endPos_X, endPos_Y, endPos_Z;
 
 
-
+    //I've been told you could just save straight up vector3, but last time I did it I didn't
+    //TODO: Use Vector3
     public RoadSave(Vector3 startPos, Vector3 controllNode1, Vector3 controllNode2, Vector3 endPos)
     {
         startPos_X = startPos.x;

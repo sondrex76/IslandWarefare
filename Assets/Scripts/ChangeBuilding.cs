@@ -24,16 +24,20 @@ public class ChangeBuilding : MonoBehaviour
         roadPlacer = GameObject.Find("Manager(Has to be at 0,0,0)").GetComponent<RoadPlacer>();
         objectPlacer = GameObject.Find("Manager(Has to be at 0,0,0)").GetComponent<ObjectPlacer>();
 
+        //Loop through each building we can place and create UI for them
         foreach (GameObject building in buildings)
         {
             GameObject ImageButton = new GameObject();
             GameObject ImageText = new GameObject();
             ImageButton.transform.parent = panel.transform;
+            //Get the image from the building
             Sprite image = building.GetComponent<AbstractBuilding>().clickableIcon;
             ImageButton.AddComponent<RectTransform>();
             ImageButton.AddComponent<Image>();
             ImageButton.AddComponent<Button>();
+            //Set the image to the image from building
             ImageButton.GetComponent<Image>().sprite = image;
+
 
             ObjectSelectButton selectScript = ImageButton.AddComponent<ObjectSelectButton>();
             selectScript.building = building;
@@ -43,14 +47,9 @@ public class ChangeBuilding : MonoBehaviour
 
             ImageText.transform.parent = ImageButton.transform;
             RectTransform trans = ImageText.AddComponent<RectTransform>();
-            //trans.anchorMin = new Vector2(0.5f, 0.5f);
-            //trans.anchorMax = new Vector2(0.5f, 0.5f);
 
 
-            // Rect rect = new Rect(0f, -67f, 75f, 45f);
             trans.localPosition = new Vector2(0, -67);
-           // trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 75f);
-           // trans.sizeDelta = new Vector2(75, -23);
 
             TMPro.TextMeshProUGUI text = ImageText.AddComponent<TMPro.TextMeshProUGUI>();
             text.text = building.transform.name;
@@ -92,24 +91,18 @@ public class ChangeBuilding : MonoBehaviour
 
         GameObject buildingShow = building;
 
+        //Set a temp building to show where the bulding we are placing is going to be
         objectPlacer.objectToPlaceTemp = Instantiate(buildingShow);
+        //This is done to counteract the script that spawns buildings under the ground
         Destroy(objectPlacer.objectToPlaceTemp.GetComponent<AbstractBuilding>());
         objectPlacer.objectToPlaceTemp.transform.GetChild(0).gameObject.transform.position = new Vector3(0,0,0);
+        //Add a rigidbody so we can do collisions
         Rigidbody rig = objectPlacer.objectToPlaceTemp.AddComponent<Rigidbody>();
         rig.isKinematic = false;
         rig.constraints = RigidbodyConstraints.FreezeAll;
-        if (building.tag == "Factory")
-        {
-            Destroy(objectPlacer.objectToPlaceTemp.GetComponent<FactoryBuilding>());
-        } else if(building.tag == "Harvester")
-        {
-            Destroy(objectPlacer.objectToPlaceTemp.GetComponent<AbstractResourceHarvesting>());
-        } else
-        {
-            Destroy(objectPlacer.objectToPlaceTemp.GetComponent<AbstractHouse>());
-        }
-        objectPlacer.objectToPlaceTemp.layer = 9;
 
+        //Set layer to tobeplaced so we don't raycast on it
+        objectPlacer.objectToPlaceTemp.layer = 9;
         objectPlacer.objectToPlace = building;
         objectPlacer.objectToPlaceTemp.SetActive(true);
         SetPanel();

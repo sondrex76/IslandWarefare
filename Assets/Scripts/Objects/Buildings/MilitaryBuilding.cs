@@ -25,10 +25,9 @@ public class MilitaryBuilding : FactoryBuilding
         ActivateGUI(false);
     }
 
-
+    //Places a node that the AI can use to traverse
     protected override void MakeNode()
     {
-        // Move code below
         ObjectPool pool = GameObject.FindGameObjectWithTag("Manager").GetComponent<ObjectPool>();
         GameObject graph = GameObject.FindGameObjectWithTag("Graph");
         node = pool.GetPooledObject("OfficeNode");

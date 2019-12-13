@@ -15,6 +15,7 @@ public class RoadStruct : MonoBehaviour
         gameObject.layer = 10;
     }
 
+    //Returns the 4 points that are needed to recreate the road
     public RoadSave ReturnRoadSave()
     {
         return new RoadSave(roadStart, controllNode1, controllNode2, roadEnd);

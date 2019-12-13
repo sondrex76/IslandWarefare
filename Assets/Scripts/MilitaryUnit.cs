@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Scriptable object for military units so we can create them fast 
 [CreateAssetMenu]
 public class MilitaryUnit : ScriptableObject
 {

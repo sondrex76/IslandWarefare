@@ -27,24 +27,29 @@ public class IslandMapManager : MonoBehaviour
     Canvas canvas;
     void Start()
     {
+        //Get your island ID so we know what island to center on
         islandIDPlayer = PlayerPrefs.GetInt("ISLANDID");
         timeLeftTxt.text = "";
         attackIslandPanel.SetActive(false);
         timerPanel.SetActive(false);
         canvas.enabled = true;
 
+        //Check if we got the players island position saved
         if (!PlayerPrefs.HasKey("ISLANDTRANSFORM_X"))
         {
+            //Find the position of player island
             FindPlayerIsland();
         } 
 
+        //Save set the position of player island
         float x = PlayerPrefs.GetFloat("ISLANDTRANSFORM_X");
         float z = PlayerPrefs.GetFloat("ISLANDTRANSFORM_Z");
         playerIsland = new Vector3(x, 750, z);
         camera.transform.position = playerIsland;
 
-        camera.GetComponent<CameraControllMapView>().playerIsland = playerIsland;
 
+        camera.GetComponent<CameraControllMapView>().playerIsland = playerIsland;
+        //Get attack time so we get the time once you start up the island map
         attackIsland.GetAttackTime(OnGetAttackTime);
     }
 
@@ -56,16 +61,20 @@ public class IslandMapManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            //Check if we are over a not over a UI element and 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
+                //Check if we hit an island and that it's not player island
                 if (hit.collider.tag == "Island" && hit.collider.name != "Island" + islandIDPlayer)
                 {
+                    //Show attack UI
                     islandID = hit.collider.gameObject.GetComponent<IslandOwner>().islandID;
                     islandIDTxt.text = "Island: " + islandID.ToString();
                     returnToIslandPanel.SetActive(false);
                     attackIslandPanel.SetActive(true);
                 } else if(hit.collider.name == "Island" + islandIDPlayer)
                 {
+                    //Show return home UI
                     attackIslandPanel.SetActive(false);
                     returnToIslandPanel.SetActive(true);
                 }

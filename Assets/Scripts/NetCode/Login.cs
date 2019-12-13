@@ -69,10 +69,6 @@ public class Login : MonoBehaviour
     }
 
 
- //   void OnCompleted(ExecuteCloudScriptResult result)
- //  {
- //  }
-
     private static void OnErrorShared(PlayFabError error)
     {
         Debug.Log(error.GenerateErrorReport());
@@ -107,9 +103,6 @@ public class Login : MonoBehaviour
     //Starts the login and registration process
     public void LoginClicked()
     {
-
-        
-
         var request = new LoginWithEmailAddressRequest { Email = email, Password = password };
         PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFail);
     }
@@ -136,7 +129,7 @@ public class Login : MonoBehaviour
         await networkhelper.GetAllPlayerSegments(setNumberOfPlayers);
     }
 
-
+    //Set the number of players, this is how many islands we will load in
     void setNumberOfPlayers(int numberOfPlayers)
     {
         PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers);
