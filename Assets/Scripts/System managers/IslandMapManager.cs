@@ -85,6 +85,10 @@ public class IslandMapManager : MonoBehaviour
 
     public void AttackPlayer()
     {
+        //Set disable panel to give the user a hint that the button worked
+        attackIslandPanel.SetActive(false);
+        timerPanel.SetActive(true);
+        timeLeftTxt.text = "Creating attack plan";
         attackIsland.AttackPlayer(islandID, OnAttack);
     }
 

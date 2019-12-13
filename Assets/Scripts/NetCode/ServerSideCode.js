@@ -235,7 +235,7 @@ handlers.calcWinner = function(args){
         var defencePower = playerDataDefender.Data.DefencePower.Value;
         
         //Set the winner ID
-        if(attackerPower > defencePower){
+        if(parseInt(attackerPower) > parseInt(defencePower)){
             winner = attackerID;
         } else{
             winner = defenderID;
