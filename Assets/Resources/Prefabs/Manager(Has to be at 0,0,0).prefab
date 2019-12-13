@@ -52,6 +52,7 @@ MonoBehaviour:
   connecting: 0
   yOffset: 0.1
   graph: {fileID: 0}
+  roadLengthOut: 5
   tTest: 0
   points:
   - {x: 0, y: 0, z: 0}
@@ -72,6 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPlace: {fileID: 0}
   objectToPlaceTemp: {fileID: 0}
+  gameManager: {fileID: 0}
   camera: {fileID: 0}
   maxSlope: 20
 --- !u!114 &6832054442606226128

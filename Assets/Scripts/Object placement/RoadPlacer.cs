@@ -92,6 +92,10 @@ public class RoadPlacer : MonoBehaviour
 
     public GameObject graph;
 
+    //Length of road when extenting from another
+    [SerializeField]
+    float roadLengthOut;
+
     //Get the a point that corresponds to t on the bezier curve
     OrientedPoint GetPoint(Vector3[] pts, float t)
     {
@@ -279,23 +283,25 @@ public class RoadPlacer : MonoBehaviour
                         float distanceToStart = Vector3.Distance(hit.point, connectingroadStart);
                         float distanceToEnd = Vector3.Distance(hit.point, connectingRoadEnd);
 
+                        Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
+                        vectorThroughRoad = vectorThroughRoad.normalized;
+
                         //If we connect to the start of the road, we set the start point of the new road to the start of the connection.
                         //Find a line through the connecting road and set the controll points on that line 
                         if (distanceToStart < distanceToEnd)
                         {
-                            Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
+                            
 
                             pts[0] = connectingroadStart;
-                            pts[1] = connectingroadStart - vectorThroughRoad * 0.1f;
+                            pts[1] = connectingroadStart - vectorThroughRoad * roadLengthOut;
                             pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
                         }
                         else
                         {
 
-                            Vector3 vectorThroughRoad = (connectingRoadEnd - roadMiddlePoint);
 
                             pts[0] = connectingRoadEnd;
-                            pts[1] = connectingRoadEnd + vectorThroughRoad * 0.1f;
+                            pts[1] = connectingRoadEnd + vectorThroughRoad * roadLengthOut;
                             pts[2] = new Vector3(pts[1].x, pts[1].y, pts[1].z);
                         }
                         isPlacing = true;
@@ -336,20 +342,21 @@ public class RoadPlacer : MonoBehaviour
 
                     float distanceToStart = Vector3.Distance(hit.point, connectingRoad.roadStart);
                     float distanceToEnd = Vector3.Distance(hit.point, connectingRoad.roadEnd);
+                    Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.controllNode2;
+                    vectorThoughConnectingRoad = vectorThoughConnectingRoad.normalized;
 
                     //Set controllpoint2 at the line through the  connecting road, and set the end of the road to the start of the connecting road
-                    if(distanceToStart < 5f)
+                    if (distanceToStart < 5f)
                     {
-                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.controllNode2;
+                     
 
-                        pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * 0.1f;
+                        pts[2] = connectingRoad.roadStart - vectorThoughConnectingRoad * roadLengthOut;
                         pts[3] = connectingRoad.roadStart;
                     }
                     else if(distanceToEnd < 5f)
                     {
-                        Vector3 vectorThoughConnectingRoad = connectingRoad.roadEnd - connectingRoad.controllNode2;
 
-                        pts[2] = connectingRoad.roadEnd + vectorThoughConnectingRoad * 0.1f;
+                        pts[2] = connectingRoad.roadEnd + vectorThoughConnectingRoad * roadLengthOut;
                         pts[3] = connectingRoad.roadEnd;
                     }
 
