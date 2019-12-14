@@ -53,12 +53,21 @@ public class CameraMovement : MonoBehaviour
     {
         cameraAngleX += Input.GetAxis("Mouse X");   // Adds horizontal mouse movement
 
+
+        // Adds input or reversed input depending on if camera has been reversed
         float limitedAngle = cameraAngleY + (reverseVertical ? Input.GetAxis("Mouse Y") : -Input.GetAxis("Mouse Y"));
         
-        // Adds vertical mouse movement if it is neither above or below the maximum
-        if (limitedAngle <= maximumVerticalTilt && limitedAngle >= minimumVerticalTilt)
-            cameraAngleY = limitedAngle;   
-        
+        // Adds vertical mouse movement if it is neither above or below the maximum, and sets it to max/min if it is above/below
+        if (limitedAngle > maximumVerticalTilt)
+            limitedAngle = maximumVerticalTilt;
+        else if (limitedAngle < minimumVerticalTilt)
+            limitedAngle = minimumVerticalTilt;
+
+        cameraAngleY = limitedAngle;
+
+        Debug.Log(Camera.main.transform.eulerAngles + ", " + limitedAngle + ", " + cameraAngleY + ", " + Input.GetAxis("Mouse Y"));
+
+
         cameraElement.transform.eulerAngles = new Vector3(cameraAngleY, cameraAngleX, 0);
     }
 
