@@ -112,8 +112,8 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Changes mode when correct key has been clicked, needs to be in update to detect key press
-        if (Input.GetKeyDown(GameManager.inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE]))
+        // Checks if you are trying to change camera mode and the game is not paused
+        if (Input.GetKeyDown(GameManager.inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE]) && !GameManager.isPaused)
         {   // Turn camera angle on or off
             GameManager.inputManager.frozenAngle = !GameManager.inputManager.frozenAngle;
             Debug.Log("MODE");
