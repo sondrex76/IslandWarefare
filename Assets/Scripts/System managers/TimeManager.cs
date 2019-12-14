@@ -9,11 +9,11 @@ public class TimeManager : MonoBehaviour
     [SerializeField] GameObject[] timeButtons;  // Buttons
 
 
-    private void Start()
+    private void Awake()
     {
         // Sets default speed button to green color and sets the previous button as it
-        timeButtons[currentSpeed].GetComponent<Image>().color = Color.green;
         previousButton = timeButtons[currentSpeed].GetComponent<Image>();
+        UpdateSpeed(timeButtons[currentSpeed]);
     }
 
     // Updates speed, using the name of the game object here named speed
@@ -65,5 +65,19 @@ public class TimeManager : MonoBehaviour
             GameManager.isPaused = true;
             currentSpeed = 0;
         }
+    }
+
+    // Returns previous and current time speed
+    public int[] ReturnTimeSpeeds()
+    {
+        return new int[] { Int32.Parse(previousButton.name), currentSpeed };
+    }
+
+    // Updates previous and current time speed(used for load)
+    public void UpdateTime(int[] times)
+    {
+        Debug.Log("DEBUG: " + times[0] + ", " + times[1]); // DEBUG
+        UpdateSpeed(timeButtons[times[1]]);
+        previousButton = timeButtons[times[0]].GetComponent<Image>();
     }
 }

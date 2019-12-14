@@ -6,21 +6,22 @@ using UnityEngine.SceneManagement;
 // save system
 public class SaveSystem : MonoBehaviour
 {
-    string path;
-    BinaryFormatter formatter = new BinaryFormatter();
-    RoadPlacer roadPlacer;
-    [SerializeField] SunManager sunManager;
+    string path;                                        // Path of save
+    BinaryFormatter formatter = new BinaryFormatter();  // Formatter used for save & load
+
+    // Objects needed to get and update data from load & save
+    RoadPlacer roadPlacer;                              // Road placer object
+    [SerializeField] SunManager sunManager;             // Sun object
+    [SerializeField] TimeManager timeManager;           // Time object
+    [SerializeField] CameraMovement cameraMovement;     // Camera movement object
+
     [SerializeField] bool firstFrame;
-    [SerializeField] CameraMovement cameraMovement;
 
     private void Start()
     {
         roadPlacer = FindObjectOfType<RoadPlacer>();
 
         path = Application.persistentDataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary";
-        Debug.Log(Application.persistentDataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary"); // DEBUG
-        //if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
-          //  Load();
     }
 
     private void OnApplicationQuit()
@@ -140,9 +141,7 @@ public class SaveSystem : MonoBehaviour
                         Vector3 controllNode1 = new Vector3(roadeData.controllNode1_X, roadeData.controllNode1_Y, roadeData.controllNode1_Z);
                         Vector3 controllNode2 = new Vector3(roadeData.controllNode2_X, roadeData.controllNode2_Y, roadeData.controllNode2_Z);
                         Vector3 endPos = new Vector3(roadeData.endPos_X, roadeData.endPos_Y, roadeData.endPos_Z);
-
-
-
+                        
                         roadPlacer.GenerateRoad(startPos, controllNode1, controllNode2, endPos);
                         Debug.Log("LoadingRoads");
 
@@ -162,6 +161,9 @@ public class SaveSystem : MonoBehaviour
 
                 // Loads sun position
                 sunManager.UpdatePosition((float[])formatter.Deserialize(stream));
+
+                // Time
+                timeManager.UpdateTime((int[])formatter.Deserialize(stream));
 
                 // Close stream
                 stream.Close();
@@ -260,7 +262,10 @@ public class SaveSystem : MonoBehaviour
             formatter.Serialize(stream, Camera.main.transform.eulerAngles.y);                           // Stores rotation(y)
 
             // Sun position
-            formatter.Serialize(stream, sunManager.ReturnPosition());
+            formatter.Serialize(stream, sunManager.ReturnPosition());                                   // Stores the sun's position
+
+            // Time
+            formatter.Serialize(stream, timeManager.ReturnTimeSpeeds());                                // Stores the current and previous time state
 
             // closes stream
             stream.Close();
