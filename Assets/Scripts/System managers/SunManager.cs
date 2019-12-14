@@ -42,4 +42,17 @@ public class SunManager : MonoBehaviour
             */
         }   
     }
+
+    // Returns position(for saving)
+    public float[] ReturnPosition()
+    {
+        return new float[] { sun.transform.position.x, sun.transform.position.y, sun.transform.position.z };
+    }
+
+    // Updates position(for loading)
+    public void UpdatePosition(float[] pos)
+    {
+        sun.transform.position = new Vector3(pos[0], pos[1], pos[2]);
+        sun.transform.LookAt(Vector3.zero);
+    }
 }

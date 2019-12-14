@@ -9,6 +9,7 @@ public class SaveSystem : MonoBehaviour
     string path;
     BinaryFormatter formatter = new BinaryFormatter();
     RoadPlacer roadPlacer;
+    [SerializeField] SunManager sunManager;
     [SerializeField] bool firstFrame;
     [SerializeField] CameraMovement cameraMovement;
 
@@ -17,7 +18,7 @@ public class SaveSystem : MonoBehaviour
         roadPlacer = FindObjectOfType<RoadPlacer>();
 
         path = Application.persistentDataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary";
-
+        Debug.Log(Application.persistentDataPath + "/" + "Save" + SceneManager.GetActiveScene().name + ".binary"); // DEBUG
         //if (SceneManager.GetActiveScene().name == "SondreScene" || SceneManager.GetActiveScene().name == "PrivateIsland")
           //  Load();
     }
@@ -159,6 +160,9 @@ public class SaveSystem : MonoBehaviour
                 // Camera rotation
                 if (cameraMovement != null) cameraMovement.LoadAngles((float)formatter.Deserialize(stream), (float)formatter.Deserialize(stream));
 
+                // Loads sun position
+                sunManager.UpdatePosition((float[])formatter.Deserialize(stream));
+
                 // Close stream
                 stream.Close();
             }
@@ -255,6 +259,8 @@ public class SaveSystem : MonoBehaviour
             formatter.Serialize(stream, Camera.main.transform.eulerAngles.x);                           // Stores rotation(x)
             formatter.Serialize(stream, Camera.main.transform.eulerAngles.y);                           // Stores rotation(y)
 
+            // Sun position
+            formatter.Serialize(stream, sunManager.ReturnPosition());
 
             // closes stream
             stream.Close();

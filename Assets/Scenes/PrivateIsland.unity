@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 78878425}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1090,6 +1090,10 @@ PrefabInstance:
       propertyPath: cameraMovement
       value: 
       objectReference: {fileID: 440103762}
+    - target: {fileID: 1123012585, guid: 4479d599ec0d3224d9244ffaa8c7bfc9, type: 3}
+      propertyPath: sunManager
+      value: 
+      objectReference: {fileID: 1554150423}
     - target: {fileID: 436897547682130011, guid: 4479d599ec0d3224d9244ffaa8c7bfc9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1561,6 +1565,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 294dcf8c841d2a14880a86f90578ebe5, type: 3}
+--- !u!114 &1554150423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5435528468571910278, guid: 294dcf8c841d2a14880a86f90578ebe5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1554150422}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6b267473bc70c478ee03629b6f26b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1727074466
 GameObject:
   m_ObjectHideFlags: 0
