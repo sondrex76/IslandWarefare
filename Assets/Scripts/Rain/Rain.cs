@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class Rain : MonoBehaviour
 {
+    [System.Serializable]
+    public class RainSaved : UnityEvent<string> { };
+    [SerializeField]
+    private RainSaved saved;
+
     private Material mat;
 
     [SerializeField]
@@ -24,32 +32,90 @@ public class Rain : MonoBehaviour
         if (!player)
             player = FindObjectOfType<Camera>();
 
-        int rain = Random.Range(0, 2);
-        //Set current state of rain
-        if (rain == 1)
+        if (File.Exists(Application.persistentDataPath + "/Rain"))
         {
-            isRaining = true;
-            mat.SetFloat("Vector1_46396BE3", 0.45f);
-            mat.SetFloat("Vector1_1F126B9E", 0.45f);
-            rainParticles.Play();
-        }
-        else
-        {
-            mat.SetFloat("Vector1_46396BE3", 0f);
-            mat.SetFloat("Vector1_1F126B9E", 0f);
-            rainParticles.Stop();
-            isRaining = false;
+            BinaryFormatter bf = new BinaryFormatter();
+
+            FileStream file = File.Open(Application.persistentDataPath + "/Rain", FileMode.Open);
+            RainSave save = (RainSave)bf.Deserialize(file);
+            file.Close();
+
+            Debug.Log("Nya");
+
+            isRaining = save.isRaining;
+            nextCycle = save.nextCycle;
+            currentCycleTime = save.currentCycleTime;
+
+            if (isRaining)
+            {
+                SetSmoothness(0.45f, 0.45f);
+                rainParticles.Play();
+            }
+            else
+            {
+                SetSmoothness(0f, 0f);
+                rainParticles.Stop();
+            }
         }
 
-        Debug.Log(rain);
+        else
+        {
+
+            int rain = Random.Range(0, 2);
+            //Set current state of rain
+            if (rain == 1)
+            {
+                isRaining = true;
+                SetSmoothness(0.45f, 0.45f);
+                rainParticles.Play();
+            }
+            else
+            {
+                isRaining = false;
+                SetSmoothness(0f, 0f);
+                rainParticles.Stop();
+            }
+
+            nextCycle = Random.Range(100, 500);
+            currentCycleTime = 0;
+
+        }
 
         Vector3 pos = new Vector3(player.transform.position.x, rainParticles.transform.position.y, player.transform.position.z);
         rainParticles.transform.position = pos;
 
         cycleChange = false;
-        nextCycle = Random.Range(100, 500);
-        currentCycleTime = 0;
         setupDone = true;
+    }
+
+    private void SetSmoothness(float grass, float stone)
+    {
+        mat.SetFloat("Vector1_46396BE3", grass);
+        mat.SetFloat("Vector1_1F126B9E", stone);
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    public void SceneChange()
+    {
+        Save();
+        saved.Invoke("IslandMap");
+    }
+
+    private void Save()
+    {
+        //Reset material smoothness
+        SetSmoothness(0f, 0f);
+
+        BinaryFormatter bf = new BinaryFormatter();
+
+        RainSave save = new RainSave(isRaining, nextCycle, currentCycleTime);
+        FileStream file = File.Create(Application.persistentDataPath + "/Rain");
+        bf.Serialize(file, save);
+        file.Close();
     }
 
     private void FixedUpdate()
@@ -72,8 +138,7 @@ public class Rain : MonoBehaviour
                     grass -= Time.fixedDeltaTime * 0.45f / 5;
                     stone -= Time.fixedDeltaTime * 0.45f / 5;
 
-                    mat.SetFloat("Vector1_46396BE3", grass);
-                    mat.SetFloat("Vector1_1F126B9E", stone);
+                    SetSmoothness(grass, stone);
 
                     rainParticles.Stop();
 
@@ -89,8 +154,7 @@ public class Rain : MonoBehaviour
                     grass += Time.fixedDeltaTime * 0.45f;
                     stone += Time.fixedDeltaTime * 0.45f;
 
-                    mat.SetFloat("Vector1_46396BE3", grass);
-                    mat.SetFloat("Vector1_1F126B9E", stone);
+                    SetSmoothness(grass, stone);
 
                     rainParticles.Play();
 
@@ -106,7 +170,6 @@ public class Rain : MonoBehaviour
                 isRaining = !isRaining;
                 nextCycle = Random.Range(100, 500);
                 currentCycleTime = 0;
-                Debug.Log("Nya");
             }
         }
     }
