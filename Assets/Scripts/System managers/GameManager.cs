@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
 
     float previousTimeSpeed = 1;                    // Previous speed of time
+    bool previouslyFrozen = true;                   // Bool used to freeze camera when in pause menu
 
     // Options
     [SerializeField] Canvas optionsMenu;            // The options menu
@@ -172,33 +173,30 @@ public class GameManager : MonoBehaviour
     }
 
     // Updates canvas to being active or inactive
-    public void UpdateCanvas(bool active)
+    public void UpdateCanvas(bool inactive)
     {
-        optionsMenu.enabled = isPaused = active;
+        optionsMenu.enabled = isPaused = inactive;
 
         // if paused then it sets speed to zero
-        if (active)
+        if (inactive)
         {
+            previouslyFrozen = inputManager.frozenAngle;
             previousTimeSpeed = Time.timeScale;
             Time.timeScale = 0;
+            inputManager.frozenAngle = true;
         }
         else
         {
             Time.timeScale = previousTimeSpeed;
+            inputManager.frozenAngle = previouslyFrozen;
         }
-
-        // Checks to see if the camera exists in case we are on the pause menu
-        if (Camera.main.transform.GetComponent<Rigidbody>() != null)
-        {
-            Camera.main.transform.GetComponent<Rigidbody>().freezeRotation = !active;
-
-            // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
-            Cursor.visible = active || inputManager.frozenAngle; // WIP
-            if (Cursor.visible)
-                Cursor.lockState = CursorLockMode.None;
-            else
-                Cursor.lockState = CursorLockMode.Locked;
-        }
+        
+        // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
+        Cursor.visible = inactive || inputManager.frozenAngle; // WIP
+        if (Cursor.visible)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Sets system to expect an action's input to be changed
