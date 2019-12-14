@@ -64,10 +64,7 @@ public class CameraMovement : MonoBehaviour
             limitedAngle = minimumVerticalTilt;
 
         cameraAngleY = limitedAngle;
-
-        Debug.Log(Camera.main.transform.eulerAngles + ", " + limitedAngle + ", " + cameraAngleY + ", " + Input.GetAxis("Mouse Y"));
-
-
+        
         cameraElement.transform.eulerAngles = new Vector3(cameraAngleY, cameraAngleX, 0);
     }
 
@@ -125,7 +122,7 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetKeyDown(GameManager.inputManager.bindings[(int)InputManager.Actions.CHANGE_CAMERA_MODE]) && !GameManager.isPaused)
         {   // Turn camera angle on or off
             GameManager.inputManager.frozenAngle = !GameManager.inputManager.frozenAngle;
-            Debug.Log("MODE");
+
             // Makes mouse invisible when moving about but visible and starting centered when in a menu and when selection is activated
             Cursor.visible = /*GameManager.isPaused || */ GameManager.inputManager.frozenAngle;
             if (Cursor.visible)
@@ -138,6 +135,12 @@ public class CameraMovement : MonoBehaviour
         updatePosition();                                  // Updates position of the camera
         // Updates rotation of the camera
         if (!GameManager.inputManager.frozenAngle) updateRotation();   
+    }
+
+    // Returns camera mode
+    public bool ReturnCameraMode()
+    {
+        return gameManager.ReturnCameraMode();
     }
 
     // Function which loads and defines angles

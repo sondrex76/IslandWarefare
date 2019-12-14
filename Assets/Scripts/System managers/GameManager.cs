@@ -231,6 +231,12 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    // Returns mouse mode
+    public bool ReturnCameraMode()
+    {
+        return previouslyFrozen;
+    }
+
     //Get the the diffrent powers from server
     void GetUserData()
     {

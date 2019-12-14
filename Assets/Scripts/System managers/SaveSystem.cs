@@ -165,6 +165,14 @@ public class SaveSystem : MonoBehaviour
                 // Time
                 timeManager.UpdateTime((int[])formatter.Deserialize(stream));
 
+                // Camera mode
+                GameManager.inputManager.frozenAngle = (bool)formatter.Deserialize(stream);
+                Cursor.visible = /*GameManager.isPaused || */ GameManager.inputManager.frozenAngle;
+                if (Cursor.visible)
+                    Cursor.lockState = CursorLockMode.None;
+                else
+                    Cursor.lockState = CursorLockMode.Locked;
+
                 // Close stream
                 stream.Close();
             }
@@ -266,6 +274,9 @@ public class SaveSystem : MonoBehaviour
 
             // Time
             formatter.Serialize(stream, timeManager.ReturnTimeSpeeds());                                // Stores the current and previous time state
+
+            // CameraMode
+            formatter.Serialize(stream, cameraMovement.ReturnCameraMode());
 
             // closes stream
             stream.Close();
